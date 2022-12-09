@@ -1,0 +1,10 @@
+@font-face {
+    font-family: 'Mulish';
+    src: url("./Mulish-VariableFont_wght.ttf");
+}
+
+@font-face {
+    font-family: 'Mulish';
+    src: url("./Mulish-Italic-VariableFont_wght.ttf");
+    font-style: italic;
+}

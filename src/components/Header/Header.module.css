@@ -1,9 +1,9 @@
-.header {
+.header, .header__mobile {
     background-color: var(--background-color);
     width: 100%;
 }
 
-.header>ul {
+.header > ul {
     height: 60px;
     display: flex;
     flex-direction: row;
@@ -68,21 +68,22 @@
     margin: 0 10px;
 }
 
-.icons>a {
+.icons > a {
     padding: 5px;
 }
 
-.icons>a>img {
+.icons > a > img {
     width: 27px;
     height: 25px;
     transition: transform .2s;
 }
 
-.icons>a:hover>img {
+.icons > a:hover > img {
     transform: scale(1.15);
 }
 
 .user {
+    cursor: pointer;
     margin-left: auto;
     padding: 0 10px;
     transition: color .2s;
@@ -135,3 +136,129 @@
     font-weight: 700;
 }
 
+.header__mobile {
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.burger {
+    position: absolute;
+    left: 10px;
+    display: block;
+    width: 20px;
+    height: 2px;
+    border-radius: 1px;
+    background-color: var(--text);
+}
+
+.burger:before, .burger:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    border-radius: 1px;
+    background-color: inherit;
+}
+
+.burger:before {
+    top: -7px;
+}
+
+.burger:after {
+    top: 7px;
+}
+
+.wrapper__mobile {
+    background-color: var(--wrapper-color);
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    left: 0 !important;
+    top: 0;
+    transition: opacity .2s, visibility .2s;
+}
+
+.menu__mobile {
+    position: fixed;
+    width: 270px;
+    height: 100vh;
+    top: 0;
+    background-color: white;
+    border-radius: 0 15px 15px 0;
+    transition: left .2s, opacity .2s, visibility .2s;
+}
+
+.opened {
+    left: 0;
+    opacity: 1;
+    visibility: visible;
+
+}
+
+.closed {
+    left: -270px;
+    opacity: 0;
+    visibility: hidden;
+}
+
+
+.user__mobile {
+    background-color: var(--accent-green);
+    border-radius: 0 15px 0 0;
+    height: 130px;
+    padding: 10px;
+}
+
+.user__mobile a {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 13px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.user__mobile h1 {
+    color: white;
+}
+
+.nav__mobile {
+    padding: 30px 0;
+    max-height: calc(100vh - 200px);
+    overflow-y: scroll;
+}
+
+.nav__mobile li {
+    display: block;
+    height: 40px;
+    padding-left: 30px;
+}
+
+.nav__mobile li a {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.nav__mobile li a div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+}
+
+.nav__mobile span {
+    display: block;
+    width: 250px;
+    height: 1px;
+    background-color: var(--subtext);
+    opacity: .5;
+    border-radius: 0 1px 1px 0;
+    margin: 10px 0;
+}

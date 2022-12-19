@@ -8,6 +8,7 @@ import reportWebVitals from './reportWebVitals';
 import Header from "./components/Header/Header";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import routesConfig from "./routes/routesconfig";
+import Modal from "./components/Modal/Modal";
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement

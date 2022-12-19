@@ -2,9 +2,9 @@ import React from 'react';
 
 import styles from './HomePage.module.css';
 
-function HomePage() {
+const HomePage: React.FC = () => {
     return (
-        <h1>PetLand</h1>
+        <>Главная страница</>
     );
 }
 

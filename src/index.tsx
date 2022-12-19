@@ -4,17 +4,32 @@ import ReactDOM from 'react-dom/client';
 import './reset.css';
 import './index.css';
 
-import HomePage from "./pages/HomePage/HomePage";
 import reportWebVitals from './reportWebVitals';
+import Header from "./components/Header/Header";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
+import routesConfig from "./routes/routesconfig";
+import Modal from "./components/Modal/Modal";
 
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+    document.getElementById('root') as HTMLElement
 );
 
 root.render(
-  <React.StrictMode>
-    <HomePage />
-  </React.StrictMode>
+    <React.StrictMode>
+        <BrowserRouter>
+            <Header/>
+            <div className="container">
+                <Routes>
+                    {routesConfig.map((route, index) => (
+                        <Route
+                            key={index}
+                            path={route.path}
+                            element={route.element}/>
+                    ))}
+                </Routes>
+            </div>
+        </BrowserRouter>
+    </React.StrictMode>
 );
 
 reportWebVitals();

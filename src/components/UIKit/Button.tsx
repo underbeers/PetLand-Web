@@ -13,7 +13,6 @@ interface iButtonProps {
 
 const Button: React.FC<iButtonProps> = ({onClick, label, size, color, type}) => {
 
-    console.log(label);
     return (
         <button
             className={cn(styles.button, styles[size], styles[color], styles[type])}

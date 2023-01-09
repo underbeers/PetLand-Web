@@ -11,10 +11,11 @@ interface iInputProps {
     type: "text" | "password" | "textarea" | "email" | "phone",
     placeholder?: string,
     width: string,
-    height?: string
+    height?: string,
+    setValue: Function
 }
 
-const Input: React.FC<iInputProps> = ({type, placeholder, width, height}) => {
+const Input: React.FC<iInputProps> = ({type, placeholder, width, height, setValue}) => {
     const [pwdShown, setPwdShown] = useState(false);
     switch (type) {
         case "textarea":
@@ -22,7 +23,8 @@ const Input: React.FC<iInputProps> = ({type, placeholder, width, height}) => {
                 <textarea
                     className={cn(styles.input)}
                     style={{width: `calc(${width} - 40px)`, height: `calc(${height} - 24px)`}}
-                    placeholder={placeholder}/>
+                    placeholder={placeholder}
+                    onChange={event => {setValue(event.target.value)}}/>
             );
         case "password":
             return (
@@ -30,7 +32,8 @@ const Input: React.FC<iInputProps> = ({type, placeholder, width, height}) => {
                     <input className={cn(styles.input, styles[type])}
                            style={{width: `calc(${width} - 60px)`}}
                            type={pwdShown ? "text" : type}
-                            placeholder={placeholder}/>
+                            placeholder={placeholder}
+                            onChange={event => {setValue(event.target.value)}}/>
                     <img
                         className={styles.showHidePwd}
                         src={pwdShown ? hidePwd : showPwd}
@@ -44,7 +47,8 @@ const Input: React.FC<iInputProps> = ({type, placeholder, width, height}) => {
                     className={cn(styles.input)}
                     style={{width: `calc(${width} - 40px)`}}
                     type={type}
-                    placeholder={placeholder}/>
+                    placeholder={placeholder}
+                    onChange={event => {setValue(event.target.value)}}/>
             );
     }
 };

@@ -1,6 +1,9 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {useState} from "react";
 import {NavLink} from "react-router-dom";
 import cn from 'classnames';
+
+import Modal from "../Modal/Modal";
+import Auth from "../SignInSignUp/Auth";
 
 import logo from './img/logo.svg';
 import favorite from './img/favorite.svg';
@@ -21,9 +24,6 @@ import m_settings from './img/m_settings.svg';
 import m_sign_out from './img/m_sign_out.svg';
 
 import styles from './Header.module.css';
-import Modal from "../Modal/Modal";
-import SignIn from "../SignIn/SignIn";
-import SignUp from "../SignUp/SignUp";
 
 const Header: React.FC = () => {
 
@@ -54,22 +54,14 @@ const Header: React.FC = () => {
                     <li className={styles.nav}>
                         <NavLink to={"bulletin_board"}><h2>Доска объявлений</h2></NavLink>
                         <NavLink
-                            onMouseEnter={() => {
-                                setServicesDropdown(true)
-                            }}
-                            onMouseLeave={() => {
-                                setServicesDropdown(false)
-                            }}
+                            onMouseEnter={() => {setServicesDropdown(true)}}
+                            onMouseLeave={() => {setServicesDropdown(false)}}
                             className={styles.services__btn}
                             to={"services"}><h2>Сервисы</h2></NavLink>
                         {servicesDropdown && <ul
                             className={styles.services}
-                            onMouseEnter={() => {
-                                setServicesDropdown(true)
-                            }}
-                            onMouseLeave={() => {
-                                setServicesDropdown(false)
-                            }}
+                            onMouseEnter={() => {setServicesDropdown(true)}}
+                            onMouseLeave={() => {setServicesDropdown(false)}}
                         >
                             <li><NavLink to={"services/specialists"}>Специалиты</NavLink></li>
                             <li><NavLink to={"services/clinics"}>Клиники и гостиницы</NavLink></li>
@@ -89,7 +81,7 @@ const Header: React.FC = () => {
                                     <img className={styles.sign__in} src={userIcon} alt={"Войти"}/>
                                 </>
                             }
-                            content={SignIn}
+                            content={Auth}
                         />
                     </li>
                 </ul>

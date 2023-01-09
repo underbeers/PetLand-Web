@@ -1,0 +1,36 @@
+.checkbox > input {
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+}
+
+.checkbox > span {
+    display: inline-flex;
+    align-items: center;
+    user-select: none;
+}
+
+.checkbox > span::before {
+    content: '';
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    flex-grow: 0;
+    border: 1px solid var(--text);
+    border-radius: 3px;
+    margin-right: 0.5em;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 60% 60%;
+}
+
+.checkbox > input:not(:disabled):not(:checked) + span:hover::before {
+    border-color: var(--accent-orange);
+}
+
+.checkbox > input:checked + span::before {
+    border-color: var(--accent-orange);
+    background-color: var(--accent-orange);
+    background-image: url("./img/checkMark.svg");
+}

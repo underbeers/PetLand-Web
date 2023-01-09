@@ -21,6 +21,9 @@ import m_settings from './img/m_settings.svg';
 import m_sign_out from './img/m_sign_out.svg';
 
 import styles from './Header.module.css';
+import Modal from "../Modal/Modal";
+import SignIn from "../SignIn/SignIn";
+import SignUp from "../SignUp/SignUp";
 
 const Header: React.FC = () => {
 
@@ -79,10 +82,15 @@ const Header: React.FC = () => {
                         <NavLink to={"/profile/messages"}><img src={message} alt={"сообщения"}/></NavLink>
                     </li>
                     <li className={styles.user}>
-                        <a>
-                            <h2>Войти</h2>
-                            <img className={styles.sign__in} src={userIcon} alt={"Войти"}/>
-                        </a>
+                        <Modal
+                            button={
+                                <>
+                                    <h2>Войти</h2>
+                                    <img className={styles.sign__in} src={userIcon} alt={"Войти"}/>
+                                </>
+                            }
+                            content={SignIn}
+                        />
                     </li>
                 </ul>
             </header> :

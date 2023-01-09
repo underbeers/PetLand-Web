@@ -1,5 +1,16 @@
+.wrapper {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    left: 0;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .overlay {
-    background: var(--wrapper-color);
+    background: var(--overlay-color);
     position: fixed;
     width: 100%;;
     height: 100vh;
@@ -7,52 +18,14 @@
     top: 0;
 }
 
-.wrapper {
-    position: fixed;
-    width: 100%;
-    height: 100vh;
-    left: 0;
-    top: 0;
-}
-
 .modal {
     position: fixed;
-    margin: calc((100vh - 630px)/2) calc((100% - 980px)/2);
-    width: 980px;
-    height: 630px;
-    border-radius: 30px;
-    background-color: #F5F1EE;
-    background-image: url("../../static/bg_pattern.png");
-
-    display: flex;
-
+    cursor: initial;
 }
 
-.modal>img {
-    border-radius: 30px 0 0 30px;
-}
-
-.form {
-    margin: auto;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-
-    width: 400px;
-}
-
-.paw {
-    position: relative;
-    width: 24px;
-    height: 24px;
-}
-
-.paw:before, .paw:after {
-    content: "";
+.cross {
     position: absolute;
-    width: 170px;
-    height: 1px;
-    background-color: var(--subtext);
+    top: 15px;
+    right: 15px;
+    cursor: pointer;
 }

@@ -31,7 +31,7 @@
 .info__inputs {
     display: flex;
     flex-direction: column;
-    gap: 11px;
+    gap: 24px;
 }
 
 .submit {
@@ -39,4 +39,23 @@
     flex-direction: column;
     align-items: center;
     gap: 24px;
+}
+
+.email__confirm {
+    display: flex;
+    justify-content: space-between;
+}
+
+.password1 {
+    position: relative;
+}
+
+.passwords__different {
+    position: absolute;
+    width: max-content;
+    left: 80%;
+    bottom: -100px;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: var(--white);
 }

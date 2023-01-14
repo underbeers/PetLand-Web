@@ -14,9 +14,10 @@ import styles from './SignIn.module.css';
 import Checkbox from "../../UIKit/Checkbox";
 
 const SignIn: React.FC<iAuthProps> = ({switchContent}) => {
+    const initialInputState = {value: "", ok: false, edited: false};
 
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const [email, setEmail] = useState(initialInputState);
+    const [password, setPassword] = useState(initialInputState);
     const [savePwd, setSavePwd] = useState(false);
 
     return (
@@ -26,9 +27,9 @@ const SignIn: React.FC<iAuthProps> = ({switchContent}) => {
                 <h1 className={styles.heading}>Авторизация</h1>
                 <div className={styles.form}>
                     <div className={styles.inputs}>
-                        <Input type={"text"} width={"273px"} placeholder={"Почта"} setValue={setEmail}/>
+                        <Input type={"text"} width={"273px"} placeholder={"Почта"} value={email} setValue={setEmail} regExp={RegExp(/^.+@\w+\.\w+$/)} required={true}/>
                         <div className={styles.pwd__block}>
-                            <Input type={"password"} width={"273px"} placeholder={"Пароль"} setValue={setPassword}/>
+                            <Input type={"password"} width={"273px"} placeholder={"Пароль"} value={password} setValue={setPassword} regExp={RegExp(/^[A-Za-z0-9-+!?.,@$#()]{6,15}$/)} required={true}/>
                             <a className={"subtext"} href={"#"} style={{textDecoration: "underline"}}>Забыли пароль?</a>
                         </div>
                         <div style={{alignSelf: "flex-start"}}><Checkbox setChecked={setSavePwd}>Не выходить из аккаунта</Checkbox></div>

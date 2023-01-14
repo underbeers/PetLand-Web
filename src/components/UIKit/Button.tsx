@@ -8,13 +8,14 @@ interface iButtonProps {
     label: string,
     size: 'small' | 'medium',
     color: 'orange' | 'green',
-    type: 'fill' | 'transparent'
+    type: 'fill' | 'transparent',
+    disabled?: boolean
 }
 
-const Button: React.FC<iButtonProps> = ({onClick, label, size, color, type}) => {
+const Button: React.FC<iButtonProps> = ({onClick, label, size, color, type, disabled}) => {
 
     return (
-        <button
+        <button disabled={disabled}
             className={cn(styles.button, styles[size], styles[color], styles[type])}
             onClick={event => {onClick()}}
         >{label}</button>

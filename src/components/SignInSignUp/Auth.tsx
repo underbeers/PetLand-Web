@@ -3,7 +3,7 @@ import SignIn from "./SignIn/SignIn";
 import SignUp from "./SignUp/SignUp";
 
 export interface iAuthProps {
-    switchContent: Function;
+    switchContent: ()=>void;
 }
 
 const Auth: React.FC = () => {

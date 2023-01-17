@@ -34,28 +34,20 @@
     position: relative;
 }
 
-.span.empty:after {
-    content: "Обязательное поле";
-}
-
-.span.wrong:after {
-    content: "Некорректное значение";
-}
-
-.span:after {
+.error__msg {
     color: var(--red);
     font-size: 12px;
     position: absolute;
     bottom: -15px;
     left: 20px;
-    width: 400px;
+    width: 100%;
     text-align: left;
 }
 
-.empty .input, .wrong .input {
+.wrong .input {
     box-shadow: 0 0 2px var(--red);
 }
 
-.empty .input:focus, .wrong .input:focus {
+.wrong .input:focus {
     filter: drop-shadow(0 0 5px var(--red));
 }

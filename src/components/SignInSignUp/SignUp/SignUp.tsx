@@ -1,18 +1,18 @@
 import React, {useEffect, useState} from "react";
+import cn from "classnames";
 
 import {iAuthProps} from "../Auth";
+import userService from "../../../services/userService";
 
 import Input from "../../UIKit/Input";
 import Button from "../../UIKit/Button";
 import Checkbox from "../../UIKit/Checkbox";
 
-import userService from "../../../services/userService";
+import {emailRegExp, nameRegExp, passwordRegExp} from "../../../constants/regularExpressions";
 
 import image from "./img/dog_2.jpg";
 
 import styles from './SignUp.module.css';
-import cn from "classnames";
-import {isSet} from "util/types";
 
 
 
@@ -36,6 +36,7 @@ const SignUp: React.FC<iAuthProps> = ({switchContent}) => {
         successful: false,
         message: ""
     });
+
     const [response, setResponse] = useState({});
 
     const sendCode = async () => {
@@ -44,7 +45,7 @@ const SignUp: React.FC<iAuthProps> = ({switchContent}) => {
         //get code from backend
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         if (waitCode) {
             if (verificationCode.ok && verificationCode.value == verificationCodeFromBackend) {
                 setEmailVerified(true);
@@ -58,13 +59,13 @@ const SignUp: React.FC<iAuthProps> = ({switchContent}) => {
         [
             {state: firstName, setState: setFirstName},
             {state: surName, setState: setSurName},
-            {state: email,setState: setEmail},
+            {state: email, setState: setEmail},
             {state: password1, setState: setPassword1},
             {state: password2, setState: setPassword2},].forEach(({state, setState}) => {
-                setState({edited: true, ok: state.ok, value: state.value});
-                if (!state.ok) {
-                    isOk = false;
-                }
+            setState({edited: true, ok: state.ok, value: state.value});
+            if (!state.ok) {
+                isOk = false;
+            }
         });
         if (password1.value != password2.value) {
             return;
@@ -105,25 +106,38 @@ const SignUp: React.FC<iAuthProps> = ({switchContent}) => {
                 <h1>Регистрация</h1>
                 <div className={styles.form}>
                     <div className={styles.info__inputs}>
-                        <Input type={"text"} width={"300px"} placeholder={"Имя"} value={firstName} setValue={setFirstName} regExp={RegExp(/^[\u0400-\u04FF]{1,15}$/)} required={true}/>
-                        <Input type={"text"} width={"300px"} placeholder={"Фамилия"} value={surName} setValue={setSurName} regExp={RegExp(/^[\u0400-\u04FF]{1,15}$/)} required={true}/>
-                        <Input type={"email"} width={"300px"} placeholder={"Email"} value={email} setValue={setEmail} regExp={RegExp(/^.+@\w+\.\w+$/)} required={true} disabled={waitCode}/>
+                        <Input type={"text"} width={"300px"} placeholder={"Имя"} value={firstName}
+                               setValue={setFirstName} regularExpressions={nameRegExp} required={true}/>
+                        <Input type={"text"} width={"300px"} placeholder={"Фамилия"} value={surName}
+                               setValue={setSurName} regularExpressions={nameRegExp} required={true}/>
+                        <Input type={"email"} width={"300px"} placeholder={"Email"} value={email} setValue={setEmail}
+                               regularExpressions={emailRegExp} required={true} disabled={waitCode}/>
                         <div className={styles.email__confirm}>
-                            <Button color={"orange"} label={"Отправить код"} type={"transparent"} size={"small"} onClick={sendCode} disabled={!email.ok || waitCode}/>
-                            <Input type={"text"} width={"130px"} placeholder={"Код"} value={verificationCode} setValue={setVerificationCode} regExp={RegExp(/^.*$/)} required={false} disabled={emailVerified}/>
+                            <Button color={"orange"} label={"Отправить код"} type={"transparent"} size={"small"}
+                                    onClick={sendCode} disabled={!email.ok || waitCode}/>
+                            <Input type={"text"} width={"130px"} placeholder={"Код"} value={verificationCode}
+                                   setValue={setVerificationCode} regularExpressions={[]} required={false}
+                                   disabled={emailVerified}/>
                         </div>
                         <div className={styles.password1}>
-                            <Input type={"password"} width={"300px"} placeholder={"Придумайте пароль"} value={password1} setValue={setPassword1} regExp={RegExp(/^[A-Za-z0-9-+!?.,@$#()]{6,15}$/)} required={true}/>
-                            <span className={cn("subtext", styles.passwords__different)}>{password1.value != password2.value && "Пароли не совпадают"}</span>
+                            <Input type={"password"} width={"300px"} placeholder={"Придумайте пароль"} value={password1}
+                                   setValue={setPassword1} regularExpressions={passwordRegExp} required={true}/>
+                            <span className={cn("subtext", styles.passwords__different)}>
+                                {password1.value != password2.value && "Пароли не совпадают"}
+                            </span>
                         </div>
-                        <Input type={"password"} width={"300px"} placeholder={"Повторите пароль"} value={password2} setValue={setPassword2} regExp={RegExp(/^[A-Za-z0-9-+!?.,@$#()]{6,15}$/)} required={true}/>
-
+                        <Input type={"password"} width={"300px"} placeholder={"Повторите пароль"} value={password2}
+                               setValue={setPassword2} regularExpressions={passwordRegExp} required={true}/>
                     </div>
-                    <div style={{alignSelf: "flex-start", width: 350, overflow: "visible"}}><Checkbox setChecked={setPolicyChecked}>Согласие с пользовательским соглашением</Checkbox></div>
+                    <div style={{alignSelf: "flex-start", width: 350, overflow: "visible"}}><Checkbox
+                        setChecked={setPolicyChecked}>Согласие с пользовательским соглашением</Checkbox></div>
                 </div>
                 <div className={styles.submit}>
-                    <Button color={"orange"} label={"Создать аккаунт"} disabled={!policyChecked} size={"medium"} type={"fill"} onClick={sendForm}/>
-                    <p className={"subtext"}>У вас уже есть аккаунт? <a className={"subtext link"} onClick={() => switchContent()}>Войти</a></p>
+                    <Button color={"orange"} label={"Создать аккаунт"} disabled={!policyChecked} size={"medium"}
+                            type={"fill"} onClick={sendForm}/>
+                    <p className={"subtext"}>У вас уже есть аккаунт?
+                        <a className={"subtext link"} onClick={switchContent}>Войти</a>
+                    </p>
                 </div>
             </div>
         </div>

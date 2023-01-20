@@ -11,6 +11,7 @@
     border: none;
     padding: 10px 20px;
     resize: none;
+    position: relative;
 }
 
 .input:focus {
@@ -27,4 +28,26 @@
     width: 21px;
     height: 21px;
     cursor: pointer;
+}
+
+.span {
+    position: relative;
+}
+
+.error__msg {
+    color: var(--red);
+    font-size: 12px;
+    position: absolute;
+    bottom: -15px;
+    left: 20px;
+    width: 100%;
+    text-align: left;
+}
+
+.wrong .input {
+    box-shadow: 0 0 2px var(--red);
+}
+
+.wrong .input:focus {
+    filter: drop-shadow(0 0 5px var(--red));
 }

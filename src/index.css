@@ -7,6 +7,8 @@
 
     --white: #FFFFFF;
     --black: #000000;
+    --red: #FF5454;
+    --green: #7CC350;
 
     --accent-orange: #F47932;
     --accent-green: #97B14B;
@@ -67,6 +69,20 @@ input::placeholder {
     line-height: 15px;
 
     color: var(--subtext);
+}
+
+.error {
+    color: var(--red);
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 15px;
+}
+
+.success {
+    color: var(--green);
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 15px;
 }
 
 .link {

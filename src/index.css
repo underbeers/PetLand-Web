@@ -71,6 +71,20 @@ input::placeholder {
     color: var(--subtext);
 }
 
+.error {
+    color: var(--red);
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 15px;
+}
+
+.success {
+    color: var(--green);
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 15px;
+}
+
 .link {
     text-decoration: underline;
     cursor: pointer;

@@ -41,7 +41,7 @@ const Header: React.FC = () => {
     }
 
     window.addEventListener('resize', () => {
-        setIsMobile(window.innerWidth < 700)
+        setIsMobile(window.innerWidth <= 700)
     });
 
     return (<>
@@ -61,8 +61,7 @@ const Header: React.FC = () => {
                         {servicesDropdown && <ul
                             className={styles.services}
                             onMouseEnter={() => {setServicesDropdown(true)}}
-                            onMouseLeave={() => {setServicesDropdown(false)}}
-                        >
+                            onMouseLeave={() => {setServicesDropdown(false)}}>
                             <li><NavLink to={"services/specialists"}>Специалиты</NavLink></li>
                             <li><NavLink to={"services/clinics"}>Клиники и гостиницы</NavLink></li>
                             <li><NavLink to={"services/events"}>Мероприятия</NavLink></li>

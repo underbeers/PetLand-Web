@@ -35,6 +35,7 @@
 }
 
 .submit {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -52,10 +53,30 @@
 
 .passwords__different {
     position: absolute;
-    width: max-content;
-    left: 80%;
-    bottom: -100px;
-    padding: 5px;
-    border-radius: 5px;
-    background-color: var(--white);
+    right: -35px;
+    top: 77px;
+    width: 25px;
+    height: 25px;
+}
+
+.passwords__different > img {
+    filter: invert(48%) sepia(26%) saturate(1351%) hue-rotate(314deg) brightness(96%) contrast(112%);
+}
+
+.send__code {
+    position: relative;
+}
+
+.resend__code {
+    position: absolute;
+    top: 105%;
+    left: 10px;
+    font-size: 12px;
+}
+
+.code__verified__msg {
+    position: absolute;
+    top: -20px;
+    left: 110%;
+    width: 300px;
 }

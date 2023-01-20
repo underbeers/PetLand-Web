@@ -13,6 +13,7 @@ import paw from "../../../static/paw.svg";
 import image from "./img/dog_1.jpg";
 
 import styles from './SignIn.module.css';
+import Image from "../../Image/Image";
 
 const SignIn: React.FC<iAuthProps> = ({switchContent}) => {
     const initialInputState = {value: "", ok: false, edited: false};
@@ -27,7 +28,7 @@ const SignIn: React.FC<iAuthProps> = ({switchContent}) => {
 
     return (
         <div className={styles.modal}>
-            <img src={image} alt={"Собака"}/>
+            <Image imageProps={{src: image, alt: "Собака", width:"475px", height: "630px"}} borderRadius={"30px 0 0 30px"}/>
             <div className={styles.auth}>
                 <h1 className={styles.heading}>Авторизация</h1>
                 <div className={styles.form}>

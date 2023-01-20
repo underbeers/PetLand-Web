@@ -22,15 +22,18 @@ class AuthService {
     logout() {
         localStorage.removeItem("user");
     }
-    async register (firstName: string, surName: string, email: string, password: string) {
+
+    async register(firstName: string, surName: string, email: string, password: string) {
         return fetch(API_URL + REGISTRATION + "/new/", {
             method: "POST",
-            headers: { 'Content-Type': 'application/json' },
+            headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
                 firstName,
                 surName,
                 email,
-                password
+                password,
+                //TODO delete mobilePhone
+                mobilePhone: "88888888888"
             })
         });
     }

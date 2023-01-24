@@ -32,5 +32,5 @@
 .checkbox > input:checked + span::before {
     border-color: var(--accent-orange);
     background-color: var(--accent-orange);
-    background-image: url("./img/checkMark.svg");
+    background-image: url('./img/checkMark.svg');
 }

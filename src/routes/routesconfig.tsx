@@ -1,32 +1,35 @@
-import HomePage from "../pages/HomePage/HomePage";
+import HomePage from '../pages/HomePage/HomePage';
+
+
+export const PATH_PREFIX = '';
 
 const routesConfig = [
     {
-        path: '/',
+        path: PATH_PREFIX + '/',
         element: <HomePage/>,
     },
     {
-        path: '/bulletin_board',
+        path: PATH_PREFIX + '/bulletin_board',
         element: <>Доска объявлений</>
     },
     {
-        path: '/services',
+        path: PATH_PREFIX + '/services',
         element: <>Сервисы</>
     },
     {
-        path: '/services/specialists',
+        path: PATH_PREFIX + '/services/specialists',
         element: <>Специалисты</>
     },
     {
-        path: '/services/clinics',
+        path: PATH_PREFIX + '/services/clinics',
         element: <>Клиники и гостиницы</>
     },
     {
-        path: '/services/events',
+        path: PATH_PREFIX + '/services/events',
         element: <>Мероприятия</>
     },
     {
-        path: '/*',
+        path: PATH_PREFIX + '/*',
         element: <>404</>
     },
 ];

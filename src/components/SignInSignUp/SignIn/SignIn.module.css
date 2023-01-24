@@ -2,7 +2,7 @@
     width: 980px;
     border-radius: 30px;
     background-color: #F5F1EE;
-    background-image: url("../../../static/bg_pattern.png");
+    background-image: url('../../../static/bg_pattern.png');
     display: flex;
 }
 
@@ -17,7 +17,6 @@
     justify-content: space-between;
     align-items: center;
     margin: 32px 0;
-
 }
 
 .form {
@@ -38,7 +37,7 @@
 }
 
 .paw:before, .paw:after {
-    content: "";
+    content: '';
     position: absolute;
     width: 169px;
     height: 1px;
@@ -74,4 +73,11 @@
     justify-content: center;
     gap: 4px;
     text-align: center;
+}
+
+.cross {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    cursor: pointer;
 }

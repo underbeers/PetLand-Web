@@ -1,8 +1,8 @@
 import React, {useRef, useState} from 'react';
 import {SwitchTransition, CSSTransition} from 'react-transition-group';
 
-import SignIn from './SignIn/SignIn';
-import SignUp from './SignUp/SignUp';
+import SignIn from './Desktop/SignIn/SignIn';
+import SignUp from './Desktop/SignUp/SignUp';
 
 
 export interface iAuthProps {
@@ -10,7 +10,7 @@ export interface iAuthProps {
     closeModal?: () => void;
 }
 
-const Auth: React.FC<{ closeModal?: () => void }> = ({closeModal}) => {
+const AuthDesktop: React.FC<{ closeModal?: () => void }> = ({closeModal}) => {
     const [formSignIn, setFormSignIn] = useState(true);
     const signInRef = useRef(null);
     const signUpRef = useRef(null);
@@ -36,4 +36,4 @@ const Auth: React.FC<{ closeModal?: () => void }> = ({closeModal}) => {
     );
 };
 
-export default Auth;
+export default AuthDesktop;

@@ -1,19 +1,19 @@
 import React, {useEffect, useState} from 'react';
 import cn from 'classnames';
 
-import {iAuthProps} from '../Auth';
-import userService from '../../../services/userService';
+import {iAuthProps} from '../../AuthDesktop';
+import userService from '../../../../services/userService';
 
-import Image from '../../Image/Image';
-import Input from '../../UIKit/Input';
-import Button from '../../UIKit/Button';
-import Checkbox from '../../UIKit/Checkbox';
+import Image from '../../../Image/Image';
+import Input from '../../../UIKit/Input';
+import Button from '../../../UIKit/Button';
+import Checkbox from '../../../UIKit/Checkbox';
 
-import {emailRegExp, nameRegExp, passwordRegExp} from '../../../constants/regularExpressions';
+import {emailRegExp, nameRegExp, passwordRegExp} from '../../../../constants/regularExpressions';
 
 import image from './img/dog_2.jpg';
-import errorIcon from '../../../static/error_icon.svg';
-import cross from '../../../static/cross.svg';
+import errorIcon from '../../../../static/error_icon.svg';
+import cross from '../../../../static/cross.svg';
 
 import styles from './SignUp.module.css';
 

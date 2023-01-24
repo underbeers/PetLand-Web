@@ -1,18 +1,18 @@
 import React, {useState} from 'react';
 import cn from 'classnames';
 
-import {iAuthProps} from '../Auth';
+import {iAuthProps} from '../../AuthDesktop';
 
-import Input from '../../UIKit/Input';
-import Button from '../../UIKit/Button';
-import Checkbox from '../../UIKit/Checkbox';
-import Image from '../../Image/Image';
+import Input from '../../../UIKit/Input';
+import Button from '../../../UIKit/Button';
+import Checkbox from '../../../UIKit/Checkbox';
+import Image from '../../../Image/Image';
 
-import {emailRegExp, passwordRegExp} from '../../../constants/regularExpressions';
+import {emailRegExp, passwordRegExp} from '../../../../constants/regularExpressions';
 
-import paw from '../../../static/paw.svg';
+import paw from '../../../../static/paw.svg';
 import image from './img/dog_1.jpg';
-import cross from '../../../static/cross.svg';
+import cross from '../../../../static/cross.svg';
 
 import styles from './SignIn.module.css';
 

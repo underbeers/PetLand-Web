@@ -97,19 +97,19 @@ input::placeholder {
 
 @media screen and (max-width: 700px) {
     h1 {
-        font-size: 16px;
+        font-size: 20px;
     }
 
     h2 {
-        font-size: 14px;
+        font-size: 18px;
     }
 
     .text {
-        font-size: 12px;
+        font-size: 16px;
     }
 
     .subtext {
-        font-size: 10px;
+        font-size: 14px;
     }
 
     .container {

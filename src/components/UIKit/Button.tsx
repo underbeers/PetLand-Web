@@ -1,7 +1,8 @@
 import React from 'react';
+import cn from 'classnames';
 
 import styles from './Button.module.css';
-import cn from "classnames";
+
 
 interface iButtonProps {
     onClick: Function,
@@ -13,14 +14,13 @@ interface iButtonProps {
 }
 
 const Button: React.FC<iButtonProps> = ({onClick, label, size, color, type, disabled}) => {
-
     return (
         <button disabled={disabled}
-            className={cn(styles.button, styles[size], styles[color], styles[type])}
-            onClick={event => {onClick()}}
-        >{label}</button>
+                className={cn(styles.button, styles[size], styles[color], styles[type])}
+                onClick={event => {onClick()}}>
+            {label}
+        </button>
     );
-
 };
 
 export default Button;

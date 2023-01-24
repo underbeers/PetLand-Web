@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import cn from "classnames";
+import cn from 'classnames';
 
 import showPwd from './img/showPwd.svg';
 import hidePwd from './img/hidePwd.svg';
@@ -7,7 +7,7 @@ import hidePwd from './img/hidePwd.svg';
 import styles from './Input.module.css';
 
 interface iInputProps {
-    type: "text" | "password" | "textarea" | "email" | "phone"
+    type: 'text' | 'password' | 'textarea' | 'email' | 'phone'
     placeholder?: string
     width: string
     height?: string
@@ -33,22 +33,22 @@ const Input: React.FC<iInputProps> = ({
                                           disabled
                                       }) => {
     const [pwdShown, setPwdShown] = useState(false);
-    const [regExpErrorMsg, setRegExpErrorMsg] = useState("");
+    const [regExpErrorMsg, setRegExpErrorMsg] = useState('');
 
     const checkRegularExpression = (value: string): string => {
-        if (required && value == "") {
-            return "Обязательное поле";
+        if (required && value == '') {
+            return 'Обязательное поле';
         }
         for (let i = 0; i < regularExpressions.length; i++) {
             if (!regularExpressions[i].regExp.test(value)) {
                 return regularExpressions[i].error;
             }
         }
-        return "";
+        return '';
     }
 
     const onKeyDown = (event: React.KeyboardEvent<HTMLInputElement>): void => {
-        if (event.key == " ") {
+        if (event.key == ' ') {
             event.preventDefault();
         }
     }
@@ -57,7 +57,7 @@ const Input: React.FC<iInputProps> = ({
         const regExpMsg = checkRegularExpression(event.target.value);
         setValue({
             value: event.target.value,
-            ok: regExpMsg == "",
+            ok: regExpMsg == '',
             edited: true
         });
         setRegExpErrorMsg(regExpMsg);
@@ -70,10 +70,10 @@ const Input: React.FC<iInputProps> = ({
     }
 
     const inputProps = {onChange, onFocus, disabled, placeholder};
-    const spanProps = {className: cn(styles.span, value.edited && !value.ok ? styles.wrong : "")};
+    const spanProps = {className: cn(styles.span, value.edited && !value.ok ? styles.wrong : '')};
 
     switch (type) {
-        case "textarea":
+        case 'textarea':
             return (
                 <span {...spanProps}>
                     <div className={styles.error__msg}>{regExpErrorMsg}</div>
@@ -84,24 +84,22 @@ const Input: React.FC<iInputProps> = ({
                     />
                 </span>
             );
-        case "password":
+        case 'password':
             return (
-                <span {...spanProps} style={{position: "relative", display: "inline-flex", alignItems: "center"}}>
+                <span {...spanProps} style={{position: 'relative', display: 'inline-flex', alignItems: 'center'}}>
                     <div className={styles.error__msg}>{regExpErrorMsg}</div>
                     <input
                         className={cn(styles.input, styles[type])}
                         style={{width: `calc(${width} - 60px)`}}
-                        type={pwdShown ? "text" : type}
+                        type={pwdShown ? 'text' : type}
                         onKeyDown={onKeyDown}
                         {...inputProps}/>
                     <img
                         className={styles.showHidePwd}
                         src={pwdShown ? hidePwd : showPwd}
-                        onClick={() => {
-                            setPwdShown(!pwdShown)
-                        }}
-                        title={"Показать/скрыть пароль"}
-                        alt={"Показать/скрыть пароль"}/>
+                        onClick={() => {setPwdShown(!pwdShown)}}
+                        title={'Показать/скрыть пароль'}
+                        alt={'Показать/скрыть пароль'}/>
                 </span>
             );
         default:

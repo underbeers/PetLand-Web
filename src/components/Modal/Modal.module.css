@@ -7,6 +7,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    pointer-events: none;
 }
 
 .overlay {
@@ -16,17 +17,23 @@
     height: 100vh;
     left: 0;
     top: 0;
-    cursor: initial;
+    cursor: default;
+    transition: opacity .3s, visibility .3s;
 }
 
 .modal {
     position: fixed;
     cursor: initial;
+    pointer-events: all;
 }
 
-.cross {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    cursor: pointer;
+.opened {
+    cursor: default;
+    opacity: 1;
+    visibility: visible;
+}
+
+.closed {
+    opacity: 0;
+    visibility: hidden;
 }

@@ -2,7 +2,7 @@
     width: 980px;
     border-radius: 30px;
     background-color: #F5F1EE;
-    background-image: url("../../../static/bg_pattern.png");
+    background-image: url('../../../static/bg_pattern.png');
     display: flex;
 }
 
@@ -79,4 +79,11 @@
     top: -20px;
     left: 110%;
     width: 300px;
+}
+
+.cross {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    cursor: pointer;
 }

@@ -233,7 +233,8 @@
 
 .nav__mobile {
     padding: 30px 0;
-    height: calc(100vh - 210px);
+    max-height: calc(100vh - 210px);
+
     overflow-y: scroll;
     display: flex;
     flex-direction: column;

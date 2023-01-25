@@ -10,6 +10,14 @@ import reportWebVitals from './reportWebVitals';
 import Header from './components/Header/Header';
 import routesConfig from './routes/routesconfig';
 
+
+const resizeOps = () => {
+    document.documentElement.style.setProperty("--vh", window.innerHeight * 0.01 + "px");
+};
+
+resizeOps();
+window.addEventListener("resize", resizeOps);
+
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
 );

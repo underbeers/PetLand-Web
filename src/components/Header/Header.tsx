@@ -4,6 +4,7 @@ import cn from 'classnames';
 
 import Modal from '../Modal/Modal';
 import AuthDesktop from '../Authorization/AuthDesktop';
+import AuthMobile from "../Authorization/AuthMobile";
 
 import logo from './img/logo.svg';
 import favorite from './img/favorite.svg';
@@ -25,6 +26,7 @@ import m_settings from './img/m_settings.svg';
 import m_sign_out from './img/m_sign_out.svg';
 
 import styles from './Header.module.css';
+
 
 
 const Header: React.FC = () => {
@@ -97,10 +99,13 @@ const Header: React.FC = () => {
                 </header>
                 <nav className={cn(styles.menu__mobile, mobileMenuStatus)}>
                     <div className={styles.user__mobile}>
-                        <a href={'#'}>
-                            <img className={styles.sign__in} src={user_profile} alt={'Войти'}/>
-                            <h1 className={'link'}>Войти</h1>
-                        </a>
+                        <Modal button={
+                            <>
+                                <img className={styles.sign__in} src={user_profile} alt={'Войти'}/>
+                                <h1 className={'link'}>Войти</h1>
+                            </>
+                        } content={AuthMobile}/>
+
                     </div>
                     <ul className={styles.nav__mobile}>
                         <li><NavLink onClick={toggleMobileMenu} to={'/bulletin_board'}>
@@ -175,6 +180,7 @@ const Header: React.FC = () => {
                          alt={'Выход'}/></div><h2>Выход</h2></NavLink></li>*/}
                     </ul>
                 </nav>
+
             </>
         );
     }

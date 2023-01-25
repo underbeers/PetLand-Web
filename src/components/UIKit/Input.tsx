@@ -90,7 +90,7 @@ const Input: React.FC<iInputProps> = ({
                     <div className={styles.error__msg}>{regExpErrorMsg}</div>
                     <input
                         className={cn(styles.input, styles[type])}
-                        style={{width: `calc(${width} - 60px)`}}
+                        style={{width: `calc(${width} - 65px)`}}
                         type={pwdShown ? 'text' : type}
                         onKeyDown={onKeyDown}
                         {...inputProps}/>

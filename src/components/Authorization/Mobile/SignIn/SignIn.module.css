@@ -1,0 +1,58 @@
+.modal{
+    height: calc(100 * var(--vh));
+    background-color: #F5F1EE;
+    background-image: url('../../../../static/bg_pattern.png');
+}
+
+.cross {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 35px;
+    height: 35px;
+    position: absolute;
+    z-index: 1;
+    top: 5px;
+    right: 5px;
+}
+
+.cross:before, .cross:after {
+    content: '';
+    height: 2px;
+    width: 35px;
+    background-color: var(--white);
+    border-radius: 2px;
+    position: absolute;
+    ;
+}
+
+.cross:before {
+    rotate: z 45deg;
+}
+
+.cross:after {
+    rotate: -45deg;
+}
+
+.auth {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    height: calc(844px - 260px - 48px);
+    padding-bottom: 24px;
+    padding-top: 24px;
+}
+
+.form {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.button__and__reg {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}

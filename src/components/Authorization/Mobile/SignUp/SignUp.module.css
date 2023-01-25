@@ -1,0 +1,33 @@
+.arrow {
+    width: 70px;
+    height: 4px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    background-color: var(--text);
+    border-radius: 2px;
+    position: relative;
+    scale: .5;
+}
+
+.arrow:before, .arrow:after {
+    content: '';
+    height: 4px;
+    width: 30px;
+    background-color: var(--text);
+    border-radius: 2px;
+    position: absolute;
+}
+
+.arrow:before {
+    rotate : -45deg;
+    bottom: 10px;
+    left: -3px;
+}
+
+.arrow:after {
+    rotate: 45deg;
+    top: 10px;
+    left: -3px;
+}

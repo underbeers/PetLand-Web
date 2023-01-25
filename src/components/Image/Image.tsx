@@ -5,7 +5,7 @@ import styles from './Image.module.css';
 
 interface iImageProps {
     imageProps: { src: any, alt: string, title?: string, width: string, height: string },
-    borderRadius: string
+    borderRadius?: string
 }
 
 const Image: React.FC<iImageProps> = ({imageProps, borderRadius}: iImageProps) => {

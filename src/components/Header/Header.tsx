@@ -108,74 +108,82 @@ const Header: React.FC = () => {
 
                     </div>
                     <ul className={styles.nav__mobile}>
-                        <li><NavLink onClick={toggleMobileMenu} to={'/bulletin_board'}>
-                            <div>
-                                <img src={m_ads} alt={'Доска объявлений'}/>
-                            </div>
-                            <h2>Доска объявлений</h2>
-                        </NavLink></li>
-                        <li><NavLink onClick={toggleMobileMenu} to={'/services/specialists'}>
-                            <div>
-                                <img src={m_specialists} alt={'Специалисты'}/>
-                            </div>
-                            <h2>Специалисты</h2>
-                        </NavLink></li>
-                        <li><NavLink onClick={toggleMobileMenu} to={'/services/clinics'}>
-                            <div>
-                                <img src={m_clinics} alt={'Клиники и отели'}/>
-                            </div>
-                            <h2>Клиники и отели</h2>
-                        </NavLink></li>
-                        <li><NavLink onClick={toggleMobileMenu} to={'/services/events'}>
-                            <div>
-                                <img src={m_events} alt={'Мероприятия'}/>
-                            </div>
-                            <h2>Мероприятия</h2>
-                        </NavLink></li>
+                        <div>
+                            <li><NavLink onClick={toggleMobileMenu} to={'/bulletin_board'}>
+                                <div>
+                                    <img src={m_ads} alt={'Доска объявлений'}/>
+                                </div>
+                                <h2>Доска объявлений</h2>
+                            </NavLink></li>
+                            <li><NavLink onClick={toggleMobileMenu} to={'/services/specialists'}>
+                                <div>
+                                    <img src={m_specialists} alt={'Специалисты'}/>
+                                </div>
+                                <h2>Специалисты</h2>
+                            </NavLink></li>
+                            <li><NavLink onClick={toggleMobileMenu} to={'/services/clinics'}>
+                                <div>
+                                    <img src={m_clinics} alt={'Клиники и отели'}/>
+                                </div>
+                                <h2>Клиники и отели</h2>
+                            </NavLink></li>
+                            <li><NavLink onClick={toggleMobileMenu} to={'/services/events'}>
+                                <div>
+                                    <img src={m_events} alt={'Мероприятия'}/>
+                                </div>
+                                <h2>Мероприятия</h2>
+                            </NavLink></li>
+                        </div>
                         <span></span>
-                        <li><NavLink onClick={toggleMobileMenu} to={'/new_ad'}>
-                            <div>
-                                <img src={m_new_ad} alt={'Разместить объявление'}/>
-                            </div>
-                            <h2>Разместить объявление</h2>
-                        </NavLink></li>
-                        <li><NavLink onClick={toggleMobileMenu} to={'/become_specialist'}>
-                            <div>
-                                <img src={m_new_ad} alt={'Стать специалистом'}/>
-                            </div>
-                            <h2>Стать специалистом</h2>
-                        </NavLink></li>
+                        <div>
+                            <li><NavLink onClick={toggleMobileMenu} to={'/new_ad'}>
+                                <div>
+                                    <img src={m_new_ad} alt={'Разместить объявление'}/>
+                                </div>
+                                <h2>Разместить объявление</h2>
+                            </NavLink></li>
+                            <li><NavLink onClick={toggleMobileMenu} to={'/become_specialist'}>
+                                <div>
+                                    <img src={m_new_ad} alt={'Стать специалистом'}/>
+                                </div>
+                                <h2>Стать специалистом</h2>
+                            </NavLink></li>
+                        </div>
                         <span></span>
-                        <li><NavLink onClick={toggleMobileMenu} to={'/profile/notifications'}>
-                            <div>
-                                <img src={m_notifications} alt={'Уведомления'}/>
-                            </div>
-                            <h2>Уведомления</h2>
-                        </NavLink></li>
-                        <li><NavLink onClick={toggleMobileMenu} to={'/profile/favorite'}>
-                            <div>
-                                <img src={m_favorites} alt={'Избранное'}/>
-                            </div>
-                            <h2>Избранное</h2>
-                        </NavLink></li>
-                        <li><NavLink onClick={toggleMobileMenu} to={'/profile/messages'}>
-                            <div>
-                                <img src={m_messages} alt={'Сообщения'}/>
-                            </div>
-                            <h2>Сообщения</h2>
-                        </NavLink></li>
+                        <div>
+                            <li><NavLink onClick={toggleMobileMenu} to={'/profile/notifications'}>
+                                <div>
+                                    <img src={m_notifications} alt={'Уведомления'}/>
+                                </div>
+                                <h2>Уведомления</h2>
+                            </NavLink></li>
+                            <li><NavLink onClick={toggleMobileMenu} to={'/profile/favorite'}>
+                                <div>
+                                    <img src={m_favorites} alt={'Избранное'}/>
+                                </div>
+                                <h2>Избранное</h2>
+                            </NavLink></li>
+                            <li><NavLink onClick={toggleMobileMenu} to={'/profile/messages'}>
+                                <div>
+                                    <img src={m_messages} alt={'Сообщения'}/>
+                                </div>
+                                <h2>Сообщения</h2>
+                            </NavLink></li>
+                        </div>
                         <span></span>
-                        <li><NavLink onClick={toggleMobileMenu} to={'/profile'}>
-                            <div>
-                                <img src={m_profile} alt={'Профиль'}/>
-                            </div>
-                            <h2>Профиль</h2></NavLink></li>
-                        <li><NavLink onClick={toggleMobileMenu} to={'/profile/settings'}>
-                            <div>
-                                <img src={m_settings} alt={'Настройки'}/>
-                            </div>
-                            <h2>Настройки</h2>
-                        </NavLink></li>
+                        <div>
+                            <li><NavLink onClick={toggleMobileMenu} to={'/profile'}>
+                                <div>
+                                    <img src={m_profile} alt={'Профиль'}/>
+                                </div>
+                                <h2>Профиль</h2></NavLink></li>
+                            <li><NavLink onClick={toggleMobileMenu} to={'/profile/settings'}>
+                                <div>
+                                    <img src={m_settings} alt={'Настройки'}/>
+                                </div>
+                                <h2>Настройки</h2>
+                            </NavLink></li>
+                        </div>
                         {/*<li><NavLink onClick={toggleMobileMenu} to={'/exit'}><div><img src={m_sign_out}
                          alt={'Выход'}/></div><h2>Выход</h2></NavLink></li>*/}
                     </ul>

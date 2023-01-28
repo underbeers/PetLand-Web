@@ -69,8 +69,8 @@ const Input: React.FC<iInputProps> = ({
         setRegExpErrorMsg(checkRegularExpression(value.value));
     }
 
-    const inputProps = {onChange, onFocus, disabled, placeholder};
     const spanProps = {className: cn(styles.span, value.edited && !value.ok ? styles.wrong : '')};
+    const inputProps = {onChange, onFocus, disabled, placeholder};
 
     switch (type) {
         case 'textarea':

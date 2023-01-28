@@ -5,7 +5,7 @@ on:
     branches:
       - main
       - develop
-      - PL-78-update-ci-cd-and-add-autodeploy-from-develop-branch
+
 
 jobs:
   build:

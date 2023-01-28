@@ -1,14 +1,16 @@
-name: CI
+name: CI/CD
 
 on:
   push:
     branches:
       - main
       - develop
+      - PL-78-update-ci-cd-and-add-autodeploy-from-develop-branch
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    name: Build and push
+    runs-on: ubuntu-20.04
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -22,13 +24,52 @@ jobs:
       - name: Set up Docker Build
         uses: docker/setup-buildx-action@v2
 
-      - name: Get branch name
-        uses: nelonoel/branch-name@v1.0.1
-
       - name: Build and push
         uses: docker/build-push-action@v3
         with:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ github.event.repository.name }}:v0.0.1
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/pl_web:v0.1.0
+
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-20.04
+    needs: [build]
+    steps:
+      - name: Update image on server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          script: |
+            cd ./petland
+            docker-compose pull
+            docker-compose up -d
+
+      - name: Send status
+        if: ${{ always() }}
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_CHAT_ID }}
+          token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          message: |
+            ${{ github.workflow }}: Deploy updated image ${{ job.status }}
+        env:
+          status: ${{job.status}}
+
+  send_result:
+    if: ${{ always() }}
+    name: Send result
+    needs: [ deploy_on_server ]
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Sending telegram message
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_CHAT_ID}}
+          token: ${{ secrets.TELEGRAM_BOT_TOKEN}}
+          message: |
+            ${{ github.workflow }} ended

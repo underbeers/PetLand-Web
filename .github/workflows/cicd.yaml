@@ -63,7 +63,7 @@ jobs:
   send_result:
     if: ${{ always() }}
     name: Send result
-    needs: [ deploy_on_server ]
+    needs: [ deploy ]
     runs-on: ubuntu-20.04
     steps:
       - name: Sending telegram message

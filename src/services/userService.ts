@@ -1,48 +1,45 @@
-import axios from 'axios';
-
-const API_URL = 'http://79.137.198.139:6001';
-const REGISTRATION = '/registration';
+const API_URL = 'http://79.137.198.139:6002/api/v1';
 
 
 class AuthService {
-    login(email: string, password: string) {
-        return axios
-            .post(API_URL + '/signin', {
-                email,
+    async authenticate(email: string, password: string) {
+        return fetch(API_URL + '/login/', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                login: email,
                 password
             })
-            .then(response => {
-                if (response.data.accessToken) {
-                    localStorage.setItem('user', JSON.stringify(response.data));
-                }
-                return response.data;
-            });
+        });
+    }
+
+    async getUser(token: string) {
+        return fetch(API_URL + '/user/info/', {
+            method: 'GET',
+            headers: {'Content-Type': 'application/json', 'Authorization': `Bearer ${token}`}
+        });
+    }
+
+    async authorize() {
+        // @ts-ignore
+        return this.getUser(localStorage.getItem('accessToken'));
     }
 
     logout() {
-        localStorage.removeItem('user');
+        localStorage.removeItem('accessToken');
     }
 
     async register(firstName: string, surName: string, email: string, password: string) {
-        return fetch(API_URL + REGISTRATION + '/new/', {
+        return fetch(API_URL + '/registration/new/', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
                 firstName,
                 surName,
                 email,
-                password,
-                //TODO delete mobilePhone
-                mobilePhone: '88888888888'
+                password
             })
         });
-    }
-
-    getCurrentUser() {
-        const userStr = localStorage.getItem('user');
-        if (userStr) return JSON.parse(userStr);
-
-        return null;
     }
 }
 

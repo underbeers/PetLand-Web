@@ -17,7 +17,7 @@ const Button: React.FC<iButtonProps> = ({onClick, label, size, color, type, disa
     return (
         <button disabled={disabled}
                 className={cn(styles.button, styles[size], styles[color], styles[type])}
-                onClick={event => {onClick()}}>
+                onClick={event => {event.preventDefault();onClick()}}>
             {label}
         </button>
     );

@@ -15,6 +15,8 @@ const Modal: React.FC<iModalProps> = ({content, button}) => {
     const Content: React.FC<{ closeModal?: () => void }> = content;
     const nodeRef = useRef(null);
 
+    const screenWidth = window.innerWidth;
+
     return (
         <>
             <a onClick={() => {setIsOpened(true)}}>{button}</a>
@@ -22,7 +24,7 @@ const Modal: React.FC<iModalProps> = ({content, button}) => {
                  className={cn(styles.overlay, isOpened ? styles.opened : styles.closed)}
                  onClick={() => {setIsOpened(false)}}
             />
-            <CSSTransition in={isOpened} nodeRef={nodeRef} timeout={200} classNames='modal' unmountOnExit>
+            <CSSTransition in={isOpened} nodeRef={nodeRef} timeout={screenWidth > 700 ? 200 : 0} classNames='modal' unmountOnExit>
                 <div className={styles.wrapper}>
                     <div className={styles.modal} ref={nodeRef}>
                         <Content closeModal={() => {setIsOpened(false)}}/>

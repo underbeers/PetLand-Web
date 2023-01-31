@@ -16,6 +16,7 @@
 .loaded {
     transition: all .3s;
     opacity: 1;
+    object-fit: cover;
 }
 
 .not__loaded {
@@ -24,7 +25,9 @@
 
 .loader {
     display: inline-block;
-    position: relative;
+    position: absolute;
+    left: auto;
+    top: auto;
     width: 80px;
     height: 80px;
 }
@@ -109,6 +112,8 @@
     top: 52px;
     left: 62px;
 }
+
+
 
 @keyframes loader {
     0%, 20%, 80%, 100% {

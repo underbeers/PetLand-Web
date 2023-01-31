@@ -3,13 +3,13 @@ import cn from 'classnames';
 
 import {iAuthProps} from '../../AuthDesktop';
 import userService from '../../../../services/userService';
+import {emailRegExp, nameRegExp, passwordRegExp} from '../../../../constants/regularExpressions';
 
-import Image from '../../../Image/Image';
 import Input from '../../../UIKit/Input';
 import Button from '../../../UIKit/Button';
 import Checkbox from '../../../UIKit/Checkbox';
 
-import {emailRegExp, nameRegExp, passwordRegExp} from '../../../../constants/regularExpressions';
+import Image from '../../../Image/Image';
 
 import image from './img/dog_2.jpg';
 import errorIcon from '../../../../static/error_icon.svg';
@@ -53,7 +53,7 @@ const SignUp: React.FC<iAuthProps> = ({switchContent, closeModal}) => {
     const sendCode = async () => {
         setWaitCode(true);
         setCounter(30);
-        // get code from backend
+        // TODO get code from backend
         setVerificationCodeFromBackend(verificationCodeFromBackend == '654321' ? '123456' : '654321');
     }
 
@@ -65,7 +65,10 @@ const SignUp: React.FC<iAuthProps> = ({switchContent, closeModal}) => {
         }
     }, [verificationCode]);
 
-    const sendForm = async () => {
+    const register = async () => {
+        // @ts-ignore
+        document.querySelectorAll('#registration_form input').forEach(el => {el.focus()});
+
         let isOk: boolean = true;
         const inputs = [
             {state: firstName, setState: setFirstName},
@@ -95,15 +98,15 @@ const SignUp: React.FC<iAuthProps> = ({switchContent, closeModal}) => {
             } else {
                 switch (response.status) {
                     case 500:
-                        alert('Error 500');
+                        alert('Ошибка 500');
                         break;
                     case 400:
-                        alert('Wrong request data');
+                        alert('Неверные данные');
                         break;
                     case 409:
                         break;
                     default:
-                        alert('Unknown error');
+                        alert('Неизвестная ошибка');
                         break;
                 }
             }
@@ -167,7 +170,7 @@ const SignUp: React.FC<iAuthProps> = ({switchContent, closeModal}) => {
                         </p>
                     }
                     <Button color={'orange'} label={'Создать аккаунт'} disabled={!policyChecked} size={'medium'}
-                            type={'fill'} onClick={sendForm}/>
+                            type={'fill'} onClick={register}/>
                     <p className={'subtext'}>
                         У вас уже есть аккаунт?&nbsp;
                         <a className={'subtext link'} onClick={switchContent}>Войти</a>

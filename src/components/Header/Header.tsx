@@ -1,6 +1,9 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {NavLink} from 'react-router-dom';
 import cn from 'classnames';
+
+import {iUser, UserContext} from "../../userContext";
+import userService from "../../services/userService";
 
 import Modal from '../Modal/Modal';
 import AuthDesktop from '../Authorization/AuthDesktop';
@@ -33,6 +36,10 @@ const Header: React.FC = () => {
     const [servicesDropdown, setServicesDropdown] = useState(false);
     const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
     const [mobileMenuStatus, setMobileMenuStatus] = useState(styles.closed);
+
+    // @ts-ignore
+    const [user, setUser]: [iUser | null, (user: iUser | null)=>void] = useContext(UserContext);
+
     const toggleMobileMenu = () => {
         if (mobileMenuStatus === styles.opened) {
             setMobileMenuStatus(styles.closed);
@@ -76,15 +83,23 @@ const Header: React.FC = () => {
                         <NavLink to={'/profile/messages'}><img src={message} alt={'сообщения'}/></NavLink>
                     </li>
                     <li className={styles.user}>
-                        <Modal
-                            button={
-                                <>
-                                    <h2>Войти</h2>
-                                    <img className={styles.sign__in} src={userIcon} alt={'Войти'}/>
-                                </>
-                            }
-                            content={AuthDesktop}
-                        />
+                        { user ?
+                            <>
+                                <span>{user.FirstName}&nbsp;{user.SurName}&nbsp;</span>
+                                <img src={userIcon} className={styles.user__photo}
+                                     title={'Выйти'} onClick={()=>{userService.logout();setUser(null);}}
+                                     alt={'Выйти'}/>
+                            </> :
+                            <Modal
+                                button={
+                                    <>
+                                        <h2>Войти</h2>
+                                        <img className={styles.sign__in} src={userIcon} alt={'Войти'}/>
+                                    </>
+                                }
+                                content={AuthDesktop}
+                            />
+                        }
                     </li>
                 </ul>
             </header>

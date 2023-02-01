@@ -26,12 +26,12 @@ const SignIn: React.FC<iAuthProps> = ({switchContent, closeModal}) => {
     const [savePwd, setSavePwd] = useState(false);
     const [responseCode, setResponseCode] = useState(0);
 
-    // @ts-ignore
-    const [user, setUser]: [iUser | null, (user: iUser | null)=>void] = useContext(UserContext);
+
+    const {user, setUser} = useContext(UserContext);
 
     const login = async () => {
         // @ts-ignore
-        document.querySelectorAll('#login_form input').forEach(el => {el.focus()});
+        document.querySelectorAll('#login_form input').forEach((el)=> {el.focus()});
 
         let isOk: boolean = true;
 

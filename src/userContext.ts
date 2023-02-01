@@ -3,9 +3,16 @@ import React from "react";
 export interface iUser {
     Email: string;
     FirstName: string;
-    MobilePhone: string;
     SurName: string;
 }
 
-// @ts-ignore
-export const UserContext = React.createContext();
+export const initialUserContextState = {
+    user: {
+        Email: '',
+        FirstName: '',
+        SurName: '',
+    },
+    setUser: (user: iUser) => {}
+};
+
+export const UserContext = React.createContext<{user: iUser, setUser: (user: iUser) => void}>(initialUserContextState);

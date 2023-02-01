@@ -2,7 +2,7 @@ import React, {useContext, useState} from 'react';
 import {NavLink} from 'react-router-dom';
 import cn from 'classnames';
 
-import {iUser, UserContext} from "../../userContext";
+import {initialUserContextState, iUser, UserContext} from "../../userContext";
 import userService from "../../services/userService";
 
 import Modal from '../Modal/Modal';
@@ -37,8 +37,8 @@ const Header: React.FC = () => {
     const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
     const [mobileMenuStatus, setMobileMenuStatus] = useState(styles.closed);
 
-    // @ts-ignore
-    const [user, setUser]: [iUser | null, (user: iUser | null)=>void] = useContext(UserContext);
+
+    const {user, setUser} = useContext(UserContext);
 
     const toggleMobileMenu = () => {
         if (mobileMenuStatus === styles.opened) {
@@ -87,7 +87,7 @@ const Header: React.FC = () => {
                             <>
                                 <span>{user.FirstName}&nbsp;{user.SurName}&nbsp;</span>
                                 <img src={userIcon} className={styles.user__photo}
-                                     title={'Выйти'} onClick={()=>{userService.logout();setUser(null);}}
+                                     title={'Выйти'} onClick={()=>{userService.logout();setUser(initialUserContextState.user);}}
                                      alt={'Выйти'}/>
                             </> :
                             <Modal

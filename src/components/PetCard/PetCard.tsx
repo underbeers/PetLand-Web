@@ -1,8 +1,8 @@
-import React from "react";
+import React from 'react';
 
 import styles from './PetCard.module.css'
 import Image from '../Image/Image'
-import cn from "classnames";
+import cn from 'classnames';
 
 
 

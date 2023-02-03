@@ -7,9 +7,7 @@ import PetCard from "../../components/PetCard/PetCard";
 
 const HomePage: React.FC = () => {
     return (
-        <>Главная страница
-            <PetCard />
-            </>
+        <>Главная страница</>
     );
 }
 

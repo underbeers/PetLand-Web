@@ -1,8 +1,10 @@
+import {iUser} from "../userContext";
+
+
 const API_URL = 'http://79.137.198.139:6002/api/v1';
 
-
 class AuthService {
-    async authenticate(email: string, password: string) {
+    private async authenticate(email: string, password: string) {
         return fetch(API_URL + '/login/', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
@@ -13,14 +15,14 @@ class AuthService {
         });
     }
 
-    async getUser(token: string) {
+    private async getUser(token: string) {
         return fetch(API_URL + '/user/info/', {
             method: 'GET',
             headers: {'Content-Type': 'application/json', 'Authorization': `Bearer ${token}`}
         });
     }
 
-    async authorize() {
+    private async authorize() {
         // @ts-ignore
         return this.getUser(localStorage.getItem('accessToken'));
     }
@@ -29,7 +31,7 @@ class AuthService {
         localStorage.removeItem('accessToken');
     }
 
-    async register(firstName: string, surName: string, email: string, password: string) {
+    private async register(firstName: string, surName: string, email: string, password: string) {
         return fetch(API_URL + '/registration/new/', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
@@ -41,6 +43,93 @@ class AuthService {
             })
         });
     }
+
+    async signIn(
+        email: string,
+        password: string,
+        setResponseCode: (code: number) => void,
+        setUser: (user: iUser) => void,
+        onFinish?: () => void) {
+        this.authenticate(email, password).then(response => {
+            //console.log(response.status);
+            setResponseCode(response.status);
+            if (response.ok) {
+                //console.log('Authenticated');
+                return response.json();
+            } else {
+                switch (response.status) {
+                    case 500:
+                        alert('Возникла техническая ошибка');
+                        break;
+                    case 400:
+                        //alert('Неверный логин или пароль');
+                        break;
+                    default:
+                        alert(`Произошла неизвестная ошибка, код ${response.status}`);
+                        break;
+                }
+                return null;
+            }
+        }).then(body => {
+            //console.log(body);
+            body && localStorage.setItem('accessToken', body.accessToken);
+            return body;
+        }).then((body) => {
+            body && this.authorize().then(response => {
+                //console.log(response.status);
+                setResponseCode(response.status);
+                if (response.ok) {
+                    //console.log('Authorized');
+                    return response.json();
+                } else {
+                    switch (response.status) {
+                        default:
+                            alert(`Неизвестная ошибка, код ${response.status}`);
+                            break;
+                    }
+                    return null;
+                }
+            }).then((body: { Email: string, FirstName: string, SurName: string }) => {
+                //console.log(body);
+                body && setUser({...body, Empty: false});
+                body && onFinish && onFinish();
+            });
+        });
+    }
+
+    async signUp(
+        firstName: string,
+        surName: string,
+        email: string,
+        password: string,
+        setResponseCode: (code: number) => void,
+        onFinish?: () => void) {
+        this.register(firstName, surName, email, password).then((response) => {
+            //console.log(body);
+            setResponseCode(response.status);
+            if (response.ok) {
+                onFinish && onFinish();
+            } else {
+                switch (response.status) {
+                    case 500:
+                        alert('Ошибка 500');
+                        break;
+                    case 400:
+                        alert('Неверные данные');
+                        break;
+                    case 409:
+                        break;
+                    default:
+                        alert('Неизвестная ошибка');
+                        break;
+                }
+            }
+            return response.json();
+        }).then((body) => {
+            //console.log(body);
+        });
+    }
+
 }
 
 export default new AuthService();

@@ -1,16 +1,18 @@
 import React, {useRef, useState} from 'react';
 import {SwitchTransition, CSSTransition} from 'react-transition-group';
 
-import SignIn from './Desktop/SignIn/SignIn';
-import SignUp from './Desktop/SignUp/SignUp';
+import {ModalContent} from '../Modal/Modal';
 
+import SignIn from './SignIn/SignIn';
+import SignUp from './SignUp/SignUp';
 
 export interface iAuthProps {
     switchContent: () => void;
     closeModal?: () => void;
+    isMobile: boolean;
 }
 
-const AuthDesktop: React.FC<{ closeModal?: () => void }> = ({closeModal}) => {
+const Authorization: ModalContent = ({closeModal, isMobile}) => {
     const [formSignIn, setFormSignIn] = useState(true);
     const signInRef = useRef(null);
     const signUpRef = useRef(null);
@@ -25,10 +27,10 @@ const AuthDesktop: React.FC<{ closeModal?: () => void }> = ({closeModal}) => {
                 // @ts-ignore
                 addEndListener={(done: () => void) => {nodeRef.current.addEventListener('transitionend', done, false)}}
                 classNames='fade'>
-                <div ref={nodeRef}>
+                <div ref={!isMobile ? nodeRef : null}>
                     {formSignIn ?
-                        <SignIn switchContent={() => {setFormSignIn(false)}} closeModal={closeModal}/> :
-                        <SignUp switchContent={() => {setFormSignIn(true)}} closeModal={closeModal}/>
+                        <SignIn switchContent={() => {setFormSignIn(false)}} closeModal={closeModal} isMobile={isMobile}/> :
+                        <SignUp switchContent={() => {setFormSignIn(true)}} closeModal={closeModal} isMobile={isMobile}/>
                     }
                 </div>
             </CSSTransition>
@@ -36,4 +38,4 @@ const AuthDesktop: React.FC<{ closeModal?: () => void }> = ({closeModal}) => {
     );
 };
 
-export default AuthDesktop;
+export default Authorization;

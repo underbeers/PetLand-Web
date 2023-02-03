@@ -2,12 +2,11 @@ import React, {useContext, useState} from 'react';
 import {NavLink} from 'react-router-dom';
 import cn from 'classnames';
 
-import {initialUserContextState, iUser, UserContext} from "../../userContext";
-import userService from "../../services/userService";
+import {initialUserContextState, UserContext} from '../../userContext';
+import userService from '../../services/userService';
 
 import Modal from '../Modal/Modal';
-import AuthDesktop from '../Authorization/AuthDesktop';
-import AuthMobile from "../Authorization/AuthMobile";
+import Authorization from '../Authorization/Authorization';
 
 import logo from './img/logo.svg';
 import favorite from './img/favorite.svg';
@@ -31,9 +30,9 @@ import m_sign_out from './img/m_sign_out.svg';
 import styles from './Header.module.css';
 
 
-
 const Header: React.FC = () => {
     const [servicesDropdown, setServicesDropdown] = useState(false);
+    const [profileDropdown, setProfileDropdown] = useState(false);
     const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
     const [mobileMenuStatus, setMobileMenuStatus] = useState(styles.closed);
 
@@ -52,8 +51,7 @@ const Header: React.FC = () => {
         setIsMobile(window.innerWidth <= 700)
     });
 
-    if (!isMobile) {
-        return (
+    return (!isMobile ?
             <header className={styles.header}>
                 <ul className={'container'}>
                     <li>
@@ -78,18 +76,34 @@ const Header: React.FC = () => {
                         </ul>}
                     </li>
                     <li className={styles.icons}>
-                        <NavLink to={'/profile/favorite'}><img src={favorite} alt={'избранное'}/></NavLink>
-                        <NavLink to={'/profile/notifications'}><img src={notification} alt={'уведомления'}/></NavLink>
-                        <NavLink to={'/profile/messages'}><img src={message} alt={'сообщения'}/></NavLink>
+                        <NavLink to={'/profile/favorite'}><img src={favorite} alt={'Избранное'} title={'Избранное'}/></NavLink>
+                        <NavLink to={'/profile/notifications'}><img src={notification} alt={'Уведомления'} title={'Уведомления'}/></NavLink>
+                        <NavLink to={'/profile/messages'}><img src={message} alt={'Сообщения'} title={'Сообщения'}/></NavLink>
                     </li>
                     <li className={styles.user}>
-                        { user ?
+                        {!user.Empty ?
                             <>
-                                <span>{user.FirstName}&nbsp;{user.SurName}&nbsp;</span>
-                                <img src={userIcon} className={styles.user__photo}
-                                     title={'Выйти'} onClick={()=>{userService.logout();setUser(initialUserContextState.user);}}
-                                     alt={'Выйти'}/>
-                            </> :
+                                <NavLink
+                                    to={'/profile'}
+                                    onMouseEnter={() => {setProfileDropdown(true)}}
+                                    onMouseLeave={() => {setProfileDropdown(false)}}>
+                                    <h2>{user.FirstName}&nbsp;{user.SurName}&nbsp;</h2>
+                                    <img src={userIcon} alt={`${user.FirstName} ${user.SurName}`} title={'Профиль'}/>
+                                </NavLink>
+                                {profileDropdown && <ul
+                                    className={styles.services}
+                                    style={{left: -20, width: 160, cursor: 'initial'}}
+                                    onMouseEnter={() => {setProfileDropdown(true)}}
+                                    onMouseLeave={() => {setProfileDropdown(false)}}>
+                                    <li><NavLink to={'/profile/favorite'}>Избранное</NavLink></li>
+                                    <li><NavLink to={'/profile/pets'}>Мои питомцы</NavLink></li>
+                                    <li><NavLink to={'/profile/ads'}>Мои объявления</NavLink></li>
+                                    <li><NavLink to={'/profile/reviews'}>Мои отзывы</NavLink></li>
+                                    <li><NavLink to={'/profile/rates'}>Мой рейтинг</NavLink></li>
+                                    <li><span className={styles.divider}></span></li>
+                                    <li><a onClick={()=>{userService.logout();setUser(initialUserContextState.user)}}>Выход</a></li>
+                                </ul>}
+                            </>:
                             <Modal
                                 button={
                                     <>
@@ -97,15 +111,13 @@ const Header: React.FC = () => {
                                         <img className={styles.sign__in} src={userIcon} alt={'Войти'}/>
                                     </>
                                 }
-                                content={AuthDesktop}
+                                content={Authorization}
+                                contentProps={{isMobile}}
                             />
                         }
                     </li>
                 </ul>
-            </header>
-        );
-    } else {
-        return (
+            </header> :
             <>
                 <div className={cn(styles.wrapper__mobile, mobileMenuStatus)} onClick={toggleMobileMenu}></div>
                 <header className={styles.header__mobile}>
@@ -114,13 +126,23 @@ const Header: React.FC = () => {
                 </header>
                 <nav className={cn(styles.menu__mobile, mobileMenuStatus)}>
                     <div className={styles.user__mobile}>
-                        <Modal button={
-                            <>
-                                <img className={styles.sign__in} src={user_profile} alt={'Войти'}/>
-                                <h1 className={'link'}>Войти</h1>
-                            </>
-                        } content={AuthMobile}/>
-
+                        {!user.Empty ?
+                            <NavLink to={'/profile'} onClick={toggleMobileMenu}>
+                                <img src={user_profile} className={styles.sign__in}
+                                     title={'Выйти'}
+                                     alt={'Выйти'}/>
+                                <h1>{user.FirstName}&nbsp;{user.SurName}&nbsp;</h1>
+                            </NavLink> :
+                            <Modal
+                                button={
+                                    <>
+                                        <img className={styles.sign__in} src={user_profile} alt={'Войти'}/>
+                                        <h1 className={'link'}>Войти</h1>
+                                    </>
+                                }
+                                content={Authorization}
+                                contentProps={{isMobile}}/>
+                        }
                     </div>
                     <ul className={styles.nav__mobile}>
                         <div>
@@ -198,15 +220,19 @@ const Header: React.FC = () => {
                                 </div>
                                 <h2>Настройки</h2>
                             </NavLink></li>
+                            {!user.Empty &&
+                                <li><a onClick={()=>{toggleMobileMenu();userService.logout();setUser(initialUserContextState.user)}}>
+                                    <div>
+                                        <img src={m_sign_out} alt={'Выход'}/>
+                                    </div>
+                                    <h2>Выход</h2>
+                                </a></li>}
                         </div>
-                        {/*<li><NavLink onClick={toggleMobileMenu} to={'/exit'}><div><img src={m_sign_out}
-                         alt={'Выход'}/></div><h2>Выход</h2></NavLink></li>*/}
                     </ul>
                 </nav>
 
             </>
-        );
-    }
+    );
 };
 
 export default Header;

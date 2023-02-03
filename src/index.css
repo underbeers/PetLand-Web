@@ -3,6 +3,11 @@
 :root {
     --vh: vh;
 
+    --sat: env(safe-area-inset-top);
+    --sar: env(safe-area-inset-right);
+    --sab: env(safe-area-inset-bottom);
+    --sal: env(safe-area-inset-left);
+
     /*colors*/
     --text: #4F4F4F;
     --subtext: #AEB9CC;
@@ -17,11 +22,7 @@
 
     --background-color: rgba(255, 255, 255, 0.5);
     --overlay-color: rgba(79, 79, 79, 0.3);
-    --background-image: url('static/bg_pattern.png');
-}
-
-html {
-    height: 100%;
+    --background: #F5F1EE url('static/bg_pattern.png');
 }
 
 body {
@@ -29,11 +30,7 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 
-    background-color: #F5F1EE;
-    background-image: url('static/bg_pattern.png');
-}
-
-* {
+    background: var(--background);
     color: var(--text);
 }
 
@@ -62,6 +59,10 @@ img {
 
 input::placeholder {
     opacity: .5;
+}
+
+a {
+    cursor: pointer;
 }
 
 .text {

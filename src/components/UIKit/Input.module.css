@@ -24,7 +24,8 @@
 
 .showHidePwd {
     position: absolute;
-    right: 20px;
+    padding: 10px;
+    right: 10px;
     width: 25px;
     height: 25px;
     cursor: pointer;

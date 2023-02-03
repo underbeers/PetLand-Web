@@ -1,0 +1,49 @@
+.wrapper {
+    height: 320px;
+    width: 273px;
+    background-color: var(--white);
+    border-radius: 20px;
+    box-shadow: var(--card-shadow);
+}
+
+.name {
+    margin-top: 15px;
+    margin-left: 16px;
+}
+
+.pet__tag {
+    background-color: var(--accent-green);
+    color: var(--white);
+    padding: 5px 10px;
+    border-radius: 15px;
+    margin-right: 12px;
+    display: inline-block;
+}
+
+.type__breed {
+    margin-top: 8px;
+    margin-left: 16px;
+}
+
+.gender__age {
+    margin-top: 8px;
+    margin-left: 16px;
+}
+
+@media screen and (max-width: 700px) {
+
+    .wrapper {
+        height: 300px;
+        width: 260px;
+        background-color: var(--white);
+        border-radius: 20px;
+        box-shadow: var(--card-shadow);
+    }
+
+    .gender__age {
+        margin-top: 4px;
+        margin-left: 16px;
+    }
+
+}
+

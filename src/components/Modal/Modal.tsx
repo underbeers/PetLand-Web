@@ -5,14 +5,17 @@ import {CSSTransition} from 'react-transition-group';
 import styles from './Modal.module.css';
 
 
+export type ModalContent = React.FC<{ isMobile: boolean, closeModal?: () => void }>;
+
 interface iModalProps {
-    content: React.FC;
+    content: ModalContent;
+    contentProps: { isMobile: boolean };
     button: JSX.Element;
 }
 
-const Modal: React.FC<iModalProps> = ({content, button}) => {
+const Modal: React.FC<iModalProps> = ({content, contentProps, button}) => {
     const [isOpened, setIsOpened] = useState(false);
-    const Content: React.FC<{ closeModal?: () => void }> = content;
+    const Content: ModalContent = content;
     const nodeRef = useRef(null);
 
     return (
@@ -22,10 +25,10 @@ const Modal: React.FC<iModalProps> = ({content, button}) => {
                  className={cn(styles.overlay, isOpened ? styles.opened : styles.closed)}
                  onClick={() => {setIsOpened(false)}}
             />
-            <CSSTransition in={isOpened} nodeRef={nodeRef} timeout={200} classNames='modal' unmountOnExit>
+            <CSSTransition in={isOpened} nodeRef={nodeRef} timeout={contentProps.isMobile ? 0 : 200} classNames='modal' unmountOnExit>
                 <div className={styles.wrapper}>
                     <div className={styles.modal} ref={nodeRef}>
-                        <Content closeModal={() => {setIsOpened(false)}}/>
+                        <Content isMobile={contentProps.isMobile} closeModal={() => {setIsOpened(false)}}/>
                     </div>
                 </div>
             </CSSTransition>

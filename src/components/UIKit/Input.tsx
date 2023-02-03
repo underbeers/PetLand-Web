@@ -1,22 +1,25 @@
 import React, {useState} from 'react';
 import cn from 'classnames';
 
+import {RegExpPair} from '../../constants/regularExpressions';
+
 import showPwd from './img/showPwd.svg';
 import hidePwd from './img/hidePwd.svg';
 
 import styles from './Input.module.css';
 
+
 interface iInputProps {
-    type: 'text' | 'password' | 'textarea' | 'email' | 'phone'
-    placeholder?: string
-    width: string
-    height?: string
-    value: { value: string, ok: boolean, edited: boolean }
-    setValue: Function
-    onChangeFn?: Function
-    regularExpressions: Array<{ regExp: RegExp, error: string }>,
-    required: boolean,
-    disabled?: boolean
+    type: 'text' | 'password' | 'textarea' | 'email' | 'phone' | 'number';
+    placeholder?: string;
+    width: string;
+    height?: string;
+    value: { value: string, ok: boolean, edited: boolean };
+    setValue: Function;
+    onChangeFn?: Function;
+    regularExpressions: Array<RegExpPair>;
+    required: boolean;
+    disabled?: boolean;
 }
 
 
@@ -90,14 +93,14 @@ const Input: React.FC<iInputProps> = ({
                     <div className={styles.error__msg}>{regExpErrorMsg}</div>
                     <input
                         className={cn(styles.input, styles[type])}
-                        style={{width: `calc(${width} - 60px)`}}
+                        style={{width: `calc(${width} - 65px)`}}
                         type={pwdShown ? 'text' : type}
                         onKeyDown={onKeyDown}
                         {...inputProps}/>
                     <img
                         className={styles.showHidePwd}
                         src={pwdShown ? hidePwd : showPwd}
-                        onClick={() => {setPwdShown(!pwdShown)}}
+                        onClick={(event) => {event.preventDefault();setPwdShown(!pwdShown)}}
                         title={'Показать/скрыть пароль'}
                         alt={'Показать/скрыть пароль'}/>
                 </span>

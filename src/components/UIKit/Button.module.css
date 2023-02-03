@@ -54,3 +54,16 @@
     opacity: .5;
     cursor: initial;
 }
+
+@media screen and (max-width: 700px) {
+    .medium {
+        font-size: 20px;
+
+    }
+
+    .small {
+        font-size: 18px;
+        line-height: 25px;
+    }
+
+}

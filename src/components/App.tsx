@@ -1,15 +1,22 @@
-import React, {useState, createContext} from "react";
+import React, {useEffect, useState} from "react";
 import {Route, Routes} from "react-router-dom";
 
 import routesConfig from "../routes/routesconfig";
-import {initialUserContextState, iUser, UserContext} from "../userContext";
+import {initialUserContextState, UserContext} from "../userContext";
 
 import Header from "./Header/Header";
+import userService from "../services/userService";
 
 
 const App: React.FC = () => {
 
     const [user, setUser] = useState(initialUserContextState.user);
+    useEffect(()=>{
+        const user = localStorage.getItem('accessToken');
+        if (user && user != 'undefined') {
+            userService.syncUser(setUser, true);
+        }
+    }, []);
 
     return (
         <UserContext.Provider value={{user, setUser}}>

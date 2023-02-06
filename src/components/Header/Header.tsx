@@ -101,7 +101,7 @@ const Header: React.FC = () => {
                                     <li><NavLink to={'/profile/reviews'}>Мои отзывы</NavLink></li>
                                     <li><NavLink to={'/profile/rates'}>Мой рейтинг</NavLink></li>
                                     <li><span className={styles.divider}></span></li>
-                                    <li><a onClick={()=>{userService.logout();setUser(initialUserContextState.user)}}>Выход</a></li>
+                                    <li><a onClick={()=>userService.signOut(setUser)}>Выход</a></li>
                                 </ul>}
                             </>:
                             <Modal
@@ -221,7 +221,7 @@ const Header: React.FC = () => {
                                 <h2>Настройки</h2>
                             </NavLink></li>
                             {!user.Empty &&
-                                <li><a onClick={()=>{toggleMobileMenu();userService.logout();setUser(initialUserContextState.user)}}>
+                                <li><a onClick={()=>{toggleMobileMenu();userService.signOut(setUser)}}>
                                     <div>
                                         <img src={m_sign_out} alt={'Выход'}/>
                                     </div>

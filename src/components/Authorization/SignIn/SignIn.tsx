@@ -50,8 +50,7 @@ const SignIn: React.FC<iAuthProps> = ({switchContent, closeModal, isMobile}) => 
         if (!isOk) {
             return;
         }
-
-        await userService.signIn(email.value, password.value, setResponseCode, setUser, closeModal);
+        await userService.signIn(email.value, password.value, savePwd, setResponseCode, setUser, closeModal);
     };
 
     return (!isMobile ?

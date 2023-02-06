@@ -1,4 +1,4 @@
-import {iUser} from "../userContext";
+import {initialUserContextState, iUser} from "../userContext";
 
 
 const API_URL = 'http://79.137.198.139:6002/api/v1';
@@ -15,20 +15,14 @@ class AuthService {
         });
     }
 
-    private async getUser(token: string) {
+    private async authorize() {
         return fetch(API_URL + '/user/info/', {
             method: 'GET',
-            headers: {'Content-Type': 'application/json', 'Authorization': `Bearer ${token}`}
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+            }
         });
-    }
-
-    private async authorize() {
-        // @ts-ignore
-        return this.getUser(localStorage.getItem('accessToken'));
-    }
-
-    logout() {
-        localStorage.removeItem('accessToken');
     }
 
     private async register(firstName: string, surName: string, email: string, password: string) {
@@ -44,9 +38,44 @@ class AuthService {
         });
     }
 
-    async signIn(
+    public syncUser(
+        setUser: (user: iUser)=>void,
+        dontLogOut: boolean,
+        setResponseCode?: (code: number) => void,
+        onFinish?: () => void) {
+        this.authorize().then(response => {
+            //console.log(response.status);
+            setResponseCode && setResponseCode(response.status);
+            if (response.ok) {
+                //console.log('Authorized');
+                return response.json();
+            } else {
+                switch (response.status) {
+                    default:
+                        alert(`Неизвестная ошибка, код ${response.status}`);
+                        break;
+                }
+                return null;
+            }
+        }).then((body: { Email: string, FirstName: string, SurName: string }) => {
+            //console.log(body);
+            body && setUser({...body, Empty: false});
+            body && onFinish && onFinish();
+            if (!dontLogOut) {
+                localStorage.removeItem('accessToken');
+            }
+        });
+    }
+
+    public signOut(setUser: (user: iUser) => void) {
+        localStorage.removeItem('accessToken');
+        setUser(initialUserContextState.user);
+    }
+
+    public async signIn(
         email: string,
         password: string,
+        dontLogOut: boolean,
         setResponseCode: (code: number) => void,
         setUser: (user: iUser) => void,
         onFinish?: () => void) {
@@ -75,29 +104,11 @@ class AuthService {
             body && localStorage.setItem('accessToken', body.accessToken);
             return body;
         }).then((body) => {
-            body && this.authorize().then(response => {
-                //console.log(response.status);
-                setResponseCode(response.status);
-                if (response.ok) {
-                    //console.log('Authorized');
-                    return response.json();
-                } else {
-                    switch (response.status) {
-                        default:
-                            alert(`Неизвестная ошибка, код ${response.status}`);
-                            break;
-                    }
-                    return null;
-                }
-            }).then((body: { Email: string, FirstName: string, SurName: string }) => {
-                //console.log(body);
-                body && setUser({...body, Empty: false});
-                body && onFinish && onFinish();
-            });
+            body && this.syncUser(setUser, dontLogOut, setResponseCode, onFinish);
         });
     }
 
-    async signUp(
+    public async signUp(
         firstName: string,
         surName: string,
         email: string,

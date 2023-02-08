@@ -18,7 +18,7 @@ const Page404: React.FC = () => {
 
 
     return (
-            <div className={styles.wrapper}>
+    <div className={styles.wrapper}>
         <div className={styles.error__dog}>
             <div className={styles.error__desc}>
                 <span className={styles.error}>404</span>

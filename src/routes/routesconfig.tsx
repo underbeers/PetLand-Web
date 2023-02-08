@@ -1,14 +1,12 @@
 import HomePage from '../pages/HomePage/HomePage';
-import Page404 from "../pages/Page404/Page404";
-import OfferToLogIn from "../pages/OfferToLogIn/OfferToLogIn";
-
+import Page404 from '../pages/Page404/Page404';
 
 export const PATH_PREFIX = '';
 
 const routesConfig = [
     {
         path: PATH_PREFIX + '/',
-        element: <OfferToLogIn/>,
+        element: <HomePage />,
     },
     {
         path: PATH_PREFIX + '/bulletin_board',

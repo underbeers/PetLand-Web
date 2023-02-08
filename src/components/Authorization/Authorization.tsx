@@ -12,8 +12,8 @@ export interface iAuthProps {
     isMobile: boolean;
 }
 
-const Authorization: ModalContent = ({closeModal, isMobile}) => {
-    const [formSignIn, setFormSignIn] = useState(true);
+const Authorization: ModalContent = ({closeModal, isMobile, isFormSignIn}) => {
+    const [formSignIn, setFormSignIn] = useState<boolean>(isFormSignIn === undefined ? true : isFormSignIn);
     const signInRef = useRef(null);
     const signUpRef = useRef(null);
     const nodeRef = formSignIn ? signInRef : signUpRef;

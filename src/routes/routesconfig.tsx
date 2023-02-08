@@ -1,4 +1,5 @@
 import HomePage from '../pages/HomePage/HomePage';
+import Page404 from "../pages/Page404/Page404";
 
 
 export const PATH_PREFIX = '';
@@ -30,7 +31,7 @@ const routesConfig = [
     },
     {
         path: PATH_PREFIX + '/*',
-        element: <>404</>
+        element: <Page404 />
     },
 ];
 

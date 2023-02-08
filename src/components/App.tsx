@@ -32,6 +32,9 @@ const App: React.FC = () => {
                     ))}
                 </Routes>
             </div>
+           {/*TODO Add footer*/}
+            <div></div>
+
         </UserContext.Provider>
     );
 };

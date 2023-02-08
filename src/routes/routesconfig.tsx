@@ -31,7 +31,8 @@ const routesConfig = [
     },
     {
         path: PATH_PREFIX + '/*',
-        element: <Page404 />
+        element: <Page404/>
+
     },
 ];
 

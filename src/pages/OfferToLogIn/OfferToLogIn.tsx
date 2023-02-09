@@ -8,7 +8,7 @@ import cat from './img/cat.png'
 import styles from './OfferToLogIn.module.css'
 
 
-const OfferToLogIn: React.FC = () => {
+const OfferToSignIn: React.FC = () => {
 
     const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
 
@@ -40,4 +40,4 @@ const OfferToLogIn: React.FC = () => {
     );
 }
 
-export default OfferToLogIn;
+export default OfferToSignIn;

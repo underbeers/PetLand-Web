@@ -1,20 +1,20 @@
 import React, {useEffect, useState} from "react";
 import {Route, Routes} from "react-router-dom";
 
-import routesConfig from "../routes/routesconfig";
+import mainRoutesConfig from "../routes/mainRoutesConfig";
 import {initialUserContextState, UserContext} from "../userContext";
+import userService from "../services/userService";
 
 import Header from "./Header/Header";
-import userService from "../services/userService";
 
 
 const App: React.FC = () => {
 
     const [user, setUser] = useState(initialUserContextState.user);
     useEffect(()=>{
-        const user = localStorage.getItem('accessToken');
-        if (user && user != 'undefined') {
-            userService.syncUser(setUser, true);
+        const localUser = localStorage.getItem('accessToken');
+        if (localUser && localUser != 'undefined') {
+            userService.syncUser(user, setUser, true);
         }
     }, []);
 
@@ -23,7 +23,7 @@ const App: React.FC = () => {
             <Header/>
             <div className='container'>
                 <Routes>
-                    {routesConfig.map((route, index) => (
+                    {mainRoutesConfig.map((route, index) => (
                         <Route
                             key={index}
                             path={route.path}

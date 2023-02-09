@@ -1,13 +1,12 @@
 import React from 'react';
-import SideBarProfile from "../../components/SideBarProfile/SideBarProfile";
+
+import styles from './HomePage.module.css';
 
 
 const HomePage: React.FC = () => {
     return (
-        <>
-        Home page
-        </>
+        <>Главная страница</>
     );
-}
+};
 
 export default HomePage;

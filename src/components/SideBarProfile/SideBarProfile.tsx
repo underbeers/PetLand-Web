@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 
 import styles from './SideBarProfile.module.css'
 import {NavLink} from "react-router-dom";
@@ -15,8 +15,10 @@ import signOut from '../../static/icons/sign-out.svg';
 import dogDesktop from "../Authorization/SignIn/img/dog_desktop.jpg";
 import generalStyles from "../Authorization/Authorization.module.css";
 import userPhoto from "./img/user.jpg"
+import {UserContext} from "../../userContext";
 
 const SideBarProfile = () => {
+    const {user, setUser} = useContext(UserContext);
 
     return (
         <div className={styles.side__bar}>
@@ -25,7 +27,7 @@ const SideBarProfile = () => {
                                                      borderRadius={'100px 100px 100px 100px'}
                                                      className={styles.image} /></div>
 
-                <h1 className={styles.name}>Имя Фамилия</h1>
+                <h1 className={styles.name}>{user.firstName}&nbsp;{user.surName}</h1>
                 <div className={styles.divider}></div>
 
                 <ul className={styles.menu}>

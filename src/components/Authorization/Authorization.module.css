@@ -135,19 +135,17 @@
     }
 }
 
-@media screen and (min-width: 1000px) {
-    .inputs {
-        display: flex;
-        flex-direction: column;
-        gap: 32px;
-    }
+.inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
 
-    .pwd__block {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-end;
-        gap: 10px;
-    }
+.pwd__block {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
 }
 
 @media screen and (max-width: 1000px) {

@@ -2,7 +2,7 @@ import React, {useContext, useState} from 'react';
 import {NavLink} from 'react-router-dom';
 import cn from 'classnames';
 
-import {initialUserContextState, UserContext} from '../../userContext';
+import {UserContext} from '../../userContext';
 import userService from '../../services/userService';
 
 import Modal from '../Modal/Modal';

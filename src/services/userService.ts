@@ -39,10 +39,14 @@ class AuthService {
     }
 
     public syncUser(
+        user: iUser,
         setUser: (user: iUser)=>void,
         dontLogOut: boolean,
         setResponseCode?: (code: number) => void,
         onFinish?: () => void) {
+        if (!user.Empty) {
+            return;
+        }
         this.authorize().then(response => {
             //console.log(response.status);
             setResponseCode && setResponseCode(response.status);
@@ -51,6 +55,9 @@ class AuthService {
                 return response.json();
             } else {
                 switch (response.status) {
+                    case 401:
+                        alert('Вы были у нас слишком давно, авторизуйтесь заново');
+                        break;
                     default:
                         alert(`Неизвестная ошибка, код ${response.status}`);
                         break;
@@ -77,6 +84,7 @@ class AuthService {
         password: string,
         dontLogOut: boolean,
         setResponseCode: (code: number) => void,
+        user: iUser,
         setUser: (user: iUser) => void,
         onFinish?: () => void) {
         this.authenticate(email, password).then(response => {
@@ -104,7 +112,7 @@ class AuthService {
             body && localStorage.setItem('accessToken', body.accessToken);
             return body;
         }).then((body) => {
-            body && this.syncUser(setUser, dontLogOut, setResponseCode, onFinish);
+            body && this.syncUser(user, setUser, dontLogOut, setResponseCode, onFinish);
         });
     }
 

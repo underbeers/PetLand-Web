@@ -1,5 +1,6 @@
+import PetCard from '../components/PetCard/PetCard';
 import HomePage from '../pages/HomePage/HomePage';
-
+import Profile from '../pages/Profile/Profile';
 
 export const PATH_PREFIX = '';
 
@@ -27,6 +28,10 @@ const routesConfig = [
     {
         path: PATH_PREFIX + '/services/events',
         element: <>Мероприятия</>
+    },
+    {
+        path: PATH_PREFIX + '/profile/*',
+        element: <Profile/>
     },
     {
         path: PATH_PREFIX + '/*',

@@ -25,12 +25,12 @@ const OfferToLogIn: React.FC = () => {
                     <Modal
                         button={<a className={styles.ref}>Войдите</a>}
                         content={Authorization}
-                        contentProps={{isMobile, isFormSignIn: true}/> 
-                    или 
+                        contentProps={{isMobile, isFormSignIn: true}}/>
+                    &nbsp;или&nbsp;
                     <Modal
                         button={<a className={styles.ref}>зарегистрируйтесь</a>}
                         content={Authorization}
-                        contentProps={{isMobile, isFormSignIn: false}/>
+                        contentProps={{isMobile, isFormSignIn: false}}/>
                     <br/> 
                     для полного доступа к функционалу PetLand
                 </p>

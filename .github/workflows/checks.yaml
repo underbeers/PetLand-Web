@@ -3,6 +3,9 @@ name: CI/CD-PetLandWeb-Checks
 on:
   push:
     branches:
+      - '*'
+      - '*/*'
+      - '**'
       - '!main'
       - '!develop'
 

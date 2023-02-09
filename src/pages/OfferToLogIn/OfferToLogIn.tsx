@@ -26,7 +26,7 @@ const OfferToLogIn: React.FC = () => {
                         button={<a className={styles.ref}>Войдите</a>}
                         content={Authorization}
                         contentProps={{isMobile, isFormSignIn: true}}/>
-                    или 
+                    &nbsp;или&nbsp;
                     <Modal
                         button={<a className={styles.ref}>зарегистрируйтесь</a>}
                         content={Authorization}

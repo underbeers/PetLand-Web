@@ -1,0 +1,55 @@
+.side__bar {
+    width: 274px;
+    border-right: var(--subtext) 1px solid;
+}
+
+.content {
+    padding-top: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 88vh;
+}
+
+.name {
+    padding-top: 24px;
+    padding-left: 12px;
+    padding-bottom: 24px;
+}
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    padding-top: 24px;
+    padding-bottom: 24px;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.menu__item {
+    padding-left: 12px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px
+}
+
+.divider {
+    width: 273px;
+    height: 1px;
+    background-color: var(--subtext);
+}
+
+.settings__quit {
+    padding-top: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: 100%;
+    gap: 8px;
+}
+
+.nav :global(>a.active) h2 {
+    font-weight: bold;
+    font-size: 18px;
+}

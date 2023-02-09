@@ -12,6 +12,10 @@ const OfferToLogIn: React.FC = () => {
 
     const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
 
+    window.addEventListener('resize', () => {
+        setIsMobile(window.innerWidth <= 700)
+    });
+
     return (
         <div className={styles.wrapper}>
             <img src={cat} alt='Собака' className={styles.cat}/>

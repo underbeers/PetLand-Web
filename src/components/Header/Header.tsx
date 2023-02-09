@@ -81,14 +81,14 @@ const Header: React.FC = () => {
                         <NavLink to={'/profile/messages'}><img src={message} alt={'Сообщения'} title={'Сообщения'}/></NavLink>
                     </li>
                     <li className={styles.user}>
-                        {!user.Empty ?
+                        {!user.empty ?
                             <>
                                 <NavLink
                                     to={'/profile'}
                                     onMouseEnter={() => {setProfileDropdown(true)}}
                                     onMouseLeave={() => {setProfileDropdown(false)}}>
-                                    <h2>{user.FirstName}&nbsp;{user.SurName}&nbsp;</h2>
-                                    <img src={userIcon} alt={`${user.FirstName} ${user.SurName}`} title={'Профиль'}/>
+                                    <h2>{user.firstName}&nbsp;{user.surName}&nbsp;</h2>
+                                    <img src={userIcon} alt={`${user.firstName} ${user.surName}`} title={'Профиль'}/>
                                 </NavLink>
                                 {profileDropdown && <ul
                                     className={styles.services}
@@ -126,12 +126,12 @@ const Header: React.FC = () => {
                 </header>
                 <nav className={cn(styles.menu__mobile, mobileMenuStatus)}>
                     <div className={styles.user__mobile}>
-                        {!user.Empty ?
+                        {!user.empty ?
                             <NavLink to={'/profile'} onClick={toggleMobileMenu}>
                                 <img src={user_profile} className={styles.sign__in}
                                      title={'Выйти'}
                                      alt={'Выйти'}/>
-                                <h1>{user.FirstName}&nbsp;{user.SurName}&nbsp;</h1>
+                                <h1>{user.firstName}&nbsp;{user.surName}&nbsp;</h1>
                             </NavLink> :
                             <Modal
                                 button={
@@ -220,7 +220,7 @@ const Header: React.FC = () => {
                                 </div>
                                 <h2>Настройки</h2>
                             </NavLink></li>
-                            {!user.Empty &&
+                            {!user.empty &&
                                 <li><a onClick={()=>{toggleMobileMenu();userService.signOut(setUser)}}>
                                     <div>
                                         <img src={m_sign_out} alt={'Выход'}/>

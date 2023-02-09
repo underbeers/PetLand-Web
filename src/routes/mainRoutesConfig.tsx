@@ -1,13 +1,15 @@
-import PetCard from '../components/PetCard/PetCard';
 import HomePage from '../pages/HomePage/HomePage';
 import Profile from '../pages/Profile/Profile';
+
+import Page404 from '../pages/Page404/Page404';
+
 
 export const PATH_PREFIX = '';
 
 const routesConfig = [
     {
         path: PATH_PREFIX + '/',
-        element: <HomePage/>,
+        element: <HomePage />,
     },
     {
         path: PATH_PREFIX + '/bulletin_board',
@@ -35,7 +37,8 @@ const routesConfig = [
     },
     {
         path: PATH_PREFIX + '/*',
-        element: <>404</>
+        element: <Page404/>
+
     },
 ];
 

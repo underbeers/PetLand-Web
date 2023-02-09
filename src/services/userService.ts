@@ -44,7 +44,7 @@ class AuthService {
         dontLogOut: boolean,
         setResponseCode?: (code: number) => void,
         onFinish?: () => void) {
-        if (!user.Empty) {
+        if (!user.empty) {
             return;
         }
         this.authorize().then(response => {
@@ -64,9 +64,9 @@ class AuthService {
                 }
                 return null;
             }
-        }).then((body: { Email: string, FirstName: string, SurName: string }) => {
+        }).then((body: { email: string, firstName: string, surName: string }) => {
             //console.log(body);
-            body && setUser({...body, Empty: false});
+            body && setUser({...body, empty: false});
             body && onFinish && onFinish();
             if (!dontLogOut) {
                 localStorage.removeItem('accessToken');

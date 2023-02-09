@@ -9,7 +9,6 @@ import Button from "../../../components/UIKit/Button";
 const Pets: React.FC = () => {
     return (
         <>
-            <SideBarProfile />
             <div className={styles.content}>
                 <div className={styles.title__button}>
                     <h1>Мои питомцы</h1>

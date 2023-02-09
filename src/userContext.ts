@@ -1,18 +1,18 @@
 import React from 'react';
 
 export interface iUser {
-    Email: string;
-    FirstName: string;
-    SurName: string;
-    Empty: boolean;
+    email: string;
+    firstName: string;
+    surName: string;
+    empty: boolean;
 }
 
 export const initialUserContextState = {
     user: {
-        Email: '',
-        FirstName: '',
-        SurName: '',
-        Empty: true
+        email: '',
+        firstName: '',
+        surName: '',
+        empty: true
     },
     setUser: (user: iUser) => {}
 };

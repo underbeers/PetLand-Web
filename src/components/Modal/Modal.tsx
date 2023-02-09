@@ -4,16 +4,15 @@ import {CSSTransition} from 'react-transition-group';
 
 import styles from './Modal.module.css';
 
-
-export type ModalContent = React.FC<{ isMobile: boolean, closeModal?: () => void }>;
-
-interface iModalProps {
+type ModalProps = {
     content: ModalContent;
-    contentProps: { isMobile: boolean };
+    contentProps: { isMobile: boolean, isFormSignIn?: boolean, closeModal?: () => void };
     button: JSX.Element;
 }
 
-const Modal: React.FC<iModalProps> = ({content, contentProps, button}) => {
+export type ModalContent = React.FC<ModalProps['contentProps']>;
+
+const Modal: React.FC<ModalProps> = ({content, contentProps, button}) => {
     const [isOpened, setIsOpened] = useState(false);
     const Content: ModalContent = content;
     const nodeRef = useRef(null);
@@ -28,7 +27,7 @@ const Modal: React.FC<iModalProps> = ({content, contentProps, button}) => {
             <CSSTransition in={isOpened} nodeRef={nodeRef} timeout={contentProps.isMobile ? 0 : 200} classNames='modal' unmountOnExit>
                 <div className={styles.wrapper}>
                     <div className={styles.modal} ref={nodeRef}>
-                        <Content isMobile={contentProps.isMobile} closeModal={() => {setIsOpened(false)}}/>
+                        <Content closeModal={() => {setIsOpened(false)}} {...contentProps} />
                     </div>
                 </div>
             </CSSTransition>

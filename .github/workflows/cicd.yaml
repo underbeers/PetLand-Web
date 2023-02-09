@@ -1,4 +1,4 @@
-name: CI/CD-PetlandWeb
+name: CI/CD-PetLandWeb
 
 on:
   push:

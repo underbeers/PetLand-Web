@@ -4,7 +4,7 @@ import {Route, Routes} from 'react-router-dom';
 import profileRoutesConfig from '../../routes/profileRoutesConfig';
 import {UserContext} from '../../userContext';
 
-import OfferToSignIn from "../OfferToLogIn/OfferToLogIn";
+import OfferToSignIn from "../OfferToSignIn/OfferToSignIn";
 
 import styles from './Profile.module.css';
 import SideBarProfile from "../../components/SideBarProfile/SideBarProfile";

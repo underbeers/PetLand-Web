@@ -5,7 +5,7 @@ import Modal from '../../components/Modal/Modal';
 
 import cat from './img/cat.png'
 
-import styles from './OfferToLogIn.module.css'
+import styles from './OfferToSignIn.module.css'
 
 
 const OfferToSignIn: React.FC = () => {
@@ -21,19 +21,19 @@ const OfferToSignIn: React.FC = () => {
             <img src={cat} alt='Собака' className={styles.cat}/>
             <div className={styles.text__block}>
                 <p className={styles.text}>Это доступно только <br/> для авторизованных пользователей</p>
-                <p className={styles.text}>
+                <div className={styles.text}>
                     <Modal
-                        button={<a className={styles.ref}>Войдите</a>}
+                        button={<span className={styles.ref}>Войдите</span>}
                         content={Authorization}
                         contentProps={{isMobile, isFormSignIn: true}}/>
                     &nbsp;или&nbsp;
                     <Modal
-                        button={<a className={styles.ref}>зарегистрируйтесь</a>}
+                        button={<span className={styles.ref}>зарегистрируйтесь</span>}
                         content={Authorization}
                         contentProps={{isMobile, isFormSignIn: false}}/>
                     <br/> 
                     для полного доступа к функционалу PetLand
-                </p>
+                </div>
 
             </div>
         </div>

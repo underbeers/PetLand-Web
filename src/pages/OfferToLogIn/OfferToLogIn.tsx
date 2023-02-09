@@ -23,15 +23,17 @@ const OfferToLogIn: React.FC = () => {
                 <p className={styles.text}>Это доступно только <br/> для авторизованных пользователей</p>
                 <p className={styles.text}>
                     <Modal
-                    button={<a className={styles.ref}>Войдите</a>}
-                    content={Authorization}
-                    contentProps={{isMobile, isFormSignIn: true}}
-                /> или <Modal
+                        button={<a className={styles.ref}>Войдите</a>}
+                        content={Authorization}
+                        contentProps={{isMobile, isFormSignIn: true}/> 
+                    или 
+                    <Modal
                         button={<a className={styles.ref}>зарегистрируйтесь</a>}
                         content={Authorization}
-                        contentProps={{isMobile, isFormSignIn: false}}
-                    />
-                    <br/> для полного доступа к функционалу PetLand</p>
+                        contentProps={{isMobile, isFormSignIn: false}/>
+                    <br/> 
+                    для полного доступа к функционалу PetLand
+                </p>
 
             </div>
         </div>

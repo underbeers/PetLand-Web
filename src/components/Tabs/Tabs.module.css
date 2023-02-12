@@ -1,0 +1,33 @@
+.tabs {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.tabs > a {
+    border-top: 2px solid var(--accent-green);
+    border-bottom: 2px solid var(--accent-green);
+    border-right: 1px solid var(--accent-green);
+    border-left: 1px solid var(--accent-green);
+    box-sizing: border-box;
+    height: 40px;
+    width: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tabs > a:last-child {
+    border-right: 2px solid var(--accent-green);
+    border-radius: 0 15px 15px 0;
+}
+
+.tabs > a:first-child {
+    border-left: 2px solid var(--accent-green);
+    border-radius: 15px 0 0 15px;
+}
+
+.tabs:global(>a.active) {
+    background-color: var(--accent-green);
+    color: var(--white);
+}

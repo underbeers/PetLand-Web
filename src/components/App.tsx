@@ -1,40 +1,41 @@
 import React, {useEffect, useState} from "react";
 import {Route, Routes} from "react-router-dom";
 
-import routesConfig from "../routes/routesconfig";
+import mainRoutesConfig from "../routes/mainRoutesConfig";
 import {initialUserContextState, UserContext} from "../userContext";
+import userService from "../services/userService";
 
 import Header from "./Header/Header";
-import userService from "../services/userService";
+import Footer from "./Footer/Footer";
 
 
 const App: React.FC = () => {
 
     const [user, setUser] = useState(initialUserContextState.user);
-    useEffect(()=>{
-        const user = localStorage.getItem('accessToken');
-        if (user && user != 'undefined') {
-            userService.syncUser(setUser, true);
+    useEffect(() => {
+        const localUser = localStorage.getItem('accessToken');
+        if (localUser && localUser != 'undefined') {
+            userService.syncUser(user, setUser, true);
         }
     }, []);
 
     return (
         <UserContext.Provider value={{user, setUser}}>
-            <Header/>
-            <div className='container'>
-                <Routes>
-                    {routesConfig.map((route, index) => (
-                        <Route
-                            key={index}
-                            path={route.path}
-                            element={route.element}
-                        />
-                    ))}
-                </Routes>
+            <div style={{minHeight: '100vh', display: "flex", flexDirection: "column", justifyContent: "space-between", alignItems: "center"}}>
+                <Header/>
+                <main className='container' style={{flex: 1, width: '100%', display: "flex"}}>
+                    <Routes>
+                        {mainRoutesConfig.map((route, index) => (
+                            <Route
+                                key={index}
+                                path={route.path}
+                                element={route.element}
+                            />
+                        ))}
+                    </Routes>
+                </main>
+                <Footer/>
             </div>
-           {/*TODO Add footer*/}
-            <div></div>
-
         </UserContext.Provider>
     );
 };

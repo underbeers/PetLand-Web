@@ -10,15 +10,16 @@ interface iButtonProps {
     size: 'small' | 'medium',
     color: 'orange' | 'green',
     type: 'fill' | 'transparent',
-    disabled?: boolean
+    disabled?: boolean,
+    loading?: boolean
 }
 
-const Button: React.FC<iButtonProps> = ({onClick, label, size, color, type, disabled}) => {
+const Button: React.FC<iButtonProps> = ({onClick, label, size, color, type, disabled, loading}) => {
     return (
-        <button disabled={disabled}
+        <button disabled={disabled || loading}
                 className={cn(styles.button, styles[size], styles[color], styles[type])}
                 onClick={event => {event.preventDefault();onClick()}}>
-            {label}
+            {label}{loading && <div className={styles.loading_spinner}/>}
         </button>
     );
 };

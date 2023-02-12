@@ -1,0 +1,43 @@
+import React, {useState} from 'react';
+
+import Authorization from '../../components/Authorization/Authorization';
+import Modal from '../../components/Modal/Modal';
+
+import cat from './img/cat.png'
+
+import styles from './OfferToSignIn.module.css'
+
+
+const OfferToSignIn: React.FC = () => {
+
+    const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
+
+    window.addEventListener('resize', () => {
+        setIsMobile(window.innerWidth <= 700)
+    });
+
+    return (
+        <div className={styles.wrapper}>
+            <img src={cat} alt='Собака' className={styles.cat}/>
+            <div className={styles.text__block}>
+                <p className={styles.text}>Это доступно только <br/> для авторизованных пользователей</p>
+                <div className={styles.text}>
+                    <Modal
+                        button={<span className={styles.ref}>Войдите</span>}
+                        content={Authorization}
+                        contentProps={{isMobile, isFormSignIn: true}}/>
+                    &nbsp;или&nbsp;
+                    <Modal
+                        button={<span className={styles.ref}>зарегистрируйтесь</span>}
+                        content={Authorization}
+                        contentProps={{isMobile, isFormSignIn: false}}/>
+                    <br/> 
+                    для полного доступа к функционалу PetLand
+                </div>
+
+            </div>
+        </div>
+    );
+}
+
+export default OfferToSignIn;

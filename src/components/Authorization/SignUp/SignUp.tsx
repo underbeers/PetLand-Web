@@ -114,7 +114,7 @@ const SignUp: React.FC<iAuthProps> = ({switchContent, closeModal, isMobile}) => 
         }
 
         await userService.signUp(firstName.value, surName.value, email.value, password1.value,
-            setResponseCode, ()=>{userService.signIn(email.value, password1.value, false, setResponseCode, setUser, closeModal)});
+            setResponseCode, ()=>{userService.signIn(email.value, password1.value, false, setResponseCode, user, setUser, closeModal)});
     }
 
     return (!isMobile ?

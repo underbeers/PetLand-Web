@@ -1,9 +1,10 @@
 import React from 'react';
-import SideBarProfile from "../../../components/SideBarProfile/SideBarProfile";
+
+import Button from "../../../components/UIKit/Button";
+
 import PetCard from "../../../components/PetCard/PetCard";
 
 import styles from './Pets.module.css'
-import Button from "../../../components/UIKit/Button";
 
 
 const Pets: React.FC = () => {

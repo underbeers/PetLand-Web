@@ -12,8 +12,6 @@ import OfferToSignIn from '../OfferToSignIn/OfferToSignIn';
 import styles from './Profile.module.css';
 
 
-
-
 const Profile: React.FC = () => {
 
     const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
@@ -26,12 +24,16 @@ const Profile: React.FC = () => {
     const {user, setUser} = useContext(UserContext);
     return (user.empty ?
             <OfferToSignIn/> :
-
-            !isMobile ?
             <div className={styles.wrapper}>
-                <div className={styles.sidebar}>
-                    <SideBarProfile />
-                </div>
+                {!isMobile ?
+                    <div className={styles.sidebar}>
+                        <SideBarProfile/>
+                    </div>
+                    :
+                    <div className={styles.tapbar}>
+                        <TapBarProfile/>
+                    </div>
+                }
                 <div className={styles.content}>
                     <Routes>
                         {profileRoutesConfig.map((route, index) => (
@@ -44,23 +46,6 @@ const Profile: React.FC = () => {
                     </Routes>
                 </div>
             </div>
-                :
-                <div className={styles.wrapper__mobile}>
-                    <div className={styles.content}>
-                        <Routes>
-                            {profileRoutesConfig.map((route, index) => (
-                                <Route
-                                    key={index}
-                                    path={route.path}
-                                    element={route.element}
-                                />
-                            ))}
-                        </Routes>
-                    </div>
-                    <div className={styles.tapbar}>
-                        <TapBarProfile />
-                    </div>
-                </div>
     );
 };
 

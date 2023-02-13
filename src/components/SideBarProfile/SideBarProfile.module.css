@@ -6,7 +6,6 @@
     box-sizing: border-box;
     flex-direction: column;
     justify-content: space-between;
-    height: 100%;
 }
 
 .name {
@@ -22,6 +21,7 @@
     padding-bottom: 24px;
     justify-content: space-between;
     height: 100%;
+    gap: 12px
 }
 
 .menu__item {
@@ -29,7 +29,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 8px
+    gap: 12px
 }
 
 .divider {
@@ -44,10 +44,21 @@
     flex-direction: column;
     justify-content: flex-start;
     height: 100%;
-    gap: 8px;
+    gap: 12px;
+    padding-bottom: 24px;
 }
 
 .nav :global(>a.active) h2 {
     font-weight: bold;
     font-size: 18px;
+}
+
+@media screen and (max-width: 1000px) {
+    .content{
+        width: 172px;
+    }
+
+    .divider{
+        width: 172px;
+    }
 }

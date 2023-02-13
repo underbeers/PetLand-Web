@@ -1,6 +1,5 @@
 import React, {useContext, useState} from 'react';
-
-import styles from './SideBarProfile.module.css'
+import {UserContext} from "../../userContext";
 import {NavLink} from "react-router-dom";
 
 import Image from "../Image/Image";
@@ -12,10 +11,10 @@ import reviews from '../../static/icons/reviews.svg';
 import star from '../../static/icons/star.svg';
 import settings from '../../static/icons/settings.svg';
 import signOut from '../../static/icons/sign-out.svg';
-import dogDesktop from "../Authorization/SignIn/img/dog_desktop.jpg";
-import generalStyles from "../Authorization/Authorization.module.css";
 import userPhoto from "./img/user.jpg"
-import {UserContext} from "../../userContext";
+
+import styles from './SideBarProfile.module.css'
+
 
 const SideBarProfile = () => {
     const {user, setUser} = useContext(UserContext);
@@ -29,7 +28,7 @@ const SideBarProfile = () => {
                     className={styles.image}/>
             </div>
 
-            <h1 className={styles.name}>{user.firstName}&nbsp;{user.surName}</h1>
+            <h1 className={styles.name}>{user.firstName}<br />{user.surName}</h1>
             <div className={styles.divider}></div>
 
             <ul className={styles.menu}>

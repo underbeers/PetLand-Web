@@ -140,13 +140,15 @@
 
 .services {
     width: 150px;
-    background-color: var(--background-color);
+    background-color: var(--white);
     border: 1px solid var(--accent-orange);
     border-radius: 15px;
     position: absolute;
     left: 50%;
     top: 100%;
     padding: 15px;
+    z-index: 2;
+    opacity: 1;
 }
 
 .services > li {
@@ -210,6 +212,7 @@
     background-color: white;
     border-radius: 0 15px 15px 0;
     transition: left .2s, opacity .2s, visibility .2s;
+    z-index: 1;
 }
 
 .opened {

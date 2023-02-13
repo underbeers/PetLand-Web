@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 import styles from './PetCard.module.css'
 import Image from '../Image/Image'
@@ -14,12 +14,16 @@ const PetCard = () => {
     const petGender = 'пол';
     const petAge = '2 года';
 
-    const windowWidth = window.innerWidth;
+    const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
+
+    window.addEventListener('resize', () => {
+        setIsMobile(window.innerWidth <= 700)
+    });
+
 
     return (
-
         <div className={styles.wrapper}>
-            <Image imageProps={{src: 'https://w-dog.ru/wallpapers/5/15/481641983153237/kot-lezhit-polosatyj.jpg', alt: 'Питомец', width:windowWidth > 700 ? '273px' : '260px', height: windowWidth > 700 ? '200px' : '180px'}}
+            <Image imageProps={{src: 'https://w-dog.ru/wallpapers/5/15/481641983153237/kot-lezhit-polosatyj.jpg', alt: 'Питомец', width: isMobile ? '260px' : '273px' , height: isMobile ? '180px' : '200px'}}
                    borderRadius={'20px 20px 0 0'}/>
             <div className={styles.pet__info}>
 

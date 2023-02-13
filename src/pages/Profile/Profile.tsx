@@ -4,10 +4,12 @@ import {Route, Routes} from 'react-router-dom';
 import profileRoutesConfig from '../../routes/profileRoutesConfig';
 import {UserContext} from '../../userContext';
 
-import OfferToSignIn from "../OfferToSignIn/OfferToSignIn";
+import SideBarProfile from '../../components/SideBarProfile/SideBarProfile';
+
+import OfferToSignIn from '../OfferToSignIn/OfferToSignIn';
 
 import styles from './Profile.module.css';
-import SideBarProfile from "../../components/SideBarProfile/SideBarProfile";
+
 
 
 const Profile: React.FC = () => {
@@ -16,7 +18,7 @@ const Profile: React.FC = () => {
             <OfferToSignIn/> :
             <div className={styles.wrapper}>
                 <div className={styles.sidebar}>
-                    <SideBarProfile/>
+                    <SideBarProfile />
                 </div>
                 <div className={styles.content}>
                     <Routes>

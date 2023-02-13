@@ -14,8 +14,12 @@ const Pets: React.FC = () => {
                     <h1>Мои питомцы</h1>
                     <Button color={'orange'} label={'Добавить питомца'} onClick={() => {}} size={'medium'} type={'fill'}/>
                 </div>
-                <PetCard />
-                <PetCard />
+                <div className={styles.cards}>
+                    <PetCard />
+                    <PetCard />
+                    <PetCard />
+                    <PetCard />
+                </div>
             </div>
         </>
     );

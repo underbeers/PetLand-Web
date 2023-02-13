@@ -212,6 +212,7 @@
     background-color: white;
     border-radius: 0 15px 15px 0;
     transition: left .2s, opacity .2s, visibility .2s;
+    z-index: 1;
 }
 
 .opened {

@@ -1,9 +1,9 @@
-import PetCard from "../components/PetCard/PetCard";
-import Profile from "../pages/Profile/Profile";
-import Pets from "../pages/Profile/Pets/Pets";
-import Page404 from "../pages/Page404/Page404";
-import Ads from "../pages/Profile/Ads/Ads";
 import {Navigate} from "react-router-dom";
+
+import Pets from "../pages/Profile/Pets/Pets";
+import Ads from "../pages/Profile/Ads/Ads";
+import Page404 from "../pages/Page404/Page404";
+
 
 const PROFILE_PREFIX = '/profile';
 

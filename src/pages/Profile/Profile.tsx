@@ -15,9 +15,8 @@ const Profile: React.FC = () => {
     return (user.empty ?
             <OfferToSignIn/> :
             <div className={styles.wrapper}>
-                <div className={styles.sidebar}>
-                    <SideBarProfile/>
-                </div>
+                <SideBarProfile/>
+
                 <div className={styles.content}>
                     <Routes>
                         {profileRoutesConfig.map((route, index) => (

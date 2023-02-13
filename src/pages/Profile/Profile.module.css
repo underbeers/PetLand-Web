@@ -5,6 +5,9 @@
     flex: 1;
 }
 
+.content {
+    width: 100%;
+}
 
 .tapbar {
     position: fixed;

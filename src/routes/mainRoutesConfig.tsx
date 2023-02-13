@@ -9,7 +9,7 @@ export const PATH_PREFIX = '';
 const routesConfig = [
     {
         path: PATH_PREFIX + '/',
-        element: <HomePage />,
+        element: <HomePage/>,
     },
     {
         path: PATH_PREFIX + '/bulletin_board',

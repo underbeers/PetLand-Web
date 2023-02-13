@@ -4,3 +4,16 @@
     justify-content: flex-start;
     flex: 1;
 }
+
+.wrapper__mobile {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.tapbar {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}

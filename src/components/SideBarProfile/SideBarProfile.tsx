@@ -28,7 +28,7 @@ const SideBarProfile = () => {
                     className={styles.image}/>
             </div>
 
-            <h1 className={styles.name}>{user.firstName}&nbsp;{user.surName}</h1>
+            <h1 className={styles.name}>{user.firstName}<br />{user.surName}</h1>
             <div className={styles.divider}></div>
 
             <ul className={styles.menu}>

@@ -46,7 +46,10 @@
     top: -50%;
     border-radius: 50%;
     box-sizing: border-box;
-    border: 6px solid #F5F1EE;
+    border-bottom: 6px solid #F5F1EE;
+    border-right: 6px solid #F5F1EE;
+    border-left: 6px solid #F5F1EE;
+    border-top: 6px solid #F5F1EE;
     transition: .5s;
 }
 
@@ -59,7 +62,7 @@
     top: 50%;
     left: -22px;
     border-top-right-radius: 20px;
-    box-shadow: 0 -10px 0 0 #F5F1EE;
+    box-shadow: 0 -10px 0 0 rgba(255, 255, 255, 0.4);
 }
 
 .indicator::after {

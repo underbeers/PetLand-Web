@@ -103,10 +103,6 @@
     transition: color .2s;
 }
 
-.user:hover > h2 {
-    color: var(--accent-orange);
-}
-
 .user > a {
     display: flex;
     align-items: center;
@@ -115,7 +111,7 @@
     height: 100%;
 }
 
-.user > img {
+.user > a > img {
     width: 40px;
     height: 40px;
     border-radius: 50%;

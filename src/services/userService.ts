@@ -47,6 +47,7 @@ class AuthService {
         if (!user.empty) {
             return;
         }
+        setUser({...user, loading: true});
         this.authorize().then(response => {
             //console.log(response.status);
             setResponseCode && setResponseCode(response.status);
@@ -66,7 +67,7 @@ class AuthService {
             }
         }).then((body: { email: string, firstName: string, surName: string }) => {
             //console.log(body);
-            body && setUser({...body, empty: false});
+            body && setUser({...body, photo: 'https://script.viserlab.com/stoclab/assets/user/profile/5fb0bd27eccb31605418279.jpg', empty: false, loading: false});
             body && onFinish && onFinish();
             if (!dontLogOut) {
                 localStorage.removeItem('accessToken');
@@ -87,6 +88,7 @@ class AuthService {
         user: iUser,
         setUser: (user: iUser) => void,
         onFinish?: () => void) {
+        setUser({...user, loading: true});
         this.authenticate(email, password).then(response => {
             //console.log(response.status);
             setResponseCode(response.status);

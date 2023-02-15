@@ -22,13 +22,28 @@ const SideBarProfile = () => {
     return (
         <div className={styles.content}>
             <div className={styles.photo}>
-                <Image
-                    imageProps={{src: userPhoto, alt: 'Фото', width: '172px', height: '172px'}}
-                    borderRadius={'100px 100px 100px 100px'}
-                    className={styles.image}/>
+                {user.loading ?
+                    <>
+                        <div className={'loading'} style={{width: 172, height: 172, borderRadius: 86}}/>
+                    </> :
+                    <>
+                        <Image
+                            imageProps={{src: user.photo, alt: 'Фото', width: '172px', height: '172px'}}
+                            borderRadius={'86px'}
+                            className={styles.image}/>
+                    </>
+                }
             </div>
+            {user.loading ?
+                <>
+                    <div className={'loading'} style={{width: 85, height: '1.5em', borderRadius: 5}}/>
+                    <div className={'loading'} style={{width: 75, height: '1.5em', borderRadius: 5}}/>
+                </>:
+                <>
+                    <h1 className={styles.name}>{user.firstName} {user.surName}</h1>
+                </>
+            }
 
-            <h1 className={styles.name}>{user.firstName}<br />{user.surName}</h1>
             <div className={styles.divider}></div>
 
             <ul className={styles.menu}>

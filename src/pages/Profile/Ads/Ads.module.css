@@ -1,9 +1,4 @@
-.wrapper {
-    padding-top: 35px;
-    padding-left: 30px;
-}
-
-.wrapper > h1 {
+.heading {
     margin-bottom: 23px;
 }
 

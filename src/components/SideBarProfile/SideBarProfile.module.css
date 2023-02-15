@@ -1,11 +1,12 @@
 .content {
     width: 274px;
+    height: 100%;
     border-right: var(--subtext) 1px solid;
     padding-top: 24px;
     display: flex;
     box-sizing: border-box;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
 }
 
 .name {
@@ -19,8 +20,6 @@
     flex-direction: column;
     padding-top: 24px;
     padding-bottom: 24px;
-    justify-content: space-between;
-    height: 100%;
     gap: 12px
 }
 

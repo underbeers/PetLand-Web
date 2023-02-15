@@ -12,8 +12,8 @@ import styles from './Ads.module.css';
 
 const Ads: React.FC = () => {
     return (
-        <div className={styles.wrapper}>
-            <h1>Мои объявления</h1>
+        <>
+            <h1 className={styles.heading}>Мои объявления</h1>
             <Tabs>
                 <NavLink to={'/profile/ads/actual'}>Актуальные</NavLink>
                 <NavLink to={'/profile/ads/moderation'}>На модерации</NavLink>
@@ -40,7 +40,7 @@ const Ads: React.FC = () => {
                 }/>
                 <Route path={'/*'} element={<Page404/>}/>
             </Routes>
-        </div>
+        </>
     );
 };
 

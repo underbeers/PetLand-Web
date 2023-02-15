@@ -4,7 +4,9 @@ export interface iUser {
     email: string;
     firstName: string;
     surName: string;
+    photo: string;
     empty: boolean;
+    loading: boolean;
 }
 
 export const initialUserContextState = {
@@ -12,7 +14,9 @@ export const initialUserContextState = {
         email: '',
         firstName: '',
         surName: '',
-        empty: true
+        photo: '',
+        empty: true,
+        loading: false
     },
     setUser: (user: iUser) => {}
 };

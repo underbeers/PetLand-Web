@@ -34,7 +34,8 @@ const SignUp: React.FC<iAuthProps> = ({switchContent, closeModal, isMobile}) => 
     const [policyChecked, setPolicyChecked] = useState(false);
     const [emailVerified, setEmailVerified] = useState(false);
     const [waitCode, setWaitCode] = useState(false);
-    const [verificationCodeFromBackend, setVerificationCodeFromBackend] = useState('xxxxxxx');
+    const [verificationCodeFromBackend, setVerificationCodeFromBackend] = useState('      ');
+
     const [responseCode, setResponseCode] = useState(0);
     const [counter, setCounter] = useState(0);
 

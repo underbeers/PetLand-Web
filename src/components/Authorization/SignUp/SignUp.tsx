@@ -34,7 +34,8 @@ const SignUp: React.FC<iAuthProps> = ({switchContent, closeModal, isMobile}) => 
     const [policyChecked, setPolicyChecked] = useState(false);
     const [emailVerified, setEmailVerified] = useState(false);
     const [waitCode, setWaitCode] = useState(false);
-    const [verificationCodeFromBackend, setVerificationCodeFromBackend] = useState('123456');
+    const [verificationCodeFromBackend, setVerificationCodeFromBackend] = useState('      ');
+
     const [responseCode, setResponseCode] = useState(0);
     const [counter, setCounter] = useState(0);
 
@@ -57,12 +58,17 @@ const SignUp: React.FC<iAuthProps> = ({switchContent, closeModal, isMobile}) => 
         return () => clearInterval(timer);
     }, [counter]);
 
+    const genCode: () => string = () => {
+        return Math.floor(100000 + Math.random() * 900000).toString();
+    }
+
     const sendCode = async () => {
         setWaitCode(true);
         setEmailVerified(false);
         setCounter(30);
-        // TODO get code from backend
-        setVerificationCodeFromBackend(verificationCodeFromBackend == '654321' ? '123456' : '654321');
+        const code = genCode();
+        setVerificationCodeFromBackend(code);
+        await userService.sendCode(email.value, code);
     }
 
     useEffect(() => {

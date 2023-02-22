@@ -81,14 +81,21 @@ const Header: React.FC = () => {
                         <NavLink to={'/profile/messages'}><img src={message} alt={'Сообщения'} title={'Сообщения'}/></NavLink>
                     </li>
                     <li className={styles.user}>
-                        {!user.empty ?
+                        {!user.empty || user.loading ?
                             <>
                                 <NavLink
                                     to={'/profile'}
                                     onMouseEnter={() => {setProfileDropdown(true)}}
                                     onMouseLeave={() => {setProfileDropdown(false)}}>
-                                    <h2>{user.firstName}&nbsp;{user.surName}&nbsp;</h2>
-                                    <img src={userIcon} alt={`${user.firstName} ${user.surName}`} title={'Профиль'}/>
+                                    {user.loading ?
+                                        <>
+                                            <div className={'loading'} style={{width: 100, height: '1.5em', borderRadius: 5}}></div>
+                                            <div className={'loading'} style={{width: 40, height: 40, borderRadius: 20}}></div>
+                                        </>:
+                                        <>
+                                            <h2>{user.firstName}&nbsp;{user.surName}&nbsp;</h2>
+                                            <img src={user.photo} alt={`${user.firstName} ${user.surName}`} title={'Профиль'}/>
+                                        </>}
                                 </NavLink>
                                 {profileDropdown && <ul
                                     className={styles.services}

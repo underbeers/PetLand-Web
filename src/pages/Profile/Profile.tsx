@@ -22,7 +22,7 @@ const Profile: React.FC = () => {
 
 
     const {user, setUser} = useContext(UserContext);
-    return (user.empty ?
+    return (user.empty && !user.loading ?
             <OfferToSignIn/> :
             <div className={styles.wrapper}>
                 {!isMobile ?
@@ -35,15 +35,27 @@ const Profile: React.FC = () => {
                     </div>
                 }
                 <div className={styles.content}>
-                    <Routes>
-                        {profileRoutesConfig.map((route, index) => (
-                            <Route
-                                key={index}
-                                path={route.path}
-                                element={route.element}
-                            />
-                        ))}
-                    </Routes>
+                    {user.loading ?
+                        <>
+                            <div className={'loading'} style={{width: 240, height: '2em', borderRadius: 10, margin: 40}}/>
+                            <div className={'loading'} style={{width: 540, height: '2em', borderRadius: 10, margin: '20px 40px'}}/>
+                            <div className={'loading'} style={{width: 340, height: '2em', borderRadius: 10, margin: '20px 40px'}}/>
+                            <div className={'loading'} style={{width: 420, height: '2em', borderRadius: 10, margin: '20px 40px'}}/>
+                            <div className={'loading'} style={{width: 540, height: '2em', borderRadius: 10, margin: '20px 40px'}}/>
+                            <div className={'loading'} style={{width: 740, height: '2em', borderRadius: 10, margin: '20px 40px'}}/>
+                        </> :
+                        <>
+                            <Routes>
+                                {profileRoutesConfig.map((route, index) => (
+                                    <Route
+                                        key={index}
+                                        path={route.path}
+                                        element={route.element}
+                                    />
+                                ))}
+                            </Routes>
+                        </>
+                    }
                 </div>
             </div>
     );

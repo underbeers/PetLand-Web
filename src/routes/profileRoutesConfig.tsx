@@ -1,20 +1,33 @@
-import Pets from "../pages/Profile/Pets/Pets";
-import UserProfile from "../pages/Profile/UserProfile/UserProfile";
+import {Navigate} from "react-router-dom";
 
-const PROFILE_PREFIX = ''
+import Pets from "../pages/Profile/Pets/Pets";
+import Ads from "../pages/Profile/Ads/Ads";
+import UserProfile from "../pages/Profile/UserProfile/UserProfile";
+import Page404 from "../pages/Page404/Page404";
+
+
+const PROFILE_PREFIX = '/profile';
 
 const profileRoutesConfig = [
     {
-        path: PROFILE_PREFIX + '/pets',
+        path: '/pets',
         element: <Pets/>
     },
     {
-        path: PROFILE_PREFIX + '/',
+        path: '/',
         element: <UserProfile/>
     },
     {
-        path: PROFILE_PREFIX + '/*',
-        element: <></>
+        path: '/ads',
+        element: <Navigate to={PROFILE_PREFIX + '/ads/actual'} replace={true}/>
+    },
+    {
+        path: '/ads/*',
+        element: <Ads/>
+    },
+    {
+        path: '/*',
+        element: <Page404/>
     },
 ]
 

@@ -40,13 +40,14 @@ class AuthService {
 
     public syncUser(
         user: iUser,
-        setUser: (user: iUser)=>void,
+        setUser: (user: iUser) => void,
         dontLogOut: boolean,
         setResponseCode?: (code: number) => void,
         onFinish?: () => void) {
         if (!user.empty) {
             return;
         }
+        setUser({...user, loading: true});
         this.authorize().then(response => {
             //console.log(response.status);
             setResponseCode && setResponseCode(response.status);
@@ -66,7 +67,12 @@ class AuthService {
             }
         }).then((body: { email: string, firstName: string, surName: string }) => {
             //console.log(body);
-            body && setUser({...body, empty: false});
+            body && setUser({
+                ...body,
+                photo: 'https://script.viserlab.com/stoclab/assets/user/profile/5fb0bd27eccb31605418279.jpg',
+                empty: false,
+                loading: false
+            });
             body && onFinish && onFinish();
             if (!dontLogOut) {
                 localStorage.removeItem('accessToken');
@@ -87,6 +93,7 @@ class AuthService {
         user: iUser,
         setUser: (user: iUser) => void,
         onFinish?: () => void) {
+        setUser({...user, loading: true});
         this.authenticate(email, password).then(response => {
             //console.log(response.status);
             setResponseCode(response.status);
@@ -149,6 +156,35 @@ class AuthService {
         });
     }
 
+    public async sendCode(email: string, code: string) {
+        fetch(API_URL + '/email/code/', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                email,
+                code
+            })}).then((response) => {
+            //console.log(body);
+            if (response.ok) {
+
+            } else {
+                switch (response.status) {
+                    case 500:
+                        alert('Несуществующий email');
+                        break;
+                    case 400:
+                        alert('Неверные данные в запросе');
+                        break;
+                    default:
+                        alert('Неизвестная ошибка');
+                        break;
+                }
+            }
+            return response.json();
+        }).then((body) => {
+            //console.log(body);
+        });
+    }
 }
 
 export default new AuthService();

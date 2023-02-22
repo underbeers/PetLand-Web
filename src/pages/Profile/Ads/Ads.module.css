@@ -1,0 +1,12 @@
+.heading {
+    margin-bottom: 23px;
+}
+
+.no__ads {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 69px;
+    margin-top: 30px;
+}

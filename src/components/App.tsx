@@ -15,6 +15,7 @@ const App: React.FC = () => {
     useEffect(() => {
         const localUser = localStorage.getItem('accessToken');
         if (localUser && localUser != 'undefined') {
+            setUser({...user, loading: true});
             userService.syncUser(user, setUser, true);
         }
     }, []);

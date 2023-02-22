@@ -33,6 +33,9 @@
     --modak-font: 'Modak', sans-serif;
     --accent-font-size: 24px;
 
+    /*loading*/
+    --loading-grey: #ededed;
+    --loading-shadow-color: rgba(0, 0, 0, 0.1);
 }
 
 body {
@@ -181,4 +184,26 @@ a {
 .fade-enter-active,
 .fade-exit-active {
     transition: opacity .1s, transform .1s;
+}
+
+/*Loader*/
+.loading {
+    background-color: var(--loading-grey);
+    background: linear-gradient(
+            100deg,
+            rgba(255, 255, 255, 0) 40%,
+            rgba(255, 255, 255, .5) 50%,
+            rgba(255, 255, 255, 0) 60%
+    ) var(--loading-grey);
+    background-size: 200% 100%;
+    background-position-x: 180%;
+    animation: 1s loading ease-in-out infinite;
+    box-shadow: 2px 2px 15px var(--loading-shadow-color);
+    margin: 5px;
+}
+
+@keyframes loading {
+    to {
+        background-position-x: -20%;
+    }
 }

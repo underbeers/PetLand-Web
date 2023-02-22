@@ -30,4 +30,5 @@
 .tabs:global(>a.active) {
     background-color: var(--accent-green);
     color: var(--white);
+    font-weight: bold;
 }

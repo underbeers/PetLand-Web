@@ -5,7 +5,7 @@ import profileRoutesConfig from '../../routes/profileRoutesConfig';
 import {UserContext} from '../../userContext';
 
 import SideBarProfile from '../../components/SideBarProfile/SideBarProfile';
-import TapBarProfile from "../../components/TapBarProfile/TapBarProfile";
+import TapBarProfile from '../../components/TapBarProfile/TapBarProfile';
 
 import OfferToSignIn from '../OfferToSignIn/OfferToSignIn';
 
@@ -31,7 +31,7 @@ const Profile: React.FC = () => {
                     </div>
                     :
                     <div className={styles.tapbar}>
-                        <TapBarProfile/>
+                        <TapBarProfile format={'circle'}/>
                     </div>
                 }
                 <div className={styles.content}>

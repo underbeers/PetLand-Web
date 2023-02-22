@@ -1,15 +1,14 @@
 import React, {useState} from 'react';
 
-import Button from "../../../components/UIKit/Button";
-
-import PetCard from "../../../components/PetCard/PetCard";
+import Button from '../../../components/UIKit/Button';
+import PetCard from '../../../components/PetCard/PetCard';
 
 import styles from './Pets.module.css'
 
 
 const Pets: React.FC = () => {
 
-    const [isEmpty, setIsEmpty] = useState(true)
+    const [isEmpty, setIsEmpty] = useState(false)
 
     return ( !isEmpty ?
             <div className={styles.content}>
@@ -18,10 +17,10 @@ const Pets: React.FC = () => {
                     <Button color={'orange'} label={'Добавить питомца'} onClick={() => {}} size={'medium'} type={'fill'}/>
                 </div>
                 <div className={styles.cards}>
-                    <PetCard />
-                    <PetCard />
-                    <PetCard />
-                    <PetCard />
+                    <PetCard size={'medium'}/>
+                    <PetCard size={'medium'}/>
+                    <PetCard size={'medium'}/>
+                    <PetCard size={'medium'}/>
                 </div>
             </div>
             :

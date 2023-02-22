@@ -38,7 +38,7 @@
     z-index: 1;
 }
 
-.indicator {
+.circle {
     position: absolute;
     background: var(--white);
     width: 70px;
@@ -51,9 +51,10 @@
     border-left: 6px solid #F5F1EE;
     border-top: 6px solid #F5F1EE;
     transition: .5s;
+    transform: translateX(-500px);
 }
 
-.indicator::before {
+.circle::before {
     content: '';
     position: absolute;
     width: 20px;
@@ -65,7 +66,7 @@
     box-shadow: 0 -10px 0 0 rgba(255, 255, 255, 0.4);
 }
 
-.indicator::after {
+.circle::after {
     content: '';
     position: absolute;
     width: 20px;
@@ -81,21 +82,21 @@
     transform: translateY(-27px);
 }
 
-.nav :global(>a:nth-child(1).active) ~ .indicator {
+.nav :global(>a:nth-child(1).active) ~ .circle {
     transform: translateX(calc(70px * -2));
 }
 
-.nav :global(>a:nth-child(2).active) ~ .indicator {
+.nav :global(>a:nth-child(2).active) ~ .circle {
     transform: translateX(calc(70px * -1));
 }
 
-.nav :global(>a:nth-child(3).active) ~ .indicator {
+.nav :global(>a:nth-child(3).active) ~ .circle {
     transform: translateX(calc(70px * 0));
 }
 
-.nav :global(>a:nth-child(4).active) ~ .indicator {
+.nav :global(>a:nth-child(4).active) ~ .circle {
     transform: translateX(calc(70px * 1));
 }
-.nav :global(>a:nth-child(5).active) ~ .indicator {
+.nav :global(>a:nth-child(5).active) ~ .circle {
     transform: translateX(calc(70px * 2));
 }

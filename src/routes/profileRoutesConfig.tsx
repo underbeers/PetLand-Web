@@ -2,6 +2,7 @@ import {Navigate} from "react-router-dom";
 
 import Pets from "../pages/Profile/Pets/Pets";
 import Ads from "../pages/Profile/Ads/Ads";
+import UserProfile from "../pages/Profile/UserProfile/UserProfile";
 import Page404 from "../pages/Page404/Page404";
 
 
@@ -11,6 +12,10 @@ const profileRoutesConfig = [
     {
         path: '/pets',
         element: <Pets/>
+    },
+    {
+        path: '/',
+        element: <UserProfile/>
     },
     {
         path: '/ads',

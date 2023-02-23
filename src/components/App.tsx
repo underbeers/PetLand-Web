@@ -1,12 +1,12 @@
-import React, {useEffect, useState} from "react";
-import {Route, Routes} from "react-router-dom";
+import React, {useEffect, useState} from 'react';
+import {Route, Routes} from 'react-router-dom';
 
-import mainRoutesConfig from "../routes/mainRoutesConfig";
-import {initialUserContextState, UserContext} from "../userContext";
-import userService from "../services/userService";
+import mainRoutesConfig from '../routes/mainRoutesConfig';
+import {initialUserContextState, UserContext} from '../userContext';
+import userService from '../services/userService';
 
-import Header from "./Header/Header";
-import Footer from "./Footer/Footer";
+import Header from './Header/Header';
+import Footer from './Footer/Footer';
 
 
 const App: React.FC = () => {
@@ -22,9 +22,9 @@ const App: React.FC = () => {
 
     return (
         <UserContext.Provider value={{user, setUser}}>
-            <div style={{minHeight: '100vh', display: "flex", flexDirection: "column", justifyContent: "space-between", alignItems: "center"}}>
+            <div style={{minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', alignItems: 'center'}}>
                 <Header/>
-                <main className='container' style={{flex: 1, width: '100%', display: "flex"}}>
+                <main className='container' style={{flex: 1, width: '100%', display: 'flex'}}>
                     <Routes>
                         {mainRoutesConfig.map((route, index) => (
                             <Route
@@ -35,7 +35,7 @@ const App: React.FC = () => {
                         ))}
                     </Routes>
                 </main>
-                <Footer/>
+
             </div>
         </UserContext.Provider>
     );

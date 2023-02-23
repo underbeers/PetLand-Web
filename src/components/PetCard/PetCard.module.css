@@ -1,10 +1,33 @@
-.wrapper {
-    height: 320px;
-    width: 273px;
+.card {
     background-color: var(--white);
     border-radius: 20px;
     box-shadow: var(--card-shadow);
 }
+
+.medium {
+    width: 273px;
+    height: 320px;
+}
+
+.medium .img {
+    height: 200px;
+    width: 273px;
+    object-fit: cover;
+    border-radius: 20px 20px 0 0;
+}
+
+.small {
+    width: 172px;
+    height: 200px;
+}
+
+.small .img {
+    height: 125px;
+    width: 172px;
+    object-fit: cover;
+    border-radius: 20px 20px 0 0;
+}
+
 
 .name {
     margin-top: 15px;
@@ -32,12 +55,28 @@
 
 @media screen and (max-width: 700px) {
 
-    .wrapper {
-        height: 300px;
+    .medium {
         width: 260px;
-        background-color: var(--white);
-        border-radius: 20px;
-        box-shadow: var(--card-shadow);
+        height: 300px;
+    }
+
+    .medium .img {
+        height: 180px;
+        width: 260px;
+        object-fit: cover;
+        border-radius: 20px 20px 0 0;
+    }
+
+    .small {
+        width: 160px;
+        height: 180px;
+    }
+
+    .small .img {
+        height: 112px;
+        width: 160px;
+        object-fit: cover;
+        border-radius: 20px 20px 0 0;
     }
 
     .gender__age {
@@ -46,4 +85,3 @@
     }
 
 }
-

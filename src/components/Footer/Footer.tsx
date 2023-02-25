@@ -1,8 +1,8 @@
 import React from "react";
-
-import styles from './Footer.module.css';
 import cn from "classnames";
 import {NavLink} from "react-router-dom";
+
+import styles from './Footer.module.css';
 
 
 const Footer: React.FC = () => {

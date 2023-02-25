@@ -3,10 +3,8 @@ import cn from 'classnames';
 
 import {RegExpPair} from '../../constants/regularExpressions';
 
-import showPwd from './img/showPwd.svg';
-import hidePwd from './img/hidePwd.svg';
-
 import styles from './Input.module.css';
+import Icons from "./Icons";
 
 
 interface iInputProps {
@@ -97,12 +95,11 @@ const Input: React.FC<iInputProps> = ({
                         type={pwdShown ? 'text' : type}
                         onKeyDown={onKeyDown}
                         {...inputProps}/>
-                    <img
+                    <Icons
+                        icon={pwdShown ? 'eye' : 'eye-slash'}
                         className={styles.showHidePwd}
-                        src={pwdShown ? hidePwd : showPwd}
                         onClick={(event) => {event.preventDefault();setPwdShown(!pwdShown)}}
-                        title={'Показать/скрыть пароль'}
-                        alt={'Показать/скрыть пароль'}/>
+                        />
                 </span>
             );
         default:

@@ -20,8 +20,8 @@ const OfferToSignIn: React.FC = () => {
         <div className={styles.wrapper}>
             <img src={cat} alt='Собака' className={styles.cat}/>
             <div className={styles.text__block}>
-                <p className={styles.text}>Это доступно только <br/> для авторизованных пользователей</p>
-                <div className={styles.text}>
+                <h1 className={styles.text}>Это доступно только <br/> для авторизованных пользователей</h1>
+                <h1 className={styles.text}>
                     <Modal
                         button={<span className={styles.ref}>Войдите</span>}
                         content={Authorization}
@@ -33,8 +33,7 @@ const OfferToSignIn: React.FC = () => {
                         contentProps={{isMobile, isFormSignIn: false}}/>
                     <br/> 
                     для полного доступа к функционалу PetLand
-                </div>
-
+                </h1>
             </div>
         </div>
     );

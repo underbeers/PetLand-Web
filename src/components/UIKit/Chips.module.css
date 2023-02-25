@@ -2,19 +2,19 @@
     border-radius: 12px;
     padding: 8px 16px 8px 16px;
     display: inline-block;
-    color: var(--white);
+    color: var(--base--0);
 }
 
 .orange {
-    background: var(--accent-orange);
+    background: var(--orange--primary--color);
 }
 
 .green {
-    background: var(--accent-green);
+    background: var(--green--primary--color);
 }
 
 .grey {
-    background: var(--subtext);
+    background: var(--secondary--text--color);
 }
 
 .medium {

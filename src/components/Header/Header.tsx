@@ -5,27 +5,10 @@ import cn from 'classnames';
 import {UserContext} from '../../userContext';
 import userService from '../../services/userService';
 
+import Icons from "../UIKit/Icons";
+
 import Modal from '../Modal/Modal';
 import Authorization from '../Authorization/Authorization';
-
-import logo from './img/logo.svg';
-import favorite from './img/favorite.svg';
-import notification from './img/notification.svg';
-import message from './img/message.svg';
-import userIcon from './img/user.svg';
-
-import user_profile from '../../static/profile_photo_placeholder.svg';
-import m_ads from './img/m_ads.svg';
-import m_specialists from './img/m_specialists.svg';
-import m_clinics from './img/m_clinics.svg';
-import m_events from './img/m_events.svg';
-import m_new_ad from './img/m_new_ad.svg';
-import m_notifications from './img/m_notifications.svg';
-import m_favorites from './img/m_favorites.svg';
-import m_messages from './img/m_messages.svg';
-import m_profile from './img/m_profile.svg';
-import m_settings from './img/m_settings.svg';
-import m_sign_out from './img/m_sign_out.svg';
 
 import styles from './Header.module.css';
 
@@ -55,7 +38,7 @@ const Header: React.FC = () => {
             <header className={styles.header}>
                 <ul className={'container'}>
                     <li>
-                        <NavLink to={'/'}><img src={logo} alt={'лого'}/></NavLink>
+                        <NavLink to={'/'} className={styles.logo}>PetLand</NavLink>
                     </li>
                     <li className={styles.nav}>
                         <NavLink to={'/bulletin_board'}><h2>Доска объявлений</h2></NavLink>
@@ -76,9 +59,9 @@ const Header: React.FC = () => {
                         </ul>}
                     </li>
                     <li className={styles.icons}>
-                        <NavLink to={'/profile/favorite'}><img src={favorite} alt={'Избранное'} title={'Избранное'}/></NavLink>
-                        <NavLink to={'/profile/notifications'}><img src={notification} alt={'Уведомления'} title={'Уведомления'}/></NavLink>
-                        <NavLink to={'/profile/messages'}><img src={message} alt={'Сообщения'} title={'Сообщения'}/></NavLink>
+                        <NavLink to={'/profile/favorite'}><Icons icon={"cards-heart"}/></NavLink>
+                        <NavLink to={'/profile/notifications'}><Icons icon={"bell"}/></NavLink>
+                        <NavLink to={'/profile/messages'}><Icons icon={"chat"}/></NavLink>
                     </li>
                     <li className={styles.user}>
                         {!user.empty || user.loading ?
@@ -115,7 +98,7 @@ const Header: React.FC = () => {
                                 button={
                                     <>
                                         <h2>Войти</h2>
-                                        <img className={styles.sign__in} src={userIcon} alt={'Войти'}/>
+                                        <Icons icon={"account"}/>
                                     </>
                                 }
                                 content={Authorization}
@@ -129,21 +112,19 @@ const Header: React.FC = () => {
                 <div className={cn(styles.wrapper__mobile, mobileMenuStatus)} onClick={toggleMobileMenu}></div>
                 <header className={styles.header__mobile}>
                     <span className={styles.burger} onClick={toggleMobileMenu}></span>
-                    <NavLink to={'/'}><img src={logo} alt={'лого'}/></NavLink>
+                    <NavLink to={'/'} className={styles.logo}>PetLand</NavLink>
                 </header>
                 <nav className={cn(styles.menu__mobile, mobileMenuStatus)}>
                     <div className={styles.user__mobile}>
                         {!user.empty ?
                             <NavLink to={'/profile'} onClick={toggleMobileMenu}>
-                                <img src={user_profile} className={styles.sign__in}
-                                     title={'Выйти'}
-                                     alt={'Выйти'}/>
+                                <Icons icon={'sign-out'} className={styles.sign__in}/>
                                 <h1>{user.firstName}&nbsp;{user.surName}&nbsp;</h1>
                             </NavLink> :
                             <Modal
                                 button={
                                     <>
-                                        <img className={styles.sign__in} src={user_profile} alt={'Войти'}/>
+                                        <Icons icon={'account'} className={styles.sign__in}/>
                                         <h1 className={'link'}>Войти</h1>
                                     </>
                                 }
@@ -155,25 +136,25 @@ const Header: React.FC = () => {
                         <div>
                             <li><NavLink onClick={toggleMobileMenu} to={'/bulletin_board'}>
                                 <div>
-                                    <img src={m_ads} alt={'Доска объявлений'}/>
+                                    <Icons icon={"ad"}/>
                                 </div>
                                 <h2>Доска объявлений</h2>
                             </NavLink></li>
                             <li><NavLink onClick={toggleMobileMenu} to={'/services/specialists'}>
                                 <div>
-                                    <img src={m_specialists} alt={'Специалисты'}/>
+                                    <Icons icon={"template"}/>
                                 </div>
                                 <h2>Специалисты</h2>
                             </NavLink></li>
                             <li><NavLink onClick={toggleMobileMenu} to={'/services/clinics'}>
                                 <div>
-                                    <img src={m_clinics} alt={'Клиники и отели'}/>
+                                    <Icons icon={"template"}/>
                                 </div>
                                 <h2>Клиники и отели</h2>
                             </NavLink></li>
                             <li><NavLink onClick={toggleMobileMenu} to={'/services/events'}>
                                 <div>
-                                    <img src={m_events} alt={'Мероприятия'}/>
+                                    <Icons icon={'template'}/>
                                 </div>
                                 <h2>Мероприятия</h2>
                             </NavLink></li>
@@ -182,13 +163,13 @@ const Header: React.FC = () => {
                         <div>
                             <li><NavLink onClick={toggleMobileMenu} to={'/new_ad'}>
                                 <div>
-                                    <img src={m_new_ad} alt={'Разместить объявление'}/>
+                                    <Icons icon={"ad"}/>
                                 </div>
                                 <h2>Разместить объявление</h2>
                             </NavLink></li>
                             <li><NavLink onClick={toggleMobileMenu} to={'/become_specialist'}>
                                 <div>
-                                    <img src={m_new_ad} alt={'Стать специалистом'}/>
+                                    <Icons icon={"template"}/>
                                 </div>
                                 <h2>Стать специалистом</h2>
                             </NavLink></li>
@@ -197,19 +178,19 @@ const Header: React.FC = () => {
                         <div>
                             <li><NavLink onClick={toggleMobileMenu} to={'/profile/notifications'}>
                                 <div>
-                                    <img src={m_notifications} alt={'Уведомления'}/>
+                                    <Icons icon={"chat"}/>
                                 </div>
                                 <h2>Уведомления</h2>
                             </NavLink></li>
                             <li><NavLink onClick={toggleMobileMenu} to={'/profile/favorite'}>
                                 <div>
-                                    <img src={m_favorites} alt={'Избранное'}/>
+                                    <Icons icon={"cards-heart"}/>
                                 </div>
                                 <h2>Избранное</h2>
                             </NavLink></li>
                             <li><NavLink onClick={toggleMobileMenu} to={'/profile/messages'}>
                                 <div>
-                                    <img src={m_messages} alt={'Сообщения'}/>
+                                    <Icons icon={"chat"}/>
                                 </div>
                                 <h2>Сообщения</h2>
                             </NavLink></li>
@@ -218,19 +199,19 @@ const Header: React.FC = () => {
                         <div>
                             <li><NavLink onClick={toggleMobileMenu} to={'/profile'}>
                                 <div>
-                                    <img src={m_profile} alt={'Профиль'}/>
+                                    <Icons icon={"account"}/>
                                 </div>
                                 <h2>Профиль</h2></NavLink></li>
                             <li><NavLink onClick={toggleMobileMenu} to={'/profile/settings'}>
                                 <div>
-                                    <img src={m_settings} alt={'Настройки'}/>
+                                    <Icons icon={"settings"}/>
                                 </div>
                                 <h2>Настройки</h2>
                             </NavLink></li>
                             {!user.empty &&
                                 <li><a onClick={()=>{toggleMobileMenu();userService.signOut(setUser)}}>
                                     <div>
-                                        <img src={m_sign_out} alt={'Выход'}/>
+                                        <Icons icon={"sign-out"}/>
                                     </div>
                                     <h2>Выход</h2>
                                 </a></li>}

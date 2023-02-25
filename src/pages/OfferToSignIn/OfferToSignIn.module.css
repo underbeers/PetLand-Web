@@ -13,13 +13,12 @@
 }
 
 .text {
-    font-size: var(--accent-font-size);
     font-weight: bold;
     text-align: center;
 }
 
 .ref {
-    color: var(--accent-orange);
+    color: var(--orange--primary--color);
     text-decoration: underline;
 }
 

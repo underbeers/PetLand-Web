@@ -5,10 +5,10 @@
 }
 
 .tabs > a {
-    border-top: 2px solid var(--accent-green);
-    border-bottom: 2px solid var(--accent-green);
-    border-right: 1px solid var(--accent-green);
-    border-left: 1px solid var(--accent-green);
+    border-top: 2px solid var(--green--primary--color);
+    border-bottom: 2px solid var(--green--primary--color);
+    border-right: 1px solid var(--green--primary--color);
+    border-left: 1px solid var(--green--primary--color);
     box-sizing: border-box;
     height: 40px;
     width: 200px;
@@ -18,17 +18,17 @@
 }
 
 .tabs > a:last-child {
-    border-right: 2px solid var(--accent-green);
+    border-right: 2px solid var(--green--primary--color);
     border-radius: 0 15px 15px 0;
 }
 
 .tabs > a:first-child {
-    border-left: 2px solid var(--accent-green);
+    border-left: 2px solid var(--green--primary--color);
     border-radius: 15px 0 0 15px;
 }
 
 .tabs:global(>a.active) {
-    background-color: var(--accent-green);
-    color: var(--white);
+    background-color: var(--green--primary--color);
+    color: var(--base--0);
     font-weight: bold;
 }

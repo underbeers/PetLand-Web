@@ -9,10 +9,10 @@ import userService from '../../../services/userService';
 import Input from '../../UIKit/Input';
 import Button from '../../UIKit/Button';
 import Checkbox from '../../UIKit/Checkbox';
+import Icons from '../../UIKit/Icons';
 
 import Image from '../../Image/Image';
 
-import paw from '../../../static/paw.svg';
 import dogDesktop from './img/dog_desktop.jpg';
 import dogMobile from './img/dog_mobile.jpg';
 
@@ -82,7 +82,7 @@ const SignIn: React.FC<iAuthProps> = ({switchContent, closeModal, isMobile}) => 
                                     Неверный логин или пароль
                                 </p>
                             }
-                            <Button color={'orange'} label={'Войти'} onClick={login} size={'medium'} type={'fill'}/>
+                            <Button color={'orange'} text={'Войти'} onClick={login} type={'primary'}/>
                             <p className={cn('subtext', styles.forgot__pwd)}>
                                 У вас ещё нет аккаунта?&nbsp;
                                 <a className={'subtext link'} onClick={switchContent}>Зарегистрироваться</a>
@@ -91,7 +91,7 @@ const SignIn: React.FC<iAuthProps> = ({switchContent, closeModal, isMobile}) => 
 
                     </form>
                     <div className={generalStyles.paw__block}>
-                        <span className={generalStyles.paw}><img src={paw} alt={'Лапка'}/></span>
+                        <span className={generalStyles.paw}><Icons icon={'paw'}/></span>
                         <p className={'text'}>
                             При входе вы подтверждаете согласие с условиями<br/>
                             использования PetLand и политикой обработки данных.
@@ -136,8 +136,8 @@ const SignIn: React.FC<iAuthProps> = ({switchContent, closeModal, isMobile}) => 
                                 Неверный логин или пароль
                             </p>
                         }
-                        <Button color={'orange'} label={'Войти'} onClick={login} size={'small'} type={'fill'}/>
-                        <span className={generalStyles.paw}><img src={paw} alt={'Лапка'}/></span>
+                        <Button color={'orange'} text={'Войти'} onClick={login} type={'primary'}/>
+                        <span className={generalStyles.paw}><Icons icon={'paw'}/></span>
                         <p className={'subtext'}>
                             У вас ещё нет аккаунта?<br/>
                             <a className={'link'} onClick={switchContent}>Зарегистрироваться</a>

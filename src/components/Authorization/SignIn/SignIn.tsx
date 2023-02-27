@@ -73,7 +73,7 @@ const SignIn: React.FC<iAuthProps> = ({switchContent, closeModal, isMobile}) => 
                                     пароль?</a>
                             </div>
                             <div style={{alignSelf: 'flex-start'}}>
-                                <Checkbox setChecked={setSavePwd}>Не выходить из аккаунта</Checkbox>
+                                <Checkbox isChecked={savePwd} setChecked={setSavePwd}>Не выходить из аккаунта</Checkbox>
                             </div>
                         </div>
                         <div className={generalStyles.submit}>
@@ -125,7 +125,7 @@ const SignIn: React.FC<iAuthProps> = ({switchContent, closeModal, isMobile}) => 
                         <a className={'subtext'} href={'#'}
                            style={{textDecoration: 'underline', alignSelf: 'flex-end'}}>Забыли пароль?</a>
                         <div style={{alignSelf: 'flex-start'}}>
-                            <Checkbox setChecked={setSavePwd}>Не выходить из аккаунта</Checkbox>
+                            <Checkbox isChecked={savePwd} setChecked={setSavePwd}>Не выходить из аккаунта</Checkbox>
                         </div>
                     </div>
                     <div className={generalStyles.button__and__switch__content}>

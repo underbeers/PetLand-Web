@@ -1,6 +1,5 @@
 .chips{
-    border-radius: 12px;
-    padding: 8px 16px 8px 16px;
+    padding: 8px 16px;
     display: inline-block;
     color: var(--base--0);
 }
@@ -17,14 +16,17 @@
     background: var(--secondary--text--color);
 }
 
-.medium {
-    font-size: 14px;
+.small {
+    font-size: var(--secondary-2--text--size);
+    border-radius: calc(var(--secondary-2--text--size) + 16px / 2);
 }
 
-.small {
-    font-size: 12px;
+.medium {
+    font-size: var(--secondary-1--text--size);
+    border-radius: calc(var(--secondary-1--text--size) + 16px / 2);
 }
 
 .large {
-    font-size: 16px;
+    font-size: var(--body-regular--text--size);
+    border-radius: calc(var(--body-regular--text--size) + 16px / 2);
 }

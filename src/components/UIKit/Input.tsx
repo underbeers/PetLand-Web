@@ -38,11 +38,11 @@ const Input: React.FC<iInputProps> = ({
     const [regExpErrorMsg, setRegExpErrorMsg] = useState('');
 
     const checkRegularExpression = (value: string): string => {
-        if (!regularExpressions) {
-            return '';
-        }
         if (required && value == '') {
             return 'Обязательное поле';
+        }
+        if (!regularExpressions) {
+            return '';
         }
         for (let i = 0; i < regularExpressions.length; i++) {
             if (!regularExpressions[i].regExp.test(value)) {
@@ -77,8 +77,8 @@ const Input: React.FC<iInputProps> = ({
     const inputProps = {onChange, onFocus, disabled, placeholder};
 
     return (
-        <div className={cn(styles.input_container, className)}>
-            {label && <h5 className={styles.label}>{label}</h5>}
+        <label className={cn(styles.input_container, className)}>
+            {label && <h5 className={styles.label}>{label}{required && <span className={styles.error__message}>*</span>}</h5>}
             <span className={cn(styles.input, regExpErrorMsg && styles.error__input)}>
                 {type == 'textarea' ?
                     <textarea
@@ -95,9 +95,9 @@ const Input: React.FC<iInputProps> = ({
                 {type == 'password' && <Icons icon={pwdShown ? 'eye-slash' : 'eye'} className={styles.icon} onClick={()=>{setPwdShown(!pwdShown)}}/>}
             </span>
             {(regExpErrorMsg || help) &&
-                <p className={cn('secondary__text', styles.help, regExpErrorMsg && styles.error__message)}>{regExpErrorMsg || help}</p>
+                <p className={cn('secondary__text-2', styles.help, regExpErrorMsg && styles.error__message)}>{regExpErrorMsg || help}</p>
             }
-        </div>
+        </label>
     );
 };
 

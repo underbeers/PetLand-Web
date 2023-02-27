@@ -1,4 +1,5 @@
 .input_container {
+    display: block;
     position: relative;
     border-radius: 12px;
     width: 100%;

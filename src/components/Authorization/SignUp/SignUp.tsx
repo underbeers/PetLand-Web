@@ -169,7 +169,7 @@ const SignUp: React.FC<iAuthProps> = ({switchContent, closeModal, isMobile}) => 
                                    setValue={setPassword2} required={true}/>
                         </div>
                         <div style={{alignSelf: 'flex-start', width: '350px', overflow: 'visible'}}>
-                            <Checkbox setChecked={setPolicyChecked}>Согласие с пользовательским соглашением</Checkbox>
+                            <Checkbox isChecked={policyChecked} setChecked={setPolicyChecked}>Согласие с пользовательским соглашением</Checkbox>
                         </div>
                         <div className={generalStyles.submit}>
                             {responseCode == 409 &&
@@ -229,7 +229,7 @@ const SignUp: React.FC<iAuthProps> = ({switchContent, closeModal, isMobile}) => 
                                required={true} setValue={setPassword2}/>
                         <a className={'subtext link'} href={'#'} style={{alignSelf: 'flex-end'}}>
                             Забыли пароль?</a>
-                        <Checkbox setChecked={setPolicyChecked}>Согласие с пользовательским<br/>соглашением</Checkbox>
+                        <Checkbox isChecked={policyChecked} setChecked={setPolicyChecked}>Согласие с пользовательским<br/>соглашением</Checkbox>
                     </div>
                     <div className={generalStyles.button__and__switch__content}>
                         <Button color={'orange'} text={stage === 3 ? 'Создать аккаунт' : 'Следующий шаг'}

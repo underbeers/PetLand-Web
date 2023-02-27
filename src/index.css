@@ -11,6 +11,7 @@
     --sal: env(safe-area-inset-left);
 
     /* Color styles */
+    --pattern: rgba(245, 241, 238, 1);
     --base--900: rgba(45, 45, 45, 1);
     --base--800: rgba(79, 79, 79, 1);
     --base--700: rgba(111, 111, 111, 1);
@@ -73,15 +74,16 @@
     --heading-4--text--size: 18px;
     --heading-5--text--size: 16px;
     --body-regular--text--size: 16px;
-    --body-regular-underlined--text--size: 16px;
-    --body-secondary--text--size: 12px;
-    --body-secondary-underlined--text--size: 12px;
     --button--text--size: 16px;
+    --secondary-1--text--size: 14px;
+    --secondary-2--text--size: 12px;
+    --secondary-3--text--size: 10px;
+    --secondary-4--text--size: 8px;
 
     /* Effect styles */
     --inputs-shadow:  4px 4px 12px rgba(0, 0, 0, 0.25);
     --inputs-focus-shadow:  4px 4px 12px rgba(152, 177, 75, 0.25);
-    --inputs-error-shadow: 4px 4px 12px rgba(255, 81, 75, 0.25);
+    --inputs-error-shadow:  4px 4px 12px rgba(255, 81, 75, 0.25);
 
 
     /* Colors */
@@ -92,9 +94,9 @@
     --orange--primary--color: var(--orange--900);
     --green--primary--color: var(--green--600);
 
-    --background-color: rgba(255, 255, 255, 0.5);
+    --background-color: var(--pattern);
     --overlay-color: rgba(79, 79, 79, 0.3);
-    --background: #F5F1EE url('static/bg_pattern.png');
+    --background: var(--pattern) url('static/bg_pattern.png');
     --invisible: rgba(255, 255, 255, 0);
 
     /* Shadows */
@@ -150,16 +152,25 @@ h5 {
     font: normal normal 400 var(--body-regular--text--size)/20px sans-serif;
 }
 
-.secondary__text {
-    font: normal normal 400 var(--body-secondary--text--size)/15px sans-serif;
+.secondary__text-1 {
+    font: normal normal 400 var(--secondary-1--text--size)/18px sans-serif;
 }
 
-.primary__text-underlined {
-    font: underlined normal 400 var(--body-regular--text--size)/20px sans-serif;
+.secondary__text-2 {
+    font: normal normal 400 var(--secondary-2--text--size)/15px sans-serif;
 }
 
-.secondary__text-underlined {
-    font: underlined normal 400 var(--body-secondary--text--size)/15px sans-serif;
+.secondary__text-3 {
+    font: normal normal 400 var(--secondary-3--text--size)/13px sans-serif;
+}
+
+.secondary__text-4 {
+    font: normal normal 400 var(--secondary-4--text--size)/10px sans-serif;
+}
+
+.underlined {
+    text-decoration: underline;
+    cursor: pointer;
 }
 
 .container {

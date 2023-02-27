@@ -8,35 +8,39 @@ import Icons from "./Icons";
 
 
 interface iInputProps {
-    type: 'text' | 'password' | 'textarea' | 'email' | 'phone' | 'number';
+    label?: string;
+    help?: string;
     placeholder?: string;
-    width: string;
-    height?: string;
+    required?: boolean;
+    disabled?: boolean;
+    type: 'text' | 'password' | 'textarea' | 'email' | 'phone' | 'number';
     value: { value: string, ok: boolean, edited: boolean };
     setValue: Function;
     onChangeFn?: Function;
-    regularExpressions: Array<RegExpPair>;
-    required: boolean;
-    disabled?: boolean;
+    regularExpressions?: Array<RegExpPair>;
+    className?: string;
 }
 
-
 const Input: React.FC<iInputProps> = ({
-                                          type,
+                                          label,
+                                          help,
                                           placeholder,
-                                          width,
-                                          height,
+                                          required = false,
+                                          disabled = false,
+                                          type,
                                           value,
                                           setValue,
                                           onChangeFn,
                                           regularExpressions,
-                                          required,
-                                          disabled
+                                          className
                                       }) => {
     const [pwdShown, setPwdShown] = useState(false);
     const [regExpErrorMsg, setRegExpErrorMsg] = useState('');
 
     const checkRegularExpression = (value: string): string => {
+        if (!regularExpressions) {
+            return '';
+        }
         if (required && value == '') {
             return 'Обязательное поле';
         }
@@ -70,51 +74,31 @@ const Input: React.FC<iInputProps> = ({
         setRegExpErrorMsg(checkRegularExpression(value.value));
     }
 
-    const spanProps = {className: cn(styles.span, value.edited && !value.ok ? styles.wrong : '')};
     const inputProps = {onChange, onFocus, disabled, placeholder};
 
-    switch (type) {
-        case 'textarea':
-            return (
-                <span {...spanProps}>
-                    <div className={styles.error__msg}>{regExpErrorMsg}</div>
+    return (
+        <div className={cn(styles.input_container, className)}>
+            {label && <h5 className={styles.label}>{label}</h5>}
+            <span className={cn(styles.input, regExpErrorMsg && styles.error__input)}>
+                {type == 'textarea' ?
                     <textarea
-                        className={cn(styles.input)}
-                        style={{width: `calc(${width} - 40px)`, height: `calc(${height} - 24px)`}}
+                        className={cn('primary__text', styles.standard_input)}
                         {...inputProps}
-                    />
-                </span>
-            );
-        case 'password':
-            return (
-                <span {...spanProps} style={{position: 'relative', display: 'inline-flex', alignItems: 'center'}}>
-                    <div className={styles.error__msg}>{regExpErrorMsg}</div>
+                    /> :
                     <input
-                        className={cn(styles.input, styles[type])}
-                        style={{width: `calc(${width} - 65px)`}}
                         type={pwdShown ? 'text' : type}
+                        className={cn('primary__text', styles.standard_input)}
+                        {...inputProps}
                         onKeyDown={onKeyDown}
-                        {...inputProps}/>
-                    <Icons
-                        icon={pwdShown ? 'eye' : 'eye-slash'}
-                        className={styles.showHidePwd}
-                        onClick={(event) => {event.preventDefault();setPwdShown(!pwdShown)}}
-                        />
-                </span>
-            );
-        default:
-            return (
-                <span {...spanProps}>
-                    <div className={styles.error__msg}>{regExpErrorMsg}</div>
-                    <input
-                        className={cn(styles.input)}
-                        style={{width: `calc(${width} - 40px)`}}
-                        type={type}
-                        onKeyDown={onKeyDown}
-                        {...inputProps}/>
-                </span>
-            );
-    }
+                    />
+                }
+                {type == 'password' && <Icons icon={pwdShown ? 'eye-slash' : 'eye'} className={styles.icon} onClick={()=>{setPwdShown(!pwdShown)}}/>}
+            </span>
+            {(regExpErrorMsg || help) &&
+                <p className={cn('secondary__text', styles.help, regExpErrorMsg && styles.error__message)}>{regExpErrorMsg || help}</p>
+            }
+        </div>
+    );
 };
 
 export default Input;

@@ -8,6 +8,7 @@
     justify-content: center;
     align-items: center;
     pointer-events: none;
+    z-index: 101;
 }
 
 .overlay {
@@ -19,6 +20,7 @@
     top: 0;
     cursor: default;
     transition: opacity .3s, visibility .3s;
+    z-index: 100;
 }
 
 .modal {

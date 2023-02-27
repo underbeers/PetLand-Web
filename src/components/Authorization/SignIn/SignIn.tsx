@@ -64,10 +64,10 @@ const SignIn: React.FC<iAuthProps> = ({switchContent, closeModal, isMobile}) => 
                     <h1 className={styles.heading}>Авторизация</h1>
                     <form id='login_form' className={generalStyles.form}>
                         <div className={generalStyles.inputs}>
-                            <Input type={'text'} width={'300px'} placeholder={'Email'} value={email} setValue={setEmail}
+                            <Input type={'text'} placeholder={'Email'} value={email} setValue={setEmail}
                                    regularExpressions={emailRegExp} required={true}/>
                             <div className={styles.pwd__block}>
-                                <Input type={'password'} width={'300px'} placeholder={'Пароль'} value={password}
+                                <Input type={'password'} placeholder={'Пароль'} value={password}
                                        setValue={setPassword} regularExpressions={passwordRegExp} required={true}/>
                                 <a className={'subtext'} href={'#'} style={{textDecoration: 'underline'}}>Забыли
                                     пароль?</a>
@@ -113,7 +113,6 @@ const SignIn: React.FC<iAuthProps> = ({switchContent, closeModal, isMobile}) => 
                             regularExpressions={emailRegExp}
                             setValue={setEmail}
                             required={true}
-                            width={'260px'}
                         />
                         <Input
                             type={'password'}
@@ -122,7 +121,6 @@ const SignIn: React.FC<iAuthProps> = ({switchContent, closeModal, isMobile}) => 
                             regularExpressions={passwordRegExp}
                             setValue={setPassword}
                             required={true}
-                            width={'260px'}
                         />
                         <a className={'subtext'} href={'#'}
                            style={{textDecoration: 'underline', alignSelf: 'flex-end'}}>Забыли пароль?</a>

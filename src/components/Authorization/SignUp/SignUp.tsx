@@ -134,11 +134,11 @@ const SignUp: React.FC<iAuthProps> = ({switchContent, closeModal, isMobile}) => 
                     <h1>Регистрация</h1>
                     <form id='registration_form' className={generalStyles.form}>
                         <div className={generalStyles.inputs} style={{gap: 24}}>
-                            <Input type={'text'} width={'300px'} placeholder={'Имя'} value={firstName}
+                            <Input type={'text'} placeholder={'Имя'} value={firstName}
                                    setValue={setFirstName} regularExpressions={nameRegExp} required={true}/>
-                            <Input type={'text'} width={'300px'} placeholder={'Фамилия'} value={surName}
+                            <Input type={'text'} placeholder={'Фамилия'} value={surName}
                                    setValue={setSurName} regularExpressions={nameRegExp} required={true}/>
-                            <Input type={'email'} width={'300px'} placeholder={'Email'} value={email}
+                            <Input type={'email'} placeholder={'Email'} value={email}
                                    regularExpressions={emailRegExp} required={true} disabled={waitCode && counter != 0}
                                    setValue={setEmail} onChangeFn={() => {setEmailVerified(false)}}/>
                             <div className={styles.email__confirm}>
@@ -152,16 +152,16 @@ const SignUp: React.FC<iAuthProps> = ({switchContent, closeModal, isMobile}) => 
                                         {counter ? <>Подождите {counter} секунд{getEnding(counter)}</> : ''}
                                     </p>
                                 </div>
-                                <Input type={'text'} width={'130px'} placeholder={'Код'} value={verificationCode}
+                                <Input type={'text'} placeholder={'Код'} value={verificationCode}
                                        setValue={setVerificationCode} disabled={emailVerified} required={true}
                                        regularExpressions={[]}/>
                             </div>
                             <div className={styles.password1}>
-                                <Input type={'password'} width={'300px'} placeholder={'Придумайте пароль'}
+                                <Input type={'password'}placeholder={'Придумайте пароль'}
                                        value={password1}
                                        setValue={setPassword1} regularExpressions={passwordRegExp} required={true}/>
                             </div>
-                            <Input type={'password'} width={'300px'} placeholder={'Повторите пароль'} value={password2}
+                            <Input type={'password'} placeholder={'Повторите пароль'} value={password2}
                                    regularExpressions={[{
                                        regExp: RegExp('^' + password1.value + '$'),
                                        error: 'Пароли не совпадают'
@@ -198,30 +198,30 @@ const SignUp: React.FC<iAuthProps> = ({switchContent, closeModal, isMobile}) => 
                     <h1>Регистрация</h1>
                     <div className={generalStyles.form} style={{display: stage === 1 ? 'flex' : 'none'}}>
                         <Input type={'text'} placeholder={'Имя'} value={firstName} regularExpressions={nameRegExp}
-                               setValue={setFirstName} required={true} width={'260px'}/>
+                               setValue={setFirstName} required={true}/>
                         <Input type={'text'} placeholder={'Фамилия'} value={surName} regularExpressions={nameRegExp}
-                               setValue={setSurName} required={true} width={'260px'}/>
+                               setValue={setSurName} required={true}/>
                     </div>
                     <div className={generalStyles.form} style={{display: stage === 2 ? 'flex' : 'none'}}>
                         <p className={styles.resend__code}>
                             {counter ? <>Подождите {counter} секунд{getEnding(counter)}</> : ''}
                         </p>
                         <Input type={'email'} placeholder={'Email'} value={email} regularExpressions={emailRegExp}
-                               setValue={setEmail} required={true} width={'260px'} disabled={waitCode && counter != 0}
+                               setValue={setEmail} required={true} disabled={waitCode && counter != 0}
                                onChangeFn={() => {setEmailVerified(false)}}/>
                         <Button color={'orange'} text={'Отправить код'} onClick={sendCode}
                                 type={'secondary'} disabled={!email.ok || waitCode && counter !== 0}/>
 
                         <Input type={'number'} placeholder={'Код'} value={verificationCode} regularExpressions={[]}
-                               setValue={setVerificationCode} required={true} width={'260px'} disabled={emailVerified}/>
+                               setValue={setVerificationCode} required={true} disabled={emailVerified}/>
                         {emailVerified &&
                             <p className={cn('success', styles.code__verified__msg)}>Email подтвержден</p>
                         }
                     </div>
                     <div className={generalStyles.form} style={{display: stage === 3 ? 'flex' : 'none'}}>
                         <Input type={'password'} placeholder={'Пароль'} regularExpressions={passwordRegExp}
-                               value={password1} setValue={setPassword1} required={true} width={'260px'}/>
-                        <Input type={'password'} placeholder={'Повторите пароль'} value={password2} width={'260px'}
+                               value={password1} setValue={setPassword1} required={true}/>
+                        <Input type={'password'} placeholder={'Повторите пароль'} value={password2}
                                regularExpressions={[{
                                    regExp: RegExp('^' + password1.value + '$'),
                                    error: 'Пароли не совпадают'

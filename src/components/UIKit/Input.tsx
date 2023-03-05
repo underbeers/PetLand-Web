@@ -4,8 +4,8 @@ import cn from 'classnames';
 import {RegExpPair} from '../../constants/regularExpressions';
 
 import styles from './Input.module.css';
-import Icons from "./Icons";
-import {Simulate} from "react-dom/test-utils";
+import Icons from './Icons';
+import {Simulate} from 'react-dom/test-utils';
 import drop = Simulate.drop;
 
 
@@ -100,15 +100,7 @@ const Input: React.FC<iInputProps> = ({
                             onKeyDown={onKeyDown}
                         />
                         <datalist id={styles.data} className={styles.dropdown__datalist}>
-                            <option value="Chrome"/>
-                            <option value="Firefox"/>
-                            <option value="Internet Explorer"/>
-                            <option value="Opera"/>
-                            <option value="Safari"/>
-                            <option value="Microsoft Edge"/>
-                            {/*
-                                dropdownItems?.map((value, index) => <option key={index} value={value.toString()}/>)
-                            */}
+                            {dropdownItems?.map((value, index) => (<option key={index} value={value.toString()}/>))}
                         </datalist>
                     </>
                 );

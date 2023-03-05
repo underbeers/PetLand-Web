@@ -154,19 +154,19 @@ h5 {
 }
 
 .secondary__text-1 {
-    font: normal normal 400 var(--secondary-1--text--size)/18px sans-serif;
+    font: normal normal 400 var(--secondary-1--text--size)/18px var(--mulish-font);
 }
 
 .secondary__text-2 {
-    font: normal normal 400 var(--secondary-2--text--size)/15px sans-serif;
+    font: normal normal 400 var(--secondary-2--text--size)/15px var(--mulish-font);
 }
 
 .secondary__text-3 {
-    font: normal normal 400 var(--secondary-3--text--size)/13px sans-serif;
+    font: normal normal 400 var(--secondary-3--text--size)/13px var(--mulish-font);
 }
 
 .secondary__text-4 {
-    font: normal normal 400 var(--secondary-4--text--size)/10px sans-serif;
+    font: normal normal 400 var(--secondary-4--text--size)/10px var(--mulish-font);
 }
 
 .underlined {

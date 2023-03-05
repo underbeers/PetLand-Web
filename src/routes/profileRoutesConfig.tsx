@@ -1,9 +1,9 @@
-import {Navigate} from "react-router-dom";
+import {Navigate} from 'react-router-dom';
 
-import Pets from "../pages/Profile/Pets/Pets";
-import Ads from "../pages/Profile/Ads/Ads";
-import UserProfile from "../pages/Profile/UserProfile/UserProfile";
-import Page404 from "../pages/Page404/Page404";
+import Pets from '../pages/Profile/Pets/Pets';
+import Ads from '../pages/Profile/Ads/Ads';
+import UserProfile from '../pages/Profile/UserProfile/UserProfile';
+import Page404 from '../pages/Page404/Page404';
 
 
 const PROFILE_PREFIX = '/profile';

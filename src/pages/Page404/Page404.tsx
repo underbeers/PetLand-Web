@@ -26,7 +26,7 @@ const Page404: React.FC = () => {
             </div>
             <img src={sadDog} alt='Собака' className={styles.dog}/>
         </div>
-        <Button color={'orange'} label={'Перейти на главную'} onClick={routeChange} size={'medium'} type={'fill'}/>
+        <Button color={'orange'} text={'Перейти на главную'} onClick={routeChange} type={'primary'}/>
     </div>
 
     );

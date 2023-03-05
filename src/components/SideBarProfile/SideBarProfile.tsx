@@ -4,16 +4,8 @@ import {NavLink} from "react-router-dom";
 
 import Image from "../Image/Image";
 
-import paw from '../../static/icons/paw.svg';
-import favorite from '../../static/icons/favorite.svg';
-import ads from '../../static/icons/ad.svg';
-import reviews from '../../static/icons/reviews.svg';
-import star from '../../static/icons/star.svg';
-import settings from '../../static/icons/settings.svg';
-import signOut from '../../static/icons/sign-out.svg';
-import userPhoto from "./img/user.jpg"
-
 import styles from './SideBarProfile.module.css'
+import Icons from "../UIKit/Icons";
 
 
 const SideBarProfile = () => {
@@ -49,31 +41,31 @@ const SideBarProfile = () => {
             <ul className={styles.menu}>
                 <li className={styles.nav}>
                     <NavLink to={'/profile/pets'} className={styles.menu__item}>
-                        <img src={paw} alt="Питомцы"/>
+                        <Icons icon={"paw"}/>
                         <h2>Питомцы</h2>
                     </NavLink>
                 </li>
                 <li className={styles.nav}>
                     <NavLink to={'/profile/favorite'} className={styles.menu__item}>
-                        <img src={favorite} alt="Избранное"></img>
+                        <Icons icon={"cards-heart"}/>
                         <h2>Избранное</h2>
                     </NavLink>
                 </li>
                 <li className={styles.nav}>
                     <NavLink to={'/profile/ads'} className={styles.menu__item}>
-                        <img src={ads} alt="Объявления"></img>
+                        <Icons icon={"ad"}/>
                         <h2>Объявления</h2>
                     </NavLink>
                 </li>
                 <li className={styles.nav}>
                     <NavLink to={'/profile/reviews'} className={styles.menu__item}>
-                        <img src={reviews} alt="Отзывы"></img>
+                        <Icons icon={"reviews"}/>
                         <h2>Отзывы</h2>
                     </NavLink>
                 </li>
                 <li className={styles.nav}>
                     <NavLink to={'/profile/rates'} className={styles.menu__item}>
-                        <img src={star} alt="Рейтинг"></img>
+                        <Icons icon={"round-star"}/>
                         <h2>Рейтинг</h2>
                     </NavLink>
                 </li>
@@ -84,13 +76,13 @@ const SideBarProfile = () => {
             <ul className={styles.settings__quit}>
                 <li className={styles.nav}>
                     <NavLink to={'/profile/settings'} className={styles.menu__item}>
-                        <img src={settings} alt="Настройки"></img>
+                        <Icons icon={"settings"}/>
                         <h2>Настройки</h2>
                     </NavLink>
                 </li>
                 <li className={styles.nav}>
                     <NavLink to={'/'} className={styles.menu__item}>
-                        <img src={signOut} alt="Выход"></img>
+                        <Icons icon={"sign-out"}/>
                         <h2>Выход</h2>
                     </NavLink>
                 </li>

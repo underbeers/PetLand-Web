@@ -17,6 +17,7 @@ const Authorization: ModalContent = ({closeModal, isMobile, isFormSignIn}) => {
     const signInRef = useRef(null);
     const signUpRef = useRef(null);
     const nodeRef = formSignIn ? signInRef : signUpRef;
+    const signInUpProps = {closeModal, isMobile};
 
     return (
         <SwitchTransition mode='out-in'>
@@ -29,8 +30,8 @@ const Authorization: ModalContent = ({closeModal, isMobile, isFormSignIn}) => {
                 classNames='fade'>
                 <div ref={!isMobile ? nodeRef : null}>
                     {formSignIn ?
-                        <SignIn switchContent={() => {setFormSignIn(false)}} closeModal={closeModal} isMobile={isMobile}/> :
-                        <SignUp switchContent={() => {setFormSignIn(true)}} closeModal={closeModal} isMobile={isMobile}/>
+                        <SignIn switchContent={() => {setFormSignIn(false)}} {...signInUpProps}/> :
+                        <SignUp switchContent={() => {setFormSignIn(true)}} {...signInUpProps}/>
                     }
                 </div>
             </CSSTransition>

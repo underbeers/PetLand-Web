@@ -4,6 +4,8 @@ import Button from '../../../components/UIKit/Button';
 import PetCard from '../../../components/PetCard/PetCard';
 
 import styles from './Pets.module.css'
+import {Simulate} from "react-dom/test-utils";
+import load = Simulate.load;
 
 
 const Pets: React.FC = () => {
@@ -14,7 +16,7 @@ const Pets: React.FC = () => {
             <div className={styles.content}>
                 <div className={styles.title__button}>
                     <h1>Мои питомцы</h1>
-                    <Button color={'orange'} label={'Добавить питомца'} onClick={() => {}} size={'medium'} type={'fill'}/>
+                    <Button color={'orange'} text={'Добавить питомца'} onClick={() => {}} type={'primary'}/>
                 </div>
                 <div className={styles.cards}>
                     <PetCard size={'medium'}/>
@@ -29,11 +31,11 @@ const Pets: React.FC = () => {
                 <span className={styles.title}>У вас пока нет питомцев</span>
                 <div className={styles.text__button}>
                     <p>Если у вас уже есть питомец,<br/> добавьте его описание на PetLand</p>
-                    <Button color={'orange'} label={'Добавить питомца'} onClick={() => {}} size={'small'} type={'fill'}/>
+                    <Button color={'orange'} text={'Добавить питомца'} onClick={() => {}} type={'primary'}/>
                 </div>
                 <div className={styles.text__button}>
                     <p>Или найдите друга<br/> в объявлениях PetLand</p>
-                    <Button color={'green'} label={'Доска объявлений'} onClick={() => {}} size={'small'} type={'fill'}/>
+                    <Button color={'green'} text={'Доска объявлений'} onClick={() => {}} type={'primary'}/>
                 </div>
             </div>
     );

@@ -1,64 +1,128 @@
+.input_container {
+    display: block;
+    position: relative;
+    border-radius: 12px;
+    width: 100%;
+}
+
 .input {
-    font-family: 'Mulish', sans-serif;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 20px;
-    color: var(--text);
-    border-radius: 15px;
-    background: var(--white);
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 0 12px;
+
+    border-radius: var(--border-12);
+    -moz-border-radius: var(--border-12);
+    -webkit-border-radius: var(--border-12);
+
+    box-shadow: var(--inputs-shadow);
+    -webkit-box-shadow: var(--inputs-shadow);
+    -moz-box-shadow: var(--inputs-shadow);
+    -o-box-shadow: var(--inputs-shadow);
+
+    background-color: var(--base--0);
+}
+
+.standard_input {
+    resize: none;
+    width: 100%;
+    background-color: transparent;
     outline: none;
     border: none;
-    padding: 10px 20px;
-    resize: none;
-    position: relative;
+    padding: 12px 0;
+    color: var(--primary--text--color);
 }
 
-.input:focus {
-    box-shadow: 0 0 10px var(--accent-green);
-}
-
-.password {
-    padding: 12px 45px 12px 20px;
-}
-
-.showHidePwd {
-    position: absolute;
-    padding: 10px;
-    right: 10px;
-    width: 25px;
-    height: 25px;
+.icon {
     cursor: pointer;
+    display: block;
+    transform: scale(calc(5 / 6));
 }
 
-.span {
-    position: relative;
+.icon path {
+    fill: var(--base--800);
 }
 
-.error__msg {
-    color: var(--red);
-    font-size: 12px;
+.label {
+    margin-bottom: 4px;
+}
+
+.help {
+    color: var(--secondary--text--color);
     position: absolute;
-    bottom: -15px;
-    left: 20px;
+    left: 0;
+    /* Help line height + 4px */
+    bottom: -19px;
+}
+
+.input:has(input:focus, textarea:focus) {
+    box-shadow: var(--inputs-focus-shadow);
+    -webkit-box-shadow: var(--inputs-focus-shadow);
+    -moz-box-shadow: var(--inputs-focus-shadow);
+}
+
+.input_container:has(input:focus, textarea:focus) > .label {
+    color: var(--green--primary--color);
+}
+
+.standard_input:disabled {
+    color: var(--base--500);
+}
+
+.input:has(input:disabled, textarea:disabled) {
+    background-color: var(--base--100);
+}
+
+::placeholder {
+    color: var(--base--500);
+    opacity: 1;
+}
+
+::-moz-placeholder {
+    color: var(--base--500);
+    opacity: 1;
+}
+
+::-webkit-input-placeholder {
+    color: var(--base--500);
+    opacity: 1;
+}
+
+::-ms-input-placeholder {
+    color: var(--base--500);
+    opacity: 1;
+}
+
+.error__message {
+    color: var(--error--color);
+}
+
+.error__input {
+    box-shadow: var(--inputs-error-shadow);
+    -webkit-box-shadow: var(--inputs-error-shadow);
+    -moz-box-shadow: var(--inputs-error-shadow);
+}
+
+.input:has(textarea) {
+    height: 100%;
+}
+
+.input > textarea {
+    height: calc(100% - 24px);
+}
+
+.input_container:has(h5) > .input:has(textarea) {
+    /* Subtract label height and it margin */
+    height: calc(100% - 24px);
+}
+
+.data {
+
+}
+
+.dropdown__datalist {
     width: 100%;
-    text-align: left;
-}
-
-.wrong .input {
-    box-shadow: 0 0 2px var(--red);
-}
-
-.wrong .input:focus {
-    filter: drop-shadow(0 0 5px var(--red));
-}
-
-
-@media screen and (max-width: 700px) {
-
-    .input {
-        padding-top: 12.5px;
-        padding-bottom: 12.5px;
-    }
-
+    background-color: var(--base--500);
 }

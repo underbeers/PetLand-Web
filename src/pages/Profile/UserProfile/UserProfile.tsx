@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import cn from 'classnames';
 
 import Button from '../../../components/UIKit/Button';
@@ -6,10 +6,9 @@ import Chips from '../../../components/UIKit/Chips';
 import PetCard from '../../../components/PetCard/PetCard';
 import Image from '../../../components/Image/Image';
 
-import userPhoto from '../../../components/SideBarProfile/img/user.jpg';
-import star from '../../../static/icons/star.svg'
-
 import styles from './UserProfile.module.css';
+import {UserContext} from "../../../userContext";
+import Icons from "../../../components/UIKit/Icons";
 
 
 const UserProfile = () => {
@@ -20,6 +19,7 @@ const UserProfile = () => {
     const [isReviews, setIsReviews] = useState(true);
     const [isSpecialist, setIsSpecialist] = useState(true);
 
+    const {user, setUser} = useContext(UserContext);
 
     const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
 
@@ -35,7 +35,7 @@ const UserProfile = () => {
             {isMobile ?
             <div className={styles.photo__name}>
                 <Image
-                    imageProps={{src: userPhoto, alt: 'Фото', width: '100px', height: '100px'}}
+                    imageProps={{src: user.photo, alt: user.firstName + user.surName, width: '100px', height: '100px'}}
                     borderRadius={'50px 50px 50px 50px'}
                     className={styles.image}/>
                 <h2>Имя<br />Фамилия</h2>
@@ -52,7 +52,7 @@ const UserProfile = () => {
                     <div className={styles.description}>
                         <h2>Описание: </h2>
                         <p className={'text'} style={{marginBottom: '8px'}}>Вы еще не добавили описание</p>
-                        <Button size={'medium'} color={'green'} label={'Настроить профиль'} onClick={() => {}} type={'fill'} />
+                        <Button color={'green'} text={'Настроить профиль'} onClick={() => {}} type={'primary'} />
                     </div>
             }
 
@@ -71,7 +71,7 @@ const UserProfile = () => {
                     <div className={styles.stat__pets}>
                         <h2 className={styles.title__pets}>Питомцы</h2>
                         <p className={'text'} style={{marginBottom: '8px'}}>У вас еще не добавлены питомцы на PetLand</p>
-                        <Button size={'medium'} color={'orange'} label={'Добавить питомца'} onClick={() => {}} type={'fill'} />
+                        <Button color={'orange'} text={'Добавить питомца'} onClick={() => {}} type={'primary'} />
                     </div>
                 }
 
@@ -84,11 +84,11 @@ const UserProfile = () => {
                                 <h2>Рейтинг</h2>
                                 <div className={styles.stars__reviews}>
                                     <div className={styles.stars}>
-                                        <img src={star} alt={'star'}/>
-                                        <img src={star} alt={'star'}/>
-                                        <img src={star} alt={'star'}/>
-                                        <img src={star} alt={'star'}/>
-                                        <img src={star} alt={'star'}/>
+                                        <Icons icon={'round-star'}/>
+                                        <Icons icon={'round-star'}/>
+                                        <Icons icon={'round-star'}/>
+                                        <Icons icon={'round-star'}/>
+                                        <Icons icon={'round-star'}/>
                                     </div>
                                     <span>4,0</span>
                                     <a href={'#'}>2 отзыва</a>

@@ -9,10 +9,10 @@ import userService from '../../../services/userService';
 import Input from '../../UIKit/Input';
 import Button from '../../UIKit/Button';
 import Checkbox from '../../UIKit/Checkbox';
+import Icons from '../../UIKit/Icons';
 
 import Image from '../../Image/Image';
 
-import paw from '../../../static/paw.svg';
 import dogDesktop from './img/dog_desktop.jpg';
 import dogMobile from './img/dog_mobile.jpg';
 
@@ -64,16 +64,16 @@ const SignIn: React.FC<iAuthProps> = ({switchContent, closeModal, isMobile}) => 
                     <h1 className={styles.heading}>Авторизация</h1>
                     <form id='login_form' className={generalStyles.form}>
                         <div className={generalStyles.inputs}>
-                            <Input type={'text'} width={'300px'} placeholder={'Email'} value={email} setValue={setEmail}
+                            <Input type={'text'} placeholder={'Email'} value={email} setValue={setEmail}
                                    regularExpressions={emailRegExp} required={true}/>
                             <div className={styles.pwd__block}>
-                                <Input type={'password'} width={'300px'} placeholder={'Пароль'} value={password}
+                                <Input type={'password'} placeholder={'Пароль'} value={password}
                                        setValue={setPassword} regularExpressions={passwordRegExp} required={true}/>
                                 <a className={'subtext'} href={'#'} style={{textDecoration: 'underline'}}>Забыли
                                     пароль?</a>
                             </div>
                             <div style={{alignSelf: 'flex-start'}}>
-                                <Checkbox setChecked={setSavePwd}>Не выходить из аккаунта</Checkbox>
+                                <Checkbox isChecked={savePwd} setChecked={setSavePwd}>Не выходить из аккаунта</Checkbox>
                             </div>
                         </div>
                         <div className={generalStyles.submit}>
@@ -82,7 +82,7 @@ const SignIn: React.FC<iAuthProps> = ({switchContent, closeModal, isMobile}) => 
                                     Неверный логин или пароль
                                 </p>
                             }
-                            <Button color={'orange'} label={'Войти'} onClick={login} size={'medium'} type={'fill'}/>
+                            <Button color={'orange'} text={'Войти'} onClick={login} type={'primary'}/>
                             <p className={cn('subtext', styles.forgot__pwd)}>
                                 У вас ещё нет аккаунта?&nbsp;
                                 <a className={'subtext link'} onClick={switchContent}>Зарегистрироваться</a>
@@ -91,7 +91,7 @@ const SignIn: React.FC<iAuthProps> = ({switchContent, closeModal, isMobile}) => 
 
                     </form>
                     <div className={generalStyles.paw__block}>
-                        <span className={generalStyles.paw}><img src={paw} alt={'Лапка'}/></span>
+                        <span className={generalStyles.paw}><Icons icon={'paw'}/></span>
                         <p className={'text'}>
                             При входе вы подтверждаете согласие с условиями<br/>
                             использования PetLand и политикой обработки данных.
@@ -113,7 +113,6 @@ const SignIn: React.FC<iAuthProps> = ({switchContent, closeModal, isMobile}) => 
                             regularExpressions={emailRegExp}
                             setValue={setEmail}
                             required={true}
-                            width={'260px'}
                         />
                         <Input
                             type={'password'}
@@ -122,12 +121,11 @@ const SignIn: React.FC<iAuthProps> = ({switchContent, closeModal, isMobile}) => 
                             regularExpressions={passwordRegExp}
                             setValue={setPassword}
                             required={true}
-                            width={'260px'}
                         />
                         <a className={'subtext'} href={'#'}
                            style={{textDecoration: 'underline', alignSelf: 'flex-end'}}>Забыли пароль?</a>
                         <div style={{alignSelf: 'flex-start'}}>
-                            <Checkbox setChecked={setSavePwd}>Не выходить из аккаунта</Checkbox>
+                            <Checkbox isChecked={savePwd} setChecked={setSavePwd}>Не выходить из аккаунта</Checkbox>
                         </div>
                     </div>
                     <div className={generalStyles.button__and__switch__content}>
@@ -136,8 +134,8 @@ const SignIn: React.FC<iAuthProps> = ({switchContent, closeModal, isMobile}) => 
                                 Неверный логин или пароль
                             </p>
                         }
-                        <Button color={'orange'} label={'Войти'} onClick={login} size={'small'} type={'fill'}/>
-                        <span className={generalStyles.paw}><img src={paw} alt={'Лапка'}/></span>
+                        <Button color={'orange'} text={'Войти'} onClick={login} type={'primary'}/>
+                        <span className={generalStyles.paw}><Icons icon={'paw'}/></span>
                         <p className={'subtext'}>
                             У вас ещё нет аккаунта?<br/>
                             <a className={'link'} onClick={switchContent}>Зарегистрироваться</a>

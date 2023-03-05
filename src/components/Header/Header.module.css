@@ -1,5 +1,10 @@
-.header, .header__mobile {
-    background-color: var(--background-color);
+.header {
+    background-color: var(--background-header-footer);
+    width: 100%;
+}
+
+.header__mobile {
+    background-color: var(--base--0);
     width: 100%;
 }
 
@@ -18,8 +23,16 @@
     align-items: center;
 }
 
+.logo {
+    font-family: var(--modak-font);
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 36px;
+    color: var(--orange--primary--color);
+}
+
 .header a:hover {
-    color: var(--accent-orange);
+    color: var(--orange--primary--color);
 }
 
 .nav {
@@ -52,11 +65,11 @@
     width: 100%;
     height: 3px;
     border-radius: 0 0 3px 3px;
-    background-color: var(--accent-orange);
+    background-color: var(--orange--primary--color);
 }
 
 .nav > a:hover > h2 {
-    color: var(--accent-orange);
+    color: var(--orange--primary--color);
 }
 
 .icons {
@@ -73,21 +86,23 @@
     padding: 5px;
 }
 
-.icons > a > img {
-    width: 27px;
-    height: 25px;
+.icons > a > svg {
     transition: transform .2s;
 }
 
-.icons > a:hover > img {
-    transform: scale(1.15);
+.icons > a:hover > svg {
+    transform: scale(1.2);
+}
+
+.icons > a > svg > path {
+    fill: var(--orange--primary--color);
 }
 
 .divider {
     display: block;
     width: 100%;
     margin: 10px auto;
-    background-color: var(--subtext);
+    background-color: var(--secondary--text--color);
     height: 1px;
 }
 
@@ -127,7 +142,7 @@
     box-sizing: border-box;
     width: 40px;
     height: 40px;
-    box-shadow: 0 0 0 1px var(--accent-orange) inset;
+    box-shadow: 0 0 0 1px var(--orange--primary--color) inset;
 }
 
 .services__btn {
@@ -136,8 +151,8 @@
 
 .services {
     width: 150px;
-    background-color: var(--white);
-    border: 1px solid var(--accent-orange);
+    background-color: var(--base--0);
+    border: 1px solid var(--orange--primary--color);
     border-radius: 15px;
     position: absolute;
     left: 50%;
@@ -169,7 +184,7 @@
     width: 30px;
     height: 4px;
     border-radius: 2px;
-    background-color: var(--text);
+    background-color: var(--primary--text--color);
 }
 
 .burger:before, .burger:after {
@@ -226,7 +241,7 @@
 
 
 .user__mobile {
-    background-color: var(--accent-green);
+    background-color: var(--green--primary--color);
     border-radius: 0 15px 0 0;
     height: 130px;
     padding: 10px;
@@ -280,7 +295,7 @@
     display: block;
     width: 277px;
     height: 1px;
-    background-color: var(--subtext);
+    background-color: var(--secondary--text--color);
     opacity: .5;
     border-radius: 0 1px 1px 0;
     margin: 10px 0;

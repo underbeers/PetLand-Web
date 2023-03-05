@@ -117,3 +117,12 @@
     /* Subtract label height and it margin */
     height: calc(100% - 24px);
 }
+
+.data {
+
+}
+
+.dropdown__datalist {
+    width: 100%;
+    background-color: var(--base--500);
+}

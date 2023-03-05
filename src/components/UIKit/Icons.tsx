@@ -5,7 +5,7 @@ type Icon = 'account' | 'account-circle'  | 'ad' | 'bell' | 'calendar' | 'cards-
     'chat' | 'checkbox-blank-outline' | 'checkbox-marked' | 'chevron-down' | 'chevron-up' | 'cross' | 'eye' |
     'eye-slash' | 'filter' | 'grid-2-1' | 'grid-2-2' | 'paw' | 'radio-button-checked' | 'reviews' | 'round-star' |
     'round-star-border' | 'search-rounded' | 'settings' | 'sign-out' | 'sort-alt' | 'radio-button-unchecked' |
-    'arrow-right' | 'arrow-left' | 'dots-horizontal' | 'dots-vertical' | 'share' | 'edit' | 'check' |
+    'arrow-right' | 'arrow-left' | 'dots-horizontal' | 'dots-vertical' | 'share' | 'edit' | 'check' | 'burger' |
     'template' ;
 
 type IconsProps = {
@@ -86,6 +86,8 @@ const path = (icon: Icon) => {
             return (<path d='M20.71 7.04C21.1 6.65 21.1 6 20.71 5.63L18.37 3.29C18 2.9 17.35 2.9 16.96 3.29L15.12 5.12L18.87 8.87M3 17.25V21H6.75L17.81 9.93L14.06 6.18L3 17.25Z' fill='#4F4F4F'/>);
         case 'check':
             return (<path d='M21 7L9 19L3.5 13.5L4.91 12.09L9 16.17L19.59 5.59L21 7Z' fill='#4F4F4F'/>);
+        case 'burger':
+            return (<path d="M3 7C3 6.44772 3.44772 6 4 6H20C20.5523 6 21 6.44772 21 7C21 7.55228 20.5523 8 20 8H4C3.44772 8 3 7.55228 3 7ZM3 12C3 11.4477 3.44772 11 4 11H20C20.5523 11 21 11.4477 21 12C21 12.5523 20.5523 13 20 13H4C3.44772 13 3 12.5523 3 12ZM3 17C3 16.4477 3.44772 16 4 16H20C20.5523 16 21 16.4477 21 17C21 17.5523 20.5523 18 20 18H4C3.44772 18 3 17.5523 3 17Z" fill="#4F4F4F"/>);
         case 'template':
             return (<path d='M12 18C15.3137 18 18 15.3137 18 12C18 8.68629 15.3137 6 12 6C8.68629 6 6 8.68629 6 12C6 15.3137 8.68629 18 12 18Z' fill='#4F4F4F'/>);
     }

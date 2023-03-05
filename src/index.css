@@ -94,6 +94,7 @@
     --orange--primary--color: var(--orange--900);
     --green--primary--color: var(--green--600);
 
+    --background-header-footer: rgba(255, 255, 255, .5);
     --background-color: var(--pattern);
     --overlay-color: rgba(79, 79, 79, 0.3);
     --background: var(--pattern) url('static/bg_pattern.png');
@@ -129,27 +130,27 @@ body {
 }
 
 h1 {
-    font: normal normal 700 var(--heading-1--text--size)/30px sans-serif;
+    font: normal normal 700 var(--heading-1--text--size)/30px var(--mulish-font);
 }
 
 h2 {
-    font: normal normal 700 var(--heading-2--text--size)/28px sans-serif;
+    font: normal normal 700 var(--heading-2--text--size)/28px var(--mulish-font);
 }
 
 h3 {
-    font: normal normal 700 var(--heading-3--text--size)/25px sans-serif;
+    font: normal normal 700 var(--heading-3--text--size)/25px var(--mulish-font);
 }
 
 h4 {
-    font: normal normal 700 var(--heading-4--text--size)/23px sans-serif;
+    font: normal normal 700 var(--heading-4--text--size)/23px var(--mulish-font);
 }
 
 h5 {
-    font: normal normal 700 var(--heading-5--text--size)/20px sans-serif;
+    font: normal normal 700 var(--heading-5--text--size)/20px var(--mulish-font);
 }
 
 .primary__text {
-    font: normal normal 400 var(--body-regular--text--size)/20px sans-serif;
+    font: normal normal 400 var(--body-regular--text--size)/20px var(--mulish-font);
 }
 
 .secondary__text-1 {

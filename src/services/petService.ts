@@ -12,7 +12,6 @@ class PetService {
     public async getBreedByPetTypeId(petTypeId: string) {
         return fetch(API_URL + `/breeds/?pet_type_id=${petTypeId}`, {
             method: 'GET',
-            mode: 'no-cors',
             headers: {'Content-Type': 'application/json'}
         })
     }
@@ -20,7 +19,6 @@ class PetService {
     public async getFullPetCard(userId: string) {
         return fetch(API_URL + `/petCards/?user_id=${userId}`, {
             method: 'GET',
-            mode: 'no-cors',
             headers: {'Content-Type': 'application/json'}
         })
     }
@@ -28,7 +26,6 @@ class PetService {
     public async getShortPetCard(userId: string) {
         return fetch(API_URL + `/petCards/main/?user_id=${userId}`, {
             method: 'GET',
-            mode: 'no-cors',
             headers: {'Content-Type': 'application/json'}
         })
     }
@@ -38,7 +35,6 @@ class PetService {
                              care: string, pet_character: string, pedigree: string, sterilization: true, vaccinations: true) {
         return fetch(API_URL + `/petCards/update/${petCardId}`, {
             method: 'PUT',
-            mode: 'no-cors',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
                 pet_type_id,
@@ -61,7 +57,6 @@ class PetService {
     public async deletePetCard(petCardId: string) {
         return fetch(API_URL + `/petCards/delete/${petCardId}`, {
             method: 'DELETE',
-            mode: 'no-cors',
             headers: {'Content-Type': 'application/json'}
         })
     }

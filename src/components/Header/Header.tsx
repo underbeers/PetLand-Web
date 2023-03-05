@@ -41,7 +41,7 @@ const Header: React.FC = () => {
                         <NavLink to={'/'} className={styles.logo}>PetLand</NavLink>
                     </li>
                     <li className={styles.nav}>
-                        <NavLink to={'/bulletin_board'}>Доска объявлений</NavLink>
+                        <NavLink to={'/bulletin-board'}>Доска объявлений</NavLink>
                         <NavLink
                             onMouseEnter={() => {setServicesDropdown(true)}}
                             onMouseLeave={() => {setServicesDropdown(false)}}
@@ -134,7 +134,7 @@ const Header: React.FC = () => {
                     </div>
                     <ul className={styles.nav__mobile}>
                         <div>
-                            <li><NavLink onClick={toggleMobileMenu} to={'/bulletin_board'}>
+                            <li><NavLink onClick={toggleMobileMenu} to={'/bulletin-board'}>
                                 <div>
                                     <Icons icon={'ad'}/>
                                 </div>

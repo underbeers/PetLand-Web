@@ -11,21 +11,15 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    text-align: center;
     width: 350px;
 }
 
 .error {
     font-size: 200px;
     font-family: var(--modak-font);
-    color: var(--accent-orange);
+    color: var(--orange--primary--color);
 }
-
-.description {
-    font-size: var(--accent-font-size);
-    text-align: center;
-    font-weight: bold;
-}
-
 
 .dog {
     width: 533px;

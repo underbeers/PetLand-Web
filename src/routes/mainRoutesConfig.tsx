@@ -1,5 +1,6 @@
 import HomePage from '../pages/HomePage/HomePage';
 import Profile from '../pages/Profile/Profile';
+import NewPet from '../pages/NewPet/NewPet';
 
 import Page404 from '../pages/Page404/Page404';
 
@@ -12,7 +13,7 @@ const routesConfig = [
         element: <HomePage/>,
     },
     {
-        path: PATH_PREFIX + '/bulletin_board',
+        path: PATH_PREFIX + '/bulletin-board',
         element: <>Доска объявлений</>
     },
     {
@@ -30,6 +31,10 @@ const routesConfig = [
     {
         path: PATH_PREFIX + '/services/events',
         element: <>Мероприятия</>
+    },
+    {
+        path: PATH_PREFIX + '/new-pet',
+        element: <NewPet/>
     },
     {
         path: PATH_PREFIX + '/profile/*',

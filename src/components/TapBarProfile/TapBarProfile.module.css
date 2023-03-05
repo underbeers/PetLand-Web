@@ -3,7 +3,7 @@
     margin-top: 100px;
     width: 100%;
     height: 70px;
-    background: var(--white);
+    background: var(--base--0);
     position: relative;
     display: flex;
     justify-content: center;
@@ -34,14 +34,14 @@
     width: 28px;
     height: 26px;
     transition: 0.5s;
-    color: var(--accent-orange);
+    color: var(--orange--primary--color);
     margin-bottom: 5%;
     z-index: 1;
 }
 
 .circle {
     position: absolute;
-    background: var(--white);
+    background: var(--base--0);
     width: 70px;
     height: 70px;
     top: -50%;

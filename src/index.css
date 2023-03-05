@@ -1,113 +1,175 @@
-@import 'https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;0,1000;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900;1,1000';
+@import url('https://fonts.googleapis.com/css2?family=Mulish&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Modak&display=swap');
 
 :root {
     --vh: vh;
 
+    /* Save areas */
     --sat: env(safe-area-inset-top);
     --sar: env(safe-area-inset-right);
     --sab: env(safe-area-inset-bottom);
     --sal: env(safe-area-inset-left);
 
-    /*colors*/
-    --text: #4F4F4F;
-    --subtext: #909DB4;
+    /* Color styles */
+    --pattern: rgba(245, 241, 238, 1);
+    --base--900: rgba(45, 45, 45, 1);
+    --base--800: rgba(79, 79, 79, 1);
+    --base--700: rgba(111, 111, 111, 1);
+    --base--600: rgba(132, 132, 132, 1);
+    --base--500: rgba(174, 174, 174, 1);
+    --base--400: rgba(203, 203, 203, 1);
+    --base--300: rgba(237, 237, 237, 1);
+    --base--200: rgba(242, 242, 242, 1);
+    --base--100: rgba(247, 247, 247, 1);
+    --base--0: rgba(255, 255, 255, 1);
 
-    --white: #FFFFFF;
-    --black: #000000;
-    --red: #FF5454;
-    --green: #7CC350;
+    --orange--900: rgba(244, 121, 50, 1);
+    --orange--700: rgba(250, 164, 57, 1);
+    --orange--800: rgba(248, 148, 54, 1);
+    --orange--600: rgba(252, 181, 61, 1);
+    --orange--500: rgba(254, 195, 65, 1);
+    --orange--400: rgba(255, 203, 76, 1);
+    --orange--300: rgba(255, 214, 101, 1);
+    --orange--200: rgba(255, 224, 143, 1);
+    --orange--100: rgba(255, 236, 186, 1);
+    --orange--50: rgba(255, 248, 228, 1);
 
-    --accent-orange: #F47932;
-    --accent-green: #97B14B;
+    --green--900: rgba(77, 104, 41, 1);
+    --green--800: rgba(111, 138, 57, 1);
+    --green--700: rgba(131, 157, 65, 1);
+    --green--600: rgba(152, 177, 75, 1);
+    --green--500: rgba(168, 193, 83, 1);
+    --green--400: rgba(180, 202, 108, 1);
+    --green--300: rgba(194, 211, 134, 1);
+    --green--200: rgba(211, 224, 168, 1);
+    --green--100: rgba(229, 236, 202, 1);
+    --green--50: rgba(245, 248, 234, 1);
 
-    --background-color: rgba(255, 255, 255, 0.5);
+    --red--900: rgba(201, 47, 48, 1);
+    --red--800: rgba(216, 57, 60, 1);
+    --red--700: rgba(229, 64, 68, 1);
+    --red--600: rgba(248, 74, 75, 1);
+    --red--500: rgba(255, 81, 75, 1);
+    --red--400: rgba(255, 97, 100, 1);
+    --red--300: rgba(241, 127, 131, 1);
+    --red--200: rgba(247, 163, 166, 1);
+    --red--100: rgba(255, 210, 217, 1);
+    --red--50: rgba(255, 237, 241, 1);
+
+    --blue--900: rgba(34, 44, 59, 1);
+    --blue--800: rgba(53, 64, 83, 1);
+    --blue--700: rgba(68, 83, 105, 1);
+    --blue--600: rgba(85, 102, 127, 1);
+    --blue--500: rgba(98, 116, 144, 1);
+    --blue--400: rgba(121, 136, 162, 1);
+    --blue--300: rgba(144, 157, 180, 1);
+    --blue--200: rgba(174, 185, 204, 1);
+    --blue--100: rgba(203, 213, 228, 1);
+    --blue--50: rgba(234, 238, 249, 1);
+
+    /* Text-size styles */
+    --heading-1--text--size: 24px;
+    --heading-2--text--size: 22px;
+    --heading-3--text--size: 20px;
+    --heading-4--text--size: 18px;
+    --heading-5--text--size: 16px;
+    --body-regular--text--size: 16px;
+    --button--text--size: 16px;
+    --secondary-1--text--size: 14px;
+    --secondary-2--text--size: 12px;
+    --secondary-3--text--size: 10px;
+    --secondary-4--text--size: 8px;
+
+    /* Effect styles */
+    --inputs-shadow:  4px 4px 12px rgba(0, 0, 0, 0.25);
+    --inputs-focus-shadow:  4px 4px 12px rgba(152, 177, 75, 0.25);
+    --inputs-error-shadow:  4px 4px 12px rgba(255, 81, 75, 0.25);
+
+
+    /* Colors */
+    --primary--text--color: var(--base--800);
+    --secondary--text--color: var(--blue--300);
+    --error--color: var(--red--500);
+
+    --orange--primary--color: var(--orange--900);
+    --green--primary--color: var(--green--600);
+
+    --background-header-footer: rgba(255, 255, 255, .5);
+    --background-color: var(--pattern);
     --overlay-color: rgba(79, 79, 79, 0.3);
-    --background: #F5F1EE url('static/bg_pattern.png');
+    --background: var(--pattern) url('static/bg_pattern.png');
     --invisible: rgba(255, 255, 255, 0);
 
-    /*shadows*/
+    /* Shadows */
     --card-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.25);
 
-    /*fonts*/
+    /* Fonts */
     --modak-font: 'Modak', sans-serif;
-    --accent-font-size: 24px;
+    --mulish-font: 'Mulish', sans-serif;
 
-    /*loading*/
+    /* Loading */
     --loading-grey: #ededed;
     --loading-shadow-color: rgba(0, 0, 0, 0.1);
+
+    /* Borders */
+    --border-12: 12px 12px 12px 12px;
+    --border-12-left: 12px 0 0 12px;
+    --border-12-top: 12px 12px 0 0;
+    --border-12-right: 0 12px 12px 0;
+    --border-12-bottom: 0 0 12px 12px;
+    --border-30: 30px 30px 30px 30px;
 }
 
 body {
-    font-family: 'Mulish', sans-serif;
+    font-family: var(--mulish-font);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 
     background: var(--background);
-    color: var(--text);
+    color: var(--primary--text--color);
 }
 
-
 h1 {
-    font-style: normal;
-    font-weight: 700;
-    font-size: 18px;
-    line-height: 23px;
+    font: normal normal 700 var(--heading-1--text--size)/30px var(--mulish-font);
 }
 
 h2 {
-    font-style: normal;
-    font-weight: 600;
-    font-size: 16px;
-    line-height: 20px;
+    font: normal normal 700 var(--heading-2--text--size)/28px var(--mulish-font);
 }
 
-img {
-    user-drag: none;
-    -webkit-user-drag: none;
-    user-select: none;
-    -moz-user-select: none;
-    -webkit-user-select: none;
-    -ms-user-select: none;
+h3 {
+    font: normal normal 700 var(--heading-3--text--size)/25px var(--mulish-font);
 }
 
-input::placeholder {
-    opacity: .5;
+h4 {
+    font: normal normal 700 var(--heading-4--text--size)/23px var(--mulish-font);
 }
 
-a {
-    cursor: pointer;
+h5 {
+    font: normal normal 700 var(--heading-5--text--size)/20px var(--mulish-font);
 }
 
-.text {
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 18px;
+.primary__text {
+    font: normal normal 400 var(--body-regular--text--size)/20px var(--mulish-font);
 }
 
-.subtext {
-    font-weight: 400;
-    font-size: 12px;
-    line-height: 15px;
-
-    color: var(--subtext);
+.secondary__text-1 {
+    font: normal normal 400 var(--secondary-1--text--size)/18px sans-serif;
 }
 
-.error {
-    color: var(--red);
-    font-weight: 400;
-    font-size: 12px;
-    line-height: 15px;
+.secondary__text-2 {
+    font: normal normal 400 var(--secondary-2--text--size)/15px sans-serif;
 }
 
-.success {
-    color: var(--green);
-    font-weight: 400;
-    font-size: 12px;
-    line-height: 15px;
+.secondary__text-3 {
+    font: normal normal 400 var(--secondary-3--text--size)/13px sans-serif;
 }
 
-.link {
+.secondary__text-4 {
+    font: normal normal 400 var(--secondary-4--text--size)/10px sans-serif;
+}
+
+.underlined {
     text-decoration: underline;
     cursor: pointer;
 }
@@ -117,29 +179,7 @@ a {
     margin: 0 auto;
 }
 
-@media screen and (max-width: 700px) {
-    h1 {
-        font-size: 20px;
-    }
-
-    h2 {
-        font-size: 18px;
-    }
-
-    .text {
-        font-size: 16px;
-    }
-
-    .subtext {
-        font-size: 14px;
-    }
-
-    .container {
-        width: 95%;
-    }
-}
-
-/*CSS animations from react-transition-group*/
+/* CSS animations from react-transition-group */
 .modal-enter {
     opacity: 0;
     transform: scale(0.9);
@@ -184,26 +224,4 @@ a {
 .fade-enter-active,
 .fade-exit-active {
     transition: opacity .1s, transform .1s;
-}
-
-/*Loader*/
-.loading {
-    background-color: var(--loading-grey);
-    background: linear-gradient(
-            100deg,
-            rgba(255, 255, 255, 0) 40%,
-            rgba(255, 255, 255, .5) 50%,
-            rgba(255, 255, 255, 0) 60%
-    ) var(--loading-grey);
-    background-size: 200% 100%;
-    background-position-x: 180%;
-    animation: 1s loading ease-in-out infinite;
-    box-shadow: 2px 2px 15px var(--loading-shadow-color);
-    margin: 5px;
-}
-
-@keyframes loading {
-    to {
-        background-position-x: -20%;
-    }
 }

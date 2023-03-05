@@ -5,21 +5,19 @@ import styles from './Button.module.css';
 
 
 interface iButtonProps {
+    type: 'primary' | 'secondary' | 'text',
+    color: 'orange' | 'green';
+    text: string,
     onClick: Function,
-    label: string,
-    size: 'small' | 'medium',
-    color: 'orange' | 'green',
-    type: 'fill' | 'transparent',
     disabled?: boolean,
     loading?: boolean
 }
 
-const Button: React.FC<iButtonProps> = ({onClick, label, size, color, type, disabled, loading}) => {
+const Button: React.FC<iButtonProps> = ({type, color, text, onClick, disabled, loading}) => {
     return (
-        <button disabled={disabled || loading}
-                className={cn(styles.button, styles[size], styles[color], styles[type])}
+        <button disabled={disabled} className={cn(styles.button, styles[color], styles[type], loading && styles.loading)}
                 onClick={event => {event.preventDefault();onClick()}}>
-            {label}{loading && <div className={styles.loading_spinner}/>}
+            {text}{loading && <div className={styles.loading_spinner}/>}
         </button>
     );
 };

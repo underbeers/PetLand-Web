@@ -1,7 +1,7 @@
 .content {
     width: 274px;
     height: 100%;
-    border-right: var(--subtext) 1px solid;
+    border-right: var(--secondary--text--color) 1px solid;
     padding-top: 24px;
     display: flex;
     box-sizing: border-box;
@@ -34,7 +34,7 @@
 .divider {
     width: 273px;
     height: 1px;
-    background-color: var(--subtext);
+    background-color: var(--secondary--text--color);
 }
 
 .settings__quit {

@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {Navigate} from 'react-router-dom';
 
 import Button from '../../../components/UIKit/Button';
 import PetCard from '../../../components/PetCard/PetCard';
@@ -14,7 +15,7 @@ const Pets: React.FC = () => {
             <div className={styles.content}>
                 <div className={styles.title__button}>
                     <h1>Мои питомцы</h1>
-                    <Button color={'orange'} text={'Добавить питомца'} onClick={() => {}} type={'primary'}/>
+                    <Button color={'orange'} text={'Добавить питомца'} onClick={()=><Navigate to={'/new-pet'}/>} type={'primary'}/>
                 </div>
                 <div className={styles.cards}>
                     <PetCard size={'medium'}/>

@@ -9,7 +9,6 @@ import styles from './OfferToSignIn.module.css'
 
 
 const OfferToSignIn: React.FC = () => {
-
     const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
 
     window.addEventListener('resize', () => {
@@ -18,7 +17,7 @@ const OfferToSignIn: React.FC = () => {
 
     return (
         <div className={styles.wrapper}>
-            <img src={cat} alt='Собака' className={styles.cat}/>
+            <div className={styles.text__block}><img src={cat} alt='Собака' className={styles.cat}/></div>
             <div className={styles.text__block}>
                 <h1 className={styles.text}>Это доступно только <br/> для авторизованных пользователей</h1>
                 <h1 className={styles.text}>
@@ -31,12 +30,12 @@ const OfferToSignIn: React.FC = () => {
                         button={<span className={styles.ref}>зарегистрируйтесь</span>}
                         content={Authorization}
                         contentProps={{isMobile, isFormSignIn: false}}/>
-                    <br/> 
+                    <br/>
                     для полного доступа к функционалу PetLand
                 </h1>
             </div>
         </div>
     );
-}
+};
 
 export default OfferToSignIn;

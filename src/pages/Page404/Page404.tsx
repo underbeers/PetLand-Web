@@ -22,7 +22,7 @@ const Page404: React.FC = () => {
         <div className={styles.error__dog}>
             <div className={styles.error__desc}>
                 <span className={styles.error}>404</span>
-                <p className={styles.description}>Страница, которую вы<br/> искали, не найдена</p>
+                <h1 className={styles.description}>Страница, которую вы<br/> искали, не найдена</h1>
             </div>
             <img src={sadDog} alt='Собака' className={styles.dog}/>
         </div>

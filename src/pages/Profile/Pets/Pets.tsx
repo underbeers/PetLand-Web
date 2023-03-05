@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Navigate} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 
 import Button from '../../../components/UIKit/Button';
 import PetCard from '../../../components/PetCard/PetCard';
@@ -8,14 +8,15 @@ import styles from './Pets.module.css'
 
 
 const Pets: React.FC = () => {
+    const [isEmpty, setIsEmpty] = useState(false);
 
-    const [isEmpty, setIsEmpty] = useState(false)
+    const navigate = useNavigate();
 
     return (!isEmpty ?
             <div className={styles.content}>
                 <div className={styles.title__button}>
                     <h1>Мои питомцы</h1>
-                    <Button color={'orange'} text={'Добавить питомца'} onClick={()=><Navigate to={'/new-pet'}/>} type={'primary'}/>
+                    <Button color={'orange'} text={'Добавить питомца'} onClick={()=>navigate('/new-pet')} type={'primary'}/>
                 </div>
                 <div className={styles.cards}>
                     <PetCard size={'medium'}/>

@@ -5,7 +5,7 @@ import cn from 'classnames';
 import {UserContext} from '../../userContext';
 import userService from '../../services/userService';
 
-import Icons from "../UIKit/Icons";
+import Icons from '../UIKit/Icons';
 
 import Modal from '../Modal/Modal';
 import Authorization from '../Authorization/Authorization';
@@ -41,13 +41,13 @@ const Header: React.FC = () => {
                         <NavLink to={'/'} className={styles.logo}>PetLand</NavLink>
                     </li>
                     <li className={styles.nav}>
-                        <NavLink to={'/bulletin_board'}><h2>Доска объявлений</h2></NavLink>
+                        <NavLink to={'/bulletin_board'}>Доска объявлений</NavLink>
                         <NavLink
                             onMouseEnter={() => {setServicesDropdown(true)}}
                             onMouseLeave={() => {setServicesDropdown(false)}}
                             className={styles.services__btn}
                             to={'/services'}>
-                            <h2>Сервисы</h2>
+                            Сервисы
                         </NavLink>
                         {servicesDropdown && <ul
                             className={styles.services}
@@ -59,9 +59,9 @@ const Header: React.FC = () => {
                         </ul>}
                     </li>
                     <li className={styles.icons}>
-                        <NavLink to={'/profile/favorite'}><Icons icon={"cards-heart"}/></NavLink>
-                        <NavLink to={'/profile/notifications'}><Icons icon={"bell"}/></NavLink>
-                        <NavLink to={'/profile/messages'}><Icons icon={"chat"}/></NavLink>
+                        <NavLink to={'/profile/favorite'}><Icons icon={'cards-heart'}/></NavLink>
+                        <NavLink to={'/profile/notifications'}><Icons icon={'bell'}/></NavLink>
+                        <NavLink to={'/profile/messages'}><Icons icon={'chat'}/></NavLink>
                     </li>
                     <li className={styles.user}>
                         {!user.empty || user.loading ?
@@ -76,7 +76,7 @@ const Header: React.FC = () => {
                                             <div className={'loading'} style={{width: 40, height: 40, borderRadius: 20}}></div>
                                         </>:
                                         <>
-                                            <h2>{user.firstName}&nbsp;{user.surName}&nbsp;</h2>
+                                            <h5>{user.firstName}&nbsp;{user.surName}&nbsp;</h5>
                                             <img src={user.photo} alt={`${user.firstName} ${user.surName}`} title={'Профиль'}/>
                                         </>}
                                 </NavLink>
@@ -97,8 +97,8 @@ const Header: React.FC = () => {
                             <Modal
                                 button={
                                     <>
-                                        <h2>Войти</h2>
-                                        <Icons icon={"account"}/>
+                                        <h5>Войти</h5>
+                                        <Icons icon={'account'}/>
                                     </>
                                 }
                                 content={Authorization}
@@ -136,19 +136,19 @@ const Header: React.FC = () => {
                         <div>
                             <li><NavLink onClick={toggleMobileMenu} to={'/bulletin_board'}>
                                 <div>
-                                    <Icons icon={"ad"}/>
+                                    <Icons icon={'ad'}/>
                                 </div>
                                 <h2>Доска объявлений</h2>
                             </NavLink></li>
                             <li><NavLink onClick={toggleMobileMenu} to={'/services/specialists'}>
                                 <div>
-                                    <Icons icon={"template"}/>
+                                    <Icons icon={'template'}/>
                                 </div>
                                 <h2>Специалисты</h2>
                             </NavLink></li>
                             <li><NavLink onClick={toggleMobileMenu} to={'/services/clinics'}>
                                 <div>
-                                    <Icons icon={"template"}/>
+                                    <Icons icon={'template'}/>
                                 </div>
                                 <h2>Клиники и отели</h2>
                             </NavLink></li>
@@ -163,13 +163,13 @@ const Header: React.FC = () => {
                         <div>
                             <li><NavLink onClick={toggleMobileMenu} to={'/new_ad'}>
                                 <div>
-                                    <Icons icon={"ad"}/>
+                                    <Icons icon={'ad'}/>
                                 </div>
                                 <h2>Разместить объявление</h2>
                             </NavLink></li>
                             <li><NavLink onClick={toggleMobileMenu} to={'/become_specialist'}>
                                 <div>
-                                    <Icons icon={"template"}/>
+                                    <Icons icon={'template'}/>
                                 </div>
                                 <h2>Стать специалистом</h2>
                             </NavLink></li>
@@ -178,19 +178,19 @@ const Header: React.FC = () => {
                         <div>
                             <li><NavLink onClick={toggleMobileMenu} to={'/profile/notifications'}>
                                 <div>
-                                    <Icons icon={"chat"}/>
+                                    <Icons icon={'chat'}/>
                                 </div>
                                 <h2>Уведомления</h2>
                             </NavLink></li>
                             <li><NavLink onClick={toggleMobileMenu} to={'/profile/favorite'}>
                                 <div>
-                                    <Icons icon={"cards-heart"}/>
+                                    <Icons icon={'cards-heart'}/>
                                 </div>
                                 <h2>Избранное</h2>
                             </NavLink></li>
                             <li><NavLink onClick={toggleMobileMenu} to={'/profile/messages'}>
                                 <div>
-                                    <Icons icon={"chat"}/>
+                                    <Icons icon={'chat'}/>
                                 </div>
                                 <h2>Сообщения</h2>
                             </NavLink></li>
@@ -199,19 +199,19 @@ const Header: React.FC = () => {
                         <div>
                             <li><NavLink onClick={toggleMobileMenu} to={'/profile'}>
                                 <div>
-                                    <Icons icon={"account"}/>
+                                    <Icons icon={'account'}/>
                                 </div>
                                 <h2>Профиль</h2></NavLink></li>
                             <li><NavLink onClick={toggleMobileMenu} to={'/profile/settings'}>
                                 <div>
-                                    <Icons icon={"settings"}/>
+                                    <Icons icon={'settings'}/>
                                 </div>
                                 <h2>Настройки</h2>
                             </NavLink></li>
                             {!user.empty &&
                                 <li><a onClick={()=>{toggleMobileMenu();userService.signOut(setUser)}}>
                                     <div>
-                                        <Icons icon={"sign-out"}/>
+                                        <Icons icon={'sign-out'}/>
                                     </div>
                                     <h2>Выход</h2>
                                 </a></li>}

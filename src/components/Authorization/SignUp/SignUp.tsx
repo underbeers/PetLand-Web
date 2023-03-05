@@ -9,7 +9,7 @@ import userService from '../../../services/userService';
 import Input from '../../UIKit/Input';
 import Button from '../../UIKit/Button';
 import Checkbox from '../../UIKit/Checkbox';
-import Icons from "../../UIKit/Icons";
+import Icons from '../../UIKit/Icons';
 
 import Image from '../../Image/Image';
 
@@ -126,65 +126,54 @@ const SignUp: React.FC<iAuthProps> = ({switchContent, closeModal, isMobile}) => 
 
     return (!isMobile ?
             <div className={generalStyles.modal}>
-                <span className={generalStyles.cross} onClick={closeModal}/>
+                <Icons icon={'cross'} className={generalStyles.cross} onClick={closeModal}/>
                 <Image imageProps={{src: dogDesktop, alt: '', width: '475px', height: '630px'}}
-                       borderRadius={'30px 0 0 30px'}
+                       borderRadius={'32px 0 0 32px'}
                        className={generalStyles.image}/>
                 <div className={generalStyles.form__wrapper}>
-                    <h1>Регистрация</h1>
+                    <h2>Регистрация</h2>
                     <form id='registration_form' className={generalStyles.form}>
-                        <div className={generalStyles.inputs} style={{gap: 24}}>
-                            <Input type={'text'} placeholder={'Имя'} value={firstName}
-                                   setValue={setFirstName} regularExpressions={nameRegExp} required={true}/>
-                            <Input type={'text'} placeholder={'Фамилия'} value={surName}
-                                   setValue={setSurName} regularExpressions={nameRegExp} required={true}/>
-                            <Input type={'email'} placeholder={'Email'} value={email}
-                                   regularExpressions={emailRegExp} required={true} disabled={waitCode && counter != 0}
-                                   setValue={setEmail} onChangeFn={() => {setEmailVerified(false)}}/>
-                            <div className={styles.email__confirm}>
-                                <div className={styles.send__code}>
-                                    {emailVerified &&
-                                        <p className={cn('success', styles.code__verified__msg)}>Email подтвержден</p>
-                                    }
-                                    <Button color={'orange'} text={'Отправить код'} type={'secondary'}
-                                            onClick={sendCode} disabled={!email.ok || waitCode && counter !== 0}/>
-                                    <p className={styles.resend__code}>
-                                        {counter ? <>Подождите {counter} секунд{getEnding(counter)}</> : ''}
-                                    </p>
-                                </div>
-                                <Input type={'text'} placeholder={'Код'} value={verificationCode}
-                                       setValue={setVerificationCode} disabled={emailVerified} required={true}
-                                       regularExpressions={[]}/>
-                            </div>
-                            <div className={styles.password1}>
-                                <Input type={'password'}placeholder={'Придумайте пароль'}
-                                       value={password1}
-                                       setValue={setPassword1} regularExpressions={passwordRegExp} required={true}/>
-                            </div>
-                            <Input type={'password'} placeholder={'Повторите пароль'} value={password2}
-                                   regularExpressions={[{
-                                       regExp: RegExp('^' + password1.value + '$'),
-                                       error: 'Пароли не совпадают'
-                                   }].concat(passwordRegExp)}
-                                   setValue={setPassword2} required={true}/>
+                        <Input type={'text'} placeholder={'Имя'} value={firstName}
+                               setValue={setFirstName} regularExpressions={nameRegExp} required={true}/>
+                        <Input type={'text'} placeholder={'Фамилия'} value={surName}
+                               setValue={setSurName} regularExpressions={nameRegExp} required={true}/>
+                        <Input type={'email'} placeholder={'Email'} value={email}
+                               regularExpressions={emailRegExp} required={true} disabled={waitCode && counter != 0}
+                               setValue={setEmail} onChangeFn={() => {
+                            setEmailVerified(false)
+                        }}/>
+                        <div className={styles.email__confirm}>
+                            <Button color={'green'} text={`Отправить код${counter ? `(${counter})` : ''}`} type={'secondary'}
+                                    onClick={sendCode} disabled={!email.ok || waitCode && counter !== 0}/>
+                            <Input type={'text'} placeholder={'Код'} value={verificationCode} required={true}
+                                   setValue={setVerificationCode} disabled={emailVerified} regularExpressions={[]}
+                                   className={styles.code__input}/>
                         </div>
-                        <div style={{alignSelf: 'flex-start', width: '350px', overflow: 'visible'}}>
-                            <Checkbox isChecked={policyChecked} setChecked={setPolicyChecked}>Согласие с пользовательским соглашением</Checkbox>
-                        </div>
-                        <div className={generalStyles.submit}>
-                            {responseCode == 409 &&
-                                <p className={'error'} style={{position: 'absolute', top: '-16px', left: '2px'}}>
-                                    Такой email уже используется
-                                </p>
-                            }
-                            <Button color={'orange'} text={'Создать аккаунт'} disabled={!policyChecked}
-                                    type={'primary'} onClick={register}/>
-                            <p className={'subtext'}>
-                                У вас уже есть аккаунт?&nbsp;
-                                <a className={'subtext link'} onClick={switchContent}>Войти</a>
-                            </p>
-                        </div>
+                        <Input type={'password'} placeholder={'Придумайте пароль'} value={password1}
+                               setValue={setPassword1} regularExpressions={passwordRegExp} required={true}/>
+                        <Input type={'password'} placeholder={'Повторите пароль'} value={password2}
+                               regularExpressions={[{
+                                   regExp: RegExp('^' + password1.value + '$'),
+                                   error: 'Пароли не совпадают'
+                               }].concat(passwordRegExp)}
+                               setValue={setPassword2} required={true}/>
+                        <Checkbox isChecked={policyChecked} setChecked={setPolicyChecked}>
+                            Согласие с пользовательским соглашением
+                        </Checkbox>
                     </form>
+                    <div className={styles.submit}>
+                        {responseCode == 409 &&
+                            <p className={'error'} style={{position: 'absolute', top: '-16px', left: '2px'}}>
+                                Такой email уже используется
+                            </p>
+                        }
+                        <Button color={'orange'} text={'Создать аккаунт'} disabled={!policyChecked}
+                                type={'primary'} onClick={register}/>
+                        <p className={cn('secondary__text-1', generalStyles.switch__content)}>
+                            У вас уже есть аккаунт?&nbsp;
+                            <a className={'underlined'} onClick={switchContent}>Войти</a>
+                        </p>
+                    </div>
                 </div>
             </div> :
             <div className={generalStyles.modal}>
@@ -208,7 +197,9 @@ const SignUp: React.FC<iAuthProps> = ({switchContent, closeModal, isMobile}) => 
                         </p>
                         <Input type={'email'} placeholder={'Email'} value={email} regularExpressions={emailRegExp}
                                setValue={setEmail} required={true} disabled={waitCode && counter != 0}
-                               onChangeFn={() => {setEmailVerified(false)}}/>
+                               onChangeFn={() => {
+                                   setEmailVerified(false)
+                               }}/>
                         <Button color={'orange'} text={'Отправить код'} onClick={sendCode}
                                 type={'secondary'} disabled={!email.ok || waitCode && counter !== 0}/>
 
@@ -229,13 +220,16 @@ const SignUp: React.FC<iAuthProps> = ({switchContent, closeModal, isMobile}) => 
                                required={true} setValue={setPassword2}/>
                         <a className={'subtext link'} href={'#'} style={{alignSelf: 'flex-end'}}>
                             Забыли пароль?</a>
-                        <Checkbox isChecked={policyChecked} setChecked={setPolicyChecked}>Согласие с пользовательским<br/>соглашением</Checkbox>
+                        <Checkbox isChecked={policyChecked} setChecked={setPolicyChecked}>Согласие с
+                            пользовательским<br/>соглашением</Checkbox>
                     </div>
                     <div className={generalStyles.button__and__switch__content}>
                         <Button color={'orange'} text={stage === 3 ? 'Создать аккаунт' : 'Следующий шаг'}
-                                onClick={stage === 3 ? register : () => {setStage(stage + 1)}}
+                                onClick={stage === 3 ? register : () => {
+                                    setStage(stage + 1)
+                                }}
                                 type={'primary'} disabled={isNextStageDisabled()}/>
-                        <span className={generalStyles.paw}><Icons icon={"paw"}/></span>
+                        <span className={generalStyles.paw}><Icons icon={'paw'}/></span>
                         <p className={'subtext'}>
                             У вас уже есть аккаунт? <br/>
                             <a className={'link'} onClick={switchContent}>Войти</a>

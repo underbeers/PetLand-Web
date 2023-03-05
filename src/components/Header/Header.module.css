@@ -58,7 +58,7 @@
 }
 
 .nav :global(>a.active):before {
-    content: "";
+    content: '';
     position: absolute;
     left: 0;
     top: 0;
@@ -88,6 +88,8 @@
 
 .icons > a > svg {
     transition: transform .2s;
+    width: 32px;
+    height: 32px;
 }
 
 .icons > a:hover > svg {
@@ -130,6 +132,10 @@
     width: 40px;
     height: 40px;
     border-radius: 50%;
+}
+
+.user > a:hover > svg > path {
+    fill: var(--orange--primary--color);
 }
 
 .user img.sign__in {

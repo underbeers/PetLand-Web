@@ -1,9 +1,9 @@
-import React from "react";
-import {NavLink, Route, Routes} from "react-router-dom";
+import React from 'react';
+import {NavLink, Route, Routes} from 'react-router-dom';
 
-import Tabs from "../../../components/Tabs/Tabs";
+import Tabs from '../../../components/Tabs/Tabs';
 
-import Page404 from "../../Page404/Page404";
+import Page404 from '../../Page404/Page404';
 
 import noAds from './img/no_ads.jpg';
 

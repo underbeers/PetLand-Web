@@ -7,20 +7,7 @@
     box-sizing: border-box;
     flex-direction: column;
     justify-content: flex-start;
-}
-
-.name {
-    padding-top: 24px;
-    padding-left: 12px;
-    padding-bottom: 24px;
-}
-
-.menu {
-    display: flex;
-    flex-direction: column;
-    padding-top: 24px;
-    padding-bottom: 24px;
-    gap: 12px
+    gap: 24px;
 }
 
 .menu__item {
@@ -28,36 +15,34 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 12px
+    gap: 8px
+}
+
+.menu__item > svg {
+    transition: .2s;
+}
+
+.menu__item > svg > path {
+    fill: var(--orange--primary--color);
+}
+
+.menu__item:hover > svg {
+    transform: translateX(-8px);
 }
 
 .divider {
-    width: 273px;
+    width: 100%;
     height: 1px;
     background-color: var(--secondary--text--color);
 }
 
-.settings__quit {
-    padding-top: 24px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    height: 100%;
-    gap: 12px;
-    padding-bottom: 24px;
-}
-
-.nav :global(>a.active) h2 {
-    font-weight: bold;
+.content:global(>a.active) {
     font-size: 18px;
+    font-weight: bold;
 }
 
 @media screen and (max-width: 1000px) {
-    .content{
-        width: 172px;
-    }
-
-    .divider{
+    .content {
         width: 172px;
     }
 }

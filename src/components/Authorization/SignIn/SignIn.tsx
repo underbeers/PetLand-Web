@@ -55,13 +55,13 @@ const SignIn: React.FC<iAuthProps> = ({switchContent, closeModal, isMobile}) => 
 
     return (!isMobile ?
             <div className={generalStyles.modal}>
-                <span className={generalStyles.cross} onClick={closeModal}/>
+                <Icons icon={'cross'} className={generalStyles.cross} onClick={closeModal}/>
 
                 <Image imageProps={{src: dogDesktop, alt: 'Собака', width: '475px', height: '630px'}}
-                       borderRadius={'30px 0 0 30px'}
+                       borderRadius={'32px 0 0 32px'}
                        className={generalStyles.image}/>
                 <div className={generalStyles.form__wrapper}>
-                    <h1 className={styles.heading}>Авторизация</h1>
+                    <h2>Авторизация</h2>
                     <form id='login_form' className={generalStyles.form}>
                         <div className={generalStyles.inputs}>
                             <Input type={'text'} placeholder={'Email'} value={email} setValue={setEmail}
@@ -69,8 +69,10 @@ const SignIn: React.FC<iAuthProps> = ({switchContent, closeModal, isMobile}) => 
                             <div className={styles.pwd__block}>
                                 <Input type={'password'} placeholder={'Пароль'} value={password}
                                        setValue={setPassword} regularExpressions={passwordRegExp} required={true}/>
-                                <a className={'subtext'} href={'#'} style={{textDecoration: 'underline'}}>Забыли
-                                    пароль?</a>
+                                <a className={cn('primary__text underlined', styles.forgot__pwd)}
+                                   href={'#'}>
+                                    Забыли пароль?
+                                </a>
                             </div>
                             <div style={{alignSelf: 'flex-start'}}>
                                 <Checkbox isChecked={savePwd} setChecked={setSavePwd}>Не выходить из аккаунта</Checkbox>
@@ -83,16 +85,15 @@ const SignIn: React.FC<iAuthProps> = ({switchContent, closeModal, isMobile}) => 
                                 </p>
                             }
                             <Button color={'orange'} text={'Войти'} onClick={login} type={'primary'}/>
-                            <p className={cn('subtext', styles.forgot__pwd)}>
-                                У вас ещё нет аккаунта?&nbsp;
-                                <a className={'subtext link'} onClick={switchContent}>Зарегистрироваться</a>
-                            </p>
                         </div>
-
+                        <p className={cn('secondary__text-1', generalStyles.switch__content)}>
+                            У вас ещё нет аккаунта?
+                            <a className={'underlined'} onClick={switchContent}>Зарегистрироваться</a>
+                        </p>
                     </form>
                     <div className={generalStyles.paw__block}>
                         <span className={generalStyles.paw}><Icons icon={'paw'}/></span>
-                        <p className={'text'}>
+                        <p className={'secondary__text-2'}>
                             При входе вы подтверждаете согласие с условиями<br/>
                             использования PetLand и политикой обработки данных.
                         </p>

@@ -4,3 +4,8 @@
     align-items: flex-end;
     gap: 10px;
 }
+
+.forgot__pwd {
+    color: var(--blue--300);
+    padding: 8px;
+}

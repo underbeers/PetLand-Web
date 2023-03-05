@@ -46,7 +46,8 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        gap: 40px
+        gap: 40px;
+        padding-bottom: 120px;
     }
 
     .error__desc {
@@ -79,5 +80,9 @@
         flex-direction: column;
         justify-content: center;
         gap: 40px;
+    }
+
+    .button{
+        z-index: -1;
     }
 }

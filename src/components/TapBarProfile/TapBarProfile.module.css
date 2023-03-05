@@ -47,10 +47,10 @@
     top: -50%;
     border-radius: 50%;
     box-sizing: border-box;
-    border-bottom: 6px solid #F5F1EE;
-    border-right: 6px solid #F5F1EE;
-    border-left: 6px solid #F5F1EE;
-    border-top: 6px solid #F5F1EE;
+    border-bottom: 6px solid var(--accent-orange);
+    border-right: 6px solid var(--accent-orange);
+    border-left: 6px solid var(--accent-orange);
+    border-top: 6px solid var(--accent-orange);
     transition: .5s;
     transform: translateX(-500px);
 }
@@ -78,6 +78,8 @@
     border-top-left-radius: 20px;
     box-shadow: 0 -10px 0 0 #F5F1EE;
 }
+
+
 
 .nav :global(>a.active) img {
     transform: translateY(-27px);

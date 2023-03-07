@@ -1,8 +1,7 @@
 const API_URL = 'http://79.137.198.139:6002/api/v1';
 
 
-class PetServise {
-
+class PetService {
     public async getPetTypes() {
         return fetch(API_URL + '/petTypes/', {
             method: 'GET',
@@ -35,8 +34,8 @@ class PetServise {
                              breed_id: number, photo: string, birth_date: string, male: boolean, color: string,
                              care: string, pet_character: string, pedigree: string, sterilization: true, vaccinations: true) {
         return fetch(API_URL + `/petCards/update/${petCardId}`, {
-                method: 'PUT',
-                headers: {'Content-Type': 'application/json'},
+            method: 'PUT',
+            headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
                 pet_type_id,
                 user_id,
@@ -66,7 +65,7 @@ class PetServise {
                                photo: string, birth_date: string, male: boolean, color: string,
                                care: string, pet_character: string, pedigree: string, sterilization: boolean,
                                vaccinations: boolean){
-        return fetch(API_URL + `/petCards/new/`, {
+        return fetch(API_URL + '/petCards/new/', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
@@ -86,7 +85,6 @@ class PetServise {
             })
         })
     }
-
 }
 
-export default new PetServise();
+export default new PetService();

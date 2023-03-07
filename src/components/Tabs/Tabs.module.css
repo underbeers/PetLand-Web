@@ -10,9 +10,8 @@
     border-right: 1px solid var(--green--primary--color);
     border-left: 1px solid var(--green--primary--color);
     box-sizing: border-box;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 20px;
+    font: normal normal 400 var(--body-regular--text--size)/20px var(--mulish-font);
+    color: var(--green--primary--color);
     height: 40px;
     width: 200px;
     display: flex;

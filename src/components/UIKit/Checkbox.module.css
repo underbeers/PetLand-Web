@@ -10,7 +10,7 @@
 }
 
 .checkbox__icon > path {
-    fill: var(--base--700);
+    fill: var(--base--500);
 }
 
 .checkbox__icon:hover > path, .checked > .checkbox__icon > path {

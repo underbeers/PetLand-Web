@@ -4,8 +4,8 @@ import cn from 'classnames';
 import {RegExpPair} from '../../constants/regularExpressions';
 
 import styles from './Input.module.css';
-import Icons from "./Icons";
-import {Simulate} from "react-dom/test-utils";
+import Icons from './Icons';
+import {Simulate} from 'react-dom/test-utils';
 import drop = Simulate.drop;
 
 
@@ -15,7 +15,7 @@ interface iInputProps {
     placeholder?: string;
     required?: boolean;
     disabled?: boolean;
-    type: 'text' | 'password' | 'textarea' | 'email' | 'phone' | 'number' | 'dropdown';
+    type: 'text' | 'password' | 'textarea' | 'email' | 'phone' | 'number' | 'dropdown' | 'date' | 'file';
     value: { value: string, ok: boolean, edited: boolean };
     setValue: Function;
     onChangeFn?: Function;
@@ -80,6 +80,7 @@ const Input: React.FC<iInputProps> = ({
 
     const inputProps = {onChange, onFocus, disabled, placeholder};
 
+    const id = Math.random();
     const renderInput: ()=>JSX.Element = () => {
         switch (type){
             case 'textarea':
@@ -93,22 +94,14 @@ const Input: React.FC<iInputProps> = ({
                 return (
                     <>
                         <input
-                            list={styles.data}
+                            list={`${styles.data}${id}`}
                             type={pwdShown ? 'text' : type}
                             className={cn('primary__text', styles.standard_input)}
                             {...inputProps}
                             onKeyDown={onKeyDown}
                         />
-                        <datalist id={styles.data} className={styles.dropdown__datalist}>
-                            <option value="Chrome"/>
-                            <option value="Firefox"/>
-                            <option value="Internet Explorer"/>
-                            <option value="Opera"/>
-                            <option value="Safari"/>
-                            <option value="Microsoft Edge"/>
-                            {/*
-                                dropdownItems?.map((value, index) => <option key={index} value={value.toString()}/>)
-                            */}
+                        <datalist id={`${styles.data}${id}`} className={styles.dropdown__datalist}>
+                            {dropdownItems?.map((value, index) => (<option key={index} value={value.toString()}/>))}
                         </datalist>
                     </>
                 );

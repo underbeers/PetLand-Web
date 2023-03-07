@@ -61,6 +61,32 @@ class PetServise {
             headers: {'Content-Type': 'application/json'}
         })
     }
+
+    public async createPetCard(pet_type_id: number, user_id: number, pet_name: string, breed_id: number,
+                               photo: string, birth_date: string, male: boolean, color: string,
+                               care: string, pet_character: string, pedigree: string, sterilization: boolean,
+                               vaccinations: boolean){
+        return fetch(API_URL + `/petCards/new/`, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                pet_type_id,
+                user_id,
+                pet_name,
+                breed_id,
+                photo,
+                birth_date,
+                male,
+                color,
+                care,
+                pet_character,
+                pedigree,
+                sterilization,
+                vaccinations
+            })
+        })
+    }
+
 }
 
 export default new PetServise();

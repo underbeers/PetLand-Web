@@ -20,6 +20,7 @@
     font-size: var(--secondary-2--text--size);
     border-radius: calc(var(--secondary-2--text--size) + 16px / 2);
     padding: 8px 12px;
+
 }
 
 .medium {

@@ -38,6 +38,16 @@ class AuthService {
         });
     }
 
+    public async askPasswordRecovery(email: string) {
+        return fetch(API_URL + `/password/refresh/`, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                email
+            })
+        });
+    }
+
     public syncUser(
         user: iUser,
         setUser: (user: iUser) => void,

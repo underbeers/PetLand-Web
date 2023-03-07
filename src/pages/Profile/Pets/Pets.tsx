@@ -5,7 +5,7 @@ import PetCard from '../../../components/PetCard/PetCard';
 
 import styles from './Pets.module.css'
 import {Simulate} from "react-dom/test-utils";
-import load = Simulate.load;
+
 
 
 const Pets: React.FC = () => {

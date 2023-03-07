@@ -38,12 +38,31 @@ const NewPet: React.FC = () => {
     useEffect(() => {
         petService.getPetTypes().then(response => {
             if (response.ok) {
-                console.log(response.body);
+                return(response.json());
             } else {
                 console.log(response);
             }
+        }).then(body => {
+            setTypes(body);
         });
     }, []);
+
+    useEffect(() => {
+        for (let i = 0; i < types.length; i++) {
+            if (type.value == types[i].pet_type) {
+                petService.getBreedByPetTypeId(types[i].id.toString()).then(response => {
+                    if (response.ok) {
+                        return(response.json());
+                    } else {
+                        console.log(response);
+                    }
+                }).then(body => {
+                    setBreeds(body);
+                });
+            }
+        }
+
+    }, [type]);
 
     return (
         <form id={''} className={styles.wrapper}>

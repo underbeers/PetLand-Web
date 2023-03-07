@@ -3,28 +3,28 @@ const API_URL = 'http://79.137.198.139:6002/api/v1';
 
 class PetService {
     public async getPetTypes() {
-        return fetch(API_URL + '/petTypes/', {
+        return fetch(API_URL + '/petTypes', {
             method: 'GET',
             headers: {'Content-Type': 'application/json'}
         })
     }
 
     public async getBreedByPetTypeId(petTypeId: string) {
-        return fetch(API_URL + `/breeds/?pet_type_id=${petTypeId}`, {
+        return fetch(API_URL + `/breeds?pet_type_id=${petTypeId}`, {
             method: 'GET',
             headers: {'Content-Type': 'application/json'}
         })
     }
 
     public async getFullPetCard(userId: string) {
-        return fetch(API_URL + `/petCards/?user_id=${userId}`, {
+        return fetch(API_URL + `/petCards?user_id=${userId}`, {
             method: 'GET',
             headers: {'Content-Type': 'application/json'}
         })
     }
 
     public async getShortPetCard(userId: string) {
-        return fetch(API_URL + `/petCards/main/?user_id=${userId}`, {
+        return fetch(API_URL + `/petCards/main?user_id=${userId}`, {
             method: 'GET',
             headers: {'Content-Type': 'application/json'}
         })
@@ -64,8 +64,9 @@ class PetService {
     public async createPetCard(pet_type_id: number, user_id: number, pet_name: string, breed_id: number,
                                photo: string, birth_date: string, male: boolean, color: string,
                                care: string, pet_character: string, pedigree: string, sterilization: boolean,
-                               vaccinations: boolean){
-        return fetch(API_URL + '/petCards/new/', {
+                               vaccinations: boolean) {
+        return fetch(API_URL + '/petCards/new', {
+
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({

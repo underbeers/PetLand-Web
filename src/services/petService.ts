@@ -66,6 +66,7 @@ class PetService {
                                care: string, pet_character: string, pedigree: string, sterilization: boolean,
                                vaccinations: boolean) {
         return fetch(API_URL + '/petCards/new', {
+
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({

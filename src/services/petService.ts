@@ -64,7 +64,7 @@ class PetService {
     public async createPetCard(pet_type_id: number, user_id: number, pet_name: string, breed_id: number,
                                photo: string, birth_date: string, male: boolean, color: string,
                                care: string, pet_character: string, pedigree: string, sterilization: boolean,
-                               vaccinations: boolean) {
+                               vaccinations: boolean){
         return fetch(API_URL + '/petCards/new/', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},

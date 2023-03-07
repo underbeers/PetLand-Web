@@ -4,7 +4,7 @@ import {useNavigate} from 'react-router-dom';
 import Button from '../../../components/UIKit/Button';
 import PetCard from '../../../components/PetCard/PetCard';
 
-import styles from './Pets.module.css'
+import styles from './Pets.module.css';
 
 
 const Pets: React.FC = () => {

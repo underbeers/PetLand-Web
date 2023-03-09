@@ -86,10 +86,10 @@ const Header: React.FC = () => {
                                     onMouseEnter={() => {setProfileDropdown(true)}}
                                     onMouseLeave={() => {setProfileDropdown(false)}}>
                                     <li><NavLink to={'/profile/favorite'}>Избранное</NavLink></li>
-                                    <li><NavLink to={'/profile/pets'}>Мои питомцы</NavLink></li>
-                                    <li><NavLink to={'/profile/ads'}>Мои объявления</NavLink></li>
-                                    <li><NavLink to={'/profile/reviews'}>Мои отзывы</NavLink></li>
-                                    <li><NavLink to={'/profile/rates'}>Мой рейтинг</NavLink></li>
+                                    <li><NavLink to={'/profile/pets'}>Питомцы</NavLink></li>
+                                    <li><NavLink to={'/profile/ads'}>Объявления</NavLink></li>
+                                    <li><NavLink to={'/profile/reviews'}>Отзывы</NavLink></li>
+                                    <li><NavLink to={'/profile/rates'}>Рейтинг</NavLink></li>
                                     <li><span className={styles.divider}></span></li>
                                     <li><a onClick={()=>userService.signOut(setUser)}>Выход</a></li>
                                 </ul>}

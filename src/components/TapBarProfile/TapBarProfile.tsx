@@ -15,36 +15,34 @@ const TapBarProfile: React.FC<ITapBarProps> = ({format}) => {
     return (
             <div className={styles.nav}>
                 <NavLink to={'/profile/pets'} className={styles.menu__item}>
-                    <Icons icon={'paw'}/>
-                    <span className={styles.text}>Питомцы</span>
+                    <Icons icon={'paw'} className={styles.icon}/>
+                    <span className={'secondary__text-3'}>Питомцы</span>
                 </NavLink>
 
 
                 <NavLink to={'/profile/favorite'} className={styles.menu__item}>
-                    <Icons icon={'cards-heart'}/>
-                    <span className={styles.text}>Избранное</span>
+                    <Icons icon={'cards-heart'} className={styles.icon}/>
+                    <span className={'secondary__text-3'}>Избранное</span>
                 </NavLink>
 
 
                 <NavLink to={'/profile/ads'} className={styles.menu__item}>
-                    <Icons icon={'ad'}/>
-                    <span className={styles.text}>Объявления</span>
+                    <Icons icon={'ad'} className={styles.icon}/>
+                    <span className={'secondary__text-3'}>Объявления</span>
                 </NavLink>
 
 
                 <NavLink to={'/profile/reviews'} className={styles.menu__item}>
-                    <Icons icon={'reviews'}/>
-                    <span className={styles.text}>Отзывы</span>
+                    <Icons icon={'reviews'} className={styles.icon}/>
+                    <span className={'secondary__text-3'}>Отзывы</span>
                 </NavLink>
 
 
                 <NavLink to={'/profile/rates'} className={styles.menu__item}>
-                    <Icons icon={'round-star'}/>
-                    <span className={styles.text}>Рейтинг</span>
+                    <Icons icon={'round-star'} className={styles.icon}/>
+                    <span className={'secondary__text-3'}>Рейтинг</span>
                 </NavLink>
 
-
-                <div className={styles[format]}></div>
             </div>
     )
 }

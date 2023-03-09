@@ -38,11 +38,17 @@
 .type__breed {
     margin-top: 8px;
     margin-left: 16px;
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
 }
 
 .gender__age {
-    margin-top: 8px;
+    margin-top: 4px;
     margin-left: 16px;
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
 }
 
 @media screen and (max-width: 700px) {

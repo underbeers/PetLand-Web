@@ -54,7 +54,7 @@
     .error {
         font-size: 150px;
         font-family: var(--modak-font);
-        color: var(--accent-orange);
+        color: var(--orange--primary--color);
     }
 
     .description {

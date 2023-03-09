@@ -48,6 +48,16 @@ class AuthService {
         });
     }
 
+    public async sendNewPassword(body: {profileId: string, newPassword: string}){
+        return fetch(API_URL + '/password/reset/', {
+            method: 'PATCH',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(
+                body
+            )
+        });
+    }
+
     public syncUser(
         user: iUser,
         setUser: (user: iUser) => void,

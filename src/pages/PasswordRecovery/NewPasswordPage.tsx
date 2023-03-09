@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
-import userService from '../../services/userService';
 import {useNavigate, useSearchParams} from 'react-router-dom';
 
 import {passwordRegExp} from '../../constants/regularExpressions';
+import userService from '../../services/userService';
 
 import Input from '../../components/UIKit/Input';
 import Button from '../../components/UIKit/Button';

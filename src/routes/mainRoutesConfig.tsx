@@ -5,6 +5,7 @@ import NewPet from '../pages/NewPet/NewPet';
 import Page404 from '../pages/Page404/Page404';
 import EmailPage from "../pages/PasswordRecovery/EmailPage";
 import NewPasswordPage from "../pages/PasswordRecovery/NewPasswordPage";
+import PetPage from "../pages/PetPage/PetPage";
 
 
 export const PATH_PREFIX = '';
@@ -45,6 +46,10 @@ const routesConfig = [
     {
         path: PATH_PREFIX + '/new-password',
         element: <NewPasswordPage/>
+    },
+    {
+        path: PATH_PREFIX + '/pet-page',
+        element: <PetPage/>
     },
     {
         path: PATH_PREFIX + '/profile/*',

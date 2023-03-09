@@ -1,0 +1,85 @@
+.name__button {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 33px;
+}
+
+.chips {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    margin-top: 20px;
+}
+
+.photos {
+    display: flex;
+    flex-direction: row;
+    margin-top: 36px;
+}
+
+.main__photo {
+    width: 374px;
+    height: 272px;
+    border-radius: 20px;
+    background-color: var(--base--400);
+}
+
+.other__photos__button {
+    display: flex;
+    flex-direction: column;
+    margin-left: 30px;
+    justify-content: space-between;
+}
+
+.other__photos {
+    display: flex;
+    width: 677px;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.another__photo {
+    width: 142px;
+    height: 90px;
+    background-color: var(--base--400);
+    border-radius: 20px;
+}
+
+.add__photos {
+    width: 212px;
+}
+
+.full__info {
+    margin-top: 48px;
+    display: flex;
+    flex-direction: row;
+    gap: 131px;
+}
+
+.description {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    width: 475px;
+}
+
+.sterilization__vaccination {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.info {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 8px;
+}
+
+svg > path {
+    fill: var(--orange--primary--color);
+}

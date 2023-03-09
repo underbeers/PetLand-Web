@@ -34,17 +34,17 @@ const NewPasswordPage = () => {
                         <Input type={'password'} value={password2} setValue={setPassword2}
                                className={styles.input__password2} label={'Подтверждение'}/>
                     </div>
-                    <Button type={'primary'} color={'orange'} text={'Сохранить пароль'} onClick={saveNewPassword} className={styles.button}/>
+                    <Button type={'primary'} color={'orange'} text={'Сохранить пароль'} onClick={saveNewPassword}
+                            className={styles.button}/>
                 </>
-            :
-            <>
-                {!isMobile ? <h1 className={styles.success__message}>Пароль успешно обновлен</h1> :
-                    <h3 className={styles.success__message}>Пароль успешно обновлен</h3>}
-                <Button type={'primary'} color={'green'} text={'На главную PetLand'} onClick={() => {
-                }} className={styles.main__page}/>
-            </>
+                :
+                <>
+                    {!isMobile ? <h1 className={styles.success__message}>Пароль успешно обновлен</h1> :
+                        <h3 className={styles.success__message}>Пароль успешно обновлен</h3>}
+                    <Button type={'primary'} color={'green'} text={'На главную PetLand'} onClick={() => {
+                    }} className={styles.main__page}/>
+                </>
             }
-
         </div>
     )
 }

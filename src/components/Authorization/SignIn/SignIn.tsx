@@ -70,7 +70,7 @@ const SignIn: React.FC<iAuthProps> = ({switchContent, closeModal, isMobile}) => 
                                 <Input type={'password'} placeholder={'Пароль'} value={password}
                                        setValue={setPassword} regularExpressions={passwordRegExp} required={true}/>
                                 <a className={cn('primary__text underlined', styles.forgot__pwd)}
-                                   href={'#'}>
+                                   href={'/password-recovery'}>
                                     Забыли пароль?
                                 </a>
                             </div>
@@ -123,7 +123,7 @@ const SignIn: React.FC<iAuthProps> = ({switchContent, closeModal, isMobile}) => 
                             setValue={setPassword}
                             required={true}
                         />
-                        <a className={'subtext'} href={'#'}
+                        <a className={'subtext'} href={'/password-recovery'}
                            style={{textDecoration: 'underline', alignSelf: 'flex-end'}}>Забыли пароль?</a>
                         <div style={{alignSelf: 'flex-start'}}>
                             <Checkbox isChecked={savePwd} setChecked={setSavePwd}>Не выходить из аккаунта</Checkbox>

@@ -35,10 +35,23 @@ const NewPet: React.FC = () => {
     const [breeds, setBreeds] = useState(initialBreedsState);
     const getBreeds: () => Array<string> = () => breeds.map(item => item.breed_name);
 
+    //const regExpTypes: Array<{regExp: RegExp, error: string}> = types.map(type => {
+    //    return {regExp: RegExp('^' + type.pet_type + '$'), error: 'Введите тип из списка'}
+    //})
+    const regExpTypes: { regExp: RegExp, error: string } = {
+        regExp: RegExp('^(' + types.map(type => type.pet_type).toString().replaceAll(',', '|') + ')$'),
+        error: 'Введите вид из списка'
+    };
+
+    const regExpBreeds: { regExp: RegExp, error: string } = {
+        regExp: RegExp('^(' + breeds.map(breed => breed.breed_name).toString().replaceAll(',', '|') + ')$'),
+        error: 'Введите породу из списка'
+    }
+
     useEffect(() => {
         petService.getPetTypes().then(response => {
             if (response.ok) {
-                return(response.json());
+                return (response.json());
             } else {
                 console.log(response);
             }
@@ -51,13 +64,15 @@ const NewPet: React.FC = () => {
         for (let i = 0; i < types.length; i++) {
             if (type.value == types[i].pet_type) {
                 petService.getBreedByPetTypeId(types[i].id.toString()).then(response => {
+                    console.log(response);
                     if (response.ok) {
-                        return(response.json());
+                        return (response.json());
                     } else {
                         console.log(response);
+                        return null;
                     }
                 }).then(body => {
-                    setBreeds(body);
+                    body ? setBreeds(body) : setBreeds([]);
                 });
             }
         }
@@ -71,18 +86,20 @@ const NewPet: React.FC = () => {
                 <Input type={'text'} value={name} setValue={setName} label={'Кличка'}
                        placeholder={'Введите имя питомца'} required={true}/>
                 <Input type={'dropdown'} value={type} setValue={setType} label={'Вид'} placeholder={'Выберите вид'}
-                       dropdownItems={getTypes()} required={true}/>
+                       dropdownItems={getTypes()} required={true} regularExpressions={[regExpTypes]}/>
             </div>
             <div className={styles.input__row}>
                 <Input type={'dropdown'} value={gender} setValue={setGender} label={'Пол'} placeholder={'Выберите пол'}
                        dropdownItems={['Мальчик', 'Девочка']} required={true}/>
                 <Input type={'dropdown'} value={breed} setValue={setBreed} label={'Порода'}
                        placeholder={'Выберите породу'} dropdownItems={getBreeds()}
-                       required={true}/>
+                       required={true} disabled={!type.ok} regularExpressions={[regExpBreeds]}/>
             </div>
             <div className={styles.input__row}>
-                <Input type={'date'} value={{value: '', ok: true, edited: true}} setValue={()=>{}} label={'Дата рождения'} help={'Если вы не знаете точную дату, укажите примерную'}/>
-                <Input type={'file'} value={{value: '', ok: true, edited: true}} setValue={()=>{}} label={'Загрузите фотографию'} help={'Эта фотография будет на аватарке питомца'}/>
+                <Input type={'date'} value={{value: '', ok: true, edited: true}} setValue={() => {
+                }} label={'Дата рождения'} help={'Если вы не знаете точную дату, укажите примерную'}/>
+                <Input type={'file'} value={{value: '', ok: true, edited: true}} setValue={() => {
+                }} label={'Загрузите фотографию'} help={'Эта фотография будет на аватарке питомца'}/>
             </div>
             <div className={styles.input__row}>
                 <Input type={'textarea'} value={color} setValue={setColor} label={'Окрас'}

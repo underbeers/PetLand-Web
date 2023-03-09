@@ -1,15 +1,11 @@
 import React from 'react';
 
-import styles from './HomePage.module.css';
-import EmailPage from "../PasswordRecovery/EmailPage";
-import NewPasswordPage from "../PasswordRecovery/NewPasswordPage";
+import styles from './HomePage.module.css'
 
 
 const HomePage: React.FC = () => {
     return (
-        <>
-            <NewPasswordPage/>
-        </>
+        <>Главная страница</>
     );
 };
 

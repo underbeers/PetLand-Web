@@ -4,6 +4,9 @@ import Input from '../../components/UIKit/Input';
 import Button from '../../components/UIKit/Button';
 
 import styles from './EmailPage.module.css';
+import Authorization from "../../components/Authorization/Authorization";
+import Modal from "../../components/Modal/Modal";
+import {useNavigate} from "react-router-dom";
 
 
 const EmailPage = () => {
@@ -21,6 +24,8 @@ const EmailPage = () => {
         setEmailSent(true);
     }
 
+    const navigate = useNavigate();
+
     /*
     const send = async () => {
 
@@ -28,10 +33,10 @@ const EmailPage = () => {
             console.log(response.status);
         });
     }
-*/
+    */
+
     return (
         <div className={styles.window}>
-
             {!emailSent ?
                 <>
                     <h1>Восстановление пароля</h1>
@@ -40,30 +45,34 @@ const EmailPage = () => {
                     <div className={styles.buttons}>
                         <Button type={'primary'} color={'orange'} text={'Сбросить пароль'} onClick={send}
                                 className={styles.button1}/>
-                        <Button type={'secondary'} color={'orange'} text={'Вернуться к авторизации'} onClick={() => {
-                        }} className={styles.button2}/>
+                        <Modal
+                            button={<Button type={'secondary'} color={'orange'} text={'Вернуться к авторизации'}
+                                            onClick={()=>{}} className={styles.button2}/>}
+                            content={Authorization}
+                            contentProps={{isMobile, isFormSignIn: true}}/>
                     </div>
                 </>
                 :
                 <>
                     {!isMobile ?
-                    <>
-                        <h1 style={{color: 'var(--orange--primary--color)'}} className={styles.check}>Проверьте почту</h1>
-                        <h3 className={styles.desc}>Ссылка для обновления пароля <br /> отправлена на указанный email</h3>
-                    </>
+                        <>
+                            <h1 style={{color: 'var(--orange--primary--color)'}} className={styles.check}>Проверьте
+                                почту</h1>
+                            <h3 className={styles.desc}>Ссылка для обновления пароля <br/> отправлена на указанный email
+                            </h3>
+                        </>
                         :
                         <>
-                            <h3 style={{color: 'var(--orange--primary--color)'}} className={styles.check}>Проверьте почту</h3>
-                            <h5 className={styles.desc}>Ссылка для обновления пароля <br /> отправлена на указанный email</h5>
+                            <h3 style={{color: 'var(--orange--primary--color)'}} className={styles.check}>Проверьте
+                                почту</h3>
+                            <h5 className={styles.desc}>Ссылка для обновления пароля <br/> отправлена на указанный email
+                            </h5>
                         </>
                     }
-
                 </>
             }
-
         </div>
-    )
-
-}
+    );
+};
 
 export default EmailPage;

@@ -1,12 +1,14 @@
 import React, {useState} from 'react';
+import {useNavigate} from 'react-router-dom';
+
+import userService from '../../services/userService';
 
 import Input from '../../components/UIKit/Input';
 import Button from '../../components/UIKit/Button';
+import Authorization from '../../components/Authorization/Authorization';
+import Modal from '../../components/Modal/Modal';
 
 import styles from './EmailPage.module.css';
-import Authorization from "../../components/Authorization/Authorization";
-import Modal from "../../components/Modal/Modal";
-import {useNavigate} from "react-router-dom";
 
 
 const EmailPage = () => {
@@ -20,20 +22,23 @@ const EmailPage = () => {
         setIsMobile(window.innerWidth <= 700)
     });
 
-    const send = () => {
-        setEmailSent(true);
-    }
 
     const navigate = useNavigate();
 
-    /*
+
     const send = async () => {
 
         await userService.askPasswordRecovery(email.value).then(response => {
-            console.log(response.status);
+            switch (response.status) {
+                case 200:
+                    setEmailSent(true);
+                    break;
+                default:
+                    alert(`Неизвестная ошибка, код ${response.status}`)
+            }
         });
     }
-    */
+
 
     return (
         <div className={styles.window}>

@@ -114,7 +114,7 @@ const Input: React.FC<iInputProps> = ({
                             {...inputProps}
                             onKeyDown={onKeyDown}
                         />
-                        {type == 'password' && <Icons icon={pwdShown ? 'eye-slash' : 'eye'} className={styles.icon} onClick={()=>{setPwdShown(!pwdShown)}}/>}
+                        {type == 'password' && <Icons icon={pwdShown ? 'eye' : 'eye-slash'} className={styles.icon} onClick={()=>{setPwdShown(!pwdShown)}}/>}
                     </>
                 );
         }

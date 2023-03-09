@@ -16,7 +16,7 @@ const PetCard: React.FC<iPetCardProps> = ({size}) => {
     const petType = 'вид';
     const petBreed = 'порода';
     const petGender = 'пол';
-    const petAge = '2 года';
+    const petAge = 'возраст';
 
     const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
 
@@ -31,7 +31,7 @@ const PetCard: React.FC<iPetCardProps> = ({size}) => {
                  className={styles.img}/>
             <div className={styles.pet__info}>
 
-                <h1 className={styles.name}>{petName}</h1>
+                <h4 className={styles.name}>{petName}</h4>
 
                 {size === 'medium' &&
                     <>

@@ -1,0 +1,9 @@
+.bar {
+    height: 60px;
+    display: flex;
+    gap: 8px;
+}
+
+.bar > h5 {
+    flex: 1;
+}

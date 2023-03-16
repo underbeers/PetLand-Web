@@ -101,11 +101,11 @@ const SignIn: React.FC<iAuthProps> = ({switchContent, closeModal, isMobile}) => 
                 </div>
             </div> :
             <div className={generalStyles.modal}>
-                <span className={generalStyles.cross} onClick={closeModal}/>
+                <Icons icon={"cross"} className={generalStyles.cross} onClick={closeModal} />
                 <Image imageProps={{src: dogMobile, alt: 'Собака', width: '100%', height: '230px'}}
                        className={generalStyles.image}/>
                 <div className={generalStyles.form__wrapper}>
-                    <h1>Авторизация</h1>
+                    <h3>Авторизация</h3>
                     <div className={generalStyles.form}>
                         <Input
                             type={'email'}
@@ -123,8 +123,7 @@ const SignIn: React.FC<iAuthProps> = ({switchContent, closeModal, isMobile}) => 
                             setValue={setPassword}
                             required={true}
                         />
-                        <a className={'subtext'} href={'/password-recovery'}
-                           style={{textDecoration: 'underline', alignSelf: 'flex-end'}}>Забыли пароль?</a>
+                        <a className={cn('secondary__text-1', 'underlined', styles.forgot__pwd__mobile)} href={'/password-recovery'}>Забыли пароль?</a>
                         <div style={{alignSelf: 'flex-start'}}>
                             <Checkbox isChecked={savePwd} setChecked={setSavePwd}>Не выходить из аккаунта</Checkbox>
                         </div>
@@ -136,10 +135,10 @@ const SignIn: React.FC<iAuthProps> = ({switchContent, closeModal, isMobile}) => 
                             </p>
                         }
                         <Button color={'orange'} text={'Войти'} onClick={login} type={'primary'}/>
-                        <span className={generalStyles.paw}><Icons icon={'paw'}/></span>
-                        <p className={'subtext'}>
+
+                        <p className={cn('primary__text', styles.sub__color)}>
                             У вас ещё нет аккаунта?<br/>
-                            <a className={'link'} onClick={switchContent}>Зарегистрироваться</a>
+                            <a className={cn('primary__text', 'underlined')} onClick={switchContent}>Зарегистрироваться</a>
                         </p>
                     </div>
                 </div>

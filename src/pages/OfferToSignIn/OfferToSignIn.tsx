@@ -24,12 +24,12 @@ const OfferToSignIn: React.FC = () => {
                     <Modal
                         button={<span className={styles.ref}>Войдите</span>}
                         content={Authorization}
-                        contentProps={{isMobile, isFormSignIn: true}}/>
+                        contentProps={{isFormSignIn: true}}/>
                     &nbsp;или&nbsp;
                     <Modal
                         button={<span className={styles.ref}>зарегистрируйтесь</span>}
                         content={Authorization}
-                        contentProps={{isMobile, isFormSignIn: false}}/>
+                        contentProps={{isFormSignIn: false}}/>
                     <br/>
                     для полного доступа к функционалу PetLand
                 </h1>

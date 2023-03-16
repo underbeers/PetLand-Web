@@ -54,7 +54,7 @@ const EmailPage = () => {
                             button={<Button type={'secondary'} color={'orange'} text={'Вернуться к авторизации'}
                                             onClick={()=>{}} className={styles.button2}/>}
                             content={Authorization}
-                            contentProps={{isMobile, isFormSignIn: true}}/>
+                            contentProps={{isFormSignIn: true}}/>
                     </div>
                 </>
                 :

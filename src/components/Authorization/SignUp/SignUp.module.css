@@ -30,6 +30,10 @@
     gap: 8px;
 }
 
+.sub__color {
+    color: var(--blue--300);
+}
+
 @media screen and (max-width: 700px) {
     .code__verified__msg {
         top: 105%;
@@ -39,5 +43,18 @@
     .resend__code {
         left: 65px;
         top: 120px;
+    }
+
+    .arrow {
+        position: absolute;
+        top: 8px;
+        left: 8px;
+        z-index: 102;
+        width: 32px;
+        height: 32px;
+    }
+
+    .arrow path {
+        fill: var(--base--0);
     }
 }

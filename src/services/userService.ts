@@ -5,7 +5,7 @@ const API_URL = 'http://79.137.198.139:6002/api/v1';
 
 class AuthService {
     private async authenticate(email: string, password: string) {
-        return fetch(API_URL + '/login/', {
+        return fetch(API_URL + '/login', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
@@ -16,7 +16,7 @@ class AuthService {
     }
 
     private async authorize() {
-        return fetch(API_URL + '/user/info/', {
+        return fetch(API_URL + '/user/info', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -26,7 +26,7 @@ class AuthService {
     }
 
     private async register(firstName: string, surName: string, email: string, password: string) {
-        return fetch(API_URL + '/registration/new/', {
+        return fetch(API_URL + '/registration/new', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
@@ -39,7 +39,7 @@ class AuthService {
     }
 
     public async askPasswordRecovery(email: string) {
-        return fetch(API_URL + `/password/refresh/`, {
+        return fetch(API_URL + `/password/refresh`, {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
@@ -49,7 +49,7 @@ class AuthService {
     }
 
     public async sendNewPassword(body: {profileId: string, newPassword: string}){
-        return fetch(API_URL + '/password/reset/', {
+        return fetch(API_URL + '/password/reset', {
             method: 'PATCH',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(
@@ -177,7 +177,7 @@ class AuthService {
     }
 
     public async sendCode(email: string, code: string) {
-        fetch(API_URL + '/email/code/', {
+        fetch(API_URL + '/email/code', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({

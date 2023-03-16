@@ -9,3 +9,18 @@
     color: var(--blue--300);
     padding: 8px;
 }
+
+.sub__color {
+    color: var(--blue--300);
+}
+
+.forgot__pwd__mobile {
+    align-self: flex-end;
+    color: var(--blue--300);
+}
+
+.cross {
+    width: 32px;
+    height: 32px;
+    color: var(--base--0);
+}

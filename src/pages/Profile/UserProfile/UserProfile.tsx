@@ -30,7 +30,7 @@ const UserProfile = () => {
     });
 
     return (
-        <div className={styles.content}>
+        <>
             <h1 className={styles.title}>Профиль</h1>
             <p className={cn('subtext', styles.date)}>На PetLand с ноября 2022</p>
 
@@ -120,7 +120,7 @@ const UserProfile = () => {
                     }
                 </div>
             </div>
-        </div>
+        </>
     );
 };
 

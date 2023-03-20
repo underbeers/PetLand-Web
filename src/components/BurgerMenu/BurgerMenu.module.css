@@ -1,14 +1,14 @@
 .overlay {
-    height: 100vh;
     width: 100vw;
     background-color: var(--base--800);
     opacity: 0;
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     z-index: 49;
     visibility: hidden;
     transition: all 0.1s ease-in-out;
+    height: calc(100 * var(--vh));
 }
 
 .burger {
@@ -16,11 +16,12 @@
     background-color: var(--base--0);
     border-bottom-right-radius: 16px;
     border-top-right-radius: 16px;
-    position: absolute;
+    position: fixed;
     top: 0;
     left: -300px;
     z-index: 50;
     transition: left .2s ease-in-out;
+    height: calc(100 * var(--vh));
 }
 
 .burger__opened {
@@ -37,6 +38,10 @@
     width: 100%;
     background-color: var(--green--primary--color);
     border-top-right-radius: 16px;
+    display: flex;
+}
+
+.header__burger > a {
     display: flex;
 }
 
@@ -61,14 +66,17 @@
     color: var(--base--0);
 }
 
-nav {
+.burger__items {
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    justify-content: space-between;
     padding-top: 24px;
     padding-bottom: 24px;
     padding-left: 12px;
+    height: calc(100 * var(--vh) - 130px);
+    overflow-y: scroll;
 }
+
 
 .block {
     display: flex;
@@ -87,7 +95,7 @@ nav {
     width: 100%;
 }
 
-nav :global(a.active) {
+.burger__item :global(a.active) {
     font-size: var(--heading-5--text--size);
     font-weight: 700;
 }

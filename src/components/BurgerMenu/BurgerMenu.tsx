@@ -38,7 +38,7 @@ const BurgerMenu: React.FC<{ openedBurger: boolean, toggleBurger: () => void }> 
                         }
                     </div>
 
-                    <nav>
+                    <nav className={styles.burger__items}>
                         <div className={styles.block}>
                             <NavLink onClick={toggleBurger} to={'/bulletin-board'}
                                      className={cn('primary__text', styles.burger__item)}>

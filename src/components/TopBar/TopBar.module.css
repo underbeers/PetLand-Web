@@ -5,6 +5,8 @@
     flex-direction: row;
     align-items: center;
     gap: 8px;
+    box-shadow: -16px 0 0 var(--base--0), 16px 0 0 var(--base--0);
+    background-color: var(--base--0);
 }
 
 .icon__left {

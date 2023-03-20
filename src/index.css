@@ -182,6 +182,7 @@ h5 {
     box-sizing: border-box;
 }
 
+
 /* CSS animations from react-transition-group */
 .modal-enter {
     opacity: 0;

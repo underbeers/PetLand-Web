@@ -22,7 +22,7 @@ const Profile: React.FC = () => {
     return (
         <div className={styles.wrapper}>
             {!isMobile ? <SideBarProfile/> : <TapBarProfile format={'circle'}/>}
-            <div className={styles.content}>
+            <div className={!isMobile ? styles.content : ''}>
                 <Routes>
                     {profileRoutesConfig.map((route, index) => (
                         <Route

@@ -32,4 +32,4 @@ jobs:
           context: .
           file: ./Dockerfile
           push: false
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/pl_web:v0.1.0
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/pl_frontend:v1

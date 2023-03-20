@@ -1,5 +1,4 @@
-const API_URL = 'http://79.137.198.139:6002/api/v1';
-
+import {API_URL} from "./userService";
 
 class PetService {
     public async getPetTypes() {

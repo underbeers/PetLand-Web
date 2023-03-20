@@ -35,9 +35,6 @@ const NewPet: React.FC = () => {
     const [breeds, setBreeds] = useState(initialBreedsState);
     const getBreeds: () => Array<string> = () => breeds.map(item => item.breed_name);
 
-    //const regExpTypes: Array<{regExp: RegExp, error: string}> = types.map(type => {
-    //    return {regExp: RegExp('^' + type.pet_type + '$'), error: 'Введите тип из списка'}
-    //})
     const regExpTypes: { regExp: RegExp, error: string } = {
         regExp: RegExp('^(' + types.map(type => type.pet_type).toString().replaceAll(',', '|') + ')$'),
         error: 'Введите вид из списка'

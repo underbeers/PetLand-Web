@@ -8,6 +8,9 @@ import userService from '../services/userService';
 import Header from './Header/Header';
 import Footer from './Footer/Footer';
 
+import styles from './App.module.css';
+import cn from "classnames";
+
 
 const App: React.FC = () => {
 
@@ -22,21 +25,19 @@ const App: React.FC = () => {
 
     return (
         <UserContext.Provider value={{user, setUser}}>
-            <div style={{minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', alignItems: 'center'}}>
-                <Header/>
-                <main className='container' style={{flex: 1, width: '100%', display: 'flex'}}>
-                    <Routes>
-                        {mainRoutesConfig.map((route, index) => (
-                            <Route
-                                key={index}
-                                path={route.path}
-                                element={route.element}
-                            />
-                        ))}
-                    </Routes>
-                </main>
-
-            </div>
+            <Header/>
+            <main className={cn(styles.main, 'container')}>
+                <Routes>
+                    {mainRoutesConfig.map((route, index) => (
+                        <Route
+                            key={index}
+                            path={route.path}
+                            element={route.element}
+                        />
+                    ))}
+                </Routes>
+            </main>
+            <Footer/>
         </UserContext.Provider>
     );
 };

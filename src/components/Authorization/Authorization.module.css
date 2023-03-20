@@ -51,43 +51,13 @@
     top: 24px;
     right: 24px;
     cursor: pointer;
+    z-index: 102;
 }
 
 .cross path {
     fill: var(--base--600);
 }
 
-.arrow {
-    position: absolute;
-    left: 10px;
-    top: 22px;
-    width: 28px;
-    height: 1.5px;
-    background-color: var(--primary--text--color);
-    border-radius: 1px;
-    z-index: 10;
-    border-top: 16px solid;
-    border-bottom: 16px solid;
-    border: transparent;
-}
-
-.arrow:before, .arrow:after {
-    content: '';
-    height: 2px;
-    width: 18px;
-    background-color: inherit;
-    border-radius: 1px;
-    position: absolute;
-}
-
-.arrow:before {
-    transform: translateY(-6px) translateX(-2px) rotate(-45deg);
-    bottom: 0;
-}
-
-.arrow:after {
-    transform: translateY(6px) translateX(-2px) rotate(45deg);
-}
 
 .form {
     display: flex;
@@ -170,13 +140,14 @@
     }
 
     .cross {
-        top: 5px;
-        right: 5px;
+        top: 8px;
+        right: 8px;
     }
 
-    .cross:before, .cross:after {
-        width: 35px;
+    .cross path {
+        fill: var(--base--0);
     }
+
 
     .form {
         width: 260px;
@@ -189,5 +160,4 @@
         gap: 8px;
         text-align: center;
     }
-
 }

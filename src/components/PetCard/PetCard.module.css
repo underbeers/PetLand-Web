@@ -54,25 +54,25 @@
 @media screen and (max-width: 700px) {
 
     .medium {
-        width: 260px;
+        width: 252px;
         height: 300px;
     }
 
     .medium .img {
         height: 180px;
-        width: 260px;
+        width: 252px;
         object-fit: cover;
         border-radius: 20px 20px 0 0;
     }
 
     .small {
-        width: 160px;
+        width: 154px;
         height: 180px;
     }
 
     .small .img {
         height: 112px;
-        width: 160px;
+        width: 154px;
         object-fit: cover;
         border-radius: 20px 20px 0 0;
     }

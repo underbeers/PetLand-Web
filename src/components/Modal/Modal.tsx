@@ -6,16 +6,27 @@ import styles from './Modal.module.css';
 
 type ModalProps = {
     content: ModalContent;
-    contentProps: { isMobile: boolean, isFormSignIn?: boolean, closeModal?: () => void };
+    contentProps?: { isFormSignIn?: boolean, closeModal?: () => void };
     button: JSX.Element;
 }
 
-export type ModalContent = React.FC<ModalProps['contentProps']>;
+export type ModalContent = React.FC<{isFormSignIn?: boolean, closeModal?: () => void, isMobile: boolean}>;
 
 const Modal: React.FC<ModalProps> = ({content, contentProps, button}) => {
     const [isOpened, setIsOpened] = useState(false);
     const Content: ModalContent = content;
     const nodeRef = useRef(null);
+
+    const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
+
+    window.addEventListener('resize', () => {
+        setIsMobile(window.innerWidth <= 700)
+    });
+
+    const cProps = {
+        isMobile,
+        ...contentProps
+    }
 
     return (
         <>
@@ -24,10 +35,10 @@ const Modal: React.FC<ModalProps> = ({content, contentProps, button}) => {
                  className={cn(styles.overlay, isOpened ? styles.opened : styles.closed)}
                  onClick={() => {setIsOpened(false)}}
             />
-            <CSSTransition in={isOpened} nodeRef={nodeRef} timeout={contentProps.isMobile ? 0 : 200} classNames='modal' unmountOnExit>
+            <CSSTransition in={isOpened} nodeRef={nodeRef} timeout={isMobile ? 0 : 200} classNames='modal' unmountOnExit>
                 <div className={styles.wrapper}>
                     <div className={styles.modal} ref={nodeRef}>
-                        <Content closeModal={() => {setIsOpened(false)}} {...contentProps} />
+                        <Content closeModal={() => {setIsOpened(false)}} {...cProps} />
                     </div>
                 </div>
             </CSSTransition>

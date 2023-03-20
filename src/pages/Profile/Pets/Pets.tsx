@@ -13,7 +13,7 @@ const Pets: React.FC = () => {
     const navigate = useNavigate();
 
     return (!isEmpty ?
-            <div className={styles.content}>
+            <>
                 <div className={styles.title__button}>
                     <h1>Мои питомцы</h1>
                     <Button color={'orange'} text={'Добавить питомца'} onClick={()=>navigate('/new-pet')} type={'primary'}/>
@@ -24,9 +24,9 @@ const Pets: React.FC = () => {
                     <PetCard size={'medium'}/>
                     <PetCard size={'medium'}/>
                 </div>
-            </div>
+            </>
             :
-            <div className={styles.content}>
+            <>
                 <h1>Мои питомцы</h1>
                 <span className={styles.title}>У вас пока нет питомцев</span>
                 <div className={styles.text__button}>
@@ -37,7 +37,7 @@ const Pets: React.FC = () => {
                     <p>Или найдите друга<br/> в объявлениях PetLand</p>
                     <Button color={'green'} text={'Доска объявлений'} onClick={() => {}} type={'primary'}/>
                 </div>
-            </div>
+            </>
     );
 }
 

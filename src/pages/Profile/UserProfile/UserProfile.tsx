@@ -11,6 +11,7 @@ import PetCard from '../../../components/PetCard/PetCard';
 import Image from '../../../components/Image/Image';
 
 import styles from './UserProfile.module.css';
+import TopBar from "../../../components/TopBar/TopBar";
 
 
 const UserProfile = () => {
@@ -30,7 +31,12 @@ const UserProfile = () => {
     });
 
     return (
-        <div className={styles.content}>
+        <>
+
+            <TopBar leftButton={'burger'}>
+            Профиль
+            </TopBar>
+
             <h1 className={styles.title}>Профиль</h1>
             <p className={cn('subtext', styles.date)}>На PetLand с ноября 2022</p>
 
@@ -120,7 +126,7 @@ const UserProfile = () => {
                     }
                 </div>
             </div>
-        </div>
+        </>
     );
 };
 

@@ -34,3 +34,14 @@
     color: var(--base--0);
     font-weight: 700;
 }
+
+@media screen and (max-width: 700px) {
+    .tabs > a {
+        font: var(--secondary-1--text--size);
+        height: 38px;
+    }
+
+    .tabs:global(>a.active) {
+        font-weight: 700;
+    }
+}

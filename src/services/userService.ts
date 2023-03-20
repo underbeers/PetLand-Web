@@ -1,7 +1,7 @@
 import {initialUserContextState, iUser} from '../userContext';
 
 
-const API_URL = 'http://79.137.198.139:6002/api/v1';
+export const API_URL = `http://${process.env.REACT_APP_API_URL}/api/v1`;
 
 class AuthService {
     private async authenticate(email: string, password: string) {

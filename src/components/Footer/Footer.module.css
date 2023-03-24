@@ -9,9 +9,14 @@
     gap: 8px;
 }
 
-.footer a, p {
+.footer a {
     font-size: var(--secondary-2--text--size);
-    color: var(--base--600);
+    color: var(--base--700);
+}
+
+.footer p {
+    font-size: var(--secondary-2--text--size);
+    color: var(--base--500);
 }
 
 .row {

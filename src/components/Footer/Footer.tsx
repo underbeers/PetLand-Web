@@ -15,14 +15,14 @@ const Footer: React.FC = () => {
             {!isMobile ?
                 <div className={styles.row}>
                     <NavLink to={'/bulletin-board'}>Объявления</NavLink>
-                    <NavLink to={'#'}>Специалисты</NavLink>
-                    <NavLink to={'#'}>Клиники и отели</NavLink>
-                    <NavLink to={'#'}>Мероприятия</NavLink>
+                    <NavLink to={'/services/specialists'}>Специалисты</NavLink>
+                    <NavLink to={'/services/clinics'}>Клиники и отели</NavLink>
+                    <NavLink to={'/services/events'}>Мероприятия</NavLink>
                     <NavLink to={'#'}>Мобильное приложение</NavLink>
                 </div> :
                 <div className={styles.row}>
                     <NavLink to={'/bulletin-board'}>Объявления</NavLink>
-                    <NavLink to={'#'}>Сервисы</NavLink>
+                    <NavLink to={'/services'}>Сервисы</NavLink>
                     <NavLink to={'#'}>Приложение</NavLink>
                 </div>
             }

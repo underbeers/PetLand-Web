@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 
 import Chips from '../../components/UIKit/Chips';
 import Icons from '../../components/UIKit/Icons';
-
 import Button from '../../components/UIKit/Button';
 import TopBar from '../../components/TopBar/TopBar';
 import Slider from '../../components/Slider/Slider';

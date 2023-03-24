@@ -1,5 +1,6 @@
 import {API_URL} from './userService';
 
+
 class PetService {
     public async getPetTypes() {
         return fetch(API_URL + '/petTypes', {

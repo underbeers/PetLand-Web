@@ -9,7 +9,7 @@ import Header from './Header/Header';
 import Footer from './Footer/Footer';
 
 import styles from './App.module.css';
-import cn from "classnames";
+import cn from 'classnames';
 
 
 const App: React.FC = () => {

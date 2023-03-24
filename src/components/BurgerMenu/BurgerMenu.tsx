@@ -1,16 +1,16 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {NavLink} from "react-router-dom";
-import cn from "classnames";
+import {NavLink} from 'react-router-dom';
+import cn from 'classnames';
 
-import userService from "../../services/userService";
-import {UserContext} from "../../userContext";
+import userService from '../../services/userService';
+import {UserContext} from '../../userContext';
 
-import Icons from "../UIKit/Icons";
+import Icons from '../UIKit/Icons';
 
-import Modal from "../Modal/Modal";
-import Authorization from "../Authorization/Authorization";
+import Modal from '../Modal/Modal';
+import Authorization from '../Authorization/Authorization';
 
-import styles from "./BurgerMenu.module.css";
+import styles from './BurgerMenu.module.css';
 
 
 const BurgerMenu: React.FC<{ openedBurger: boolean, toggleBurger: () => void }> = ({openedBurger, toggleBurger}) => {

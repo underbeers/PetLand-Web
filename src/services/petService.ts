@@ -1,4 +1,4 @@
-import {API_URL} from "./userService";
+import {API_URL} from './userService';
 
 class PetService {
     public async getPetTypes() {

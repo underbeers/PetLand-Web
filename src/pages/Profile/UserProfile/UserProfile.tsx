@@ -11,16 +11,16 @@ import PetCard from '../../../components/PetCard/PetCard';
 import Image from '../../../components/Image/Image';
 
 import styles from './UserProfile.module.css';
-import TopBar from "../../../components/TopBar/TopBar";
+import TopBar from '../../../components/TopBar/TopBar';
 
 
 const UserProfile = () => {
 
-    const [isDescription, setIsDescription] = useState(true);
-    const [isPets, setIsPets] = useState(true);
-    const [isRating, setIsRating] = useState(true);
-    const [isReviews, setIsReviews] = useState(true);
-    const [isSpecialist, setIsSpecialist] = useState(true);
+    const [isDescription, setIsDescription] = useState(false);
+    const [isPets, setIsPets] = useState(false);
+    const [isRating, setIsRating] = useState(false);
+    const [isReviews, setIsReviews] = useState(false);
+    const [isSpecialist, setIsSpecialist] = useState(false);
 
     const {user, setUser} = useContext(UserContext);
 
@@ -32,13 +32,13 @@ const UserProfile = () => {
 
     return (
         <>
-
-            <TopBar leftButton={'burger'}>
-            Профиль
-            </TopBar>
-
-            <h1 className={styles.title}>Профиль</h1>
-            <p className={cn('subtext', styles.date)}>На PetLand с ноября 2022</p>
+            {isMobile &&
+                <TopBar leftButton={'burger'}>
+                    <h5>Профиль</h5>
+                </TopBar>
+            }
+            {!isMobile ? <h1>Профиль</h1> : <h3 className={styles.title__mobile}>Профиль</h3>}
+            <p className={styles.date}>На PetLand с ноября 2022</p>
 
             {isMobile &&
                 <div className={styles.photo__name}>
@@ -46,20 +46,20 @@ const UserProfile = () => {
                         imageProps={{src: user.photo, alt: '', width: '100px', height: '100px'}}
                         borderRadius={'50px 50px 50px 50px'}
                         className={styles.image}/>
-                    <h2>Имя<br/>Фамилия</h2>
+                    <h5>Имя<br/>Фамилия</h5>
                 </div>
             }
             {isDescription ?
                 <div className={styles.description}>
-                    <h2>Описание: </h2>
-                    <p className={'text'}>Lörem ipsum kuns kudirin. Euren diar vägen miheten. Krorade prertad.
+                    <h5>Описание: </h5>
+                    <p>Lörem ipsum kuns kudirin. Euren diar vägen miheten. Krorade prertad.
                         Sahyren påpp berade fede. Trar sharenting i mikronar obös. Barriärvård paralödade.
                         Kontratos. Suprasamma kar osam till agnostitos. Terabel dingen, kede parartad. Famis hysa i
                         didoligen. </p>
                 </div> :
                 <div className={styles.description}>
-                    <h2>Описание: </h2>
-                    <p className={'text'} style={{marginBottom: '8px'}}>Вы еще не добавили описание</p>
+                    <h5>Описание: </h5>
+                    <p style={{marginBottom: '8px'}}>Вы еще не добавили описание</p>
                     <Button color={'green'} text={'Настроить профиль'} onClick={() => {
                     }} type={'primary'}/>
                 </div>
@@ -67,16 +67,16 @@ const UserProfile = () => {
             <div className={styles.statistic}>
                 {isPets ?
                     <div className={styles.stat__pets}>
-                        <h2 className={styles.title__pets}>Питомцы</h2>
-                        <p className={'text'}>3 добавленных питомца</p>
+                        <h5 className={styles.title__pets}>Питомцы</h5>
+                        <p>3 добавленных питомца</p>
                         <div className={styles.pets__block}>
                             <PetCard size={'small'}/>
                             <PetCard size={'small'}/>
                         </div>
                     </div> :
                     <div className={styles.stat__pets}>
-                        <h2 className={styles.title__pets}>Питомцы</h2>
-                        <p className={'text'} style={{marginBottom: '8px'}}>У вас еще не добавлены питомцы на
+                        <h5 className={styles.title__pets}>Питомцы</h5>
+                        <p style={{marginBottom: '8px'}}>У вас еще не добавлены питомцы на
                             PetLand</p>
                         <Button color={'orange'} text={'Добавить питомца'} onClick={() => {
                         }} type={'primary'}/>
@@ -86,7 +86,7 @@ const UserProfile = () => {
                     <div className={styles.rating__reviews}>
                         {isRating ?
                             <div className={styles.stat__rating}>
-                                <h2>Рейтинг</h2>
+                                <h5>Рейтинг</h5>
                                 <div className={styles.stars__reviews}>
                                     <div className={styles.stars}>
                                         <Icons icon={'round-star'}/>
@@ -98,28 +98,28 @@ const UserProfile = () => {
                                     <span>4,0</span>
                                     <a href={'#'}>2 отзыва</a>
                                 </div>
-                                <p className={'text'}>3 завершенных сделки</p>
+                                <p>3 завершенных сделки</p>
                             </div>
                             :
                             <div className={styles.stat__rating}>
-                                <h2>Рейтинг</h2>
-                                <p className={'text'}>Вы еще не совершали сделок</p>
+                                <h5>Рейтинг</h5>
+                                <p>Вы еще не совершали сделок</p>
                             </div>
                         }
                         {isReviews ?
                             <div className={styles.reviews}>
-                                <h2>Объявления</h2>
+                                <h5>Объявления</h5>
                                 <a>1 активное объявление</a>
                             </div> :
                             <div className={styles.reviews}>
-                                <h2>Объявления</h2>
-                                <p className={'text'}>Нет активных объявлений</p>
+                                <h5>Объявления</h5>
+                                <p>Нет активных объявлений</p>
                             </div>
                         }
                     </div>
                     {isSpecialist &&
                         <div className={styles.specialist}>
-                            <h2>Является специалистом</h2>
+                            <h5>Является специалистом</h5>
                             <Chips label={'Кинолог'} size={'medium'} color={'grey'}/>
                             <a href={'#'} className={styles.to__page__spec}>Страница специалиста</a>
                         </div>

@@ -22,7 +22,7 @@ const Profile: React.FC = () => {
     return (
         <div className={styles.wrapper}>
             {!isMobile ? <SideBarProfile/> : <TapBarProfile format={'circle'}/>}
-            <div className={!isMobile ? styles.content : ''}>
+            <div className={styles.content}>
                 <Routes>
                     {profileRoutesConfig.map((route, index) => (
                         <Route
@@ -37,4 +37,4 @@ const Profile: React.FC = () => {
     );
 };
 
-export default withOfferToSignIn(Profile);
+export default Profile;

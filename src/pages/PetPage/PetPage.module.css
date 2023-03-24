@@ -7,63 +7,39 @@
     margin-top: 33px;
 }
 
+
+.slider__name h2 {
+    margin-top: 32px;
+}
+
 .chips {
     display: flex;
     flex-direction: row;
     gap: 16px;
-    margin-top: 20px;
+    margin-top: 4px;
 }
 
-.photos {
+.photo__info {
     display: flex;
     flex-direction: row;
-    margin-top: 36px;
-}
-
-.main__photo {
-    width: 374px;
-    height: 272px;
-    border-radius: 20px;
-    background-color: var(--base--400);
-}
-
-.other__photos__button {
-    display: flex;
-    flex-direction: column;
-    margin-left: 30px;
-    justify-content: space-between;
-}
-
-.other__photos {
-    display: flex;
-    width: 677px;
-    gap: 30px;
-    flex-wrap: wrap;
-}
-
-.another__photo {
-    width: 142px;
-    height: 90px;
-    background-color: var(--base--400);
-    border-radius: 20px;
-}
-
-.add__photos {
-    width: 212px;
+    width: 100%;
+    align-items: flex-start;
+    margin-top: 32px;
 }
 
 .full__info {
-    margin-top: 48px;
     display: flex;
-    flex-direction: row;
-    gap: 131px;
+    flex-direction: column;
+    gap: 24px;
+    margin-bottom: 32px;
+    margin-left: 40px;
 }
 
 .description {
     display: flex;
     flex-direction: column;
     gap: 24px;
-    width: 475px;
+    width: 100%;
 }
 
 .sterilization__vaccination {
@@ -72,7 +48,7 @@
     gap: 24px;
 }
 
-.info {
+.info__check {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
@@ -82,4 +58,30 @@
 
 svg > path {
     fill: var(--orange--primary--color);
+}
+
+
+@media screen and (max-width: 700px){
+    .chips {
+        flex-wrap: wrap;
+    }
+
+    .full__info {
+        flex-direction: column;
+        gap: 24px;
+        width: 100%;
+        margin-top: 20px;
+        margin-left: 0;
+    }
+
+    .description{
+        width: 100%;
+    }
+
+    .photo__info {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        align-items: normal;
+    }
 }

@@ -61,7 +61,7 @@ const NewPasswordPage = () => {
                                setValue={setPassword2} required={true} className={styles.input__password2}/>
                     </div>
                     <Button type={'primary'} color={'orange'} text={'Сохранить пароль'} onClick={saveNewPassword}
-                            className={styles.button}/>
+                            className={styles.button} disabled={!password1.ok || !password2.ok}/>
                 </>
                 :
                 <>

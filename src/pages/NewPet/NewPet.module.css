@@ -14,9 +14,50 @@
     width: 778px;
     display: flex;
     gap: 30px;
+}
 
+.tittle__checkboxes {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.checkboxes {
+    width: 778px;
+    display: flex;
+    gap: 30px;
 }
 
 .textarea {
     height: 156px;
+}
+
+@media screen and (max-width: 700px){
+    .wrapper {
+        margin: 32px auto;
+        padding: 0;
+        width: 100%;
+        background: transparent;
+        gap: 43px;
+    }
+
+    .input__row {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 43px;
+    }
+
+    .tittle__checkboxes {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .checkboxes {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        gap: 24px;
+    }
 }

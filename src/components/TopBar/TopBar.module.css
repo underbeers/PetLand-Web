@@ -9,10 +9,6 @@
     background-color: var(--base--0);
 }
 
-.icon__left {
-    width: 32px;
-    height: 32px;
-}
 
 .icon__left path {
     fill: var(--base--800);
@@ -20,4 +16,13 @@
 
 .bar > h5 {
     flex: 1;
+}
+
+.bar svg {
+    width: 28px;
+    height: 28px;
+}
+
+.bar svg path {
+    fill: var(--base--800);
 }

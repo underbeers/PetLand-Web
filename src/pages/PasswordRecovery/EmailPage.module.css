@@ -7,24 +7,12 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-}
-
-.check {
-    margin-top: 100px !important;
-}
-
-
-.window h1 {
-    margin-top: 40px
-}
-
-.window h3 {
-    margin-top: 40px;
+    justify-content: space-between;
+    padding: 60px 0;
 }
 
 .input__email {
     width: 374px;
-    margin-top: 96px;
 }
 
 .buttons {
@@ -32,11 +20,6 @@
     flex-direction: column;
     gap: 12px;
     width: 232px;
-    margin-top: 96px;
-}
-
-.desc {
-    margin-top: 80px !important;
 }
 
 @media screen and (max-width: 700px) {
@@ -44,16 +27,17 @@
         width: 340px;
         height: 340px;
         margin: 60px auto;
+        padding: 36px 0;
         background-color: var(--base--0);
         border-radius: 16px;
         display: flex;
         flex-direction: column;
         align-items: center;
+        justify-content: space-between;
     }
 
     .input__email {
         width: 260px;
-        margin-top: 36px;
     }
 
     .buttons {
@@ -63,9 +47,4 @@
         width: 240px;
         margin-top: 48px;
     }
-
-    .desc {
-        margin-top: 48px !important;
-    }
-
 }

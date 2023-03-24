@@ -1,6 +1,6 @@
 .chips{
     padding: 8px 16px;
-    display: block;
+    display: inline;
     color: var(--base--0);
 }
 

@@ -6,6 +6,7 @@ import {withOfferToSignIn} from '../../hoc/withOfferToSignIn';
 import Input from '../../components/UIKit/Input';
 import Checkbox from '../../components/UIKit/Checkbox';
 import Button from '../../components/UIKit/Button';
+import TopBar from '../../components/TopBar/TopBar';
 
 import styles from './NewPet.module.css';
 
@@ -77,51 +78,59 @@ const NewPet: React.FC = () => {
     }, [type]);
 
     return (
-        <form id={''} className={styles.wrapper}>
-            <h2>Добавление нового питомца</h2>
-            <div className={styles.input__row}>
-                <Input type={'text'} value={name} setValue={setName} label={'Кличка'}
-                       placeholder={'Введите имя питомца'} required={true}/>
-                <Input type={'dropdown'} value={type} setValue={setType} label={'Вид'} placeholder={'Выберите вид'}
-                       dropdownItems={getTypes()} required={true} regularExpressions={[regExpTypes]}/>
-            </div>
-            <div className={styles.input__row}>
-                <Input type={'dropdown'} value={gender} setValue={setGender} label={'Пол'} placeholder={'Выберите пол'}
-                       dropdownItems={['Мальчик', 'Девочка']} required={true}/>
-                <Input type={'dropdown'} value={breed} setValue={setBreed} label={'Порода'}
-                       placeholder={'Выберите породу'} dropdownItems={getBreeds()}
-                       required={true} disabled={!type.ok} regularExpressions={[regExpBreeds]}/>
-            </div>
-            <div className={styles.input__row}>
-                <Input type={'date'} value={{value: '', ok: true, edited: true}} setValue={() => {
-                }} label={'Дата рождения'} help={'Если вы не знаете точную дату, укажите примерную'}/>
-                <Input type={'file'} value={{value: '', ok: true, edited: true}} setValue={() => {
-                }} label={'Загрузите фотографию'} help={'Эта фотография будет на аватарке питомца'}/>
-            </div>
-            <div className={styles.input__row}>
-                <Input type={'textarea'} value={color} setValue={setColor} label={'Окрас'}
-                       placeholder={'Опишите окрас питомца'} className={styles.textarea}/>
-                <Input type={'textarea'} value={care} setValue={setCare} label={'Особенности ухода'}
-                       placeholder={'Расскажите про уход'} className={styles.textarea}/>
-            </div>
-            <p>Для кошек и собак Вы можете добавить дополнительную информацию</p>
-            <div className={styles.input__row}>
-                <Checkbox isChecked={sterilized} setChecked={setSterilized}>
-                    Стерилизация
-                </Checkbox>
-                <Checkbox isChecked={vaccinated} setChecked={setVaccinated}>
-                    Прививки
-                </Checkbox>
-            </div>
-            <div className={styles.input__row}>
-                <Input type={'textarea'} value={pedigree} setValue={setPedigree} label={'Родословная'}
-                       placeholder={'Расскажите про родословную'} className={styles.textarea}/>
-                <Input type={'textarea'} value={character} setValue={setCharacter} label={'Черты характера'}
-                       placeholder={'Расскажите про поведение'} className={styles.textarea}/>
-            </div>
-            <Button type={'primary'} color={'orange'} text={'Сохранить'} onClick={() => {
-            }}/>
-        </form>
+        <div>
+            <TopBar leftButton={'arrow'}>
+                <h5>Новый питомец</h5>
+            </TopBar>
+            <form id={''} className={styles.wrapper}>
+                <h2>Добавление нового питомца</h2>
+                <div className={styles.input__row}>
+                    <Input type={'text'} value={name} setValue={setName} label={'Кличка'}
+                           placeholder={'Введите имя питомца'} required={true}/>
+                    <Input type={'dropdown'} value={type} setValue={setType} label={'Вид'} placeholder={'Выберите вид'}
+                           dropdownItems={getTypes()} required={true} regularExpressions={[regExpTypes]}/>
+                </div>
+                <div className={styles.input__row}>
+                    <Input type={'dropdown'} value={gender} setValue={setGender} label={'Пол'}
+                           placeholder={'Выберите пол'}
+                           dropdownItems={['Мальчик', 'Девочка']} required={true}/>
+                    <Input type={'dropdown'} value={breed} setValue={setBreed} label={'Порода'}
+                           placeholder={'Выберите породу'} dropdownItems={getBreeds()}
+                           required={true} disabled={!type.ok} regularExpressions={[regExpBreeds]}/>
+                </div>
+                <div className={styles.input__row}>
+                    <Input type={'date'} value={{value: '', ok: true, edited: true}} setValue={() => {
+                    }} label={'Дата рождения'} help={'Если вы не знаете точную дату, укажите примерную'}/>
+                    <Input type={'file'} value={{value: '', ok: true, edited: true}} setValue={() => {
+                    }} label={'Загрузите фотографию'} help={'Эта фотография будет на аватарке питомца'}/>
+                </div>
+                <div className={styles.input__row}>
+                    <Input type={'textarea'} value={color} setValue={setColor} label={'Окрас'}
+                           placeholder={'Опишите окрас питомца'} className={styles.textarea}/>
+                    <Input type={'textarea'} value={care} setValue={setCare} label={'Особенности ухода'}
+                           placeholder={'Расскажите про уход'} className={styles.textarea}/>
+                </div>
+                <div className={styles.tittle__checkboxes}>
+                <p>Для кошек и собак Вы можете добавить дополнительную информацию</p>
+                <div className={styles.checkboxes}>
+                    <Checkbox isChecked={sterilized} setChecked={setSterilized}>
+                        Стерилизация
+                    </Checkbox>
+                    <Checkbox isChecked={vaccinated} setChecked={setVaccinated}>
+                        Прививки
+                    </Checkbox>
+                </div>
+                </div>
+                <div className={styles.input__row}>
+                    <Input type={'textarea'} value={pedigree} setValue={setPedigree} label={'Родословная'}
+                           placeholder={'Расскажите про родословную'} className={styles.textarea}/>
+                    <Input type={'textarea'} value={character} setValue={setCharacter} label={'Черты характера'}
+                           placeholder={'Расскажите про поведение'} className={styles.textarea}/>
+                </div>
+                <Button type={'primary'} color={'orange'} text={'Сохранить'} onClick={() => {
+                }}/>
+            </form>
+        </div>
     );
 };
 

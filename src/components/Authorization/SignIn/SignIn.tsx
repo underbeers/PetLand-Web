@@ -101,7 +101,7 @@ const SignIn: React.FC<iAuthProps> = ({switchContent, closeModal, isMobile}) => 
                 </div>
             </div> :
             <div className={generalStyles.modal}>
-                <Icons icon={"cross"} className={generalStyles.cross} onClick={closeModal} />
+                <Icons icon={'cross'} className={generalStyles.cross} onClick={closeModal} />
                 <Image imageProps={{src: dogMobile, alt: 'Собака', width: '100%', height: '230px'}}
                        className={generalStyles.image}/>
                 <div className={generalStyles.form__wrapper}>
@@ -134,7 +134,7 @@ const SignIn: React.FC<iAuthProps> = ({switchContent, closeModal, isMobile}) => 
                                 Неверный логин или пароль
                             </p>
                         }
-                        <Button color={'orange'} text={'Войти'} onClick={login} type={'primary'}/>
+                        <Button color={'orange'} text={'Войти'} onClick={login} type={'primary'} disabled={!email.ok || !password.ok}/>
 
                         <p className={cn('primary__text', styles.sub__color)}>
                             У вас ещё нет аккаунта?<br/>

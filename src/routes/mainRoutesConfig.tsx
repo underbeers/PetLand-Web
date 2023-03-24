@@ -1,11 +1,10 @@
 import HomePage from '../pages/HomePage/HomePage';
 import Profile from '../pages/Profile/Profile';
 import NewPet from '../pages/NewPet/NewPet';
-
 import Page404 from '../pages/Page404/Page404';
-import EmailPage from "../pages/PasswordRecovery/EmailPage";
-import NewPasswordPage from "../pages/PasswordRecovery/NewPasswordPage";
-import PetPage from "../pages/PetPage/PetPage";
+import EmailPage from '../pages/PasswordRecovery/EmailPage';
+import NewPasswordPage from '../pages/PasswordRecovery/NewPasswordPage';
+import PetPage from '../pages/PetPage/PetPage';
 
 
 export const PATH_PREFIX = '';

@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Route, Routes} from 'react-router-dom';
+import cn from 'classnames';
 
 import mainRoutesConfig from '../routes/mainRoutesConfig';
 import {initialUserContextState, UserContext} from '../userContext';
@@ -9,7 +10,6 @@ import Header from './Header/Header';
 import Footer from './Footer/Footer';
 
 import styles from './App.module.css';
-import cn from "classnames";
 
 
 const App: React.FC = () => {

@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Mulish&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Modak&display=swap');
+@import '~react-image-gallery/styles/css/image-gallery.css';
 
 :root {
     --vh: vh;
@@ -129,6 +130,7 @@ body {
     color: var(--primary--text--color);
 }
 
+
 h1 {
     font: normal normal 700 var(--heading-1--text--size)/30px var(--mulish-font);
 }
@@ -228,4 +230,47 @@ h5 {
 .fade-enter-active,
 .fade-exit-active {
     transition: opacity .1s, transform .1s;
+}
+
+
+/* styles for Swiper and Gallery */
+.swiper-button-next {
+    color: var(--base--0) !important;
+}
+
+.swiper-button-prev {
+    color: var(--base--0) !important;
+}
+
+.swiper-pagination-fraction {
+    color: var(--base--0) !important;
+}
+
+.image-gallery-slide-wrapper {
+    width: 600px;
+}
+
+.image-gallery-thumbnails-container {
+    width: 600px;
+}
+
+.image-gallery-play-button {
+    display: none;
+}
+
+.image-gallery-svg{
+    height: 60px !important;
+    width: 60px !important;
+}
+
+.image-gallery-fullscreen-button {
+    display: none;
+}
+
+.image-gallery-thumbnail.active {
+    border: 2px solid var(--orange--primary--color);
+}
+
+.image-gallery-thumbnail:hover {
+    border: 2px solid var(--orange--primary--color);
 }

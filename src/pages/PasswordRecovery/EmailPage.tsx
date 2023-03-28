@@ -44,12 +44,12 @@ const EmailPage = () => {
         <div className={styles.window}>
             {!emailSent ?
                 <>
-                    <h1>Восстановление пароля</h1>
+                {!isMobile ? <h1>Восстановление пароля</h1> : <h3>Восстановление пароля</h3>}
                     <Input type={'email'} value={email} setValue={setEmail} className={styles.input__email}
                            label={'Email'} help={'На почту придет ссылка для сброса пароля'}/>
                     <div className={styles.buttons}>
                         <Button type={'primary'} color={'orange'} text={'Сбросить пароль'} onClick={send}
-                                className={styles.button1}/>
+                                className={styles.button1} disabled={!email.ok}/>
                         <Modal
                             button={<Button type={'secondary'} color={'orange'} text={'Вернуться к авторизации'}
                                             onClick={()=>{}} className={styles.button2}/>}

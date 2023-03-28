@@ -6,6 +6,7 @@ import {withOfferToSignIn} from '../../hoc/withOfferToSignIn';
 import Input from '../../components/UIKit/Input';
 import Checkbox from '../../components/UIKit/Checkbox';
 import Button from '../../components/UIKit/Button';
+import TopBar from '../../components/TopBar/TopBar';
 
 import styles from './NewPet.module.css';
 import {UserContext} from "../../userContext";

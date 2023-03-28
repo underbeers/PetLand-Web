@@ -168,9 +168,9 @@ const SignUp: React.FC<iAuthProps> = ({switchContent, closeModal, isMobile}) => 
             </div> :
             <div className={generalStyles.modal}>
                 {(stage === 2 || stage === 3) &&
-                    <Icons icon={"arrow-left"} onClick={() => setStage(stage - 1)} className={styles.arrow}/>
+                    <Icons icon={'arrow-left'} onClick={() => setStage(stage - 1)} className={styles.arrow}/>
                 }
-                <Icons icon={"cross"} className={generalStyles.cross} onClick={closeModal}/>
+                <Icons icon={'cross'} className={generalStyles.cross} onClick={closeModal}/>
                 <Image className={generalStyles.image}
                        imageProps={{src: dogMobile, alt: 'Собака', width: '100%', height: '230px'}}/>
                 <div className={generalStyles.form__wrapper}>

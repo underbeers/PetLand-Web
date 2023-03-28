@@ -70,8 +70,8 @@ const UserProfile = () => {
                         <h2 className={styles.title__pets}>Питомцы</h2>
                         <p className={'text'}>3 добавленных питомца</p>
                         <div className={styles.pets__block}>
-                            <PetCard size={'small'}/>
-                            <PetCard size={'small'}/>
+
+
                         </div>
                     </div> :
                     <div className={styles.stat__pets}>

@@ -8,44 +8,44 @@ class PetService {
         })
     }
 
-    public async getBreedByPetTypeId(petTypeId: string) {
-        return fetch(API_URL + `/breeds?pet_type_id=${petTypeId}`, {
+    public async getBreedByPetTypeId(petTypeID: string) {
+        return fetch(API_URL + `/breeds?pet_type_id=${petTypeID}`, {
             method: 'GET',
             headers: {'Content-Type': 'application/json'}
         })
     }
 
-    public async getFullPetCard(userId: string) {
-        return fetch(API_URL + `/petCards?user_id=${userId}`, {
+    public async getFullPetCards(userID: string) {
+        return fetch(API_URL + `/petCards?userID=${userID}`, {
             method: 'GET',
             headers: {'Content-Type': 'application/json'}
         })
     }
 
-    public async getShortPetCard(userId: string) {
-        return fetch(API_URL + `/petCards/main?user_id=${userId}`, {
+    public async getShortPetCards(userID: string) {
+        return fetch(API_URL + `/petCards/main?userID=${userID}`, {
             method: 'GET',
             headers: {'Content-Type': 'application/json'}
         })
     }
 
-    public async editPetCard(petCardId: string, pet_type_id: number, user_id: number, pet_name: string,
-                             breed_id: number, photo: string, birth_date: string, male: boolean, color: string,
-                             care: string, pet_character: string, pedigree: string, sterilization: true, vaccinations: true) {
+    public async editPetCard(petCardId: string, petTypeID: number, userID: number, petName: string,
+                             breedID: number, photo: string, birthDate: string, male: boolean, color: string,
+                             care: string, petCharacter: string, pedigree: string, sterilization: true, vaccinations: true) {
         return fetch(API_URL + `/petCards/update/${petCardId}`, {
             method: 'PUT',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
-                pet_type_id,
-                user_id,
-                pet_name,
-                breed_id,
+                petTypeID,
+                userID,
+                petName,
+                breedID,
                 photo,
-                birth_date,
+                birthDate,
                 male,
                 color,
                 care,
-                pet_character,
+                petCharacter,
                 pedigree,
                 sterilization,
                 vaccinations
@@ -60,25 +60,27 @@ class PetService {
         })
     }
 
-    public async createPetCard(pet_type_id: number, user_id: number, pet_name: string, breed_id: number,
-                               photo: string, birth_date: string, male: boolean, color: string,
-                               care: string, pet_character: string, pedigree: string, sterilization: boolean,
+    public async createPetCard(petTypeID: number, petName: string, breedID: number,
+                               photo: string, birthDate: string, male: boolean, color: string,
+                               care: string, petCharacter: string, pedigree: string, sterilization: boolean,
                                vaccinations: boolean) {
         return fetch(API_URL + '/petCards/new', {
 
             method: 'POST',
-            headers: {'Content-Type': 'application/json'},
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+            },
             body: JSON.stringify({
-                pet_type_id,
-                user_id,
-                pet_name,
-                breed_id,
+                petTypeID,
+                petName,
+                breedID,
                 photo,
-                birth_date,
+                birthDate,
                 male,
                 color,
                 care,
-                pet_character,
+                petCharacter,
                 pedigree,
                 sterilization,
                 vaccinations

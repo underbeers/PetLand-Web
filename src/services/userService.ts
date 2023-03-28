@@ -85,8 +85,8 @@ class AuthService {
                 }
                 return null;
             }
-        }).then((body: { email: string, firstName: string, surName: string }) => {
-            //console.log(body);
+        }).then((body: { email: string, firstName: string, surName: string, userID: string }) => {
+            console.log(body);
             body && setUser({
                 ...body,
                 photo: 'https://script.viserlab.com/stoclab/assets/user/profile/5fb0bd27eccb31605418279.jpg',

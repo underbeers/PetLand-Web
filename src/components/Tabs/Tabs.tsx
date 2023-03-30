@@ -3,7 +3,7 @@ import React from 'react';
 import styles from './Tabs.module.css';
 
 
-type TabsProps = {children: Array<JSX.Element>};
+type TabsProps = { children: Array<JSX.Element> };
 
 const Tabs: React.FC<TabsProps> = ({children}) => {
     return (

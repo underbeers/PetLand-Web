@@ -12,7 +12,7 @@ import cat from './img/cat.jpg';
 import styles from './PetPage.module.css'
 
 
-const PetPage = () => {
+const PetPage: React.FC = () => {
 
     const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
 
@@ -66,7 +66,7 @@ const PetPage = () => {
     ];
 
     return (
-        <div>
+        <>
             {!isMobile ?
                 <>
                     <div className={styles.name__button}>
@@ -138,9 +138,8 @@ const PetPage = () => {
                     </div>
                 </div>
             </div>
-
-        </div>
-    )
-}
+        </>
+    );
+};
 
 export default PetPage;

@@ -11,7 +11,6 @@ import styles from './Profile.module.css';
 
 
 const Profile: React.FC = () => {
-
     const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
 
     window.addEventListener('resize', () => {

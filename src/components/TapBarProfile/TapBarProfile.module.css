@@ -7,13 +7,11 @@
     background-color: var(--base--0);
 }
 
-
 .menu__item {
     display: flex;
     flex-direction: column;
     gap: 4px;
     height: 60px;
-
     align-items: center;
     justify-content: center;
     width: 100%;
@@ -33,6 +31,6 @@
     color: var(--orange--primary--color);
 }
 
-.nav:global(>a.active > svg > path){
+.nav:global(>a.active > svg > path) {
     fill: var(--orange--primary--color);
 }

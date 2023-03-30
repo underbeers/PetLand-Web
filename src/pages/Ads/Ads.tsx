@@ -12,7 +12,7 @@ import Input from '../../components/UIKit/Input';
 import styles from './Ads.module.css';
 
 
-const Ads = () => {
+const Ads: React.FC = () => {
     const initialInputState = {value: '', ok: false, edited: false};
     const [request, setRequest] = useState(initialInputState);
 
@@ -24,39 +24,36 @@ const Ads = () => {
 
     return (
         <>
-        {isMobile &&
-        <TopBar leftButton={'burger'}>
-            <Input type={'search'} value={request} setValue={setRequest} />
-            <Icons icon={'geo'}/>
-            <Icons icon={'plus-circle-outline'}/>
-        </TopBar>
-        }
-        <div className={styles.content}>
-            <div className={styles.tabs__button}>
-                <Tabs>
-                    <NavLink to={'/bulletin-board'}>Объявления</NavLink>
-                    <NavLink to={'/lost-pets'}>Потеряшки</NavLink>
-                </Tabs>
-                {!isMobile &&
-                <Button color={'green'} onClick={() => {
-                }} type={'secondary'} text={'Разместить объявление'}/>}
-            </div>
-            {!isMobile &&
-                <div className={styles.search__block}>
-                    <Input type={'search'} value={request} setValue={setRequest} placeholder={'Поиск по объявлениям'}
-                           className={styles.search}/>
-                    <div className={styles.icon__city}>
-                        <Icons icon={'geo'}/>
-                        <a href={'#'}>Нижний Новгород</a>
-                    </div>
-                </div>
+            {isMobile &&
+                <TopBar leftButton={'burger'}>
+                    <Input type={'search'} value={request} setValue={setRequest}/>
+                    <Icons icon={'geo'}/>
+                    <Icons icon={'plus-circle-outline'}/>
+                </TopBar>
             }
-
-            <PetTypes/>
-
-
+            <div className={styles.content}>
+                <div className={styles.tabs__button}>
+                    <Tabs>
+                        <NavLink to={'/bulletin-board'}>Объявления</NavLink>
+                        <NavLink to={'/lost-pets'}>Потеряшки</NavLink>
+                    </Tabs>
+                    {!isMobile &&
+                        <Button color={'green'} onClick={() => {
+                        }} type={'secondary'} text={'Разместить объявление'}/>}
+                </div>
+                {!isMobile &&
+                    <div className={styles.search__block}>
+                        <Input type={'search'} value={request} setValue={setRequest}
+                               placeholder={'Поиск по объявлениям'}
+                               className={styles.search}/>
+                        <div className={styles.icon__city}>
+                            <Icons icon={'geo'}/>
+                            <a href={'#'}>Нижний Новгород</a>
+                        </div>
+                    </div>
+                }
+                <PetTypes/>
                 <h1>Актуальные объявления</h1>
-
                 <div className={styles.all__ads}>
                     <AdCards size={'small'}/>
                     <AdCards size={'small'}/>
@@ -67,9 +64,9 @@ const Ads = () => {
                     <AdCards size={'small'}/>
                     <AdCards size={'small'}/>
                 </div>
-        </div>
+            </div>
         </>
-    )
-}
+    );
+};
 
 export default Ads;

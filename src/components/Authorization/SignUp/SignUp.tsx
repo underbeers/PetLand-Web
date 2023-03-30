@@ -57,7 +57,7 @@ const SignUp: React.FC<iAuthProps> = ({switchContent, closeModal, isMobile}) => 
         setCounter(30);
         const code = genCode();
         setVerificationCodeFromBackend(code);
-        await userService.sendCode(email.value, code);
+        await userService.sendCode({email: email.value, code});
     }
 
     useEffect(() => {
@@ -133,7 +133,8 @@ const SignUp: React.FC<iAuthProps> = ({switchContent, closeModal, isMobile}) => 
                             setEmailVerified(false)
                         }}/>
                         <div className={styles.email__confirm}>
-                            <Button color={'green'} text={`Отправить код${counter ? `(${counter})` : ''}`} type={'secondary'}
+                            <Button color={'green'} type={'secondary'}
+                                    text={`Отправить код${counter ? `(${counter})` : ''}`}
                                     onClick={sendCode} disabled={!email.ok || waitCode && counter !== 0}/>
                             <Input type={'text'} placeholder={'Код'} value={verificationCode} required={true}
                                    setValue={setVerificationCode} disabled={emailVerified} regularExpressions={[]}
@@ -153,7 +154,7 @@ const SignUp: React.FC<iAuthProps> = ({switchContent, closeModal, isMobile}) => 
                     </form>
                     <div className={styles.submit}>
                         {responseCode == 409 &&
-                            <p className={'error'} style={{position: 'absolute', top: '-16px', left: '2px'}}>
+                            <p className={cn('secondary__text-1', generalStyles.error)}>
                                 Такой email уже используется
                             </p>
                         }
@@ -189,11 +190,13 @@ const SignUp: React.FC<iAuthProps> = ({switchContent, closeModal, isMobile}) => 
                                    setEmailVerified(false)
                                }}/>
 
-                        <Button color={'green'} text={`Отправить код${counter ? `(${counter})` : ''}`} type={'secondary'}
+                        <Button color={'green'} type={'secondary'}
+                                text={`Отправить код${counter ? `(${counter})` : ''}`}
                                 onClick={sendCode} disabled={!email.ok || waitCode && counter !== 0}/>
 
-                        <Input type={'number'} placeholder={'Код'} value={verificationCode} regularExpressions={[]}
-                               setValue={setVerificationCode} required={true} disabled={emailVerified} help={emailVerified ? 'Email подтвержден' : ''}/>
+                        <Input type={'number'} placeholder={'Код'} value={verificationCode}
+                               setValue={setVerificationCode} required={true} disabled={emailVerified}
+                               help={emailVerified ? 'Email подтвержден' : ''}/>
                     </div>
                     <div className={generalStyles.form} style={{display: stage === 3 ? 'flex' : 'none'}}>
                         <Input type={'password'} placeholder={'Пароль'} regularExpressions={passwordRegExp}
@@ -204,7 +207,9 @@ const SignUp: React.FC<iAuthProps> = ({switchContent, closeModal, isMobile}) => 
                                    error: 'Пароли не совпадают'
                                }].concat(passwordRegExp)}
                                required={true} setValue={setPassword2}/>
-                        <Checkbox isChecked={policyChecked} setChecked={setPolicyChecked}>Согласие с условиями сервиса</Checkbox>
+                        <Checkbox isChecked={policyChecked} setChecked={setPolicyChecked}>
+                            Согласие с условиями сервиса
+                        </Checkbox>
                     </div>
                     <div className={generalStyles.button__and__switch__content}>
                         <Button color={'orange'} text={stage === 3 ? 'Создать аккаунт' : 'Следующий шаг'}

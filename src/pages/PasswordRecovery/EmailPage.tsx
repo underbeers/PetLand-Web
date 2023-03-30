@@ -22,13 +22,10 @@ const EmailPage = () => {
         setIsMobile(window.innerWidth <= 700)
     });
 
-
     const navigate = useNavigate();
 
-
     const send = async () => {
-
-        await userService.askPasswordRecovery(email.value).then(response => {
+        await userService.askPasswordRecovery({email: email.value}).then(response => {
             switch (response.status) {
                 case 200:
                     setEmailSent(true);
@@ -37,14 +34,13 @@ const EmailPage = () => {
                     alert(`Неизвестная ошибка, код ${response.status}`)
             }
         });
-    }
-
+    };
 
     return (
         <div className={styles.window}>
             {!emailSent ?
                 <>
-                {!isMobile ? <h1>Восстановление пароля</h1> : <h3>Восстановление пароля</h3>}
+                    {!isMobile ? <h1>Восстановление пароля</h1> : <h3>Восстановление пароля</h3>}
                     <Input type={'email'} value={email} setValue={setEmail} className={styles.input__email}
                            label={'Email'} help={'На почту придет ссылка для сброса пароля'}/>
                     <div className={styles.buttons}>
@@ -52,7 +48,8 @@ const EmailPage = () => {
                                 className={styles.button1} disabled={!email.ok}/>
                         <Modal
                             button={<Button type={'secondary'} color={'orange'} text={'Вернуться к авторизации'}
-                                            onClick={()=>{}} className={styles.button2}/>}
+                                            onClick={() => {
+                                            }} className={styles.button2}/>}
                             content={Authorization}
                             contentProps={{isFormSignIn: true}}/>
                     </div>

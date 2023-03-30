@@ -23,7 +23,6 @@ const OfferToSignIn: React.FC = () => {
                     <h5>PetLand</h5>
                 </TopBar>
             }
-
             <div className={styles.wrapper}>
                 <div className={styles.text__block}><img src={cat} alt='Кот' className={styles.cat}/></div>
                 <div className={styles.text__block}>

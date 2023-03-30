@@ -1,13 +1,13 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 
-import petService from "../../../services/petService";
+import {UserContext} from '../../../userContext';
+import petService from '../../../services/petService';
 
 import Button from '../../../components/UIKit/Button';
 import PetCard, {iPetCardProps} from '../../../components/PetCard/PetCard';
 
 import styles from './Pets.module.css';
-import {UserContext} from "../../../userContext";
 
 
 const Pets: React.FC = () => {
@@ -20,13 +20,13 @@ const Pets: React.FC = () => {
             return;
         }
         petService.getFullPetCards(user.userID).then(response => {
-            console.log(response);
+            //console.log(response);
             switch (response.status) {
                 case 200:
                     return response.json();
             }
         }).then(body => {
-            console.log(body);
+            //console.log(body);
             setPets(body);
         });
     }, [user]);
@@ -41,7 +41,7 @@ const Pets: React.FC = () => {
                 <div className={styles.cards}>
                     {
                         pets.map(pet =>
-                            <PetCard size={"medium"} petInfo={pet} key={pet.id}/>
+                            <PetCard size={'medium'} petInfo={pet} key={pet.id}/>
                         )
                     }
                 </div>
@@ -62,6 +62,6 @@ const Pets: React.FC = () => {
                 </div>
             </>
     );
-}
+};
 
 export default Pets;

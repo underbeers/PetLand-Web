@@ -48,7 +48,7 @@ jobs:
         with:
           context: .
           build-args: |
-            "REACT_APP_API_URL=petland-test-backend-k8s.raezhov.fun"
+            "REACT_APP_API_URL=petland-backend-k8s.raezhov.fun"
           file: ./Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/pl_frontend:v2

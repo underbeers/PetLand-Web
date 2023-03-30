@@ -4,14 +4,11 @@ import {initialUserContextState, iUser} from '../userContext';
 export const API_URL = `http://${process.env.REACT_APP_API_URL}/api/v1`;
 
 class AuthService {
-    private async authenticate(email: string, password: string) {
+    private async authenticate(params: { login: string, password: string }) {
         return fetch(API_URL + '/login', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({
-                login: email,
-                password
-            })
+            body: JSON.stringify(params)
         });
     }
 
@@ -25,36 +22,27 @@ class AuthService {
         });
     }
 
-    private async register(firstName: string, surName: string, email: string, password: string) {
+    private async register(params: { firstName: string, surName: string, email: string, password: string }) {
         return fetch(API_URL + '/registration/new', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({
-                firstName,
-                surName,
-                email,
-                password
-            })
+            body: JSON.stringify(params)
         });
     }
 
-    public async askPasswordRecovery(email: string) {
+    public async askPasswordRecovery(params: { email: string }) {
         return fetch(API_URL + `/password/refresh`, {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({
-                email
-            })
+            body: JSON.stringify(params)
         });
     }
 
-    public async sendNewPassword(body: {profileId: string, newPassword: string}){
+    public async sendNewPassword(params: { hashID: string, newPassword: string }) {
         return fetch(API_URL + '/password/reset', {
             method: 'PATCH',
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(
-                body
-            )
+            body: JSON.stringify(params)
         });
     }
 
@@ -86,7 +74,7 @@ class AuthService {
                 return null;
             }
         }).then((body: { email: string, firstName: string, surName: string, userID: string }) => {
-            console.log(body);
+            //console.log(body);
             body && setUser({
                 ...body,
                 photo: 'https://script.viserlab.com/stoclab/assets/user/profile/5fb0bd27eccb31605418279.jpg',
@@ -113,8 +101,7 @@ class AuthService {
         user: iUser,
         setUser: (user: iUser) => void,
         onFinish?: () => void) {
-        setUser({...user, loading: true});
-        this.authenticate(email, password).then(response => {
+        this.authenticate({login: email, password}).then(response => {
             //console.log(response.status);
             setResponseCode(response.status);
             if (response.ok) {
@@ -150,7 +137,7 @@ class AuthService {
         password: string,
         setResponseCode: (code: number) => void,
         onFinish?: () => void) {
-        this.register(firstName, surName, email, password).then((response) => {
+        this.register({firstName, surName, email, password}).then((response) => {
             //console.log(body);
             setResponseCode(response.status);
             if (response.ok) {
@@ -176,14 +163,12 @@ class AuthService {
         });
     }
 
-    public async sendCode(email: string, code: string) {
+    public async sendCode(params: { email: string, code: string }) {
         fetch(API_URL + '/email/code', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({
-                email,
-                code
-            })}).then((response) => {
+            body: JSON.stringify(params)
+        }).then((response) => {
             //console.log(body);
             if (response.ok) {
 

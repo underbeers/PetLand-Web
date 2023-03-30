@@ -6,16 +6,14 @@ import {UserContext} from '../../../userContext';
 import Button from '../../../components/UIKit/Button';
 import Chips from '../../../components/UIKit/Chips';
 import Icons from '../../../components/UIKit/Icons';
-
+import TopBar from '../../../components/TopBar/TopBar';
 import PetCard from '../../../components/PetCard/PetCard';
 import Image from '../../../components/Image/Image';
 
 import styles from './UserProfile.module.css';
-import TopBar from '../../../components/TopBar/TopBar';
 
 
-const UserProfile = () => {
-
+const UserProfile: React.FC = () => {
     const [isDescription, setIsDescription] = useState(false);
     const [isPets, setIsPets] = useState(false);
     const [isRating, setIsRating] = useState(false);

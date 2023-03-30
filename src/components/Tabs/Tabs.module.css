@@ -10,7 +10,7 @@
     border-right: 1px solid var(--green--primary--color);
     border-left: 1px solid var(--green--primary--color);
     box-sizing: border-box;
-    font: normal normal 400 var(--body-regular--text--size)/20px var(--mulish-font);
+    font: var(--body-regular--text--size);
     color: var(--green--primary--color);
     height: 40px;
     width: 200px;
@@ -21,27 +21,25 @@
 
 .tabs > a:last-child {
     border-right: 2px solid var(--green--primary--color);
-    border-radius: 0 15px 15px 0;
+    border-radius: 0 12px 12px 0;
 }
 
 .tabs > a:first-child {
     border-left: 2px solid var(--green--primary--color);
-    border-radius: 15px 0 0 15px;
+    border-radius: 12px 0 0 12px;
 }
 
 .tabs:global(>a.active) {
     background-color: var(--green--primary--color);
     color: var(--base--0);
-    font-weight: 700;
+    font: var(--heading-5--text--size);
 }
 
 @media screen and (max-width: 700px) {
-    .tabs > a {
-        font: var(--secondary-1--text--size);
-        height: 38px;
-    }
-
-    .tabs:global(>a.active) {
-        font-weight: 700;
+    .tabs {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        width: 100%;
     }
 }

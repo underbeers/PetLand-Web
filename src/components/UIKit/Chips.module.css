@@ -1,6 +1,6 @@
 .chips{
     padding: 8px 16px;
-    display: inline;
+    display: inline-block;
     color: var(--base--0);
     white-space: nowrap;
 }

@@ -13,7 +13,7 @@ interface iInputProps {
     placeholder?: string;
     required?: boolean;
     disabled?: boolean;
-    type: 'text' | 'password' | 'textarea' | 'email' | 'phone' | 'number' | 'dropdown' | 'date' | 'file';
+    type: 'text' | 'password' | 'textarea' | 'email' | 'phone' | 'number' | 'dropdown' | 'date' | 'file' | 'search';
     value: { value: string, ok: boolean, edited: boolean };
     setValue: (value: { value: string, ok: boolean, edited: boolean }) => void;
     onChangeFn?: Function;
@@ -109,6 +109,7 @@ const Input: React.FC<iInputProps> = ({
             default:
                 return (
                     <>
+                        {type === 'search' && <Icons icon={'search-rounded'} className={styles.search__icon} />}
                         <input
                             type={pwdShown ? 'text' : type}
                             className={cn('primary__text', styles.standard_input)}

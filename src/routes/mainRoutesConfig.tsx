@@ -5,6 +5,7 @@ import Page404 from '../pages/Page404/Page404';
 import EmailPage from '../pages/PasswordRecovery/EmailPage';
 import NewPasswordPage from '../pages/PasswordRecovery/NewPasswordPage';
 import PetPage from '../pages/PetPage/PetPage';
+import Ads from "../pages/Ads/Ads";
 
 
 export const PATH_PREFIX = '';
@@ -16,7 +17,11 @@ const routesConfig = [
     },
     {
         path: PATH_PREFIX + '/bulletin-board',
-        element: <>Доска объявлений</>
+        element: <Ads />
+    },
+    {
+        path: PATH_PREFIX + '/lost-pets',
+        element: <>Потеряшки</>
     },
     {
         path: PATH_PREFIX + '/services',

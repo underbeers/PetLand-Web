@@ -2,6 +2,7 @@
     padding: 8px 16px;
     display: inline;
     color: var(--base--0);
+    white-space: nowrap;
 }
 
 .orange {

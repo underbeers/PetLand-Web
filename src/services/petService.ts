@@ -1,5 +1,21 @@
 import {API_URL} from "./userService";
 
+
+export interface createPetCardParameters {
+    petTypeID: number;
+    petName: string;
+    breedID: number;
+    photo?: string;
+    birthDate: string;
+    Male: boolean;
+    color?: string;
+    care?: string;
+    petCharacter?: string;
+    pedigree?: string;
+    sterilization?: boolean;
+    vaccinations?: boolean
+}
+
 class PetService {
     public async getPetTypes() {
         return fetch(API_URL + '/petTypes', {
@@ -60,32 +76,15 @@ class PetService {
         })
     }
 
-    public async createPetCard(petTypeID: number, petName: string, breedID: number,
-                               photo: string, birthDate: string, male: boolean, color: string,
-                               care: string, petCharacter: string, pedigree: string, sterilization: boolean,
-                               vaccinations: boolean) {
+    public async createPetCard(params: createPetCardParameters) {
         return fetch(API_URL + '/petCards/new', {
-
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
             },
-            body: JSON.stringify({
-                petTypeID,
-                petName,
-                breedID,
-                photo,
-                birthDate,
-                male,
-                color,
-                care,
-                petCharacter,
-                pedigree,
-                sterilization,
-                vaccinations
-            })
-        })
+            body: JSON.stringify(params)
+        });
     }
 }
 

@@ -9,8 +9,8 @@ import styles from './PetCard.module.css'
 export interface iPetCardProps {
     petInfo: {
         birthDate: string,
-        breed:string,
-        gender:string,
+        breed: string,
+        gender: string,
         id: string,
         petName: string,
         petType: string,
@@ -54,22 +54,20 @@ const PetCard: React.FC<iPetCardProps> = ({size, petInfo}) => {
 
     return (
         <div className={cn(styles.card, styles[size])}>
-            <img src={petInfo.photo} alt={'Фото питомца'}
-                 className={styles.img}/>
+            <img src={petInfo.photo} alt={'Фото питомца'} className={styles.img}/>
             <div className={styles.pet__info}>
-                <h4 className={styles.name}>{petInfo.petName}</h4>
+                {!isMobile ?
+                    <h4>{petInfo.petName}</h4>
+                    :
+                    <h3>{petInfo.petName}</h3>
+                }
                 {size === 'medium' &&
-                    <>
-                        <div className={styles.type__breed}>
-                            <Chips label={petInfo.petType} size={'small'} color={'green'}/>
-                            <Chips label={petInfo.breed} size={'small'} color={'green'}/>
-                        </div>
-
-                        <div className={styles.gender__age}>
-                            <Chips label={petInfo.gender} size={'small'} color={'green'}/>
-                            <Chips label={`${petAge} ${getWord(petAge)}`} size={'small'} color={'green'}/>
-                        </div>
-                    </>
+                    <div className={styles.chips}>
+                        <Chips label={petInfo.breed} size={'small'} color={'green'}/>
+                        <Chips label={petInfo.petType} size={'small'} color={'green'}/>
+                        <Chips label={petInfo.gender} size={'small'} color={'green'}/>
+                        <Chips label={`${petAge} ${getWord(petAge)}`} size={'small'} color={'green'}/>
+                    </div>
                 }
             </div>
         </div>

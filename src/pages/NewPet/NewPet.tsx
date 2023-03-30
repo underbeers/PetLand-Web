@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from 'react';
 
-import petService from '../../services/petService';
+import petService, {createPetCardParameters} from '../../services/petService';
 import {withOfferToSignIn} from '../../hoc/withOfferToSignIn';
 
 import Input from '../../components/UIKit/Input';
@@ -21,6 +21,7 @@ const NewPet: React.FC = () => {
     const [breed, setBreed] = useState(initialInputState);
 
     const [birthday, setBirthday] = useState(initialInputState);
+    const [photo, setPhoto] = useState(initialInputState);
 
     const [color, setColor] = useState(initialInputState);
     const [care, setCare] = useState(initialInputState);
@@ -48,7 +49,12 @@ const NewPet: React.FC = () => {
 
     const listRegExp: (elements: Array<string>, error: string) => { regExp: RegExp, error: string } = (elements, error) => {
         return {
-            regExp: RegExp('^(' + elements.toString().replaceAll(',', '|') + ')$'),
+            regExp: RegExp(
+                '^(' + elements.toString()
+                    .replaceAll(',', '|')
+                    .replaceAll('(', '\\(')
+                    .replaceAll(')', '\\)') + ')$'
+            ),
             error: error
         };
     };
@@ -69,7 +75,7 @@ const NewPet: React.FC = () => {
         for (let i = 0; i < types.length; i++) {
             if (type.value == types[i].petType) {
                 petService.getBreedByPetTypeId(types[i].id.toString()).then(response => {
-                    console.log(response);
+                    //console.log(response);
                     if (response.ok) {
                         return (response.json());
                     } else {
@@ -77,7 +83,7 @@ const NewPet: React.FC = () => {
                         return null;
                     }
                 }).then(body => {
-                    console.log(body)
+                    //console.log(body)
                     body ? setBreeds(body) : setBreeds([]);
                 });
             }
@@ -88,9 +94,36 @@ const NewPet: React.FC = () => {
     const [submitLoading, setSubmitLoading] = useState(false);
     const submit = async () => {
         setSubmitLoading(true);
-        // check values
+        document.querySelectorAll('#new_pet_form input').forEach(el => {
+            // @ts-ignore
+            el.focus();
+        });
+        document.querySelectorAll('#new_pet_form textarea').forEach(el => {
+            // @ts-ignore
+            el.focus();
+        });
+        let isOk: boolean = true;
 
+        const inputs = [
+            {state: name, setState: setName},
+            {state: type, setState: setType},
+            {state: gender, setState: setGender},
+            {state: breed, setState: setBreed},
+            {state: birthday, setState: setBirthday},
+            {state: photo, setState: setPhoto},
+            {state: color, setState: setColor},
+            {state: care, setState: setCare},
+            {state: pedigree, setState: setPedigree},
+            {state: character, setState: setCharacter}
+        ];
 
+        inputs.forEach(({state, setState}) => {
+            setState({edited: true, ok: state.ok, value: state.value});
+            if (!state.ok) {
+                isOk = false;
+                //console.log(state)
+            }
+        });
         let petTypeID: number = -1, breedID: number = -1;
         breeds.forEach(b => {
             if (b.breedName == breed.value) {
@@ -98,26 +131,50 @@ const NewPet: React.FC = () => {
                 breedID = b.id;
             }
         });
-        console.log(petTypeID, breedID);
-        await petService.createPetCard(petTypeID, name.value, breedID, 'qwert',
-            birthday.value + 'T00:00:00Z', gender.value == 'Мальчик',
-            color.value, care.value, character.value, pedigree.value, sterilized, vaccinated).then(response => {
-                switch (response.status) {
-                    case 200:
-                        return response.json();
-                    default:
-                        alert(response.status);
-                        return null;
-                }
-        }).then(body => {
-            console.log(body);
+
+        if (petTypeID == -1 || petTypeID == undefined ||
+            breedID == -1 || breedID == undefined) {
+            isOk = false;
+        }
+
+        if (!isOk) {
             setSubmitLoading(false);
-            navigate('/profile/pets');
+            return;
+        }
+
+        const params: createPetCardParameters = {
+            petTypeID,
+            petName: name.value,
+            breedID,
+            birthDate: birthday.value + 'T00:00:00Z',
+            Male: gender.value == genders[0]
+        }
+        color.value && (params.color = color.value);
+        care.value && (params.care = care.value);
+        character.value && (params.petCharacter = character.value);
+        pedigree.value && (params.pedigree = pedigree.value);
+        params.sterilization = sterilized;
+        params.vaccinations = vaccinated;
+
+        console.log(params)
+
+        await petService.createPetCard(params).then(response => {
+            switch (response.status) {
+                case 200:
+                    return response.json();
+                default:
+                    alert(response.status);
+                    return null;
+            }
+        }).then(body => {
+            //console.log(body);
+            setSubmitLoading(false);
+            body && navigate('/profile/pets');
         });
     }
 
     return (
-        <form id={''} className={styles.wrapper}>
+        <form id={'new_pet_form'} className={styles.wrapper}>
             <h2>Добавление нового питомца</h2>
             <div className={styles.input__row}>
                 <Input type={'text'} value={name} setValue={setName} label={'Кличка'}
@@ -137,9 +194,9 @@ const NewPet: React.FC = () => {
             </div>
             <div className={styles.input__row}>
                 <Input type={'date'} value={birthday} setValue={setBirthday} label={'Дата рождения'}
-                       help={'Если вы не знаете точную дату, укажите примерную'}/>
-                <Input type={'file'} value={{value: '', ok: true, edited: true}} setValue={() => {
-                }} label={'Загрузите фотографию'} help={'Эта фотография будет на аватарке питомца'}/>
+                       help={'Если вы не знаете точную дату, укажите примерную'} required={true}/>
+                <Input type={'file'} value={photo} setValue={setPhoto} label={'Загрузите фотографию'}
+                       help={'Эта фотография будет на аватарке питомца'}/>
             </div>
             <div className={styles.input__row}>
                 <Input type={'textarea'} value={color} setValue={setColor} label={'Окрас'}
@@ -147,22 +204,25 @@ const NewPet: React.FC = () => {
                 <Input type={'textarea'} value={care} setValue={setCare} label={'Особенности ухода'}
                        placeholder={'Расскажите про уход'} className={styles.textarea}/>
             </div>
-            <p>Для кошек и собак Вы можете добавить дополнительную информацию</p>
-            <div className={styles.input__row}>
-                <Checkbox isChecked={sterilized} setChecked={setSterilized}>
-                    Стерилизация
-                </Checkbox>
-                <Checkbox isChecked={vaccinated} setChecked={setVaccinated}>
-                    Прививки
-                </Checkbox>
+            <div className={styles.additional__info}>
+                <p>Для кошек и собак Вы можете добавить дополнительную информацию</p>
+                <div className={styles.input__row}>
+                    <Checkbox isChecked={sterilized} setChecked={setSterilized}>
+                        Стерилизация
+                    </Checkbox>
+                    <Checkbox isChecked={vaccinated} setChecked={setVaccinated}>
+                        Прививки
+                    </Checkbox>
+                </div>
             </div>
+
             <div className={styles.input__row}>
                 <Input type={'textarea'} value={pedigree} setValue={setPedigree} label={'Родословная'}
                        placeholder={'Расскажите про родословную'} className={styles.textarea}/>
                 <Input type={'textarea'} value={character} setValue={setCharacter} label={'Черты характера'}
                        placeholder={'Расскажите про поведение'} className={styles.textarea}/>
             </div>
-            <Button type={'primary'} color={'orange'} text={'Сохранить'} onClick={submit}/>
+            <Button type={'primary'} color={'orange'} text={'Сохранить'} onClick={submit} loading={submitLoading}/>
         </form>
     );
 };

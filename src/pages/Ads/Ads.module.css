@@ -1,0 +1,48 @@
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding-top: 32px;
+    padding-bottom: 64px;
+}
+
+.tabs__button {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.search {
+    width: 576px;
+}
+
+.search__block {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+}
+
+.icon__city{
+    display: flex;
+    flex-direction: row;
+    gap: 4px;
+    align-items: center;
+}
+
+.all__ads {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+@media screen and (max-width: 700px)  {
+    .search {
+        width: 576px;
+    }
+
+
+}

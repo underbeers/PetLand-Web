@@ -1,0 +1,122 @@
+.card {
+    background-color: var(--base--0);
+    border-radius: 8px;
+    display: flex;
+}
+
+.big {
+    width: 879px;
+    flex-direction: row;
+}
+
+.small {
+    width: 273px;
+    flex-direction: column;
+}
+
+.big .photo {
+    width: 273px;
+    height: 200px;
+    background-color: var(--base--600);
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+
+.small .photo {
+    width: 273px;
+    height: 200px;
+    background-color: var(--base--600);
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.ad__content {
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    gap: 8px;
+    flex: 1;
+}
+
+.name__price {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.name__like {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.heart {
+    height: 28px;
+    width: 28px;
+    cursor: pointer;
+}
+
+.heart path {
+    fill: var(--red--700);
+}
+
+.chips {
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+}
+
+.description__info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.description {
+    width: 400px;
+    height: 78px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    font-size: var(--secondary-1--text--size);
+    color: var(--base--700);
+}
+
+.info {
+    flex: 1;
+    color: var(--blue--300);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    align-items: flex-end;
+    justify-content: flex-end;
+}
+
+.name__owner {
+    font-size: var(--secondary-1--text--size);
+}
+
+.address__date {
+    font-size: var(--secondary-2--text--size);
+}
+
+
+@media screen and (max-width: 700px) {
+    .card {
+        width: 154px;
+        position: relative;
+    }
+
+    .card .photo {
+        width: 154px;
+        height: 140px;
+        object-fit: cover;
+    }
+
+    .heart {
+        position: absolute;
+        top: 4px;
+        right: 4px;
+    }
+}

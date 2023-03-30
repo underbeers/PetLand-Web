@@ -35,6 +35,15 @@
     color: var(--primary--text--color);
 }
 
+.search__icon {
+    width: 20px;
+    height: 20px;
+}
+
+.search__icon path {
+    fill: var(--base--600);
+}
+
 .icon {
     cursor: pointer;
     display: block;

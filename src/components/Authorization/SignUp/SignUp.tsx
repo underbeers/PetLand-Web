@@ -42,16 +42,6 @@ const SignUp: React.FC<iAuthProps> = ({switchContent, closeModal, isMobile}) => 
 
     const {user, setUser} = useContext(UserContext);
 
-    const getEnding = (num: number): string => {
-        if (num % 100 >= 10 && num % 100 < 20 || num % 10 === 0 || num % 10 > 4) {
-            return '';
-        }
-        if (num % 10 === 1) {
-            return 'у';
-        }
-        return 'ы';
-    }
-
     useEffect(() => {
         const timer = counter > 0 ? setInterval(() => setCounter(counter - 1), 1000) : 0;
         return () => clearInterval(timer);

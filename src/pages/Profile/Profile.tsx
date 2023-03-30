@@ -1,8 +1,7 @@
-import React, {useContext, useState} from 'react';
+import React, {useState} from 'react';
 import {Route, Routes} from 'react-router-dom';
 
 import profileRoutesConfig from '../../routes/profileRoutesConfig';
-import {UserContext} from '../../userContext';
 import {withOfferToSignIn} from '../../hoc/withOfferToSignIn';
 
 import SideBarProfile from '../../components/SideBarProfile/SideBarProfile';

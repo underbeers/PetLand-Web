@@ -1,12 +1,13 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext} from 'react';
 import {UserContext} from '../../userContext';
 import {NavLink} from 'react-router-dom';
 
+import userService from '../../services/userService';
+
+import Icons from '../UIKit/Icons';
 import Image from '../Image/Image';
 
 import styles from './SideBarProfile.module.css'
-import Icons from '../UIKit/Icons';
-import userService from '../../services/userService';
 
 
 const SideBarProfile = () => {

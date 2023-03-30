@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useState} from 'react';
 
 import cat from './img/cat.png';
 import dog from './img/dog.png';
@@ -9,9 +9,7 @@ import styles from './PetTypes.module.css';
 
 
 const PetTypes = () => {
-
     const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
-
 
     window.addEventListener('resize', () => {
         setIsMobile(window.innerWidth <= 760)
@@ -38,6 +36,6 @@ const PetTypes = () => {
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};
 export default PetTypes;

@@ -9,8 +9,8 @@ import Button from '../../components/UIKit/Button';
 import TopBar from '../../components/TopBar/TopBar';
 
 import styles from './NewPet.module.css';
-import {UserContext} from "../../userContext";
-import {useNavigate} from "react-router-dom";
+import {UserContext} from '../../userContext';
+import {useNavigate} from 'react-router-dom';
 
 
 const NewPet: React.FC = () => {
@@ -37,7 +37,7 @@ const NewPet: React.FC = () => {
     const [types, setTypes] = useState(initialTypesState);
     const getTypes: () => Array<string> = () => types.map(item => item.petType);
 
-    const initialBreedsState: Array<{ id: number, petTypeId: number, breedName: string }> = [];
+    const initialBreedsState: Array<{ id: number, petTypeID: number, breedName: string }> = [];
     const [breeds, setBreeds] = useState(initialBreedsState);
     const getBreeds: () => Array<string> = () => breeds.map(item => item.breedName);
 
@@ -64,7 +64,7 @@ const NewPet: React.FC = () => {
             if (response.ok) {
                 return (response.json());
             } else {
-                console.log(response);
+                //console.log(response);
             }
         }).then(body => {
             setTypes(body);
@@ -79,7 +79,7 @@ const NewPet: React.FC = () => {
                     if (response.ok) {
                         return (response.json());
                     } else {
-                        console.log(response);
+                        //console.log(response);
                         return null;
                     }
                 }).then(body => {
@@ -118,16 +118,14 @@ const NewPet: React.FC = () => {
         ];
 
         inputs.forEach(({state, setState}) => {
-            setState({edited: true, ok: state.ok, value: state.value});
             if (!state.ok) {
                 isOk = false;
-                //console.log(state)
             }
         });
         let petTypeID: number = -1, breedID: number = -1;
         breeds.forEach(b => {
             if (b.breedName == breed.value) {
-                petTypeID = b.petTypeId;
+                petTypeID = b.petTypeID;
                 breedID = b.id;
             }
         });
@@ -136,6 +134,8 @@ const NewPet: React.FC = () => {
             breedID == -1 || breedID == undefined) {
             isOk = false;
         }
+
+        const birthDate = new Date(birthday.value).toISOString();
 
         if (!isOk) {
             setSubmitLoading(false);
@@ -146,8 +146,8 @@ const NewPet: React.FC = () => {
             petTypeID,
             petName: name.value,
             breedID,
-            birthDate: birthday.value + 'T00:00:00Z',
-            Male: gender.value == genders[0]
+            birthDate,
+            male: gender.value == genders[0]
         }
         color.value && (params.color = color.value);
         care.value && (params.care = care.value);
@@ -156,7 +156,6 @@ const NewPet: React.FC = () => {
         params.sterilization = sterilized;
         params.vaccinations = vaccinated;
 
-        console.log(params)
 
         await petService.createPetCard(params).then(response => {
             switch (response.status) {

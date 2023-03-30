@@ -27,30 +27,24 @@ const PetCard: React.FC<iPetCardProps> = ({size, petInfo}) => {
         setIsMobile(window.innerWidth <= 700);
     });
 
-    function ageFromDateOfBirthday(dateOfBirth: any): number {
+    function ageFromDateOfBirthdayInMonths(dateOfBirth: string): number {
         const today = new Date();
-        const birthDate = new Date(dateOfBirth);
-        let age = today.getFullYear() - birthDate.getFullYear();
-        const m = today.getMonth() - birthDate.getMonth();
-
-        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-            age--;
-        }
-
-        return age;
+        const birthday = new Date(dateOfBirth);
+        return (today.getFullYear() - birthday.getFullYear()) * 12 + today.getMonth() - birthday.getMonth();
     }
 
-    const getWord = (num: number): string => {
-        if (num % 100 >= 10 && num % 100 < 20 || num % 10 === 0 || num % 10 > 4) {
-            return 'лет';
+    const getWord = (num: number, scale: 'years' | 'months'): string => {
+        const numCopy = scale == 'years' ? Math.floor(num / 12) : num;
+        if (numCopy % 100 >= 10 && numCopy % 100 < 20 || numCopy % 10 === 0 || numCopy % 10 > 4) {
+            return scale == 'years' ? 'лет' : 'месяцев';
         }
-        if (num % 10 === 1) {
-            return 'лет';
+        if (numCopy % 10 === 1) {
+            return scale == 'years' ? 'год' : 'месяц';
         }
-        return 'года';
+        return scale == 'years' ? 'года' : 'месяца';
     }
 
-    const petAge = ageFromDateOfBirthday(petInfo.birthDate);
+    const petAge = ageFromDateOfBirthdayInMonths(petInfo.birthDate);
 
     return (
         <div className={cn(styles.card, styles[size])}>
@@ -66,7 +60,8 @@ const PetCard: React.FC<iPetCardProps> = ({size, petInfo}) => {
                         <Chips label={petInfo.breed} size={'small'} color={'green'}/>
                         <Chips label={petInfo.petType} size={'small'} color={'green'}/>
                         <Chips label={petInfo.gender} size={'small'} color={'green'}/>
-                        <Chips label={`${petAge} ${getWord(petAge)}`} size={'small'} color={'green'}/>
+                        <Chips label={petAge > 11 ? `${Math.floor(petAge / 12)} ${getWord(petAge, 'years')}`
+                            : `${petAge} ${getWord(petAge, 'months')}`} size={'small'} color={'green'}/>
                     </div>
                 }
             </div>

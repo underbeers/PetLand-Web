@@ -9,6 +9,7 @@ const Footer: React.FC = () => {
     window.addEventListener('resize', () => {
         setIsMobile(window.innerWidth <= 700)
     });
+    const year = new Date().getFullYear();
 
     return (
         <footer className={styles.footer}>
@@ -29,7 +30,7 @@ const Footer: React.FC = () => {
             <div className={styles.divider}></div>
             <div className={styles.row}>
                 {!isMobile && <p>PetLand - сервис для владельцев питомцев.</p>}
-                <p>“PetLand” 2022-2023</p>
+                <p>“PetLand” 2022-{year}</p>
                 <NavLink to={'#'}>Политика обработки данных</NavLink>
             </div>
         </footer>

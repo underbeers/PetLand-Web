@@ -14,7 +14,6 @@ const NewPasswordPage = () => {
 
     const [searchParams] = useSearchParams();
 
-
     const initialInputState = {value: '', ok: false, edited: false};
     const [password1, setPassword1] = useState(initialInputState);
     const [password2, setPassword2] = useState(initialInputState);
@@ -27,7 +26,10 @@ const NewPasswordPage = () => {
     });
 
     const saveNewPassword = async () => {
-        await userService.sendNewPassword({newPassword: password1.value, profileId: searchParams.get('id') || ''}).then(response => {
+        await userService.sendNewPassword({
+            newPassword: password1.value,
+            hashID: searchParams.get('id') || ''
+        }).then(response => {
             switch (response.status) {
                 case 200:
                     setPasswordChanged(true);
@@ -36,13 +38,13 @@ const NewPasswordPage = () => {
                     alert(`Неизвестная ошибка, код ${response.status}`)
             }
         });
-    }
+    };
 
     let navigate = useNavigate();
     const routeChange = () => {
         let path = `/`;
         navigate(path);
-    }
+    };
 
     return (
         <div className={styles.window}>
@@ -67,11 +69,12 @@ const NewPasswordPage = () => {
                 <>
                     {!isMobile ? <h1 className={styles.success__message}>Пароль успешно обновлен</h1> :
                         <h3 className={styles.success__message}>Пароль успешно обновлен</h3>}
-                    <Button type={'primary'} color={'green'} text={'На главную PetLand'} onClick={routeChange} className={styles.main__page}/>
+                    <Button type={'primary'} color={'green'} text={'На главную PetLand'} onClick={routeChange}
+                            className={styles.main__page}/>
                 </>
             }
         </div>
-    )
-}
+    );
+};
 
 export default NewPasswordPage;

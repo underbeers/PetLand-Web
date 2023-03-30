@@ -37,7 +37,7 @@ const TopBar: React.FC<iTopBarProps> = ({children, leftButton}) => {
             }
             {children}
         </div>
-    )
-}
+    );
+};
 
 export default TopBar;

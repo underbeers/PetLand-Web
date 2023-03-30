@@ -87,6 +87,13 @@
     gap: 24px;
 }
 
+.error {
+    white-space: nowrap;
+    color: var(--red--500);
+    position: absolute;
+    bottom: -16px;
+}
+
 .switch__content {
     color: var(--blue--300);
     text-align: center;

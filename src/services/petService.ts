@@ -1,4 +1,4 @@
-import {API_URL} from "./userService";
+import {API_URL} from './userService';
 
 
 export interface createPetCardParameters {
@@ -7,7 +7,7 @@ export interface createPetCardParameters {
     breedID: number;
     photo?: string;
     birthDate: string;
-    Male: boolean;
+    male: boolean;
     color?: string;
     care?: string;
     petCharacter?: string;
@@ -16,64 +16,48 @@ export interface createPetCardParameters {
     vaccinations?: boolean
 }
 
+export interface updatePetCardParameters {
+    petTypeID?: number,
+    petName?: string,
+    breedID?: number,
+    photo?: string,
+    birthDate?: string,
+    male?: boolean,
+    color?: string,
+    care?: string,
+    petCharacter?: string
+    pedigree?: string,
+    sterilization?: boolean,
+    vaccinations?: boolean
+}
+
 class PetService {
     public async getPetTypes() {
         return fetch(API_URL + '/petTypes', {
             method: 'GET',
             headers: {'Content-Type': 'application/json'}
-        })
+        });
     }
 
     public async getBreedByPetTypeId(petTypeID: string) {
-        return fetch(API_URL + `/breeds?pet_type_id=${petTypeID}`, {
+        return fetch(API_URL + `/breeds?petTypeID=${petTypeID}`, {
             method: 'GET',
             headers: {'Content-Type': 'application/json'}
-        })
+        });
     }
 
     public async getFullPetCards(userID: string) {
         return fetch(API_URL + `/petCards?userID=${userID}`, {
             method: 'GET',
             headers: {'Content-Type': 'application/json'}
-        })
+        });
     }
 
     public async getShortPetCards(userID: string) {
         return fetch(API_URL + `/petCards/main?userID=${userID}`, {
             method: 'GET',
             headers: {'Content-Type': 'application/json'}
-        })
-    }
-
-    public async editPetCard(petCardId: string, petTypeID: number, userID: number, petName: string,
-                             breedID: number, photo: string, birthDate: string, male: boolean, color: string,
-                             care: string, petCharacter: string, pedigree: string, sterilization: true, vaccinations: true) {
-        return fetch(API_URL + `/petCards/update/${petCardId}`, {
-            method: 'PUT',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({
-                petTypeID,
-                userID,
-                petName,
-                breedID,
-                photo,
-                birthDate,
-                male,
-                color,
-                care,
-                petCharacter,
-                pedigree,
-                sterilization,
-                vaccinations
-            })
-        })
-    }
-
-    public async deletePetCard(petCardId: string) {
-        return fetch(API_URL + `/petCards/delete/${petCardId}`, {
-            method: 'DELETE',
-            headers: {'Content-Type': 'application/json'}
-        })
+        });
     }
 
     public async createPetCard(params: createPetCardParameters) {
@@ -84,6 +68,27 @@ class PetService {
                 'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
             },
             body: JSON.stringify(params)
+        });
+    }
+
+    public async editPetCard(petCardID: string, params: updatePetCardParameters) {
+        return fetch(API_URL + `/petCards/update/${petCardID}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+            },
+            body: JSON.stringify(params)
+        });
+    }
+
+    public async deletePetCard(petCardID: string) {
+        return fetch(API_URL + `/petCards/delete/${petCardID}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+            }
         });
     }
 }

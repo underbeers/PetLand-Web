@@ -12,6 +12,11 @@
 .footer a {
     font-size: var(--secondary-2--text--size);
     color: var(--base--700);
+    transition: color .2s;
+}
+
+footer a:hover {
+    color: var(--orange--primary--color);
 }
 
 .footer p {

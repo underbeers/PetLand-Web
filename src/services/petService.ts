@@ -46,8 +46,8 @@ class PetService {
         });
     }
 
-    public async getFullPetCards(userID: string) {
-        return fetch(API_URL + `/petCards?userID=${userID}`, {
+    public async getFullPetCard(userID: string, petID: string) {
+        return fetch(API_URL + `/petCards?userID=${userID}&id=${petID}`, {
             method: 'GET',
             headers: {'Content-Type': 'application/json'}
         });

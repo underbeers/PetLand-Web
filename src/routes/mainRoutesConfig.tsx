@@ -52,7 +52,7 @@ const routesConfig = [
         element: <NewPasswordPage/>
     },
     {
-        path: PATH_PREFIX + '/pet-page',
+        path: PATH_PREFIX + '/pet',
         element: <PetPage/>
     },
     {

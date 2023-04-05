@@ -19,7 +19,7 @@ const Pets: React.FC = () => {
         if (user.empty) {
             return;
         }
-        petService.getFullPetCards(user.userID).then(response => {
+        petService.getShortPetCards(user.userID).then(response => {
             //console.log(response);
             switch (response.status) {
                 case 200:
@@ -41,7 +41,8 @@ const Pets: React.FC = () => {
                 <div className={styles.cards}>
                     {
                         pets.map(pet =>
-                            <PetCard size={'medium'} petInfo={pet} key={pet.id}/>
+                            <PetCard size={'medium'} petInfo={pet} key={pet.id}
+                                     url={`/pet?user-id=${user.userID}&pet-id=${pet.id}`}/>
                         )
                     }
                 </div>

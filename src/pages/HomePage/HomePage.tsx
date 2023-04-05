@@ -6,7 +6,8 @@ import styles from './HomePage.module.css'
 const HomePage: React.FC = () => {
     return (
         <div>
-            Главная страница
+            <p>Главная страница</p>
+            <a href={'/profile'}>Профиль</a>
         </div>
     );
 };

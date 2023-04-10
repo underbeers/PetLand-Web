@@ -13,7 +13,7 @@
     position: absolute;
     top: 105%;
     left: 10px;
-    font-size: 12px;
+    font-size: var(--secondary-2--text--size);
 }
 
 .code__verified__msg {

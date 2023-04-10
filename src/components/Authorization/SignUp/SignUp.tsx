@@ -179,10 +179,9 @@ const SignUp: React.FC<iAuthProps> = ({switchContent, closeModal, isMobile}) => 
                             :
                             <p className={cn('secondary__text-1', generalStyles.error)}>
                                 Пароли не совпадают
-                            </p>
-                        }
-                        <Button color={'orange'} text={'Создать аккаунт' + password1.ok + password2.ok} disabled={!policyChecked || !password1.ok || !password2.ok}
-                                type={'primary'} onClick={register}/>
+                            </p>}
+                        <Button color={'orange'} text={'Создать аккаунт'} type={'primary'} onClick={register}
+                                disabled={!policyChecked || !password1.ok || !password2.ok}/>
                         <p className={cn('secondary__text-1', generalStyles.switch__content)}>
                             У вас уже есть аккаунт?&nbsp;
                             <a className={'underlined'} onClick={switchContent}>Войти</a>
@@ -215,9 +214,13 @@ const SignUp: React.FC<iAuthProps> = ({switchContent, closeModal, isMobile}) => 
                         </Checkbox>
                     </div>
                     <div className={generalStyles.button__and__switch__content}>
-                        {responseCode == 409 &&
+                        {password1.value == password2.value ? responseCode == 409 &&
                             <p className={cn('secondary__text-1', generalStyles.error)}>
                                 Такой email уже используется
+                            </p>
+                            :
+                            <p className={cn('secondary__text-1', generalStyles.error)}>
+                                Пароли не совпадают
                             </p>
                         }
                         <Button color={'orange'} text={stage === 3 ? 'Создать аккаунт' : 'Следующий шаг'}

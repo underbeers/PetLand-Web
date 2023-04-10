@@ -68,4 +68,8 @@
         flex-direction: row;
         gap: 24px;
     }
+
+    .additional__info {
+        width: 100%;
+    }
 }

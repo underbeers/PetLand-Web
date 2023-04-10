@@ -6,6 +6,7 @@ export interface iUser {
     surName: string;
     userID: string
     photo: string;
+    accessToken: string;
     empty: boolean;
     loading: boolean;
 }
@@ -17,6 +18,7 @@ export const initialUserContextState = {
         surName: '',
         userID: '',
         photo: '',
+        accessToken: '',
         empty: true,
         loading: false
     },

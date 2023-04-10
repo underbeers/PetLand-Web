@@ -12,12 +12,12 @@ class AuthService {
         });
     }
 
-    private async authorize() {
+    private async authorize(accessToken: string) {
         return fetch(API_URL + '/user/info', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+                'Authorization': `Bearer ${accessToken}`
             }
         });
     }
@@ -55,8 +55,8 @@ class AuthService {
         if (!user.empty) {
             return;
         }
-        setUser({...user, loading: true});
-        this.authorize().then(response => {
+        user.loading = true;
+        this.authorize(user.accessToken).then(response => {
             //console.log(response.status);
             setResponseCode && setResponseCode(response.status);
             if (response.ok) {
@@ -75,15 +75,17 @@ class AuthService {
             }
         }).then((body: { email: string, firstName: string, surName: string, userID: string }) => {
             //console.log(body);
-            body && setUser({
+            body && (setUser({
                 ...body,
                 photo: 'https://script.viserlab.com/stoclab/assets/user/profile/5fb0bd27eccb31605418279.jpg',
+                accessToken: user.accessToken,
                 empty: false,
                 loading: false
-            });
+            }));
+            user.loading = false;
             body && onFinish && onFinish();
-            if (!dontLogOut) {
-                localStorage.removeItem('accessToken');
+            if (dontLogOut) {
+                localStorage.setItem('accessToken', user.accessToken);
             }
         });
     }
@@ -122,8 +124,7 @@ class AuthService {
                 return null;
             }
         }).then(body => {
-            //console.log(body);
-            body && localStorage.setItem('accessToken', body.accessToken);
+            body && (user.accessToken = body.accessToken);
             return body;
         }).then((body) => {
             body && this.syncUser(user, setUser, dontLogOut, setResponseCode, onFinish);

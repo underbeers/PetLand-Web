@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import cn from 'classnames';
 
 import {RegExpPair} from '../../constants/regularExpressions';
@@ -109,7 +109,7 @@ const Input: React.FC<iInputProps> = ({
             default:
                 return (
                     <>
-                        {type === 'search' && <Icons icon={'search-rounded'} className={styles.search__icon} />}
+                        {type === 'search' && <Icons icon={'search-rounded'} className={styles.search__icon}/>}
                         <input
                             type={pwdShown ? 'text' : type}
                             className={cn('primary__text', styles.standard_input)}

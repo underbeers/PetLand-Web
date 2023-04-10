@@ -157,7 +157,7 @@ const NewPet: React.FC = () => {
         params.vaccinations = vaccinated;
 
 
-        await petService.createPetCard(params).then(response => {
+        await petService.createPetCard(params, user.accessToken).then(response => {
             switch (response.status) {
                 case 200:
                     return response.json();

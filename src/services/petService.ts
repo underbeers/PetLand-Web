@@ -60,34 +60,34 @@ class PetService {
         });
     }
 
-    public async createPetCard(params: createPetCardParameters) {
+    public async createPetCard(params: createPetCardParameters, accessToken: string) {
         return fetch(API_URL + '/petCards/new', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+                'Authorization': `Bearer ${accessToken}`
             },
             body: JSON.stringify(params)
         });
     }
 
-    public async editPetCard(petCardID: string, params: updatePetCardParameters) {
+    public async editPetCard(petCardID: string, params: updatePetCardParameters, accessToken: string) {
         return fetch(API_URL + `/petCards/update/${petCardID}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+                'Authorization': `Bearer ${accessToken}`
             },
             body: JSON.stringify(params)
         });
     }
 
-    public async deletePetCard(petCardID: string) {
+    public async deletePetCard(petCardID: string, accessToken: string) {
         return fetch(API_URL + `/petCards/delete/${petCardID}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+                'Authorization': `Bearer ${accessToken}`
             }
         });
     }

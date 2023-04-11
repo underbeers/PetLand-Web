@@ -1,10 +1,10 @@
 import React, {useContext, useState} from 'react';
 import {UserContext} from '../../../userContext';
+import {useNavigate} from 'react-router-dom';
 
 import Button from '../../../components/UIKit/Button';
 import Chips from '../../../components/UIKit/Chips';
 import Icons from '../../../components/UIKit/Icons';
-import PetCard from '../../../components/PetCard/PetCard';
 import Image from '../../../components/Image/Image';
 import TopBar from '../../../components/TopBar/TopBar';
 
@@ -22,6 +22,8 @@ const UserProfile: React.FC = () => {
     const {user, setUser} = useContext(UserContext);
 
     const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
+
+    const navigate = useNavigate();
 
     window.addEventListener('resize', () => {
         setIsMobile(window.innerWidth <= 700)
@@ -75,8 +77,7 @@ const UserProfile: React.FC = () => {
                         <h5 className={styles.title__pets}>Питомцы</h5>
                         <p style={{marginBottom: '8px'}}>У вас еще не добавлены питомцы на
                             PetLand</p>
-                        <Button color={'orange'} text={'Добавить питомца'} onClick={() => {
-                        }} type={'primary'}/>
+                        <Button color={'orange'} text={'Добавить питомца'} onClick={() => navigate('/new-pet')} type={'primary'}/>
                     </div>
                 }
                 <div className={styles.statistic__specialist}>

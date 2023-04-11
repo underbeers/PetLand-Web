@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import cn from 'classnames';
+import {NavLink} from 'react-router-dom';
 
 import Icons from '../UIKit/Icons';
 import Chips from '../UIKit/Chips';
@@ -8,10 +9,11 @@ import styles from './AdCards.module.css';
 
 
 interface iAdCardProps {
-    size: 'big' | 'small'
+    size: 'big' | 'small',
+    url: string
 }
 
-const AdCards: React.FC<iAdCardProps> = ({size}) => {
+const AdCards: React.FC<iAdCardProps> = ({size, url}) => {
 
     const [isLiked, setIsLiked] = useState(false);
     const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
@@ -21,7 +23,7 @@ const AdCards: React.FC<iAdCardProps> = ({size}) => {
     });
 
     return (
-        <div className={cn(styles.card, styles[size])}>
+        <NavLink to={url} className={cn(styles.card, styles[size])}>
             <img className={styles.photo}
                  src={'https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1143&q=80'}/>
             <div className={styles.ad__content}>
@@ -31,9 +33,15 @@ const AdCards: React.FC<iAdCardProps> = ({size}) => {
                         <p>Цена ₽</p>
                     </div>
                     {isLiked ?
-                        <Icons icon={'cards-heart'} className={styles.heart} onClick={() => setIsLiked(!isLiked)}/> :
+                        <Icons icon={'cards-heart'} className={styles.heart} onClick={(event) => {
+                            event.preventDefault();
+                            setIsLiked(!isLiked);
+                        }}/> :
                         <Icons icon={'cards-heart-outline'} className={styles.heart}
-                               onClick={() => setIsLiked(!isLiked)}/>}
+                               onClick={(event) => {
+                                   event.preventDefault();
+                                   setIsLiked(!isLiked);
+                               }}/>}
                 </div>
                 {size === 'big' &&
                     <div className={styles.chips}>
@@ -58,7 +66,7 @@ const AdCards: React.FC<iAdCardProps> = ({size}) => {
                     </div>
                 </div>
             </div>
-        </div>
+        </NavLink>
     );
 };
 

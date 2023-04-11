@@ -2,6 +2,11 @@
     background-color: var(--base--0);
     border-radius: 8px;
     display: flex;
+    transition: scale .2s;
+}
+
+.card:hover {
+    scale: 105%;
 }
 
 .big {
@@ -54,6 +59,7 @@
     height: 28px;
     width: 28px;
     cursor: pointer;
+    z-index: 100;
 }
 
 .heart path {

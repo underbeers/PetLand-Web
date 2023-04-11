@@ -1,5 +1,6 @@
-import React, {useState} from 'react';
-import {useNavigate} from 'react-router-dom';
+import React, {useContext, useState} from 'react';
+import {useNavigate, useSearchParams} from 'react-router-dom';
+import {UserContext} from '../../userContext';
 
 import Chips from '../../components/UIKit/Chips';
 import Icons from '../../components/UIKit/Icons';
@@ -13,9 +14,15 @@ import cat from './img/cat.jpg';
 import styles from './AdPage.module.css'
 
 
+
 const AdPage = () => {
 
     const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
+    const [color, setColor] = useState(false);
+    const [care, setCare] = useState(false);
+    const [pedigree, setPedigree] = useState(false);
+    const [traits, setTraits] = useState(false);
+    const [isLiked, setIsLiked] = useState(false);
 
     window.addEventListener('resize', () => {
         setIsMobile(window.innerWidth <= 700)
@@ -26,6 +33,10 @@ const AdPage = () => {
         e.preventDefault();
         navigate(-1);
     };
+
+    const {user, setUser} = useContext(UserContext);
+    const [searchParams, setSearchParams] = useSearchParams();
+    const userID = searchParams.get('user-id') || '';
 
     const images = [
         {
@@ -97,7 +108,12 @@ const AdPage = () => {
                 <TopBar leftButton={'arrow'}>
                     <h5>Кличка</h5>
                     <Icons icon={'share'}/>
-                    <Icons icon={'dots-vertical'}/>
+                    {userID === user.userID ? <Icons icon={'edit'}/> : !isLiked ?
+                        <Icons icon={'cards-heart-outline'} onClick={() => {
+                            setIsLiked(!isLiked)
+                        }} className={styles.heart__topbar}/> : <Icons icon={'cards-heart'} onClick={() => {
+                            setIsLiked(!isLiked)
+                        }} className={styles.heart__topbar}/>}
                 </TopBar>
             }
 
@@ -130,8 +146,16 @@ const AdPage = () => {
                         </div>
                     </div>
 
-                    <Button color={'orange'} type={'primary'} text={'Написать'} onClick={() => {
-                    }} className={styles.button__text}/>
+                    <div className={styles.text__like}>
+                        <Button color={'orange'} type={'primary'} text={'Написать'} onClick={() => {
+                        }} className={styles.button__text}/>
+                        <div className={styles.heart__container} onClick={() => {
+                            setIsLiked(!isLiked)
+                        }}>
+                            {!isLiked ? <Icons icon={'cards-heart-outline'} className={styles.heart}/> :
+                                <Icons icon={'cards-heart'} className={styles.heart}/>}
+                        </div>
+                    </div>
 
                     <div className={styles.date__address}>
                         <div className={styles.date}>
@@ -156,27 +180,30 @@ const AdPage = () => {
                             лотку и когтеточке, идеально подходит для жизни в квартире. Если вы ищете верного друга и
                             надежного компаньона, то эта кошка для вас!</p>
                     </div>
-                    <div className={styles.info__piece}>
+                    {color && <div className={styles.info__piece}>
                         <h5>Окрас:</h5>
                         <p className={'primary__text'}>Бело-серый, пушистый. Длинная шерсть</p>
-                    </div>
-                    <div className={styles.info__piece}>
+                    </div>}
+
+                    {care && <div className={styles.info__piece}>
                         <h5>Особенности ухода:</h5>
                         <p className={'primary__text'}>Приучен к лотку и когтеточке. Ест сухой и влажный корм Purina
                             One.</p>
-                    </div>
+                    </div>}
+
                 </div>
                 <div className={styles.column}>
-                    <div className={styles.pedigree}>
+                    {pedigree && <div className={styles.pedigree}>
                         <h5>Родословная:</h5>
                         <p className={'primary__text'}>Родословной не знаем. Забирали кота из приюта.</p>
-                    </div>
-                    <div className={styles.info__piece}>
+                    </div>}
+
+                    {traits && <div className={styles.info__piece}>
                         <h5>Черты характера:</h5>
                         <p className={'primary__text'}>Ласковый, ленивый, очень любит покушать. Играет нечасто, но
                             любит
                             взбираться на свою высокую когтеточку</p>
-                    </div>
+                    </div>}
 
 
                     <div className={styles.sterilization__vaccination}>
@@ -206,8 +233,16 @@ const AdPage = () => {
                     </div>
                 </div>
 
-                <Button color={'orange'} type={'primary'} text={'Написать'} onClick={() => {
-                }} className={styles.button__text}/>
+                <div className={styles.text__like}>
+                    <Button color={'orange'} type={'primary'} text={'Написать'} onClick={() => {
+                    }} className={styles.button__text}/>
+                    <div className={styles.heart__container} onClick={() => {
+                        setIsLiked(!isLiked)
+                    }}>
+                        {!isLiked ? <Icons icon={'cards-heart-outline'} className={styles.heart}/> :
+                            <Icons icon={'cards-heart'} className={styles.heart}/>}
+                    </div>
+                </div>
 
                 <div className={styles.date__address}>
                     <div className={styles.date}>

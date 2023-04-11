@@ -5,13 +5,17 @@ import {UserContext} from '../../../userContext';
 import petService from '../../../services/petService';
 
 import Button from '../../../components/UIKit/Button';
+import Icons from '../../../components/UIKit/Icons';
+import TopBar from '../../../components/TopBar/TopBar';
 import PetCard, {iPetCardProps} from '../../../components/PetCard/PetCard';
 
 import styles from './Pets.module.css';
 
 
 const Pets: React.FC = () => {
+    const [isEmpty, setIsEmpty] = useState(false);
     const {user, setUser} = useContext(UserContext);
+
     const navigate = useNavigate();
     const [pets, setPets] = useState(Array<iPetCardProps['petInfo']>);
 

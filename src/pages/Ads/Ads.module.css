@@ -31,12 +31,54 @@
     align-items: center;
 }
 
-.all__ads {
+.search__settings {
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+}
+
+.search__settings div {
+    display: flex;
+    flex-direction: row;
+    gap: 4px;
+    align-items: center;
+}
+
+.filters {
+    display: flex;
+    width: 273px;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.price {
+    display: flex;
+    flex-direction: row;
+    width: 273px;
+    justify-content: space-between;
+}
+
+.priceFrom {
+    width: 130px;
+}
+
+.priceTo {
+    width: 130px;
+    padding-top: 24px;
+}
+
+.all__ads__filter {
     width: 100%;
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
     gap: 30px;
+}
+
+.all__ads {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    flex-wrap: wrap;
 }
 
 @media screen and (max-width: 700px)  {
@@ -44,5 +86,11 @@
         width: 576px;
     }
 
-
+    .all__ads__filter {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
 }

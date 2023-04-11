@@ -5,6 +5,7 @@ import Page404 from '../pages/Page404/Page404';
 import EmailPage from '../pages/PasswordRecovery/EmailPage';
 import NewPasswordPage from '../pages/PasswordRecovery/NewPasswordPage';
 import PetPage from '../pages/PetPage/PetPage';
+import AdPage from "../pages/AdPage/AdPage";
 import Ads from '../pages/Ads/Ads';
 
 
@@ -54,6 +55,10 @@ const routesConfig = [
     {
         path: PATH_PREFIX + '/pet',
         element: <PetPage/>
+    },
+    {
+        path: PATH_PREFIX + '/ad-page',
+        element: <AdPage/>
     },
     {
         path: PATH_PREFIX + '/profile/*',

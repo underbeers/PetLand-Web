@@ -1,14 +1,12 @@
 import React, {useContext, useState} from 'react';
-import cn from 'classnames';
-
 import {UserContext} from '../../../userContext';
 
 import Button from '../../../components/UIKit/Button';
 import Chips from '../../../components/UIKit/Chips';
 import Icons from '../../../components/UIKit/Icons';
-import TopBar from '../../../components/TopBar/TopBar';
 import PetCard from '../../../components/PetCard/PetCard';
 import Image from '../../../components/Image/Image';
+import TopBar from '../../../components/TopBar/TopBar';
 
 import styles from './UserProfile.module.css';
 
@@ -19,6 +17,7 @@ const UserProfile: React.FC = () => {
     const [isRating, setIsRating] = useState(false);
     const [isReviews, setIsReviews] = useState(false);
     const [isSpecialist, setIsSpecialist] = useState(false);
+
 
     const {user, setUser} = useContext(UserContext);
 

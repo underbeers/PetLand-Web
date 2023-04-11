@@ -17,11 +17,16 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: background-color .3s;
 }
 
 .tabs > a:last-child {
     border-right: 2px solid var(--green--primary--color);
     border-radius: 0 12px 12px 0;
+}
+
+.tabs > a:hover {
+    background-color: var(--green--100);
 }
 
 .tabs > a:first-child {
@@ -33,6 +38,12 @@
     background-color: var(--green--primary--color);
     color: var(--base--0);
     font: var(--heading-5--text--size);
+
+}
+
+.tabs:global(>a.active):hover {
+    background-color: var(--green--700);
+    border-color: var(--green--700);
 }
 
 @media screen and (max-width: 700px) {

@@ -4,6 +4,11 @@
     box-shadow: var(--card-shadow);
     display: flex;
     flex-direction: column;
+    transition: scale .2s;
+}
+
+.card:hover {
+    scale: 105%;
 }
 
 .card.medium {

@@ -1,4 +1,4 @@
-.name__button {
+.back__name__button {
     display: flex;
     width: 100%;
     flex-direction: row;
@@ -7,6 +7,25 @@
     padding-top: 33px;
 }
 
+.arrow__container {
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+}
+
+.arrow__back {
+    width: 32px;
+    height: 32px;
+}
+
+.arrow__back path {
+    fill: var(--base--800);
+}
+
+.name{
+    flex: 1;
+    margin-left: 32px;
+}
 
 .slider__name h2 {
     margin-top: 32px;
@@ -33,6 +52,16 @@
     gap: 24px;
     margin-bottom: 32px;
     margin-left: 40px;
+}
+
+.owner {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.star path {
+    fill: var(--orange--600);
 }
 
 .description {

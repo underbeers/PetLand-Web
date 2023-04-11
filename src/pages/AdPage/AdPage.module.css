@@ -1,3 +1,7 @@
+.heart__topbar path {
+    fill: var(--red--400);
+}
+
 .back__name__price {
     margin-top: 32px;
     display: flex;
@@ -59,8 +63,26 @@
     fill: var(--orange--600)
 }
 
-.button__text {
+.text__like {
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    align-items: center;
     margin-top: 12px;
+}
+
+.heart__container {
+    width: 32px;
+    height: 32px;
+}
+
+.heart {
+    width: 32px;
+    height: 32px;
+}
+
+.heart path {
+    fill: var(--red--400);
 }
 
 .date__address {

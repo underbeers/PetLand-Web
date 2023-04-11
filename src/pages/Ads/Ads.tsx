@@ -110,25 +110,25 @@ const Ads: React.FC = () => {
                     <div className={styles.all__ads}>
                         {isBigAd ?
                             <>
-                                <AdCards size={'big'}/>
-                                <AdCards size={'big'}/>
-                                <AdCards size={'big'}/>
-                                <AdCards size={'big'}/>
-                                <AdCards size={'big'}/>
-                                <AdCards size={'big'}/>
-                                <AdCards size={'big'}/>
-                                <AdCards size={'big'}/>
+                                <AdCards size={'big'} url={`/ad-page`}/>
+                                <AdCards size={'big'} url={`/ad-page`}/>
+                                <AdCards size={'big'} url={`/ad-page`}/>
+                                <AdCards size={'big'} url={`/ad-page`}/>
+                                <AdCards size={'big'} url={`/ad-page`}/>
+                                <AdCards size={'big'} url={`/ad-page`}/>
+                                <AdCards size={'big'} url={`/ad-page`}/>
+                                <AdCards size={'big'} url={`/ad-page`}/>
                             </>
                             :
                             <>
-                                <AdCards size={'small'}/>
-                                <AdCards size={'small'}/>
-                                <AdCards size={'small'}/>
-                                <AdCards size={'small'}/>
-                                <AdCards size={'small'}/>
-                                <AdCards size={'small'}/>
-                                <AdCards size={'small'}/>
-                                <AdCards size={'small'}/>
+                                <AdCards size={'small'} url={`/ad-page`}/>
+                                <AdCards size={'small'} url={`/ad-page`}/>
+                                <AdCards size={'small'} url={`/ad-page`}/>
+                                <AdCards size={'small'} url={`/ad-page`}/>
+                                <AdCards size={'small'} url={`/ad-page`}/>
+                                <AdCards size={'small'} url={`/ad-page`}/>
+                                <AdCards size={'small'} url={`/ad-page`}/>
+                                <AdCards size={'small'} url={`/ad-page`}/>
                             </>}
                     </div>
                 </div>

@@ -1,8 +1,8 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {useNavigate, useSearchParams} from 'react-router-dom';
+import {UserContext} from '../../userContext';
 
 import petService from '../../services/petService';
-import {UserContext} from '../../userContext';
 import {getAge} from '../../components/PetCard/PetCard';
 
 import Chips from '../../components/UIKit/Chips';
@@ -42,6 +42,8 @@ const PetPage: React.FC = () => {
 
     const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
 
+    const {user, setUser} = useContext(UserContext);
+
     window.addEventListener('resize', () => {
         setIsMobile(window.innerWidth <= 700)
     });
@@ -51,6 +53,12 @@ const PetPage: React.FC = () => {
         breedID: -1, care: '', petTypeID: -1, color: '', gender: '',
         male: false, pedigree: '', birthDate: '', sterilization: false, vaccinations: false
     });
+
+    const navigate = useNavigate();
+    const handleGoBack: React.MouseEventHandler<HTMLDivElement> = (e) => {
+        e.preventDefault();
+        navigate(-1);
+    };
 
     const load = async () => {
         petService.getFullPetCard(userID, petID).then(response => {
@@ -82,10 +90,14 @@ const PetPage: React.FC = () => {
         <>
             {!isMobile ?
                 <>
-                    <div className={styles.name__button}>
-                        <h2>{info.petName}</h2>
-                        <Button color={'orange'} type={'secondary'} onClick={() => {
-                        }} text={'Редактировать страницу'}/>
+                    <div className={styles.back__name__button}>
+                        <div className={styles.arrow__container} onClick={handleGoBack}>
+                            <Icons icon={'arrow-left'} className={styles.arrow__back}/>
+                        </div>
+                        <h2 className={styles.name}>{info.petName}</h2>
+                        {userID === user.userID && <Button color={'orange'} type={'secondary'} onClick={() => {
+                        }} text={'Редактировать страницу'}/>}
+
                     </div>
                     {chips}
                 </>
@@ -93,7 +105,7 @@ const PetPage: React.FC = () => {
                 <TopBar leftButton={'arrow'}>
                     <h5>{info.petName}</h5>
                     <Icons icon={'share'}/>
-                    <Icons icon={'dots-vertical'}/>
+                    {userID === user.userID ? <Icons icon={'edit'}/> : <Icons icon={'dots-vertical'}/>}
                 </TopBar>
             }
             <div className={styles.photo__info}>
@@ -107,23 +119,72 @@ const PetPage: React.FC = () => {
                         {chips}
                     </div>}
                 <div className={styles.full__info}>
+                    {userID !== user.userID && <div className={styles.owner__info}>
+                        <div className={styles.owner}>
+                            <h5>Владелец:</h5>
+                            <a href={'#'}>Имя Фамилия</a>
+                            <div className={styles.stars}>
+                                <Icons icon={'round-star'} className={styles.star}/>
+                                <Icons icon={'round-star'} className={styles.star}/>
+                                <Icons icon={'round-star'} className={styles.star}/>
+                                <Icons icon={'round-star'} className={styles.star}/>
+                                <Icons icon={'round-star'} className={styles.star}/>
+                            </div>
+                        </div>
+
+                        <Button color={'orange'} type={'primary'} text={'Написать'} onClick={() => {
+                        }} className={styles.button__text}/>
+                    </div>}
+
                     <div className={styles.description}>
-                        <div className={styles.color}>
-                            <h5>Окрас:</h5>
-                            <p className={'primary__text'}>{info.color}</p>
-                        </div>
-                        <div className={styles.care}>
-                            <h5>Особенности ухода:</h5>
-                            <p className={'primary__text'}>{info.care}</p>
-                        </div>
-                        <div className={styles.pedigree}>
-                            <h5>Родословная:</h5>
-                            <p className={'primary__text'}>{info.pedigree}</p>
-                        </div>
-                        <div className={styles.traits}>
-                            <h5>Черты характера:</h5>
-                            <p className={'primary__text'}>{info.petCharacter}</p>
-                        </div>
+                        {info.color ?
+                            <div className={styles.color}>
+                                <h5>Окрас:</h5>
+                                <p className={'primary__text'}>{info.color}</p>
+                            </div> :
+                        userID === user.userID &&
+                            <div className={styles.color}>
+                                <h5>Окрас:</h5>
+                                <p className={'primary__text'}>Описание окраса не добавлено. Добавьте его в
+                                    редактировании страницы.</p>
+                            </div>
+                        }
+                        {info.care ?
+                            <div className={styles.care}>
+                                <h5>Особенности ухода:</h5>
+                                <p className={'primary__text'}>{info.care}</p>
+                            </div> :
+                            userID === user.userID &&
+                            <div className={styles.care}>
+                                <h5>Особенности ухода:</h5>
+                                <p className={'primary__text'}>Описание ухода не добавлено. Добавьте его в
+                                    редактировании страницы.</p>
+                            </div>
+                        }
+                        {info.pedigree ?
+                            <div className={styles.pedigree}>
+                                <h5>Родословная:</h5>
+                                <p className={'primary__text'}>{info.pedigree}</p>
+                            </div> :
+                            userID === user.userID &&
+                            <div className={styles.pedigree}>
+                                <h5>Родословная:</h5>
+                                <p className={'primary__text'}>Описание родословной не добавлено. Добавьте его в
+                                    редактировании страницы.</p>
+                            </div>
+                        }
+                        {info.petCharacter ?
+                            <div className={styles.traits}>
+                                <h5>Черты характера:</h5>
+                                <p className={'primary__text'}>{info.petCharacter}</p>
+                            </div> :
+                            userID === user.userID &&
+                            <div className={styles.traits}>
+                                <h5>Черты характера:</h5>
+                                <p className={'primary__text'}>Описание характера не добавлено. Добавьте его в
+                                    редактировании страницы.</p>
+                            </div>
+                        }
                     </div>
                     <div className={styles.sterilization__vaccination}>
                         <div className={styles.info__check}>

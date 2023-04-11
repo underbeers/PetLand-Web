@@ -71,7 +71,7 @@ const PetPage = () => {
                 <>
                     <div className={styles.name__button}>
                         <h2>Кличка</h2>
-                        <Button color={'orange'} type={'primary'} onClick={() => {
+                        <Button color={'orange'} type={'secondary'} onClick={() => {
                         }} text={'Редактировать страницу'}/>
                     </div>
                     <div className={styles.chips}>

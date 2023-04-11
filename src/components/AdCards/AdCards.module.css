@@ -105,6 +105,7 @@
 @media screen and (max-width: 700px) {
     .card {
         width: 154px;
+        height: 238px;
         position: relative;
     }
 
@@ -118,5 +119,17 @@
         position: absolute;
         top: 4px;
         right: 4px;
+    }
+
+    .info {
+        flex-direction: column-reverse;
+    }
+
+    .ad__content {
+        padding: 8px;
+    }
+
+    .name__price p {
+        font-size: var(--secondary-1--text--size);
     }
 }

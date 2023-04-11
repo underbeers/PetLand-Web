@@ -1,0 +1,178 @@
+.back__name__price {
+    margin-top: 32px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.arrow__container {
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+}
+
+.arrow__back {
+    width: 32px;
+    height: 32px;
+}
+
+.arrow__back path {
+    fill: var(--base--800);
+}
+
+.name {
+    flex: 1;
+    margin-left: 32px;
+}
+
+.name__price {
+    margin-top: 20px;
+}
+
+.chips {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    margin-top: 20px;
+}
+
+.photo__info {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: flex-start;
+    margin-top: 20px;
+    gap: 30px;
+}
+
+.owner__info {
+    width: 100%;
+}
+
+.owner {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.star path{
+    fill: var(--orange--600)
+}
+
+.button__text {
+    margin-top: 12px;
+}
+
+.date__address {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.date {
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+    gap: 4px;
+}
+
+.address {
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    gap: 4px;
+}
+
+.pet__info {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    gap: 30px;
+    margin-top: 20px;
+    padding-bottom: 40px;
+}
+
+.column {
+    width: 576px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.info__piece {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.sterilization__vaccination {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.info__check {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 8px;
+}
+
+.info__check svg > path {
+    fill: var(--orange--primary--color);
+}
+
+
+@media screen and (max-width: 700px){
+    .chips {
+        flex-wrap: wrap;
+    }
+
+    .full__info {
+        flex-direction: column;
+        gap: 24px;
+        width: 100%;
+        margin-top: 20px;
+        margin-left: 0;
+    }
+
+    .description{
+        width: 100%;
+    }
+
+    .photo__info {
+        flex-direction: column;
+        align-items: normal;
+        margin: 0;
+        gap: 0;
+    }
+
+    .pet__info {
+        flex-direction: column;
+        gap: 24px;
+        margin-top: 20px;
+        padding-bottom: 24px;
+    }
+
+    .column {
+        width: 100%;
+        gap: 24px;
+    }
+
+    .date__address {
+        flex-direction: column;
+        gap: 12px;
+        padding-bottom: 40px;
+    }
+
+    .date {
+        width: 100%;
+    }
+
+    .address {
+        width: 100%;
+    }
+}

@@ -25,7 +25,7 @@ const AdCards: React.FC<iAdCardProps> = ({size}) => {
             <div className={styles.ad__content}>
                 <div className={styles.name__like}>
                     <div className={styles.name__price}>
-                        <h4>Кличка</h4>
+                        {!isMobile ? <h4>Кличка</h4> : <h5>Кличка</h5>}
                         <p>Цена ₽</p>
                     </div>
                     {isLiked ?

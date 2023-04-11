@@ -2,15 +2,15 @@ import React, {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 
 import Button from '../../../components/UIKit/Button';
+import Icons from '../../../components/UIKit/Icons';
 import PetCard from '../../../components/PetCard/PetCard';
+import TopBar from '../../../components/TopBar/TopBar';
 
 import styles from './Pets.module.css';
-import TopBar from '../../../components/TopBar/TopBar';
-import Icons from '../../../components/UIKit/Icons';
 
 
 const Pets: React.FC = () => {
-    const [isEmpty, setIsEmpty] = useState(true);
+    const [isEmpty, setIsEmpty] = useState(false);
 
     const navigate = useNavigate();
 

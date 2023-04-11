@@ -11,13 +11,13 @@ import TopBar from '../../../components/TopBar/TopBar';
 import styles from './UserProfile.module.css';
 
 
-const UserProfile = () => {
+const UserProfile: React.FC = () => {
+    const [isDescription, setIsDescription] = useState(false);
+    const [isPets, setIsPets] = useState(false);
+    const [isRating, setIsRating] = useState(false);
+    const [isReviews, setIsReviews] = useState(false);
+    const [isSpecialist, setIsSpecialist] = useState(false);
 
-    const [isDescription, setIsDescription] = useState(true);
-    const [isPets, setIsPets] = useState(true);
-    const [isRating, setIsRating] = useState(true);
-    const [isReviews, setIsReviews] = useState(true);
-    const [isSpecialist, setIsSpecialist] = useState(true);
 
     const {user, setUser} = useContext(UserContext);
 
@@ -67,8 +67,8 @@ const UserProfile = () => {
                         <h5 className={styles.title__pets}>Питомцы</h5>
                         <p>3 добавленных питомца</p>
                         <div className={styles.pets__block}>
-                            <PetCard size={'small'}/>
-                            <PetCard size={'small'}/>
+
+
                         </div>
                     </div> :
                     <div className={styles.stat__pets}>

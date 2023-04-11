@@ -1,4 +1,5 @@
-import React, {useState} from 'react';
+import React, {useState} from 'react'
+import {NavLink} from 'react-router-dom';
 import cn from 'classnames';
 
 import Chips from '../UIKit/Chips';
@@ -6,50 +7,70 @@ import Chips from '../UIKit/Chips';
 import styles from './PetCard.module.css'
 
 
-interface iPetCardProps {
-    size: 'small' | 'medium'
+export interface iPetCardProps {
+    petInfo: {
+        birthDate: string,
+        breed: string,
+        gender: string,
+        id: string,
+        petName: string,
+        petType: string,
+        photo: string
+    },
+    size: 'small' | 'medium',
+    url: string
 }
 
-const PetCard: React.FC<iPetCardProps> = ({size}) => {
+const ageFromDateOfBirthdayInMonths: (dateOfBirth: string) => number = (dateOfBirth) => {
+    const today = new Date();
+    const birthday = new Date(dateOfBirth);
+    return (today.getFullYear() - birthday.getFullYear()) * 12 + today.getMonth() - birthday.getMonth();
+}
 
-    const petName = 'Кличка'
-    const petType = 'вид';
-    const petBreed = 'порода';
-    const petGender = 'пол';
-    const petAge = 'возраст';
+const getWord = (num: number, scale: 'years' | 'months'): string => {
+    const numCopy = scale == 'years' ? Math.floor(num / 12) : num;
+    if (numCopy % 100 >= 10 && numCopy % 100 < 20 || numCopy % 10 === 0 || numCopy % 10 > 4) {
+        return scale == 'years' ? 'лет' : 'месяцев';
+    }
+    if (numCopy % 10 === 1) {
+        return scale == 'years' ? 'год' : 'месяц';
+    }
+    return scale == 'years' ? 'года' : 'месяца';
+}
 
+export const getAge: (dateOfBirth: string) => string = (dateOfBirth) => {
+    const petAgeNumber = ageFromDateOfBirthdayInMonths(dateOfBirth);
+    return petAgeNumber > 11 ? `${Math.floor(petAgeNumber / 12)} ${getWord(petAgeNumber, 'years')}`
+        : `${petAgeNumber} ${getWord(petAgeNumber, 'months')}`
+}
+
+const PetCard: React.FC<iPetCardProps> = ({petInfo, size, url}) => {
     const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
 
     window.addEventListener('resize', () => {
-        setIsMobile(window.innerWidth <= 700)
+        setIsMobile(window.innerWidth <= 700);
     });
 
-
     return (
-        <div className={cn(styles.card, styles[size])}>
-            <img src={'https://w-dog.ru/wallpapers/5/15/481641983153237/kot-lezhit-polosatyj.jpg'} alt={'Питомец'}
-                 className={styles.img}/>
+        <NavLink to={url} className={cn(styles.card, styles[size])}>
+            <img src={petInfo.photo} alt={'Фото питомца'} className={styles.img}/>
             <div className={styles.pet__info}>
-
-                <h4 className={styles.name}>{petName}</h4>
-
-                {size === 'medium' &&
-                    <>
-                        <div className={styles.type__breed}>
-                            <Chips label={petType} size={'small'} color={'green'}/>
-                            <Chips label={petBreed} size={'small'} color={'green'}/>
-                        </div>
-
-                        <div className={styles.gender__age}>
-                            <Chips label={petGender} size={'small'} color={'green'}/>
-                            <Chips label={petAge} size={'small'} color={'green'}/>
-                        </div>
-                    </>
+                {!isMobile ?
+                    <h4>{petInfo.petName}</h4>
+                    :
+                    <h3>{petInfo.petName}</h3>
                 }
-
+                {size === 'medium' &&
+                    <div className={styles.chips}>
+                        <Chips label={petInfo.breed} size={'small'} color={'green'}/>
+                        <Chips label={petInfo.petType} size={'small'} color={'green'}/>
+                        <Chips label={petInfo.gender} size={'small'} color={'green'}/>
+                        <Chips label={getAge(petInfo.birthDate)} size={'small'} color={'green'}/>
+                    </div>
+                }
             </div>
-        </div>
-    )
+        </NavLink>
+    );
 };
 
 export default PetCard;

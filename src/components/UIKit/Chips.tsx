@@ -12,11 +12,10 @@ interface iChipsProps {
 }
 
 const Chips: React.FC<iChipsProps> = ({label, size, color}) => {
-
     return (
         <div className={cn(styles.chips, styles[size], styles[color])}>
             {label}
         </div>
-    )
-}
+    );
+};
 export default Chips;

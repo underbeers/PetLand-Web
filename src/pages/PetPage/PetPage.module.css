@@ -4,7 +4,7 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    margin-top: 33px;
+    padding-top: 33px;
 }
 
 
@@ -61,7 +61,7 @@ svg > path {
 }
 
 
-@media screen and (max-width: 700px){
+@media screen and (max-width: 700px) {
     .chips {
         flex-wrap: wrap;
     }
@@ -74,7 +74,7 @@ svg > path {
         margin-left: 0;
     }
 
-    .description{
+    .description {
         width: 100%;
     }
 

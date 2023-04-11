@@ -91,8 +91,8 @@ const Header: React.FC = () => {
                                     onMouseLeave={() => {
                                         setProfileDropdown(false)
                                     }}>
-                                    <li><NavLink to={'/profile/favorite'}>Избранное</NavLink></li>
                                     <li><NavLink to={'/profile/pets'}>Питомцы</NavLink></li>
+                                    <li><NavLink to={'/profile/favorite'}>Избранное</NavLink></li>
                                     <li><NavLink to={'/profile/ads'}>Объявления</NavLink></li>
                                     <li><NavLink to={'/profile/reviews'}>Отзывы</NavLink></li>
                                     <li><NavLink to={'/profile/rates'}>Рейтинг</NavLink></li>

@@ -80,7 +80,7 @@ const SignIn: React.FC<iAuthProps> = ({switchContent, closeModal, isMobile}) => 
                         </div>
                         <div className={generalStyles.submit}>
                             {responseCode == 400 &&
-                                <p className={'error'}>
+                                <p className={cn('secondary__text-1', generalStyles.error)}>
                                     Неверный логин или пароль
                                 </p>
                             }
@@ -130,7 +130,7 @@ const SignIn: React.FC<iAuthProps> = ({switchContent, closeModal, isMobile}) => 
                     </div>
                     <div className={generalStyles.button__and__switch__content}>
                         {responseCode == 400 &&
-                            <p className={'error'}>
+                            <p className={cn('secondary__text-1', generalStyles.error)}>
                                 Неверный логин или пароль
                             </p>
                         }

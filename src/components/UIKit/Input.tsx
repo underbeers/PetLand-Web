@@ -1,12 +1,10 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import cn from 'classnames';
 
 import {RegExpPair} from '../../constants/regularExpressions';
 
 import styles from './Input.module.css';
 import Icons from './Icons';
-import {Simulate} from 'react-dom/test-utils';
-import drop = Simulate.drop;
 
 
 interface iInputProps {
@@ -17,7 +15,7 @@ interface iInputProps {
     disabled?: boolean;
     type: 'text' | 'password' | 'textarea' | 'email' | 'phone' | 'number' | 'dropdown' | 'date' | 'file' | 'search';
     value: { value: string, ok: boolean, edited: boolean };
-    setValue: Function;
+    setValue: (value: { value: string, ok: boolean, edited: boolean }) => void;
     onChangeFn?: Function;
     regularExpressions?: Array<RegExpPair>;
     dropdownItems?: Array<String>;
@@ -42,7 +40,7 @@ const Input: React.FC<iInputProps> = ({
     const [regExpErrorMsg, setRegExpErrorMsg] = useState('');
 
     const checkRegularExpression = (value: string): string => {
-        if (required && value == '') {
+        if (required && (value == '')) {
             return 'Обязательное поле';
         }
         if (!regularExpressions) {
@@ -56,10 +54,8 @@ const Input: React.FC<iInputProps> = ({
         return '';
     }
 
-    const onKeyDown = (event: React.KeyboardEvent<HTMLInputElement>): void => {
-        if (event.key == ' ') {
-            event.preventDefault();
-        }
+    const onKeyDown = (event: React.KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
+
     }
 
     const onChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
@@ -73,18 +69,23 @@ const Input: React.FC<iInputProps> = ({
         onChangeFn && onChangeFn();
     }
 
-    const onFocus = () => {
-        setValue({value: value.value, ok: value.ok, edited: true});
-        setRegExpErrorMsg(checkRegularExpression(value.value));
+    const onFocus = (event: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const regExpMsg = checkRegularExpression(event.target.value);
+        value.value = event.target.value;
+        value.ok = regExpMsg == '';
+        value.edited = true;
+        value.ok = regExpMsg == '';
+        setValue(value);
+        setRegExpErrorMsg(regExpMsg);
     }
 
     const inputProps = {onChange, onFocus, disabled, placeholder};
 
     const id = Math.random();
-    const renderInput: ()=>JSX.Element = () => {
-        switch (type){
+    const renderInput: () => JSX.Element = () => {
+        switch (type) {
             case 'textarea':
-                return(
+                return (
                     <textarea
                         className={cn('primary__text', styles.standard_input)}
                         {...inputProps}
@@ -108,14 +109,17 @@ const Input: React.FC<iInputProps> = ({
             default:
                 return (
                     <>
-                        {type === 'search' && <Icons icon={'search-rounded'} className={styles.search__icon} />}
+                        {type === 'search' && <Icons icon={'search-rounded'} className={styles.search__icon}/>}
                         <input
                             type={pwdShown ? 'text' : type}
                             className={cn('primary__text', styles.standard_input)}
                             {...inputProps}
                             onKeyDown={onKeyDown}
                         />
-                        {type == 'password' && <Icons icon={pwdShown ? 'eye' : 'eye-slash'} className={styles.icon} onClick={()=>{setPwdShown(!pwdShown)}}/>}
+                        {type == 'password' &&
+                            <Icons icon={pwdShown ? 'eye' : 'eye-slash'} className={styles.icon} onClick={() => {
+                                setPwdShown(!pwdShown)
+                            }}/>}
                     </>
                 );
         }
@@ -123,7 +127,8 @@ const Input: React.FC<iInputProps> = ({
 
     return (
         <label className={cn(styles.input_container, className)}>
-            {label && <h5 className={styles.label}>{label}{required && <span className={styles.error__message}>*</span>}</h5>}
+            {label &&
+                <h5 className={styles.label}>{label}{required && <span className={styles.error__message}>*</span>}</h5>}
             <span className={cn(styles.input, regExpErrorMsg && styles.error__input)}>
                 {renderInput()}
             </span>

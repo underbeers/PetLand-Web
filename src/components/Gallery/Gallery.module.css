@@ -1,0 +1,7 @@
+.gallery {
+    width: 600px;
+}
+
+.gallery img {
+    max-height: 400px;
+}

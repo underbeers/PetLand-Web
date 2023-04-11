@@ -13,7 +13,7 @@ import Tabs from '../../components/Tabs/Tabs';
 import styles from './Ads.module.css';
 
 
-const Ads = () => {
+const Ads: React.FC = () => {
     const initialInputState = {value: '', ok: false, edited: false};
     const [request, setRequest] = useState(initialInputState);
 
@@ -33,6 +33,7 @@ const Ads = () => {
         <>
             {isMobile &&
                 <TopBar leftButton={'burger'}>
+
                     <Input type={'search'} value={request} setValue={setRequest} placeholder={'Поиск по объявлениям'}/>
                     <Icons icon={'geo'}/>
                     <Icons icon={'plus-circle-outline'}/>
@@ -133,7 +134,7 @@ const Ads = () => {
                 </div>
             </div>
         </>
-    )
-}
+    );
+};
 
 export default Ads;

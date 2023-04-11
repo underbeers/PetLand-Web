@@ -1,10 +1,12 @@
 import React from 'react';
-import ImageGallery from 'react-image-gallery';
+import ImageGallery, {ReactImageGalleryItem} from 'react-image-gallery';
+
+import styles from './Gallery.module.css';
 
 
-const Gallery: React.FC<{images: Array<{original: string, thumbnail: string}>}> = ({images}) => {
+const Gallery: React.FC<{ items: Array<ReactImageGalleryItem> }> = ({items}) => {
     return (
-        <ImageGallery items={images}/>
+        <ImageGallery additionalClass={styles.gallery} showPlayButton={false} items={items}/>
     );
 };
 

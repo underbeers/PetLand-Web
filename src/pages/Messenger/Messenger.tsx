@@ -9,7 +9,7 @@ const Messenger: React.FC = () => {
 
     useEffect(()=>{
         if (user.chatID == '') {
-            chatService.registerUser()
+            chatService.registerUser(user)
         }
     }, []);
 

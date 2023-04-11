@@ -30,12 +30,12 @@ class UserService {
         });
     }
 
-    private async setChatID(params: {charID: string}) {
+    public async setChatID(params: { chatID: string }, accessToken: string) {
         return fetch(API_URL + '/user/chatID', {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+                'Authorization': `Bearer ${accessToken}`
             },
             body: JSON.stringify(params)
         });

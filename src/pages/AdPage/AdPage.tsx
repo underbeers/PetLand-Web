@@ -72,6 +72,8 @@ const AdPage = () => {
 
     ];
 
+    const cats = [cat, cat, cat]
+
 
     return (
         <div>
@@ -100,9 +102,9 @@ const AdPage = () => {
             }
 
             <div className={styles.photo__info}>
-                {!isMobile ? <Gallery images={images}/> :
+                {!isMobile ? <Gallery items={images}/> :
                     <div className={styles.slider__name}>
-                        <Slider slides={cat}/>
+                        <Slider slides={cats}/>
                         <div className={styles.name__price}>
                             <h2>Кличка</h2>
                             <h4>Цена ₽</h4>

@@ -3,7 +3,7 @@ import {initialUserContextState, iUser} from '../userContext';
 
 export const API_URL = `http://${process.env.REACT_APP_API_URL}/api/v1`;
 
-class AuthService {
+class UserService {
     private async authenticate(params: { login: string, password: string }) {
         return fetch(API_URL + '/login', {
             method: 'POST',
@@ -26,6 +26,17 @@ class AuthService {
         return fetch(API_URL + '/registration/new', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(params)
+        });
+    }
+
+    private async setChatID(params: {charID: string}) {
+        return fetch(API_URL + '/user/chatID', {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+            },
             body: JSON.stringify(params)
         });
     }
@@ -73,7 +84,7 @@ class AuthService {
                 }
                 return null;
             }
-        }).then((body: { email: string, firstName: string, surName: string, userID: string }) => {
+        }).then((body: { email: string, firstName: string, surName: string, userID: string, chatID: string }) => {
             //console.log(body);
             body && (setUser({
                 ...body,
@@ -193,4 +204,4 @@ class AuthService {
     }
 }
 
-export default new AuthService();
+export default new UserService();

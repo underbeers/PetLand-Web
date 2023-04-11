@@ -56,7 +56,7 @@ const Header: React.FC = () => {
                     <li className={styles.icons}>
                         <NavLink to={'/profile/favorite'}><Icons icon={'cards-heart'}/></NavLink>
                         <NavLink to={'/profile/notifications'}><Icons icon={'bell'}/></NavLink>
-                        <NavLink to={'/profile/messages'}><Icons icon={'chat'}/></NavLink>
+                        <NavLink to={'/messenger'}><Icons icon={'chat'}/></NavLink>
                     </li>
                     <li className={styles.user}>
                         {!user.empty || user.loading ?

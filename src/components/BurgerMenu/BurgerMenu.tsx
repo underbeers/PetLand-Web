@@ -89,7 +89,7 @@ const BurgerMenu: React.FC<{ openedBurger: boolean, toggleBurger: () => void }> 
                             <Icons icon={'cards-heart'} className={styles.icon}/>
                             Избранное
                         </NavLink>
-                        <NavLink onClick={toggleBurger} to={'/profile/messages'}
+                        <NavLink onClick={toggleBurger} to={'/messenger'}
                                  className={cn('primary__text', styles.burger__item)}>
                             <Icons icon={'chat'} className={styles.icon}/>
                             Сообщения

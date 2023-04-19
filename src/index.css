@@ -103,6 +103,7 @@
 
     /* Shadows */
     --card-shadow: 4px 4px 10px rgba(123, 123, 123, 0.25);
+    --chat-shadow: 0 0 20px #DCDCDC;
 
     /* Fonts */
     --modak-font: 'Modak', sans-serif;
@@ -132,7 +133,6 @@ body {
     background: var(--background);
     color: var(--primary--text--color);
 }
-
 
 h1 {
     font: normal normal 700 var(--heading-1--text--size)/30px var(--mulish-font);
@@ -260,4 +260,45 @@ h5 {
 
 .image-gallery-thumbnail.active, .image-gallery-thumbnail:hover {
     border-color: var(--orange--primary--color);
+}
+
+/* Scroll bar */
+* {
+    scrollbar-color: var(--base--400) var(--base--100);
+    scrollbar-width: thin;
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--base--400);
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: var(--base--100);
+}
+
+@media screen and (max-width: 700px) {
+    * {
+        scrollbar-color: transparent transparent;
+        scrollbar-width: thin;
+    }
+    
+    ::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+        background-color: transparent;
+        border-radius: 3px;
+    }
+    
+    ::-webkit-scrollbar-track {
+        background-color: transparent;
+    }
 }

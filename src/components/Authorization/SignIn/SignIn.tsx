@@ -50,6 +50,7 @@ const SignIn: React.FC<iAuthProps> = ({switchContent, closeModal, isMobile}) => 
         if (!isOk) {
             return;
         }
+        user.loading = true;
         await userService.signIn(email.value, password.value, savePwd, setResponseCode, user, setUser, closeModal);
     };
 
@@ -84,7 +85,7 @@ const SignIn: React.FC<iAuthProps> = ({switchContent, closeModal, isMobile}) => 
                                     Неверный логин или пароль
                                 </p>
                             }
-                            <Button color={'orange'} text={'Войти'} onClick={login} type={'primary'}/>
+                            <Button color={'orange'} text={'Войти'} onClick={login} type={'primary'} loading={user.loading} disabled={!email.ok || !password.ok}/>
                         </div>
                         <p className={cn('secondary__text-1', generalStyles.switch__content)}>
                             У вас ещё нет аккаунта?
@@ -134,7 +135,7 @@ const SignIn: React.FC<iAuthProps> = ({switchContent, closeModal, isMobile}) => 
                                 Неверный логин или пароль
                             </p>
                         }
-                        <Button color={'orange'} text={'Войти'} onClick={login} type={'primary'} disabled={!email.ok || !password.ok}/>
+                        <Button color={'orange'} text={'Войти'} onClick={login} type={'primary'} loading={user.loading} disabled={!email.ok || !password.ok}/>
 
                         <p className={cn('primary__text', styles.sub__color)}>
                             У вас ещё нет аккаунта?<br/>

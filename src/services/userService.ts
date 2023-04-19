@@ -66,7 +66,6 @@ class UserService {
         if (!user.empty) {
             return;
         }
-        user.loading = true;
         this.authorize(user.accessToken).then(response => {
             //console.log(response.status);
             setResponseCode && setResponseCode(response.status);
@@ -86,16 +85,17 @@ class UserService {
             }
         }).then((body: { email: string, firstName: string, surName: string, userID: string, chatID: string }) => {
             //console.log(body);
+            user.loading = false;
             body && (setUser({
                 ...body,
                 photo: 'https://script.viserlab.com/stoclab/assets/user/profile/5fb0bd27eccb31605418279.jpg',
+                chatAccessToken: user.chatAccessToken,
                 accessToken: user.accessToken,
                 empty: false,
                 loading: false
             }));
-            user.loading = false;
-            body && onFinish && onFinish();
-            if (dontLogOut) {
+            body && (onFinish && onFinish());
+            if (body && dontLogOut) {
                 localStorage.setItem('accessToken', user.accessToken);
             }
         });
@@ -114,6 +114,7 @@ class UserService {
         user: iUser,
         setUser: (user: iUser) => void,
         onFinish?: () => void) {
+        user.loading = true;
         this.authenticate({login: email, password}).then(response => {
             //console.log(response.status);
             setResponseCode(response.status);
@@ -135,10 +136,9 @@ class UserService {
                 return null;
             }
         }).then(body => {
+            user.loading = false;
             body && (user.accessToken = body.accessToken);
-            return body;
-        }).then((body) => {
-            body && this.syncUser(user, setUser, dontLogOut, setResponseCode, onFinish);
+            body && (this.syncUser(user, setUser, dontLogOut, setResponseCode, onFinish));
         });
     }
 

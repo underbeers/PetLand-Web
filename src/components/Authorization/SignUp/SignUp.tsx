@@ -111,7 +111,7 @@ const SignUp: React.FC<iAuthProps> = ({switchContent, closeModal, isMobile}) => 
         if (!isOk) {
             return;
         }
-
+        user.loading = true;
         await userService.signUp(firstName.value, surName.value, email.value, password1.value,
             setResponseCode, () => {
                 userService.signIn(email.value, password1.value, false, setResponseCode, user, setUser, closeModal)
@@ -181,7 +181,7 @@ const SignUp: React.FC<iAuthProps> = ({switchContent, closeModal, isMobile}) => 
                                 Пароли не совпадают
                             </p>}
                         <Button color={'orange'} text={'Создать аккаунт'} type={'primary'} onClick={register}
-                                disabled={!policyChecked || !password1.ok || !password2.ok}/>
+                                disabled={!policyChecked || !password1.ok || !password2.ok} loading={user.loading}/>
                         <p className={cn('secondary__text-1', generalStyles.switch__content)}>
                             У вас уже есть аккаунт?&nbsp;
                             <a className={'underlined'} onClick={switchContent}>Войти</a>
@@ -227,7 +227,8 @@ const SignUp: React.FC<iAuthProps> = ({switchContent, closeModal, isMobile}) => 
                                 onClick={stage === 3 ? register : () => {
                                     setStage(stage + 1)
                                 }}
-                                type={stage === 3 ? 'primary' : 'secondary'} disabled={isNextStageDisabled()}/>
+                                type={stage === 3 ? 'primary' : 'secondary'} disabled={isNextStageDisabled()}
+                                loading={user.loading}/>
                         <p className={cn('primary__text', styles.sub__color)}>
                             У вас уже есть аккаунт? <br/>
                             <a className={cn('underlined', 'primary__text')} onClick={switchContent}>Войти</a>

@@ -1,0 +1,50 @@
+.card {
+    width: 100%;
+    padding: 12px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.card:hover, .active {
+    background-color: var(--orange--50);
+}
+
+.photo {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.info {
+    flex: 1;
+    overflow: hidden;
+    height: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.name__n__time {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.name {
+
+}
+
+.time {
+
+}
+
+.last__message {
+    color: var(--base--700);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}

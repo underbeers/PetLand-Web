@@ -1,19 +1,37 @@
-import React, {useContext, useEffect} from "react";
+import React, {useContext} from "react";
+import {useSearchParams} from "react-router-dom";
 
+import {withOfferToSignIn} from "../../hoc/withOfferToSignIn";
 import {UserContext} from "../../userContext";
-import chatService from "../../services/chatService";
+
+import Chat from "../../components/Messenger/Chat/Chat";
+
+import styles from './Messenger.module.css';
+import Dialogs from "../../components/Messenger/Dialogs/Dialogs";
 
 
 const Messenger: React.FC = () => {
-    const {user, setUser} = useContext(UserContext);
+    const [searchParams, setSearchParams] = useSearchParams();
+    const chat = searchParams.get('chat');
 
-    useEffect(()=>{
-        if (user.chatID == '') {
-            chatService.registerUser(user)
-        }
-    }, []);
-
-    return (<>Messenger</>);
+    return (
+        <div className={styles.chat__window}>
+            <div className={styles.header}>
+                <h1>Чаты</h1>
+            </div>
+            <div className={styles.chat__wrapper}>
+                <div className={styles.dialogs}>
+                    <Dialogs chatID={chat}/>
+                </div>
+                <div className={styles.dialog}>
+                    {chat ?
+                        <Chat chatID={chat}/>
+                        :
+                        <>Здесь будут ваши сообщения</>
+                    }
+                </div>
+            </div>
+        </div>);
 };
 
-export default Messenger;
+export default withOfferToSignIn(Messenger);

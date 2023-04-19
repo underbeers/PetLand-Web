@@ -10,6 +10,7 @@ import Header from './Header/Header';
 import Footer from './Footer/Footer';
 
 import styles from './App.module.css';
+import chatService from "../services/chatService";
 
 
 const App: React.FC = () => {
@@ -23,6 +24,20 @@ const App: React.FC = () => {
             userService.syncUser(user, setUser, true);
         }
     }, []);
+
+    useEffect(()=>{
+        if (!user.empty) {
+            if (user.chatID) {
+                chatService.auth(user);
+                console.log('auth');
+            } else {
+                chatService.registerUser(user).then(() => {
+                    chatService.auth(user);
+                    console.log('auth');
+                });
+            }
+        }
+    }, [user]);
 
     return (
         <UserContext.Provider value={{user, setUser}}>

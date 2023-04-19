@@ -1,0 +1,77 @@
+.wrapper {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.info {
+    border-bottom: 1px solid var(--base--300);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+}
+
+.user {
+    display: flex;
+    gap: 4px;
+
+}
+
+.name {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.user > img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.chat {
+    flex: 1;
+    display: flex;
+    flex-direction: column-reverse;
+    padding-left: 12px;
+    padding-right: 12px;
+    padding-bottom: 20px;
+    gap: 20px;
+    overflow-y: scroll;
+}
+
+.message {
+    border-top: 1px solid var(--base--300);
+    padding: 0 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.send:hover {
+    cursor: pointer;
+}
+
+.send path {
+    transition: fill .2s;
+    fill: var(--base--500);
+}
+
+.send:hover path {
+    fill: var(--base--700);
+}
+
+.textarea {
+    padding: 14px 0;
+    flex: 1;
+    height: 20px;
+    border: none;
+    resize: none;
+    font-size: var(--body-regular--text--size);
+    background-color: transparent;
+    outline: none;
+    color: var(--primary--text--color);
+    font-family: var(--mulish-font);
+}

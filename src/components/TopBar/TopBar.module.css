@@ -17,11 +17,11 @@
     flex: 1;
 }
 
-.bar svg {
+.bar > svg {
     width: 28px;
     height: 28px;
 }
 
-.bar svg path {
+.bar > svg path {
     fill: var(--base--800);
 }

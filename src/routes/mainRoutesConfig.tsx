@@ -7,6 +7,7 @@ import NewPasswordPage from '../pages/PasswordRecovery/NewPasswordPage';
 import PetPage from '../pages/PetPage/PetPage';
 import AdPage from '../pages/AdPage/AdPage';
 import Ads from '../pages/Ads/Ads';
+import NewAd from '../pages/NewAd/NewAd';
 
 
 export const PATH_PREFIX = '';
@@ -67,6 +68,10 @@ const routesConfig = [
     {
         path: PATH_PREFIX + '/*',
         element: <Page404/>
+    },
+    {
+        path: PATH_PREFIX + '/new-ad',
+        element: <NewAd/>
     },
 ];
 

@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {NavLink} from 'react-router-dom';
+import {NavLink, useNavigate} from 'react-router-dom';
 
 import Checkbox from '../../components/UIKit/Checkbox';
 import Icons from '../../components/UIKit/Icons';
@@ -15,7 +15,7 @@ import styles from './Ads.module.css';
 
 const Ads: React.FC = () => {
     const initialInputState = {value: '', ok: false, edited: false};
-    const [request, setRequest] = useState(initialInputState);
+    const [typeSelected, setTypeSelected] = useState(false);
 
     const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
     const [isBigAd, setIsBigAd] = useState(false);
@@ -29,14 +29,15 @@ const Ads: React.FC = () => {
         setIsMobile(window.innerWidth <= 700)
     });
 
+    const navigate = useNavigate();
+
     return (
         <>
             {isMobile &&
                 <TopBar leftButton={'burger'}>
-
-                    <Input type={'search'} value={request} setValue={setRequest} placeholder={'Поиск по объявлениям'}/>
+                    <h5>Доска объявлений</h5>
                     <Icons icon={'geo'}/>
-                    <Icons icon={'plus-circle-outline'}/>
+                    <Icons icon={'plus-circle-outline'} onClick={() => navigate('/new-ad')}/>
                 </TopBar>
             }
             <div className={styles.content}>
@@ -46,27 +47,21 @@ const Ads: React.FC = () => {
                         <NavLink to={'/lost-pets'}>Потеряшки</NavLink>
                     </Tabs>
                     {!isMobile &&
-                        <Button color={'green'} onClick={() => {
-                        }} type={'secondary'} text={'Разместить объявление'}/>}
+                        <Button color={'green'} onClick={() => navigate('/new-ad')} type={'secondary'} text={'Разместить объявление'}/>}
                 </div>
                 {!isMobile &&
-                    <div className={styles.search__block}>
-                        <Input type={'search'} value={request} setValue={setRequest}
-                               placeholder={'Поиск по объявлениям'}
-                               className={styles.search}/>
                         <div className={styles.icon__city}>
                             <Icons icon={'geo'}/>
                             <a href={'#'} className={'underlined'}>Нижний Новгород</a>
                         </div>
-                    </div>
                 }
 
-                {!request.ok && <PetTypes/>}
+                {!typeSelected && <PetTypes/>}
 
 
-                {!isMobile ? !request.ok ? <h1>Актуальные объявления</h1> : <h1>{request.value} в Нижнем Новгороде</h1> : !request.ok ? <h3>Актуальные объявления</h3> : <h3>{request.value} в Нижнем Новгороде</h3>}
+                {!isMobile ? !typeSelected ? <h1>Актуальные объявления</h1> : <h1>Тип животного в Городе</h1> : !typeSelected ? <h3>Актуальные объявления</h3> : <h3>Тип животного в Городе</h3>}
 
-                {request.ok &&
+                {typeSelected &&
                     <div className={styles.search__settings}>
                         <div className={styles.sort}>
                             <Icons icon={'sort-alt'}/>
@@ -87,7 +82,7 @@ const Ads: React.FC = () => {
                 }
 
                 <div className={styles.all__ads__filter}>
-                    {request.ok && !isMobile ?
+                    {typeSelected && !isMobile ?
                         <div className={styles.filters}>
                             <Input type={'dropdown'} value={breed} placeholder={'Порода'} setValue={setBreed}
                                    label={'Порода'} dropdownItems={[]}/>

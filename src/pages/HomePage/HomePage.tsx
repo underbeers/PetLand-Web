@@ -7,7 +7,6 @@ const HomePage: React.FC = () => {
     return (
         <div>
             <p>Главная страница</p>
-            <a href={'/profile'}>Профиль</a>
         </div>
     );
 };

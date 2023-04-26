@@ -1,0 +1,18 @@
+.radiobox {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.radio__icon {
+    cursor: pointer;
+    align-self: flex-start;
+}
+
+.radio__icon > path {
+    fill: var(--base--500);
+}
+
+.radio__icon:hover > path, .checked > .radio__icon > path {
+    fill: var(--orange--primary--color);
+}

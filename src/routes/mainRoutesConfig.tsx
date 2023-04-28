@@ -8,6 +8,7 @@ import PetPage from '../pages/PetPage/PetPage';
 import AdPage from '../pages/AdPage/AdPage';
 import Ads from '../pages/Ads/Ads';
 import NewAd from '../pages/NewAd/NewAd';
+import AllServices from "../pages/Services/AllServices";
 
 
 export const PATH_PREFIX = '';
@@ -27,7 +28,7 @@ const routesConfig = [
     },
     {
         path: PATH_PREFIX + '/services',
-        element: <>Сервисы</>
+        element: <AllServices />
     },
     {
         path: PATH_PREFIX + '/services/specialists',

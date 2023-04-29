@@ -2,7 +2,7 @@ import React, {useContext, useState} from 'react';
 import cn from 'classnames';
 
 import {iAuthProps} from '../Authorization';
-import {UserContext} from '../../../userContext';
+import {useUserContext} from '../../../userContext';
 import {emailRegExp, passwordRegExp} from '../../../constants/regularExpressions';
 import userService from '../../../services/userService';
 
@@ -27,7 +27,7 @@ const SignIn: React.FC<iAuthProps> = ({switchContent, closeModal, isMobile}) => 
     const [savePwd, setSavePwd] = useState(false);
     const [responseCode, setResponseCode] = useState(0);
 
-    const {user, setUser} = useContext(UserContext);
+    const {user, setUser} = useUserContext();
 
     const login = async () => {
         document.querySelectorAll('#login_form input').forEach((el) => {
@@ -50,7 +50,6 @@ const SignIn: React.FC<iAuthProps> = ({switchContent, closeModal, isMobile}) => 
         if (!isOk) {
             return;
         }
-        user.loading = true;
         await userService.signIn(email.value, password.value, savePwd, setResponseCode, user, setUser, closeModal);
     };
 

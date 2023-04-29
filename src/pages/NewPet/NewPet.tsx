@@ -9,7 +9,7 @@ import Button from '../../components/UIKit/Button';
 import TopBar from '../../components/TopBar/TopBar';
 
 import styles from './NewPet.module.css';
-import {UserContext} from '../../userContext';
+import {useUserContext} from '../../userContext';
 import {useNavigate} from 'react-router-dom';
 
 
@@ -45,7 +45,7 @@ const NewPet: React.FC = () => {
 
     const genders = ['Мальчик', 'Девочка'];
 
-    const {user, setUser} = useContext(UserContext);
+    const {user, setUser} = useUserContext();
 
     const listRegExp: (elements: Array<string>, error: string) => { regExp: RegExp, error: string } = (elements, error) => {
         return {

@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {useNavigate, useSearchParams} from 'react-router-dom';
-import {UserContext} from '../../userContext';
+import {useUserContext} from '../../userContext';
 
 import petService from '../../services/petService';
 import {getAge} from '../../components/PetCard/PetCard';
@@ -42,7 +42,7 @@ const PetPage: React.FC = () => {
 
     const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
 
-    const {user, setUser} = useContext(UserContext);
+    const {user, setUser} = useUserContext();
 
     window.addEventListener('resize', () => {
         setIsMobile(window.innerWidth <= 700)

@@ -1,4 +1,5 @@
-import {initialUserContextState, iUser} from '../userContext';
+import {initialUserContextState, iUser, useUserContext} from '../userContext';
+import chatService from "./chatService";
 
 
 export const API_URL = `http://${process.env.REACT_APP_API_URL}/api/v1`;
@@ -60,14 +61,14 @@ class UserService {
     public syncUser(
         user: iUser,
         setUser: (user: iUser) => void,
-        dontLogOut: boolean,
         setResponseCode?: (code: number) => void,
         onFinish?: () => void) {
-        if (!user.empty) {
+        if (!user.empty || user.loading) {
             return;
         }
+        setUser({...user, loading: true});
         this.authorize(user.accessToken).then(response => {
-            //console.log(response.status);
+            //console.log(response);
             setResponseCode && setResponseCode(response.status);
             if (response.ok) {
                 //console.log('Authorized');
@@ -85,18 +86,19 @@ class UserService {
             }
         }).then((body: { email: string, firstName: string, surName: string, userID: string, chatID: string }) => {
             //console.log(body);
-            user.loading = false;
-            body && (setUser({
-                ...body,
-                photo: 'https://script.viserlab.com/stoclab/assets/user/profile/5fb0bd27eccb31605418279.jpg',
-                chatAccessToken: user.chatAccessToken,
-                accessToken: user.accessToken,
-                empty: false,
-                loading: false
-            }));
-            body && (onFinish && onFinish());
-            if (body && dontLogOut) {
-                localStorage.setItem('accessToken', user.accessToken);
+            if (body) {
+                const newUser = {
+                    ...body,
+                    photo: 'https://script.viserlab.com/stoclab/assets/user/profile/5fb0bd27eccb31605418279.jpg',
+                    chatAccessToken: user.chatAccessToken,
+                    accessToken: user.accessToken,
+                    empty: false,
+                    loading: false
+                };
+                setUser(newUser);
+                onFinish && onFinish();
+            } else {
+                setUser({...user, loading: false});
             }
         });
     }
@@ -104,6 +106,7 @@ class UserService {
     public signOut(setUser: (user: iUser) => void) {
         localStorage.removeItem('accessToken');
         setUser(initialUserContextState.user);
+        chatService.socket.disconnect();
     }
 
     public async signIn(
@@ -114,7 +117,7 @@ class UserService {
         user: iUser,
         setUser: (user: iUser) => void,
         onFinish?: () => void) {
-        user.loading = true;
+        setUser({...user, loading: true});
         this.authenticate({login: email, password}).then(response => {
             //console.log(response.status);
             setResponseCode(response.status);
@@ -136,9 +139,15 @@ class UserService {
                 return null;
             }
         }).then(body => {
-            user.loading = false;
-            body && (user.accessToken = body.accessToken);
-            body && (this.syncUser(user, setUser, dontLogOut, setResponseCode, onFinish));
+            if (body) {
+                setUser({...user, accessToken: body.accessToken, loading: false});
+                if (dontLogOut) {
+                    localStorage.setItem('accessToken', body.accessToken);
+                }
+                onFinish && onFinish();
+            } else {
+                setUser({...user, loading: false});
+            }
         });
     }
 

@@ -1,7 +1,7 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {NavLink} from 'react-router-dom';
 
-import {UserContext} from '../../userContext';
+import {useUserContext} from '../../userContext';
 import userService from '../../services/userService';
 
 import Icons from '../UIKit/Icons';
@@ -10,6 +10,8 @@ import Modal from '../Modal/Modal';
 import Authorization from '../Authorization/Authorization';
 
 import styles from './Header.module.css';
+import {useChatContext} from "../../chatContext";
+import chatService, {ChatUserType} from "../../services/chatService";
 
 
 const Header: React.FC = () => {
@@ -17,7 +19,26 @@ const Header: React.FC = () => {
     const [profileDropdown, setProfileDropdown] = useState(false);
     const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
 
-    const {user, setUser} = useContext(UserContext);
+    const {user, setUser} = useUserContext();
+    const {users, setUsers} = useChatContext();
+
+    useEffect(()=>{
+        chatService.initListeners(
+            (message: { content: string, from: string, to: string }) => {
+                users.forEach((user) => {
+                    if (user.userID == message.from) {
+                        user.messages.push(message);
+                    }
+                });
+                console.log(users);
+                setUsers(users);
+                console.log('private message listener, message:', message.content);
+            },
+            (usersNew: Array<ChatUserType>) => {
+                setUsers(usersNew);
+                console.log('users listener, users:', usersNew);
+            });
+    }, []);
 
     window.addEventListener('resize', () => {
         setIsMobile(window.innerWidth <= 760)

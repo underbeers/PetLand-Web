@@ -1,9 +1,10 @@
 import React, {useContext, useEffect, useState} from "react";
 import Dialog from "../Dialog/Dialog";
 import chatService from "../../../services/chatService";
-import {UserContext} from "../../../userContext";
+import {useUserContext} from "../../../userContext";
 import {useNavigate} from "react-router-dom";
-import PawLoader from "../PawLoader/PawLoader";
+import ChatLoader from "../ChatLoader/ChatLoader";
+import {useChatContext} from "../../../chatContext";
 
 
 type DialogsType = {
@@ -49,42 +50,18 @@ type DialogsType = {
 };
 
 const Dialogs: React.FC<{ chatID: string | null }> = ({chatID}) => {
-    const {user, setUser} = useContext(UserContext);
-    const [registration, setRegistration] = useState(false);
-    const [dialogs, setDialogs] = useState(Array<DialogsType>);
-    const [loading, setLoading] = useState(true);
-    const navigate = useNavigate();
+    const {users, setUsers} = useChatContext();
 
-
-    useEffect(() => {
-        if (user.chatAccessToken) {
-            chatService.loadDialogs(user, setDialogs);
-        }
-        console.log('dialogs')
-    }, [user.loading]);
-
-    if (loading) {
-        return (<PawLoader/>);
-    }
     return (<>
-        {dialogs.sort((d1, d2) => {
-            return new Date(d1.createdAt) < new Date(d2.createdAt) ? 1 : -1
-        }).map(dialog => {
-            let name = '';
-            dialog.roomInfo.forEach(info => {
-                if (info.length) {
-                    if (info[0]._id != user.chatID) {
-                        name = info[0].firstName + ' ' + info[0].lastName;
-                    }
-                }
-            });
+        {users.map((user, index) => {
             return <Dialog
-                key={dialog.chatRoomId}
-                id={dialog.chatRoomId}
-                message={dialog.message.messageText}
-                user={name}
-                time={dialog.createdAt}/>
-        })}
+                key={index}
+                id={user.userID}
+                message={''}
+                user={user.username}
+                time={'2023-04-26T20:37:31+00:00'}/>
+        })
+        }
     </>);
 };
 

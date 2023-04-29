@@ -1,76 +1,58 @@
 import React, {useContext, useEffect, useState} from "react";
 import {useSearchParams} from "react-router-dom";
 
-import {UserContext} from "../../../userContext";
-import chatService from "../../../services/chatService";
+import {useUserContext} from "../../../userContext";
+import chatService, {ChatUserType} from "../../../services/chatService";
 
 import Button from "../../UIKit/Button";
 import Icons from "../../UIKit/Icons";
 import Bubble from "../Bubble/Bubble";
 
 import styles from './Chat.module.css';
+import {useChatContext} from "../../../chatContext";
 
 
-const Chat: React.FC<{chatID: string}> = ({chatID}) => {
-    const {user, setUser} = useContext(UserContext);
-    const [searchParams, setSearchParams] = useSearchParams();
-    type MessagesType = {
-        success: boolean;
-        conversation: Array<{
-            chatRoomId: string;
-            createdAt: string;
-            message: {
-                messageText: string;
-            };
-            postedByUser: {
-                firstName: string;
-                lastName: string;
-                type: string;
-                updatedAt: string;
-                __v: number;
-                _id: string;
-            };
-            readByRecipients: Array<{
-                readAt: string;
-                readByUserId: string;
-            }>;
-        }>;
-        users: Array<{
-            _id: string;
-            firstName: string;
-            lastName: string;
-            type: string;
-            createdAt: string;
-            updatedAt: string;
-            __v: number;
-        }>;
-    };
-
-    const [messages, setMessages] = useState<MessagesType>();
-
-    useEffect(() => {
-        if (chatID && user.chatAccessToken) {
-            chatService.loadMessages(user, chatID, setMessages);
-        }
-    }, [chatID, user.chatAccessToken]);
-
-    const getUserFullName = (m: MessagesType) => {
-        const u = m.users.filter(m => m._id != user.chatID)[0];
-        return u.firstName + ' ' + u.lastName;
-    }
-
+const Chat: React.FC<{ chatID: string }> = ({chatID}) => {
+    const {user, setUser} = useUserContext();
+    const {users, setUsers} = useChatContext();
     const [message, setMessage] = useState('');
+
+    const getUser: () => ChatUserType = () => {
+        for (let i = 0; i < users.length; i++) {
+            if (users[i].userID == chatID) {
+                return users[i];
+            }
+        }
+        console.log('user not found');
+        return {userID: '', connected: false, username: '', messages: []};
+    }
+    const [user2, setUser2] = useState(getUser());
+
+    useEffect(()=>{
+        setUser2(getUser());
+    },[users, chatID]);
+
     const sendMessage = () => {
-        if (message && chatID) {
-            chatService.sendMessage(user, chatID, message);
+        if (chatID && message) {
+            const user2 = getUser();
+            if (user2.userID == '') {
+                console.log('error sending message');
+                return;
+            }
+            chatService.socket.emit('private message', {content: message, to: user2.userID});
+            users.forEach((user_) => {
+                if (user_.userID == user2.userID) {
+                    user_.messages.push({content: message, from: user.chatID, to: user2.userID});
+                }
+            });
+            setUsers(users);
             setMessage('');
         }
-    };
-
+    }
 
     return (
         <div className={styles.wrapper}>
-            {chatID && messages ?
+            {chatID ?
                 <>
                     <div className={styles.info}>
                         <div className={styles.user}>
@@ -78,22 +60,22 @@ const Chat: React.FC<{chatID: string}> = ({chatID}) => {
                                 src={'https://apronhub.in/wp-content/uploads/2022/01/team14-scaled.jpg'}
                                 alt={'user'}/>
                             <div className={styles.name}>
-                                <h5>{getUserFullName(messages)}</h5>
-                                <p className={'secondary__text-2'}>Онлайн</p>
+                                <h5>{user2.username}</h5>
+                                <p className={'secondary__text-2'}>{user2.connected ? 'Онлайн' : 'Оффлайн'}</p>
                             </div>
                         </div>
                         <Button type={"secondary"} color={"orange"} text={'Передать питомца'} onClick={() => {
                         }}/>
                     </div>
                     <div className={styles.chat}>
-                        {messages.conversation.map(message => {
-                            const time = new Date(message.createdAt);
+                        {user2.messages.map((message, index) => {
+                            const time = new Date('2023-04-26T20:37:31+00:00');
                             return <Bubble
-                                key={message.createdAt}
-                                type={message.postedByUser._id == user.chatID ? 'my' : 'alien'}
-                                text={message.message.messageText}
+                                key={index}
+                                type={message.to == user2.userID ? 'my' : 'alien'}
+                                text={message.content}
                                 time={time.toTimeString().substring(0, 5)}/>
-                        })}
+                        }).reverse()}
                     </div>
                     <div className={styles.message}>
                 <textarea

@@ -1,4 +1,4 @@
-import React from 'react';
+import {createContext, useContext} from 'react';
 
 export interface iUser {
     email: string;
@@ -12,8 +12,12 @@ export interface iUser {
     empty: boolean;
     loading: boolean;
 }
+export type UserContext = {
+    user: iUser,
+    setUser: (user: iUser) => void;
+}
 
-export const initialUserContextState = {
+export const initialUserContextState: UserContext = {
     user: {
         email: '',
         firstName: '',
@@ -29,4 +33,5 @@ export const initialUserContextState = {
     setUser: (user: iUser) => {}
 };
 
-export const UserContext = React.createContext<{ user: iUser, setUser: (user: iUser) => void }>(initialUserContextState);
+export const UserContext = createContext<UserContext>(initialUserContextState);
+export const useUserContext = () => useContext(UserContext);

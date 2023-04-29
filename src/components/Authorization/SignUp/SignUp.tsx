@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState} from 'react';
 import cn from 'classnames';
 
-import {UserContext} from '../../../userContext';
+import {useUserContext} from '../../../userContext';
 import {iAuthProps} from '../Authorization';
 import {emailRegExp, nameRegExp, passwordRegExp} from '../../../constants/regularExpressions';
 import userService from '../../../services/userService';
@@ -40,7 +40,7 @@ const SignUp: React.FC<iAuthProps> = ({switchContent, closeModal, isMobile}) => 
 
     const [stage, setStage] = useState(1);
 
-    const {user, setUser} = useContext(UserContext);
+    const {user, setUser} = useUserContext();
 
     useEffect(() => {
         const timer = counter > 0 ? setInterval(() => setCounter(counter - 1), 1000) : 0;
@@ -111,7 +111,6 @@ const SignUp: React.FC<iAuthProps> = ({switchContent, closeModal, isMobile}) => 
         if (!isOk) {
             return;
         }
-        user.loading = true;
         await userService.signUp(firstName.value, surName.value, email.value, password1.value,
             setResponseCode, () => {
                 userService.signIn(email.value, password1.value, false, setResponseCode, user, setUser, closeModal)

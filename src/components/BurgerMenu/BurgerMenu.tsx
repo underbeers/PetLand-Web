@@ -3,7 +3,7 @@ import {NavLink} from 'react-router-dom';
 import cn from 'classnames';
 
 import userService from '../../services/userService';
-import {UserContext} from '../../userContext';
+import {useUserContext} from '../../userContext';
 
 import Icons from '../UIKit/Icons';
 
@@ -14,7 +14,7 @@ import styles from './BurgerMenu.module.css';
 
 
 const BurgerMenu: React.FC<{ openedBurger: boolean, toggleBurger: () => void }> = ({openedBurger, toggleBurger}) => {
-    const {user, setUser} = useContext(UserContext);
+    const {user, setUser} = useUserContext();
 
     return (
         <>

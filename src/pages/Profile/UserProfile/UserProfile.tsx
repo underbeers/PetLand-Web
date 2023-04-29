@@ -1,5 +1,5 @@
 import React, {useContext, useState} from 'react';
-import {UserContext} from '../../../userContext';
+import {useUserContext} from '../../../userContext';
 import {useNavigate} from 'react-router-dom';
 
 import Button from '../../../components/UIKit/Button';
@@ -19,7 +19,7 @@ const UserProfile: React.FC = () => {
     const [isSpecialist, setIsSpecialist] = useState(false);
 
 
-    const {user, setUser} = useContext(UserContext);
+    const {user, setUser} = useUserContext();
 
     const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
 

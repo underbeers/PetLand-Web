@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import {UserContext} from '../../userContext';
+import {useUserContext} from '../../userContext';
 import {NavLink} from 'react-router-dom';
 
 import userService from '../../services/userService';
@@ -11,7 +11,7 @@ import styles from './SideBarProfile.module.css'
 
 
 const SideBarProfile = () => {
-    const {user, setUser} = useContext(UserContext);
+    const {user, setUser} = useUserContext();
 
     return (
         <div>

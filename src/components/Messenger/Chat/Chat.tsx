@@ -1,36 +1,49 @@
-import React, {useContext, useEffect, useState} from "react";
-import {useSearchParams} from "react-router-dom";
+import React, {useEffect, useState} from 'react';
+import {useNavigate} from 'react-router-dom';
 
-import {useUserContext} from "../../../userContext";
-import chatService, {ChatUserType} from "../../../services/chatService";
+import {ChatUserType, useChatContext} from '../../../chatContext';
+import {useUserContext} from '../../../userContext';
 
-import Button from "../../UIKit/Button";
-import Icons from "../../UIKit/Icons";
-import Bubble from "../Bubble/Bubble";
+import Button from '../../UIKit/Button';
+import Icons from '../../UIKit/Icons';
+
+import Bubble from '../Bubble/Bubble';
 
 import styles from './Chat.module.css';
-import {useChatContext} from "../../../chatContext";
 
 
 const Chat: React.FC<{ chatID: string }> = ({chatID}) => {
+    const navigate = useNavigate();
     const {user, setUser} = useUserContext();
-    const {users, setUsers} = useChatContext();
+    const chat = useChatContext();
     const [message, setMessage] = useState('');
 
-    const getUser: () => ChatUserType = () => {
-        for (let i = 0; i < users.length; i++) {
-            if (users[i].userID == chatID) {
-                return users[i];
+    useEffect(() => {
+        function handleKeyDown(e: any) {
+            if (e.key == 'Escape') {
+                navigate('/messenger');
             }
         }
-        console.log('user not found');
+
+        document.addEventListener('keydown', handleKeyDown);
+        return function cleanup() {
+            document.removeEventListener('keydown', handleKeyDown);
+        }
+    }, []);
+
+    const getUser: () => ChatUserType = () => {
+        for (let i = 0; i < chat.users.length; i++) {
+            if (chat.users[i].userID == chatID) {
+                return chat.users[i];
+            }
+        }
         return {userID: '', connected: false, username: '', messages: []};
     }
     const [user2, setUser2] = useState(getUser());
 
-    useEffect(()=>{
+    useEffect(() => {
         setUser2(getUser());
-    },[users, chatID]);
+    }, [chat, chatID]);
 
     const sendMessage = () => {
         if (chatID && message) {
@@ -39,13 +52,9 @@ const Chat: React.FC<{ chatID: string }> = ({chatID}) => {
                 console.log('error sending message');
                 return;
             }
-            chatService.socket.emit('private message', {content: message, to: user2.userID});
-            users.forEach((user_) => {
-                if (user_.userID == user2.userID) {
-                    user_.messages.push({content: message, from: user.chatID, to: user2.userID});
-                }
-            });
-            setUsers(users);
+            // @ts-ignore
+            chat.socket.userID = chat.userID;
+            chat.socket.emit('private message', {content: message, to: user2.userID});
             setMessage('');
         }
     }
@@ -56,16 +65,18 @@ const Chat: React.FC<{ chatID: string }> = ({chatID}) => {
                 <>
                     <div className={styles.info}>
                         <div className={styles.user}>
-                            <img
+                            {user2.userID != chat.userID && <img
                                 src={'https://apronhub.in/wp-content/uploads/2022/01/team14-scaled.jpg'}
-                                alt={'user'}/>
+                                alt={'user'}/>}
                             <div className={styles.name}>
-                                <h5>{user2.username}</h5>
-                                <p className={'secondary__text-2'}>{user2.connected ? 'Онлайн' : 'Оффлайн'}</p>
+                                <h5>{user2.userID == chat.userID ? 'Избранное' : user2.username}</h5>
+                                <p className={'secondary__text-2'}>{user2.userID != chat.userID && (user2.connected ? 'Онлайн' : 'Оффлайн')}</p>
                             </div>
                         </div>
-                        <Button type={"secondary"} color={"orange"} text={'Передать питомца'} onClick={() => {
-                        }}/>
+                        {user2.userID != chat.userID &&
+                            <Button type={'secondary'} color={'orange'} text={'Передать питомца'} onClick={() => {
+                            }}/>
+                        }
                     </div>
                     <div className={styles.chat}>
                         {user2.messages.map((message, index) => {
@@ -94,7 +105,7 @@ const Chat: React.FC<{ chatID: string }> = ({chatID}) => {
                         setMessage(event.target.value);
                     }}
                     className={styles.textarea} placeholder={'Напишите сообщение...'}/>
-                        <Icons className={styles.send} icon={"send"} onClick={sendMessage}/>
+                        <Icons className={styles.send} icon={'send'} onClick={sendMessage}/>
                     </div>
                 </>
                 :

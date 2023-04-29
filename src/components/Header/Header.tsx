@@ -1,7 +1,8 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {NavLink} from 'react-router-dom';
 
 import {useUserContext} from '../../userContext';
+import {useChatContext} from '../../chatContext';
 import userService from '../../services/userService';
 
 import Icons from '../UIKit/Icons';
@@ -10,8 +11,6 @@ import Modal from '../Modal/Modal';
 import Authorization from '../Authorization/Authorization';
 
 import styles from './Header.module.css';
-import {useChatContext} from "../../chatContext";
-import chatService, {ChatUserType} from "../../services/chatService";
 
 
 const Header: React.FC = () => {
@@ -20,25 +19,7 @@ const Header: React.FC = () => {
     const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
 
     const {user, setUser} = useUserContext();
-    const {users, setUsers} = useChatContext();
-
-    useEffect(()=>{
-        chatService.initListeners(
-            (message: { content: string, from: string, to: string }) => {
-                users.forEach((user) => {
-                    if (user.userID == message.from) {
-                        user.messages.push(message);
-                    }
-                });
-                console.log(users);
-                setUsers(users);
-                console.log('private message listener, message:', message.content);
-            },
-            (usersNew: Array<ChatUserType>) => {
-                setUsers(usersNew);
-                console.log('users listener, users:', usersNew);
-            });
-    }, []);
+    const {socket} = useChatContext();
 
     window.addEventListener('resize', () => {
         setIsMobile(window.innerWidth <= 760)
@@ -118,7 +99,7 @@ const Header: React.FC = () => {
                                     <li><NavLink to={'/profile/reviews'}>Отзывы</NavLink></li>
                                     <li><NavLink to={'/profile/rates'}>Рейтинг</NavLink></li>
                                     <li><span className={styles.divider}></span></li>
-                                    <li><a onClick={() => userService.signOut(setUser)}>Выход</a></li>
+                                    <li><a onClick={() => userService.signOut(setUser, socket)}>Выход</a></li>
                                 </ul>}
                             </> :
                             <Modal

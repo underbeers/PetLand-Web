@@ -1,8 +1,8 @@
-import React from "react";
+import React from 'react';
+import {useNavigate, useSearchParams} from 'react-router-dom';
+import cn from 'classnames';
 
 import styles from './Dialog.module.css';
-import cn from "classnames";
-import {NavLink, useNavigate, useSearchParams} from "react-router-dom";
 
 
 export type DialogProps = {
@@ -10,10 +10,10 @@ export type DialogProps = {
     message: string;
     user: string;
     time: string;
-
+    connected: boolean;
 };
 
-const Dialog: React.FC<DialogProps> = ({id, message, user, time}) => {
+const Dialog: React.FC<DialogProps> = ({id, message, user, time, connected}) => {
     const [searchParams, setSearchParams] = useSearchParams();
     const chat = searchParams.get('chat') || null;
     const navigate = useNavigate();
@@ -24,9 +24,11 @@ const Dialog: React.FC<DialogProps> = ({id, message, user, time}) => {
     return (
         <div onClick={() => navigate(`/messenger?chat=${id}`)}
              className={cn(styles.card, chat == id ? styles.active : '')}>
-            <img className={styles.photo}
-                 src={'https://apronhub.in/wp-content/uploads/2022/01/team14-scaled.jpg'}
-                 alt={'user'}/>
+            <div className={connected ? styles.photo__wrapper : ''}>
+                <img className={styles.photo}
+                     src={'https://apronhub.in/wp-content/uploads/2022/01/team14-scaled.jpg'}
+                     alt={'user'}/>
+            </div>
             <div className={styles.info}>
                 <div className={styles.name__n__time}>
                     <h5 className={styles.name}>

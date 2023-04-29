@@ -1,5 +1,6 @@
-import {initialUserContextState, iUser, useUserContext} from '../userContext';
-import chatService from "./chatService";
+import {Socket} from 'socket.io-client';
+
+import {initialUserContextState, iUser} from '../userContext';
 
 
 export const API_URL = `http://${process.env.REACT_APP_API_URL}/api/v1`;
@@ -103,10 +104,10 @@ class UserService {
         });
     }
 
-    public signOut(setUser: (user: iUser) => void) {
+    public signOut(setUser: (user: iUser) => void, socket: Socket) {
         localStorage.removeItem('accessToken');
         setUser(initialUserContextState.user);
-        chatService.socket.disconnect();
+        socket.disconnect();
     }
 
     public async signIn(

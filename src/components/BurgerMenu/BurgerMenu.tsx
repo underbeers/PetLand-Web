@@ -3,6 +3,7 @@ import {NavLink} from 'react-router-dom';
 import cn from 'classnames';
 
 import userService from '../../services/userService';
+import {useChatContext} from '../../chatContext';
 import {useUserContext} from '../../userContext';
 
 import Icons from '../UIKit/Icons';
@@ -15,6 +16,7 @@ import styles from './BurgerMenu.module.css';
 
 const BurgerMenu: React.FC<{ openedBurger: boolean, toggleBurger: () => void }> = ({openedBurger, toggleBurger}) => {
     const {user, setUser} = useUserContext();
+    const {socket} = useChatContext();
 
     return (
         <>
@@ -112,7 +114,7 @@ const BurgerMenu: React.FC<{ openedBurger: boolean, toggleBurger: () => void }> 
                         {!user.empty &&
                             <a onClick={() => {
                                 toggleBurger();
-                                userService.signOut(setUser)
+                                userService.signOut(setUser, socket);
                             }} className={cn('primary__text', styles.burger__item)}>
                                 <Icons icon={'sign-out'} className={styles.icon}/>
                                 Выход

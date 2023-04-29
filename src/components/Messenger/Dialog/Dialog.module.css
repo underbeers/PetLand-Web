@@ -17,6 +17,21 @@
     height: 40px;
     border-radius: 50%;
 }
+.photo__wrapper {
+    position: relative;
+}
+
+.photo__wrapper:before {
+    content: '';
+    position: absolute;
+    background-color: var(--green--500);
+    border-radius: 50%;
+    right: 2%;
+    bottom: 2%;
+    border: 2px solid var(--base--0);
+    width: 8px;
+    height: 8px;
+}
 
 .info {
     flex: 1;

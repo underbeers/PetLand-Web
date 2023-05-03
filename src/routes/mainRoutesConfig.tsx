@@ -8,7 +8,9 @@ import PetPage from '../pages/PetPage/PetPage';
 import AdPage from '../pages/AdPage/AdPage';
 import Ads from '../pages/Ads/Ads';
 import NewAd from '../pages/NewAd/NewAd';
-import AllServices from "../pages/Services/AllServices";
+import AllServices from '../pages/Services/AllServices';
+import Specialists from '../pages/Services/Specialists/Specialists';
+import SpecialistPage from '../pages/Services/Specialists/SpecialistPage';
 
 
 export const PATH_PREFIX = '';
@@ -32,7 +34,7 @@ const routesConfig = [
     },
     {
         path: PATH_PREFIX + '/services/specialists',
-        element: <>Специалисты</>
+        element: <Specialists />
     },
     {
         path: PATH_PREFIX + '/services/clinics',
@@ -61,6 +63,10 @@ const routesConfig = [
     {
         path: PATH_PREFIX + '/ad-page',
         element: <AdPage/>
+    },
+    {
+        path: PATH_PREFIX + '/services/specialists/specialist-page',
+        element: <SpecialistPage/>
     },
     {
         path: PATH_PREFIX + '/profile/*',

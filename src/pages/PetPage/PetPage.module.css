@@ -85,7 +85,7 @@
     gap: 8px;
 }
 
-svg > path {
+.info__check > svg > path {
     fill: var(--orange--primary--color);
 }
 

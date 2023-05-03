@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {NavLink} from 'react-router-dom';
 
 import Icons from '../UIKit/Icons';
 
@@ -15,7 +16,7 @@ const SpecialistCard = () => {
     });
 
     return (
-        <div className={styles.card}>
+        <NavLink to={'/services/specialists/specialist-page'} className={styles.card}>
             <img className={styles.photo}
                  src={'http://phonoteka.org/uploads/posts/2021-05/1622256095_25-phonoteka_org-p-veterinar-art-krasivo-34.jpg'}
                  alt={'Фото специалиста'}/>
@@ -55,7 +56,7 @@ const SpecialistCard = () => {
                     <p className={'secondary__text-2'}>Специальность:<br/>Ветеринар</p>
                 }
             </div>
-        </div>
+        </NavLink>
     )
 }
 export default SpecialistCard;

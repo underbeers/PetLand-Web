@@ -29,20 +29,25 @@ const App: React.FC = () => {
             return;
         }
         if (!user.empty) {
-            if (user.chatID) {
-                chat.socket.auth = {sessionID: user.chatID};
+            console.log(user);
+            if (user.chatUserID && user.sessionID) {
+                // authorisation
+                chat.socket.auth = {sessionID: user.sessionID};
             } else {
+                // registration
                 chat.socket.auth = {username: `${user.firstName} ${user.surName}`};
             }
             chat.socket.connect();
             chat.socket.on('session', ({sessionID, userID}) => {
                 chat.socket.auth = {sessionID};
                 if (user.accessToken) {
-                    userService.setChatID({chatID: sessionID}, user.accessToken);
+                    userService.setChatUserIDSessionID({sessionID, chatID: userID}, user.accessToken);
                 }
                 // @ts-ignore
                 chat.socket.userID = userID;
                 chat.userID = userID;
+                // @ts-ignore
+                chat.setChat = setChat;
                 setChat({...chat});
             });
             chat.socket.onAny((event, ...args) => {
@@ -50,7 +55,7 @@ const App: React.FC = () => {
             });
             chat.socket.on('disconnect', () => {
                 setChat(initialChatContextState);
-            })
+            });
             chat.socket.on('private message', (message: { content: string, from: string, to: string, time: string }) => {
                 const usersNew: Array<ChatUserType> = structuredClone(chat.users);
                 chat.users = usersNew.map(user => {

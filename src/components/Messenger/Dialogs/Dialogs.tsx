@@ -8,7 +8,7 @@ import Dialog from '../Dialog/Dialog';
 const Dialogs: React.FC<{ chatID: string | null }> = ({chatID}) => {
     const chat = useChatContext();
 
-    const getUsers = () => chat.users.filter(user => user.userID == chat.userID);
+    const getUsers = () => chat.users//.filter(user => user.userID == chat.userID);
     return (<>
         {getUsers().map((user, index) => {
             return <Dialog

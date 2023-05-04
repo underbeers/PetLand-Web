@@ -52,9 +52,20 @@ const Chat: React.FC<{ chatID: string }> = ({chatID}) => {
                 console.log('error sending message');
                 return;
             }
+            const usersNew: Array<ChatUserType> = structuredClone(chat.users);
+            chat.users = usersNew.map(user_ => {
+                if (user_.userID == user2.userID) {
+                    const time = new Date();
+                    user_.messages.push({content: message, to: user2.userID, from: user.chatUserID, time: time.toJSON()});
+                }
+                return user_;
+            });
             // @ts-ignore
-            chat.socket.userID = chat.userID;
-            chat.socket.emit('private message', {content: message, to: user2.userID});
+            chat.setChat({...chat});
+            const socket = chat.socket;
+            // @ts-ignore
+            socket.userID = user.chatUserID;
+            socket.emit('private message', {content: message, to: user2.userID});
             setMessage('');
         }
     }
@@ -80,7 +91,7 @@ const Chat: React.FC<{ chatID: string }> = ({chatID}) => {
                     </div>
                     <div className={styles.chat}>
                         {user2.messages.map((message, index) => {
-                            const time = new Date('2023-04-26T20:37:31+00:00');
+                            const time = new Date(message.time);
                             return <Bubble
                                 key={index}
                                 type={message.to == user2.userID ? 'my' : 'alien'}

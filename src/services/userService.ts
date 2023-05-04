@@ -32,14 +32,23 @@ class UserService {
         });
     }
 
-    public async setChatID(params: { chatID: string }, accessToken: string) {
-        return fetch(API_URL + '/user/chatID', {
+    public async setChatUserIDSessionID(params: { chatID: string, sessionID: string }, accessToken: string) {
+        return fetch(API_URL + '/user/chat/update', {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${accessToken}`
             },
             body: JSON.stringify(params)
+        });
+    }
+
+    public async getChatUserID(userID: string) {
+        return fetch(API_URL + `/user/${userID}/chatID`,{
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
         });
     }
 
@@ -85,13 +94,13 @@ class UserService {
                 }
                 return null;
             }
-        }).then((body: { email: string, firstName: string, surName: string, userID: string, chatID: string }) => {
-            //console.log(body);
+        }).then((body: { email: string, firstName: string, surName: string, userID: string, chatID: string, sessionID: string }) => {
+            console.log(body);
             if (body) {
                 const newUser = {
                     ...body,
                     photo: 'https://script.viserlab.com/stoclab/assets/user/profile/5fb0bd27eccb31605418279.jpg',
-                    chatAccessToken: user.chatAccessToken,
+                    chatUserID: body.chatID,
                     accessToken: user.accessToken,
                     empty: false,
                     loading: false

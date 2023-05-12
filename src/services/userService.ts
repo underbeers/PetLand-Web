@@ -32,7 +32,7 @@ class UserService {
         });
     }
 
-    public async setChatUserIDSessionID(params: { chatID: string, sessionID: string }, accessToken: string) {
+    public async setChatUserIDSessionID(params: { sessionID: string, chatID: string }, accessToken: string) {
         return fetch(API_URL + '/user/chat/update', {
             method: 'PATCH',
             headers: {

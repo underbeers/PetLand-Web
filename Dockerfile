@@ -12,7 +12,6 @@ COPY ./.nginx /app/.nginx
 COPY ./public /app/public
 COPY ./src /app/src
 COPY ./package.json /app/package.json
-COPY ./package-lock.json /app/package-lock.json
 COPY ./tsconfig.json /app/tsconfig.json
 RUN echo "REACT_APP_API_URL=$REACT_APP_API_URL" > .env.production
 RUN echo "\nREACT_APP_CHAT_API_URL=$REACT_APP_CHAT_API_URL" >> .env.production

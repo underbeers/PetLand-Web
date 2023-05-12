@@ -41,7 +41,7 @@ const App: React.FC = () => {
             chat.socket.on('session', ({sessionID, userID}) => {
                 chat.socket.auth = {sessionID};
                 if (user.accessToken) {
-                    userService.setChatUserIDSessionID({sessionID, chatID: userID}, user.accessToken);
+                    userService.setChatUserIDSessionID({ chatID: userID, sessionID: sessionID}, user.accessToken);
                 }
                 // @ts-ignore
                 chat.socket.userID = userID;
@@ -57,12 +57,10 @@ const App: React.FC = () => {
                 setChat(initialChatContextState);
             });
             chat.socket.on('private message', (message: { content: string, from: string, to: string, time: string }) => {
-                const usersNew: Array<ChatUserType> = structuredClone(chat.users);
-                chat.users = usersNew.map(user => {
+                chat.users.forEach(user => {
                     if (user.userID == message.from) {
                         user.messages.push(message);
                     }
-                    return user;
                 });
                 setChat({...chat});
             });

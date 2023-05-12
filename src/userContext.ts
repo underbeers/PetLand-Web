@@ -1,5 +1,6 @@
 import {createContext, useContext} from 'react';
 
+
 export interface iUser {
     email: string;
     firstName: string;
@@ -12,6 +13,7 @@ export interface iUser {
     empty: boolean;
     loading: boolean;
 }
+
 export type UserContext = {
     user: iUser,
     setUser: (user: iUser) => void;
@@ -30,7 +32,8 @@ export const initialUserContextState: UserContext = {
         empty: true,
         loading: false
     },
-    setUser: (user: iUser) => {}
+    setUser: (user: iUser) => {
+    }
 };
 
 export const UserContext = createContext<UserContext>(initialUserContextState);

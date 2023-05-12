@@ -13,6 +13,8 @@ import Specialists from '../pages/Services/Specialists/Specialists';
 import SpecialistPage from '../pages/Services/Specialists/SpecialistPage';
 import Organizations from '../pages/Services/Organizations/Organizations';
 import OrganizationPage from '../pages/Services/Organizations/OrganizationPage';
+import Events from '../pages/Services/Events/Events';
+import EventPage from '../pages/Services/Events/EventPage';
 
 
 export const PATH_PREFIX = '';
@@ -44,7 +46,7 @@ const routesConfig = [
     },
     {
         path: PATH_PREFIX + '/services/events',
-        element: <>Мероприятия</>
+        element: <Events />
     },
     {
         path: PATH_PREFIX + '/new-pet',
@@ -73,6 +75,10 @@ const routesConfig = [
     {
         path: PATH_PREFIX + '/services/organizations/organization-page',
         element: <OrganizationPage/>
+    },
+    {
+        path: PATH_PREFIX + '/services/events/event-page',
+        element: <EventPage/>
     },
     {
         path: PATH_PREFIX + '/profile/*',

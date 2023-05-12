@@ -54,7 +54,7 @@ const OrganizationPage = () => {
             }
 
             <div className={styles.photo__info}>
-                <div className={styles.photo}></div>
+                <img src={'https://res.cloudinary.com/dojhrhddc/image/upload/v1683890474/go-cloudinary/Veterinary_clinics_specialists/i_mfxuj8.webp'} className={styles.photo}/>
                 <div className={styles.info}>
                     <div className={styles.rating}>
                         <h3>Рейтинг:</h3>

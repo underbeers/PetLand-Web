@@ -17,7 +17,7 @@ const Footer: React.FC = () => {
                 <div className={styles.row}>
                     <NavLink to={'/bulletin-board'}>Объявления</NavLink>
                     <NavLink to={'/services/specialists'}>Специалисты</NavLink>
-                    <NavLink to={'/services/organizations'}>Клиники и отели</NavLink>
+                    <NavLink to={'/services/organizations'}>Клиники и гостиницы</NavLink>
                     <NavLink to={'/services/events'}>Мероприятия</NavLink>
                     <NavLink to={'#'}>Мобильное приложение</NavLink>
                 </div> :

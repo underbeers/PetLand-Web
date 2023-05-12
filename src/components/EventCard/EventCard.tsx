@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {NavLink} from 'react-router-dom';
 
 import styles from './EventCard.module.css';
 
@@ -13,7 +14,7 @@ const EventCard = () => {
     });
 
     return (
-        <div className={styles.card}>
+        <NavLink to={'/services/events/event-page'} className={styles.card}>
             <img className={styles.photo}
                  src={'https://krasivosti.pro/uploads/posts/2022-01/1641407305_56-krasivosti-pro-p-vistavka-koshek-krasivo-foto-57.jpg'}
                  alt={'Фото мероприятия'}/>
@@ -34,7 +35,7 @@ const EventCard = () => {
                     <p>500 ₽</p>
                 </div>
             </div>
-        </div>
+        </NavLink>
     )
 }
 export default EventCard;

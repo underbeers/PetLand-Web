@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {NavLink} from 'react-router-dom';
 
 import Icons from '../UIKit/Icons';
 
@@ -15,7 +16,7 @@ const OrganizationCard = () => {
     });
 
     return (
-        <div className={styles.card}>
+        <NavLink to={'/services/organizations/organization-page'} className={styles.card}>
             <img className={styles.photo}
                  src={'https://i5.photo.2gis.com/images/branch/58/8162774339773163_2c25.jpg'}
                  alt={'Фото организации'}/>
@@ -54,7 +55,7 @@ const OrganizationCard = () => {
                     <p className={'secondary__text-2'}>Тип:<br/>Ветеринарная клиника</p>
                 }
             </div>
-        </div>
+        </NavLink>
     )
 }
 export default OrganizationCard;

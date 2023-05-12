@@ -49,7 +49,7 @@ const Header: React.FC = () => {
                                 setServicesDropdown(false)
                             }}>
                             <li><NavLink to={'/services/specialists'}>Специалиты</NavLink></li>
-                            <li><NavLink to={'/services/clinics'}>Клиники и гостиницы</NavLink></li>
+                            <li><NavLink to={'/services/organizations'}>Клиники и гостиницы</NavLink></li>
                             <li><NavLink to={'/services/events'}>Мероприятия</NavLink></li>
                         </ul>}
                     </li>

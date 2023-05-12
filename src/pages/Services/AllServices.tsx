@@ -60,7 +60,7 @@ const AllServices = () => {
                     <Icons icon={'hospital'} className={styles.org__icon}/>
 
                     <Button type={'secondary'} onClick={() => {
-                        navigate('/services/clinics')
+                        navigate('/services/organizations')
                     }} color={'orange'} text={'Выбрать'} className={styles.button}/>
                 </div>
 
@@ -88,7 +88,7 @@ const AllServices = () => {
                     </div>
                 </div>
 
-                <div className={styles.item} onClick={() => {navigate('/services/clinics')}}>
+                <div className={styles.item} onClick={() => {navigate('/services/organizations')}}>
                     <Icons icon={'hospital'} className={styles.org__icon__mobile}/>
                     <div className={styles.text__item}>
                         <h4>Клиники и отели</h4>

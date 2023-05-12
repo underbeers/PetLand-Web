@@ -54,7 +54,7 @@ const HomePage: React.FC = () => {
                     navigate('/services/specialists')
                 }}/>
                 <Button type={'primary'} color={'green'} text={'Клиники и отели'} onClick={() => {
-                    navigate('/services/clinics')
+                    navigate('/services/organizations')
                 }}/>
                 <Button type={'primary'} color={'green'} text={'Мероприятия'} onClick={() => {
                     navigate('/services/events')
@@ -109,7 +109,7 @@ const HomePage: React.FC = () => {
                     <div className={styles.title__show}>
                         {!isMobile ? <h2>Популярные организации</h2> : <h4>Популярные организации</h4>}
                         <p className={cn('underlined', styles.show)} onClick={() => {
-                            navigate('/services/clinics')
+                            navigate('/services/organizations')
                         }}>Посмотреть все</p>
                     </div>
                     <div className={styles.cards__block}>

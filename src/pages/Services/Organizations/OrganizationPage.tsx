@@ -4,10 +4,10 @@ import {useNavigate} from 'react-router-dom';
 import Icons from '../../../components/UIKit/Icons';
 import TopBar from '../../../components/TopBar/TopBar';
 
-import styles from './SpecialistPage.module.css';
+import styles from './OrganizationPage.module.css';
 
 
-const SpecialistPage = () => {
+const OrganizationPage = () => {
 
     const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
 
@@ -26,22 +26,22 @@ const SpecialistPage = () => {
 
     return (
         <>
-
             {!isMobile ?
                 <div className={styles.name__favorite}>
                     <Icons icon={'arrow-left'} className={styles.icon__arrow__back} onClick={handleGoBack}/>
-                    <h1 className={styles.name}>Имя Фамилия</h1>
+                    <h1 className={styles.name}>Название организации</h1>
                     <div className={styles.favorite}>
                         <h5>В избранное</h5>
                         {!isLiked ?
                             <Icons icon={'cards-heart-outline'} className={styles.icon__heart} onClick={() => {setIsLiked(!isLiked)}}/>
-                            :
+                        :
                             <Icons icon={'cards-heart'} className={styles.icon__heart} onClick={() => {setIsLiked(!isLiked)}}/>
                         }
+
                     </div>
                 </div> :
                 <TopBar leftButton={'arrow'}>
-                    <h5>Имя Фамилия</h5>
+                    <h5>Название организации</h5>
                     {!isLiked ?
                         <Icons icon={'cards-heart-outline'} onClick={() => {
                             setIsLiked(!isLiked)
@@ -52,7 +52,6 @@ const SpecialistPage = () => {
                     }
                 </TopBar>
             }
-
 
             <div className={styles.photo__info}>
                 <div className={styles.photo}></div>
@@ -71,22 +70,21 @@ const SpecialistPage = () => {
                         </div>
                     </div>
 
-                    <div className={styles.speciality}>
-                        <h3>Специальность:</h3>
-                        <p>Ветеринар, УЗИ</p>
+                    <div className={styles.type}>
+                        <h3>Тип:</h3>
+                        <p>Ветеринарная клиника</p>
                     </div>
 
-                    <div className={styles.experience}>
-                        <h3>Стаж:</h3>
-                        <p>5 лет</p>
+                    <div className={styles.schedule}>
+                        <h3>График работы:</h3>
+                        <p>пн-пт: 10:00 - 18:00</p>
+                        <p>сб-вс: 12:00 - 18:00</p>
                     </div>
 
-                    <div className={styles.pets}>
-                        <h3>Животные:</h3>
-                        <p>Кошки, собаки, грызуны</p>
+                    <div className={styles.address}>
+                        <h3>Адрес:</h3>
+                        <p>г. Нижний Новгород, ул. Плотникова, 3 </p>
                     </div>
-
-                    <h3>Принимает в клинике «Лапа»</h3>
 
                     <div className={styles.contacts}>
                         <h3>Контакты:</h3>
@@ -95,8 +93,10 @@ const SpecialistPage = () => {
 
                 </div>
             </div>
+
+
         </>
     )
 }
 
-export default SpecialistPage;
+export default OrganizationPage;

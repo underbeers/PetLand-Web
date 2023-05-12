@@ -11,6 +11,8 @@ import NewAd from '../pages/NewAd/NewAd';
 import AllServices from '../pages/Services/AllServices';
 import Specialists from '../pages/Services/Specialists/Specialists';
 import SpecialistPage from '../pages/Services/Specialists/SpecialistPage';
+import Organizations from '../pages/Services/Organizations/Organizations';
+import OrganizationPage from '../pages/Services/Organizations/OrganizationPage';
 
 
 export const PATH_PREFIX = '';
@@ -37,8 +39,8 @@ const routesConfig = [
         element: <Specialists />
     },
     {
-        path: PATH_PREFIX + '/services/clinics',
-        element: <>Клиники и гостиницы</>
+        path: PATH_PREFIX + '/services/organizations',
+        element: <Organizations />
     },
     {
         path: PATH_PREFIX + '/services/events',
@@ -67,6 +69,10 @@ const routesConfig = [
     {
         path: PATH_PREFIX + '/services/specialists/specialist-page',
         element: <SpecialistPage/>
+    },
+    {
+        path: PATH_PREFIX + '/services/organizations/organization-page',
+        element: <OrganizationPage/>
     },
     {
         path: PATH_PREFIX + '/profile/*',

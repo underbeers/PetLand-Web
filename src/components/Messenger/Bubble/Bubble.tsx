@@ -8,9 +8,11 @@ export type BubbleProps = {
     type: 'my' | 'alien';
     text: string;
     time: string;
+    printDate: boolean;
+    date: string;
 };
 
-const Bubble: React.FC<BubbleProps> = ({type, text, time}) => {
+const Bubble: React.FC<BubbleProps> = ({type, text, time, printDate, date}) => {
     const angle =
         <svg width='8' height='8' viewBox='0 0 8 8' fill='none' xmlns='http://www.w3.org/2000/svg'
              className={cn(styles.angle, styles[type])}>
@@ -18,11 +20,16 @@ const Bubble: React.FC<BubbleProps> = ({type, text, time}) => {
                   fill='#EAEEF9'/>
         </svg>
     return (
-        <div className={cn(styles.bubble, styles[type])}>
-            <p>{text}</p>
-            {angle}
-            <p className={cn('secondary__text-2', styles.time, styles[type])}>{time}</p>
-        </div>
+        <>
+            <div className={cn(styles.bubble, styles[type])}>
+                <p>{text}</p>
+                {angle}
+                <p className={cn('secondary__text-2', styles.time, styles[type])}>{time}</p>
+            </div>
+            {printDate && <div className={styles.date__wrapper}>
+                <p className={cn(styles.date, 'secondary__text-1')}>{date}</p>
+            </div>}
+        </>
     );
 };
 

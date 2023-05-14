@@ -54,3 +54,17 @@
 .time.alien {
     left: calc(100% + 4px);
 }
+
+.date__wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.date {
+    color: var(--green--primary--color);
+    border: 1px solid var(--green--primary--color);
+    padding: 8px;
+    border-radius: 18px;
+
+}

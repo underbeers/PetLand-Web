@@ -10,6 +10,7 @@ import Icons from '../../UIKit/Icons';
 import Bubble from '../Bubble/Bubble';
 
 import styles from './Chat.module.css';
+import cn from "classnames";
 
 
 const Chat: React.FC<{ chatID: string }> = ({chatID}) => {
@@ -37,7 +38,7 @@ const Chat: React.FC<{ chatID: string }> = ({chatID}) => {
                 return chat.users[i];
             }
         }
-        return {userID: '', connected: false, username: '', messages: []};
+        return {userID: '', connected: false, hasNewMessage: true, username: '', messages: []};
     }
     const [user2, setUser2] = useState(getUser());
 
@@ -52,16 +53,6 @@ const Chat: React.FC<{ chatID: string }> = ({chatID}) => {
                 console.log('error sending message');
                 return;
             }
-            const usersNew: Array<ChatUserType> = structuredClone(chat.users);
-            chat.users = usersNew.map(user_ => {
-                if (user_.userID == user2.userID) {
-                    const time = new Date();
-                    user_.messages.push({content: message, to: user2.userID, from: user.chatUserID, time: time.toJSON()});
-                }
-                return user_;
-            });
-            // @ts-ignore
-            chat.setChat({...chat});
             const socket = chat.socket;
             // @ts-ignore
             socket.userID = user.chatUserID;
@@ -69,6 +60,9 @@ const Chat: React.FC<{ chatID: string }> = ({chatID}) => {
             setMessage('');
         }
     }
+
+    const prettyTime = (time: Date) => time.toJSON().substring(0, 10).split('-').reverse().join('.');
+    let prevDate = new Date();
 
     return (
         <div className={styles.wrapper}>
@@ -92,11 +86,17 @@ const Chat: React.FC<{ chatID: string }> = ({chatID}) => {
                     <div className={styles.chat}>
                         {user2.messages.map((message, index) => {
                             const time = new Date(message.time);
+                            const printDate = prettyTime(time) != prettyTime(prevDate);
+                            const key = index + 1;
+                            prevDate = time;
                             return <Bubble
                                 key={index}
                                 type={message.to == user2.userID ? 'my' : 'alien'}
                                 text={message.content}
-                                time={time.toTimeString().substring(0, 5)}/>
+                                time={time.toTimeString().substring(0, 5)}
+                                printDate={printDate}
+                                date={prettyTime(time)}
+                            />
                         }).reverse()}
                     </div>
                     <div className={styles.message}>

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Route, Routes} from 'react-router-dom';
+import {Route, Routes, useLocation} from 'react-router-dom';
 import cn from 'classnames';
 
 import mainRoutesConfig from '../routes/mainRoutesConfig';
@@ -16,6 +16,7 @@ import styles from './App.module.css';
 const App: React.FC = () => {
     const [user, setUser] = useState<iUser>(structuredClone(initialUserContextState.user));
     const [chat, setChat] = useState<ChatContext>(initialChatContextState);
+    const location = useLocation();
 
     useEffect(() => {
         const localUser = localStorage.getItem('accessToken');
@@ -41,7 +42,7 @@ const App: React.FC = () => {
             chat.socket.on('session', ({sessionID, userID}) => {
                 chat.socket.auth = {sessionID};
                 if (user.accessToken) {
-                    userService.setChatUserIDSessionID({ chatID: userID, sessionID: sessionID}, user.accessToken);
+                    userService.setChatUserIDSessionID({chatID: userID, sessionID: sessionID}, user.accessToken);
                 }
                 // @ts-ignore
                 chat.socket.userID = userID;
@@ -56,15 +57,21 @@ const App: React.FC = () => {
             chat.socket.on('disconnect', () => {
                 setChat(initialChatContextState);
             });
-            chat.socket.on('private message', (message: { content: string, from: string, to: string, time: string }) => {
-                chat.users.forEach(user => {
-                    if (user.userID == message.from) {
-                        user.messages.push(message);
+            chat.socket.on('private message', (message: {
+                content: string,
+                from: string,
+                to: string,
+                time: string
+            }) => {
+                chat.users.forEach(user_ => {
+                    if (message.from == user_.userID && message.to == user.chatUserID || message.from == user.chatUserID && message.to == user_.userID) {
+                        user_.messages.push(message);
                     }
                 });
                 setChat({...chat});
             });
             chat.socket.on('users', (usersNew: Array<ChatUserType>) => {
+                usersNew.forEach(u => u.hasNewMessage = false);
                 chat.users = structuredClone(usersNew);
                 setChat({...chat});
             });
@@ -93,7 +100,6 @@ const App: React.FC = () => {
         }
     }, [user]);
 
-
     return (
         <UserContext.Provider value={{user: user, setUser: setUser}}>
             <ChatContext.Provider value={chat}>
@@ -109,7 +115,7 @@ const App: React.FC = () => {
                         ))}
                     </Routes>
                 </main>
-                <Footer/>
+                {location.pathname != '/messenger' && <Footer/>}
             </ChatContext.Provider>
         </UserContext.Provider>
     );

@@ -7,6 +7,7 @@ const CHAT_API_URL = `http://${process.env.REACT_APP_CHAT_API_URL}`;
 export type ChatUserType = {
     connected: boolean,
     messages: Array<{ content: string, from: string, to: string, time: string }>,
+    hasNewMessage: boolean,
     userID: string,
     username: string
 }

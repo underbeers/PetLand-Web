@@ -16,9 +16,10 @@ const Dialogs: React.FC<{ chatID: string | null }> = ({chatID}) => {
                 id={user.userID}
                 // @ts-ignore
                 message={user.messages.length ? user.messages[user.messages.length - 1].content : ''}
-                user={user.userID == chat.userID ? 'Избранное' : user.username}
+                username={user.userID == chat.userID ? 'Избранное' : user.username}
                 time={user.messages.length ? user.messages[user.messages.length - 1].time : ''}
-                connected={user.connected}/>
+                connected={user.userID == chat.userID ? false : user.connected}
+                hasNewMessage={user.hasNewMessage}/>
         })
         }
     </>);

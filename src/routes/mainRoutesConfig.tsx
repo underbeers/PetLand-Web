@@ -69,15 +69,15 @@ const routesConfig = [
         element: <AdPage/>
     },
     {
-        path: PATH_PREFIX + '/services/specialists/specialist-page',
+        path: PATH_PREFIX + '/services/specialists/specialist',
         element: <SpecialistPage/>
     },
     {
-        path: PATH_PREFIX + '/services/organizations/organization-page',
+        path: PATH_PREFIX + '/services/organizations/organization',
         element: <OrganizationPage/>
     },
     {
-        path: PATH_PREFIX + '/services/events/event-page',
+        path: PATH_PREFIX + '/services/events/event',
         element: <EventPage/>
     },
     {

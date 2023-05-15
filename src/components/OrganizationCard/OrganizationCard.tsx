@@ -1,12 +1,25 @@
 import React, {useState} from 'react';
 import {NavLink} from 'react-router-dom';
+import cn from 'classnames';
 
 import Icons from '../UIKit/Icons';
 
 import styles from './OrganizationCard.module.css';
 
 
-const OrganizationCard = () => {
+interface iOrganizationProps {
+    id: string,
+    name: string,
+    rating: number,
+    type: string,
+    schedule: string,
+    city: number,
+    address: string,
+    phone: string,
+    photo: string,
+}
+
+const OrganizationCard: React.FC<iOrganizationProps> = ({id, name, rating, type, schedule, city, address, phone, photo}) => {
 
     const [isLiked, setIsLiked] = useState(false);
     const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
@@ -16,13 +29,13 @@ const OrganizationCard = () => {
     });
 
     return (
-        <NavLink to={'/services/organizations/organization-page'} className={styles.card}>
+        <NavLink to={`/services/organizations/organization?id=${id}`} className={styles.card}>
             <img className={styles.photo}
-                 src={'https://i5.photo.2gis.com/images/branch/58/8162774339773163_2c25.jpg'}
+                 src={photo}
                  alt={'Фото организации'}/>
             <div className={styles.orgInfo}>
                 <div className={styles.name__like}>
-                    <h5>Названия организации</h5>
+                    <h5>{name}</h5>
                     {isLiked ?
                         <Icons icon={'cards-heart'} className={styles.heart} onClick={(event) => {
                             event.preventDefault();
@@ -43,16 +56,20 @@ const OrganizationCard = () => {
                     </div> :
                     <div className={styles.star__number}>
                         <Icons icon={'round-star'} className={styles.star}/>
-                        <p>4,5</p>
+                        <p>{rating}</p>
                     </div>
                 }
 
                 {!isMobile ?
                     <div className={styles.additional__info}>
-                        <p>Тип: </p>
-                        <p>Адрес: </p>
+                        <div className={styles.info__row}><p
+                            className={cn('secondary__text-1', styles.title)}>Тип: </p><p
+                            className={cn('secondary__text-1', styles.data)}>{type}</p></div>
+                        <div className={styles.info__row}><p
+                            className={cn('secondary__text-1', styles.title)}>Адрес: </p><p
+                            className={cn('secondary__text-1', styles.data)}>{address}</p></div>
                     </div> :
-                    <p className={'secondary__text-2'}>Тип:<br/>Ветеринарная клиника</p>
+                    <p className={'secondary__text-2'}>Тип:<br/>{type}</p>
                 }
             </div>
         </NavLink>

@@ -1,11 +1,27 @@
 import React, {useState} from 'react';
-import {useNavigate} from 'react-router-dom';
+import {useNavigate, useSearchParams} from 'react-router-dom';
+
+import {events} from './Events';
 
 import Icons from '../../../components/UIKit/Icons';
 import TopBar from '../../../components/TopBar/TopBar';
 
 import styles from './EventPage.module.css';
 
+import Page404 from '../../Page404/Page404';
+
+
+const getEventById = (id:string | null) => {
+    if (id === null) {
+        return id;
+    }
+    for (let i = 0; i < events.length; i++) {
+        if (events[i].id === id) {
+            return (events[i]);
+        }
+    }
+    return null;
+}
 
 const EventPage = () => {
 
@@ -24,46 +40,53 @@ const EventPage = () => {
         navigate(-1);
     };
 
+    const [searchParams, setSearchParams] = useSearchParams();
+    const id = searchParams.get('id');
+
+    const event = getEventById(id);
+
+    if (event == null) {
+        return <Page404/>;
+    }
+
     return (
         <>
             {!isMobile ?
                 <div className={styles.name__favorite}>
                     <Icons icon={'arrow-left'} className={styles.icon__arrow__back} onClick={handleGoBack}/>
-                    <h1 className={styles.name}>Название мероприятия</h1>
+                    <h1 className={styles.name}>{event.name}</h1>
                 </div> :
                 <TopBar leftButton={'arrow'}>
-                    <h5>Название мероприятия</h5>
+                    <h5>{event.name}</h5>
                 </TopBar>
             }
 
             <div className={styles.photo__info}>
-                <div className={styles.photo}></div>
+                <img className={styles.photo} src={event.photo} alt={'Фото мероприятия'}></img>
                 <div className={styles.info}>
                     <div className={styles.description}>
                         <h3>Описание:</h3>
-                        <p>Позвольте представить уникальную выставку домашних питомцев! На этой выставке вы сможете увидеть самых разных животных - от котов и собак до грызунов и рептилий. Питомцы будут представлены в разных возрастах, размерах и породах, так что каждый найдет здесь себе подходящего друга.
-                            Во время выставки вы сможете узнать много интересного о жизни и уходе за домашними питомцами. Здесь вы встретите профессиональных ветеринаров, которые поделятся с вами своими знаниями и советами. Также будут проводиться конкурсы и розыгрыши призов для всех посетителей.
-                            Выставка домашних питомцев - это отличный способ провести время в кругу своей семьи и друзей, и, возможно, найти своего будущего питомца. Приходите и наслаждайтесь общением с этими прекрасными созданиями!</p>
+                        <p>{event.description}</p>
                     </div>
 
                     <div className={styles.place}>
                         <h3>Место:</h3>
-                        <p>Дом культуры 'Газ'</p>
+                        <p>{event.place}</p>
                     </div>
 
                     <div className={styles.date}>
                         <h3>Дата:</h3>
-                        <p>дд.мм.гггг</p>
+                        <p>{event.date}</p>
                     </div>
 
                     <div className={styles.price}>
                         <h3>Цена:</h3>
-                        <p>700 ₽</p>
+                        <p>{event.price}</p>
                     </div>
 
                     <div className={styles.contacts}>
                         <h3>Контакты:</h3>
-                        <p>8 800 111 22 33</p>
+                        <p>{event.phone}</p>
                     </div>
 
                 </div>

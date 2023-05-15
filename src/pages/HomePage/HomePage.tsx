@@ -2,6 +2,10 @@ import React, {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import cn from 'classnames';
 
+import {specialists} from '../Services/Specialists/Specialists';
+import {organizations} from '../Services/Organizations/Organizations';
+import {events} from '../Services/Events/Events';
+
 import Icons from '../../components/UIKit/Icons';
 import Button from '../../components/UIKit/Button';
 import AdCards from '../../components/AdCards/AdCards';
@@ -91,14 +95,14 @@ const HomePage: React.FC = () => {
                     </div>
                     <div className={styles.cards__block}>
                         {!isMobile ? <>
-                                <SpecialistCard/>
-                                <SpecialistCard/>
-                                <SpecialistCard/>
-                                <SpecialistCard/>
+                                <SpecialistCard {...specialists[0]}/>
+                                <SpecialistCard {...specialists[1]}/>
+                                <SpecialistCard {...specialists[2]}/>
+                                <SpecialistCard {...specialists[3]}/>
                             </> :
                             <>
-                                <SpecialistCard/>
-                                <SpecialistCard/>
+                                <SpecialistCard {...specialists[0]}/>
+                                <SpecialistCard {...specialists[1]}/>
                             </>
                         }
 
@@ -114,14 +118,14 @@ const HomePage: React.FC = () => {
                     </div>
                     <div className={styles.cards__block}>
                         {!isMobile ? <>
-                                <OrganizationCard/>
-                                <OrganizationCard/>
-                                <OrganizationCard/>
-                                <OrganizationCard/>
+                                <OrganizationCard {...organizations[0]}/>
+                                <OrganizationCard {...organizations[1]}/>
+                                <OrganizationCard {...organizations[2]}/>
+                                <OrganizationCard {...organizations[3]}/>
                             </> :
                             <>
-                                <OrganizationCard/>
-                                <OrganizationCard/>
+                                <OrganizationCard {...organizations[0]}/>
+                                <OrganizationCard {...organizations[1]}/>
                             </>}
                     </div>
                 </div>
@@ -135,14 +139,14 @@ const HomePage: React.FC = () => {
                     </div>
                     <div className={styles.cards__block}>
                         {!isMobile ? <>
-                                <EventCard/>
-                                <EventCard/>
-                                <EventCard/>
-                                <EventCard/>
+                                <EventCard {...events[0]}/>
+                                <EventCard {...events[1]}/>
+                                <EventCard {...events[3]}/>
+                                <EventCard {...events[4]}/>
                             </> :
                             <>
-                                <EventCard/>
-                                <EventCard/>
+                                <EventCard {...events[0]}/>
+                                <EventCard {...events[1]}/>
                             </>}
                     </div>
                 </div>

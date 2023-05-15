@@ -23,7 +23,20 @@
     padding: 12px;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
+    height: 200px;
     gap: 20px;
+}
+
+.date {
+    width: 50%;
+}
+
+.price {
+    width: 50%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
 }
 
 .date__price {

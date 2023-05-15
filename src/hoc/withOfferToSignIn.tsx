@@ -1,13 +1,13 @@
 import React, {useContext} from 'react';
 
-import {UserContext} from '../userContext';
+import {useUserContext} from '../userContext';
 
 import OfferToSignIn from '../pages/OfferToSignIn/OfferToSignIn';
 
 
 export function withOfferToSignIn(WrappedComponent: any) {
     return () => {
-        const {user, setUser} = useContext(UserContext);
+        const {user, setUser} = useUserContext();
         //console.log(user)
         return (
             (user.empty && !user.loading) ?

@@ -1,0 +1,70 @@
+.bubble {
+    padding: 10px;
+    max-width: 564px;
+    border-radius: 12px;
+    position: relative;
+}
+
+.bubble.my {
+    align-self: flex-end;
+    background-color: var(--blue--50);
+    border-bottom-right-radius: 0;
+}
+
+.bubble.alien {
+    align-self: flex-start;
+    background-color: var(--orange--50);
+    border-bottom-left-radius: 0;
+}
+
+.angle {
+    position: absolute;
+    bottom: 0;
+    background-color: transparent;
+}
+
+.angle.my {
+    right: -8px;
+}
+
+.angle.alien {
+    left: -8px;
+    rotate: -90deg;
+}
+
+.angle.my path {
+    fill: var(--blue--50);
+}
+
+.angle.alien path {
+    fill: var(--orange--50);
+}
+
+
+.time {
+    position: absolute;
+    bottom: 0;
+    color: var(--base--700);
+}
+
+.time.my {
+    right: calc(100% + 4px);
+}
+
+.time.alien {
+    left: calc(100% + 4px);
+}
+
+.date__wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.date {
+    color: var(--green--primary--color);
+    border: 1px solid var(--green--primary--color);
+    padding: 8px;
+    border-radius: 18px;
+
+}

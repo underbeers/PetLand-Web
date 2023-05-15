@@ -1,7 +1,8 @@
-import React, {useContext, useState} from 'react';
+import React, {useState} from 'react';
 import {NavLink} from 'react-router-dom';
 
-import {UserContext} from '../../userContext';
+import {useUserContext} from '../../userContext';
+import {useChatContext} from '../../chatContext';
 import userService from '../../services/userService';
 
 import Icons from '../UIKit/Icons';
@@ -17,7 +18,8 @@ const Header: React.FC = () => {
     const [profileDropdown, setProfileDropdown] = useState(false);
     const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
 
-    const {user, setUser} = useContext(UserContext);
+    const {user, setUser} = useUserContext();
+    const {socket} = useChatContext();
 
     window.addEventListener('resize', () => {
         setIsMobile(window.innerWidth <= 760)
@@ -56,7 +58,7 @@ const Header: React.FC = () => {
                     <li className={styles.icons}>
                         <NavLink to={'/profile/favorite'}><Icons icon={'cards-heart'}/></NavLink>
                         <NavLink to={'/profile/notifications'}><Icons icon={'bell'}/></NavLink>
-                        <NavLink to={'/profile/messages'}><Icons icon={'chat'}/></NavLink>
+                        <NavLink to={'/messenger'}><Icons icon={'chat'}/></NavLink>
                     </li>
                     <li className={styles.user}>
                         {!user.empty || user.loading ?
@@ -97,7 +99,7 @@ const Header: React.FC = () => {
                                     <li><NavLink to={'/profile/reviews'}>Отзывы</NavLink></li>
                                     <li><NavLink to={'/profile/rates'}>Рейтинг</NavLink></li>
                                     <li><span className={styles.divider}></span></li>
-                                    <li><a onClick={() => userService.signOut(setUser)}>Выход</a></li>
+                                    <li><a onClick={() => userService.signOut(setUser, socket)}>Выход</a></li>
                                 </ul>}
                             </> :
                             <Modal

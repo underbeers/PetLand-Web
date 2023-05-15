@@ -1,9 +1,11 @@
+import {Socket} from 'socket.io-client';
+
 import {initialUserContextState, iUser} from '../userContext';
 
 
 export const API_URL = `http://${process.env.REACT_APP_API_URL}/api/v1`;
 
-class AuthService {
+class UserService {
     private async authenticate(params: { login: string, password: string }) {
         return fetch(API_URL + '/login', {
             method: 'POST',
@@ -30,6 +32,26 @@ class AuthService {
         });
     }
 
+    public async setChatUserIDSessionID(params: { sessionID: string, chatID: string }, accessToken: string) {
+        return fetch(API_URL + '/user/chat/update', {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${accessToken}`
+            },
+            body: JSON.stringify(params)
+        });
+    }
+
+    public async getChatUserID(userID: string) {
+        return fetch(API_URL + `/user/${userID}/chatID`,{
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+    }
+
     public async askPasswordRecovery(params: { email: string }) {
         return fetch(API_URL + `/password/refresh`, {
             method: 'POST',
@@ -49,15 +71,14 @@ class AuthService {
     public syncUser(
         user: iUser,
         setUser: (user: iUser) => void,
-        dontLogOut: boolean,
         setResponseCode?: (code: number) => void,
         onFinish?: () => void) {
-        if (!user.empty) {
+        if (!user.empty || user.loading) {
             return;
         }
-        user.loading = true;
+        setUser({...user, loading: true});
         this.authorize(user.accessToken).then(response => {
-            //console.log(response.status);
+            //console.log(response);
             setResponseCode && setResponseCode(response.status);
             if (response.ok) {
                 //console.log('Authorized');
@@ -73,26 +94,29 @@ class AuthService {
                 }
                 return null;
             }
-        }).then((body: { email: string, firstName: string, surName: string, userID: string }) => {
+        }).then((body: { email: string, firstName: string, surName: string, userID: string, chatID: string, sessionID: string }) => {
             //console.log(body);
-            body && (setUser({
-                ...body,
-                photo: 'https://script.viserlab.com/stoclab/assets/user/profile/5fb0bd27eccb31605418279.jpg',
-                accessToken: user.accessToken,
-                empty: false,
-                loading: false
-            }));
-            user.loading = false;
-            body && onFinish && onFinish();
-            if (dontLogOut) {
-                localStorage.setItem('accessToken', user.accessToken);
+            if (body) {
+                const newUser = {
+                    ...body,
+                    photo: 'https://script.viserlab.com/stoclab/assets/user/profile/5fb0bd27eccb31605418279.jpg',
+                    chatUserID: body.chatID,
+                    accessToken: user.accessToken,
+                    empty: false,
+                    loading: false
+                };
+                setUser(newUser);
+                onFinish && onFinish();
+            } else {
+                setUser({...user, loading: false});
             }
         });
     }
 
-    public signOut(setUser: (user: iUser) => void) {
+    public signOut(setUser: (user: iUser) => void, socket: Socket) {
         localStorage.removeItem('accessToken');
         setUser(initialUserContextState.user);
+        socket.disconnect();
     }
 
     public async signIn(
@@ -103,6 +127,7 @@ class AuthService {
         user: iUser,
         setUser: (user: iUser) => void,
         onFinish?: () => void) {
+        setUser({...user, loading: true});
         this.authenticate({login: email, password}).then(response => {
             //console.log(response.status);
             setResponseCode(response.status);
@@ -124,10 +149,15 @@ class AuthService {
                 return null;
             }
         }).then(body => {
-            body && (user.accessToken = body.accessToken);
-            return body;
-        }).then((body) => {
-            body && this.syncUser(user, setUser, dontLogOut, setResponseCode, onFinish);
+            if (body) {
+                setUser({...user, accessToken: body.accessToken, loading: false});
+                if (dontLogOut) {
+                    localStorage.setItem('accessToken', body.accessToken);
+                }
+                onFinish && onFinish();
+            } else {
+                setUser({...user, loading: false});
+            }
         });
     }
 
@@ -193,4 +223,4 @@ class AuthService {
     }
 }
 
-export default new AuthService();
+export default new UserService();

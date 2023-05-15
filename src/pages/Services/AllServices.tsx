@@ -53,7 +53,7 @@ const AllServices = () => {
 
                 <div className={styles.card}>
                     <div className={styles.title__desc__card}>
-                        <h2>Клиники и отели</h2>
+                        <h2>Клиники и гостиницы</h2>
                         <p>Выберите лучшую ветклинику<br/>или гостиницу для животных</p>
                     </div>
 
@@ -91,7 +91,7 @@ const AllServices = () => {
                 <div className={styles.item} onClick={() => {navigate('/services/organizations')}}>
                     <Icons icon={'hospital'} className={styles.org__icon__mobile}/>
                     <div className={styles.text__item}>
-                        <h4>Клиники и отели</h4>
+                        <h4>Клиники и гостиницы</h4>
                         <p className={'secondary__text-2'}>Выберите лучшую ветклинику<br/>или гостиницу для животных</p>
                     </div>
                 </div>

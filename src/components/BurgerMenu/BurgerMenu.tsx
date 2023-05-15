@@ -52,7 +52,7 @@ const BurgerMenu: React.FC<{ openedBurger: boolean, toggleBurger: () => void }> 
                         <NavLink onClick={toggleBurger} to={'/services/organizations'}
                                  className={cn('primary__text', styles.burger__item)}>
                             <Icons icon={'hospital'} className={styles.icon}/>
-                            Клиники и отели
+                            Клиники и гостиницы
                         </NavLink>
                         <NavLink onClick={toggleBurger} to={'/services/events'}
                                  className={cn('primary__text', styles.burger__item)}>

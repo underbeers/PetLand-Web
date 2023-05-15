@@ -8,13 +8,12 @@ import {ChatContext, ChatUserType, initialChatContextState} from '../chatContext
 import userService from '../services/userService';
 
 // @ts-ignore
-import NotificationSound from "../static/notification.mp3";
+import NotificationSound from '../static/notification.mp3';
 
 import Header from './Header/Header';
 import Footer from './Footer/Footer';
 
 import styles from './App.module.css';
-import messenger from "../pages/Messenger/Messenger";
 
 
 const App: React.FC = () => {
@@ -31,7 +30,7 @@ const App: React.FC = () => {
         audioPlayer.current.play();
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         chat.users.forEach(user_ => {
             if (user_.userID == chatParam) {
                 user_.hasNewMessage = false;
@@ -53,7 +52,7 @@ const App: React.FC = () => {
             return;
         }
         if (!user.empty) {
-            console.log(user);
+            //console.log(user);
             if (user.chatUserID && user.sessionID) {
                 // authorisation
                 chat.socket.auth = {sessionID: user.sessionID};
@@ -75,7 +74,7 @@ const App: React.FC = () => {
                 setChat({...chat});
             });
             chat.socket.onAny((event, ...args) => {
-                console.log(event, args);
+                //console.log(event, args);
             });
             chat.socket.on('disconnect', () => {
                 setChat(initialChatContextState);
@@ -144,7 +143,7 @@ const App: React.FC = () => {
                     </Routes>
                 </main>
                 {location.pathname != '/messenger' && <Footer/>}
-                <audio ref={audioPlayer} src={NotificationSound} />
+                <audio ref={audioPlayer} src={NotificationSound}/>
             </ChatContext.Provider>
         </UserContext.Provider>
     );

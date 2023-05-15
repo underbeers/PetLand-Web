@@ -36,3 +36,17 @@
 .dialog {
     flex: 1;
 }
+
+.empty__chat {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    margin-top: 40%;
+}
+
+.chat__plus__icon {
+    width: 92px;
+    height: 92px;
+}

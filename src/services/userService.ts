@@ -95,7 +95,7 @@ class UserService {
                 return null;
             }
         }).then((body: { email: string, firstName: string, surName: string, userID: string, chatID: string, sessionID: string }) => {
-            console.log(body);
+            //console.log(body);
             if (body) {
                 const newUser = {
                     ...body,

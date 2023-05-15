@@ -2,8 +2,9 @@ import React from 'react';
 import {useNavigate, useSearchParams} from 'react-router-dom';
 import cn from 'classnames';
 
+import {useUserContext} from '../../../userContext';
+
 import styles from './Dialog.module.css';
-import {useUserContext} from "../../../userContext";
 
 
 export type DialogProps = {
@@ -37,7 +38,7 @@ const Dialog: React.FC<DialogProps> = ({id, message, username, time, connected, 
                         {username}
                     </h5>
                     <p className={cn('secondary__text-2', styles.time)}>
-                        {prettyTime.toTimeString().substring(0, 5)}
+                        {time ? prettyTime.toTimeString().substring(0, 5) : ''}
                     </p>
                 </div>
                 <div className={styles.name__n__time}>

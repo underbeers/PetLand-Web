@@ -5,6 +5,7 @@ import {withOfferToSignIn} from '../../hoc/withOfferToSignIn';
 
 import Chat from '../../components/Messenger/Chat/Chat';
 import Dialogs from '../../components/Messenger/Dialogs/Dialogs';
+import Icons from '../../components/UIKit/Icons';
 
 import styles from './Messenger.module.css';
 
@@ -27,7 +28,10 @@ const Messenger: React.FC = () => {
                         {chat ?
                             <Chat chatID={chat}/>
                             :
-                            <>Здесь будут ваши сообщения</>
+                            <div className={styles.empty__chat}>
+                                <Icons icon={'chat-plus-outline'} className={styles.chat__plus__icon}/>
+                                <h3>Напишите владельцу питомца, чтобы начать общаться</h3>
+                            </div>
                         }
                     </div>
                 </div>

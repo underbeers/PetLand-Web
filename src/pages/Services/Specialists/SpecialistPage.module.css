@@ -46,6 +46,7 @@
     width: 475px;
     height: 632px;
     background-color: var(--base--500);
+    object-fit: cover;
 }
 
 .info {

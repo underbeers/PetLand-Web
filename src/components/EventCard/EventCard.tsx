@@ -4,7 +4,19 @@ import {NavLink} from 'react-router-dom';
 import styles from './EventCard.module.css';
 
 
-const EventCard = () => {
+interface iEventProps {
+    id: string,
+    name: string,
+    description: string,
+    city: number,
+    place: string,
+    date: string,
+    price: string,
+    phone: string,
+    photo: string
+}
+
+const EventCard: React.FC<iEventProps> = ({id, name, description, city, place, date, price, phone, photo}) => {
 
     const [isLiked, setIsLiked] = useState(false);
     const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
@@ -14,25 +26,25 @@ const EventCard = () => {
     });
 
     return (
-        <NavLink to={'/services/events/event-page'} className={styles.card}>
+        <NavLink to={`/services/events/event?id=${id}`} className={styles.card}>
             <img className={styles.photo}
-                 src={'https://krasivosti.pro/uploads/posts/2022-01/1641407305_56-krasivosti-pro-p-vistavka-koshek-krasivo-foto-57.jpg'}
+                 src={photo}
                  alt={'Фото мероприятия'}/>
             <div className={styles.eventInfo}>
                 <div className={styles.name}>
-                    <h5>Название мероприятия</h5>
+                    <h5>{name}</h5>
                 </div>
 
                 {!isMobile ? <div className={styles.place}>
                     <p>Место:</p>
-                    <p>Нижегородская ярмарка</p>
+                    <p>{place}</p>
                 </div> :
-                    <p className={'secondary__text-2'}>Нижегородская ярмарка</p>
+                    <p className={'secondary__text-2'}>{place}</p>
                 }
 
                 <div className={styles.date__price}>
-                    <p>дд.мм.гггг</p>
-                    <p>500 ₽</p>
+                    <p className={styles.date}>{date}</p>
+                    <p className={styles.price}>{price}</p>
                 </div>
             </div>
         </NavLink>

@@ -1,0 +1,84 @@
+.card {
+    background-color: var(--base--0);
+    border-radius: 8px;
+    display: flex;
+    transition: scale .2s;
+    width: 273px;
+    flex-direction: column;
+}
+
+.card:hover {
+    scale: 103%;
+}
+
+.photo {
+    object-fit: cover;
+    width: 100%;
+    height: 200px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.orgInfo {
+    padding: 12px;
+}
+
+.name__like {
+    display: flex;
+    justify-content: space-between;
+}
+
+.heart {
+    height: 28px;
+    width: 28px;
+    cursor: pointer;
+}
+
+.heart path {
+    fill: var(--red--700);
+}
+
+.rating__stars {
+    display: flex;
+}
+
+.star__number {
+    display: flex;
+    align-items: center;
+}
+
+.star path {
+    fill: var(--orange--500);
+}
+
+.additional__info {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-top: 4px;
+}
+
+@media screen and (max-width: 700px) {
+    .card {
+        width: calc(50% - 8px);
+        position: relative;
+    }
+
+    .photo {
+        object-fit: cover;
+        height: 140px;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+    }
+
+    .heart {
+        position: absolute;
+        top: 4px;
+        right: 4px;
+    }
+
+    .orgInfo {
+        padding: 8px;
+    }
+
+}

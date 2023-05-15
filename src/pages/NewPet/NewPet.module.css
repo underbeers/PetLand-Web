@@ -16,6 +16,10 @@
     gap: 30px;
 }
 
+.input__row > label {
+    width: 100%;
+}
+
 .tittle__checkboxes {
     display: flex;
     flex-direction: column;

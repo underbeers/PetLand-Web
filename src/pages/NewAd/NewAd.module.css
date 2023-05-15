@@ -1,0 +1,178 @@
+.form {
+    width: 980px;
+    background-color: var(--base--0);
+    border-radius: var(--border-12);
+    padding: 60px 101px;
+    margin: 0 auto;
+}
+
+.form h1 {
+    text-align: center;
+}
+
+.selectors {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 40px;
+    padding: 40px 0;
+}
+
+.select__pet {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.pet__cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.select__price {
+    display: flex;
+    gap: 24px;
+    flex-direction: column;
+}
+
+.price__selectors {
+    display: flex;
+    gap: 30px;
+}
+
+.price__input {
+    width: 273px !important;
+}
+
+.radio__container {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+}
+
+.select__description {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.description__input {
+    width: 475px !important;
+    height: 120px;
+}
+
+.select__address {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.address__inputs {
+    display: flex;
+    justify-content: space-between;
+}
+
+.city__input {
+    width: 374px !important;
+}
+
+.district__input {
+    width: 374px !important;
+}
+
+.select__communication {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.communication__inputs {
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+}
+
+.phone__check__input {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.publish {
+    display: block;
+}
+
+.publish button {
+    display: block;
+    margin: 0 auto;
+}
+
+@media screen and (max-width: 700px) {
+    .form {
+        width: 100%;
+        background-color: transparent;
+        border-radius: 0;
+        padding: 0;
+        margin: 0 auto;
+    }
+
+    .selectors {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        gap: 32px;
+        padding: 20px 0;
+    }
+
+    .select__price {
+        display: flex;
+        gap: 24px;
+        flex-direction: column;
+    }
+
+    .price__selectors {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        align-items: flex-start;
+    }
+
+    .price__input {
+        width: 154px !important;
+    }
+
+    .description__input {
+        width: 100% !important;
+    }
+
+    .address__inputs {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .city__input {
+        width: 100% !important;
+    }
+
+    .district__input {
+        width: 100% !important;
+    }
+
+    .communication__inputs {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .phone__check__input {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .publish {
+        padding: 20px 0;
+    }
+}

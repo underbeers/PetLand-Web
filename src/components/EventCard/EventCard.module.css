@@ -1,0 +1,52 @@
+.card {
+    background-color: var(--base--0);
+    border-radius: 8px;
+    display: flex;
+    transition: scale .2s;
+    width: 273px;
+    flex-direction: column;
+}
+
+.card:hover {
+    scale: 103%;
+}
+
+.photo {
+    object-fit: cover;
+    width: 100%;
+    height: 200px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.eventInfo {
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.date__price {
+    display: flex;
+    justify-content: space-between;
+}
+
+@media screen and (max-width: 700px) {
+    .card {
+        width: calc(50% - 8px);
+    }
+
+    .photo {
+        object-fit: cover;
+        height: 140px;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+    }
+
+    .eventInfo {
+        padding: 12px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+}

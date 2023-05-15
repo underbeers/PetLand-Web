@@ -1,8 +1,10 @@
+.wrapper {
+    padding-top: 24px;
+}
+
 .chat__window {
     background-color: var(--base--0);
     height: calc(100 * var(--vh) - 60px - 48px);
-    margin-top: 24px;
-
     border: 1px solid var(--base--300);
     box-shadow: var(--chat-shadow);
     border-radius: 12px;

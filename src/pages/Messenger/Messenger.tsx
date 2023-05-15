@@ -14,20 +14,22 @@ const Messenger: React.FC = () => {
     const chat = searchParams.get('chat');
 
     return (
-        <div className={styles.chat__window}>
-            <div className={styles.header}>
-                <h1>Чаты</h1>
-            </div>
-            <div className={styles.chat__wrapper}>
-                <div className={styles.dialogs}>
-                    <Dialogs chatID={chat}/>
+        <div className={styles.wrapper}>
+            <div className={styles.chat__window}>
+                <div className={styles.header}>
+                    <h1>Чаты</h1>
                 </div>
-                <div className={styles.dialog}>
-                    {chat ?
-                        <Chat chatID={chat}/>
-                        :
-                        <>Здесь будут ваши сообщения</>
-                    }
+                <div className={styles.chat__wrapper}>
+                    <div className={styles.dialogs}>
+                        <Dialogs chatID={chat}/>
+                    </div>
+                    <div className={styles.dialog}>
+                        {chat ?
+                            <Chat chatID={chat}/>
+                            :
+                            <>Здесь будут ваши сообщения</>
+                        }
+                    </div>
                 </div>
             </div>
         </div>

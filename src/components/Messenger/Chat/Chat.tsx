@@ -10,7 +10,6 @@ import Icons from '../../UIKit/Icons';
 import Bubble from '../Bubble/Bubble';
 
 import styles from './Chat.module.css';
-import cn from "classnames";
 
 
 const Chat: React.FC<{ chatID: string }> = ({chatID}) => {
@@ -30,6 +29,7 @@ const Chat: React.FC<{ chatID: string }> = ({chatID}) => {
         return function cleanup() {
             document.removeEventListener('keydown', handleKeyDown);
         }
+
     }, []);
 
     const getUser: () => ChatUserType = () => {

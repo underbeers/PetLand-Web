@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import {Route, Routes, useLocation} from 'react-router-dom';
+import React, {useEffect, useRef, useState} from 'react';
+import {Route, Routes, useLocation, useSearchParams} from 'react-router-dom';
 import cn from 'classnames';
 
 import mainRoutesConfig from '../routes/mainRoutesConfig';
@@ -7,16 +7,39 @@ import {initialUserContextState, iUser, UserContext} from '../userContext';
 import {ChatContext, ChatUserType, initialChatContextState} from '../chatContext';
 import userService from '../services/userService';
 
+// @ts-ignore
+import NotificationSound from "../static/notification.mp3";
+
 import Header from './Header/Header';
 import Footer from './Footer/Footer';
 
 import styles from './App.module.css';
+import messenger from "../pages/Messenger/Messenger";
 
 
 const App: React.FC = () => {
     const [user, setUser] = useState<iUser>(structuredClone(initialUserContextState.user));
     const [chat, setChat] = useState<ChatContext>(initialChatContextState);
     const location = useLocation();
+
+    const audioPlayer = useRef(null);
+    const [searchParams, setSearchParams] = useSearchParams();
+    const chatParam = searchParams.get('chat');
+
+    function playAudio() {
+        // @ts-ignore
+        audioPlayer.current.play();
+    }
+
+    useEffect(()=>{
+        chat.users.forEach(user_ => {
+            if (user_.userID == chatParam) {
+                user_.hasNewMessage = false;
+            }
+        });
+        //console.log('chatParam update');
+        setChat({...chat});
+    }, [chatParam]);
 
     useEffect(() => {
         const localUser = localStorage.getItem('accessToken');
@@ -64,8 +87,13 @@ const App: React.FC = () => {
                 time: string
             }) => {
                 chat.users.forEach(user_ => {
-                    if (message.from == user_.userID && message.to == user.chatUserID || message.from == user.chatUserID && message.to == user_.userID) {
+                    if (message.from == user_.userID && message.to == user.chatUserID ||
+                        message.from == user.chatUserID && message.to == user_.userID) {
                         user_.messages.push(message);
+                    }
+                    if (message.from != user.chatUserID && chatParam != message.from && message.from == user_.userID) {
+                        user_.hasNewMessage = true;
+                        playAudio();
                     }
                 });
                 setChat({...chat});
@@ -116,6 +144,7 @@ const App: React.FC = () => {
                     </Routes>
                 </main>
                 {location.pathname != '/messenger' && <Footer/>}
+                <audio ref={audioPlayer} src={NotificationSound} />
             </ChatContext.Provider>
         </UserContext.Provider>
     );

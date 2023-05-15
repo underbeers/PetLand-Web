@@ -1,7 +1,8 @@
 import React, {useContext} from 'react';
-import {UserContext} from '../../userContext';
+import {useUserContext} from '../../userContext';
 import {NavLink} from 'react-router-dom';
 
+import {useChatContext} from '../../chatContext';
 import userService from '../../services/userService';
 
 import Icons from '../UIKit/Icons';
@@ -11,8 +12,8 @@ import styles from './SideBarProfile.module.css'
 
 
 const SideBarProfile = () => {
-    const {user, setUser} = useContext(UserContext);
-
+    const {user, setUser} = useUserContext();
+    const {socket} = useChatContext();
     return (
         <div>
             <div className={styles.content}>
@@ -50,7 +51,7 @@ const SideBarProfile = () => {
                     <Icons icon={'settings'}/>
                     <p>Настройки</p>
                 </NavLink>
-                <a className={styles.menu__item} onClick={() => userService.signOut(setUser)}>
+                <a className={styles.menu__item} onClick={() => userService.signOut(setUser, socket)}>
                     <Icons icon={'sign-out'}/>
                     <p>Выход</p>
                 </a>

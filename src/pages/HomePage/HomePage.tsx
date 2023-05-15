@@ -20,7 +20,6 @@ import styles from './HomePage.module.css'
 
 
 const HomePage: React.FC = () => {
-
     const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
 
     window.addEventListener('resize', () => {
@@ -44,9 +43,15 @@ const HomePage: React.FC = () => {
             <div className={styles.main__screen}>
                 <div className={styles.title__desc}>
                     <p className={styles.title}>PetLand</p>
-                    {!isMobile ? <h1 className={styles.desc}>помощник для владельцев и будущих<br/>владельцев домашних питомцев</h1> :
-                        <h3 className={styles.desc}>помощник для владельцев<br/>и будущих владельцев домашних питомцев</h3>}
-
+                    {!isMobile ?
+                        <h1 className={styles.desc}>
+                            помощник для владельцев и будущих<br/>владельцев домашних питомцев
+                        </h1>
+                        :
+                        <h3 className={styles.desc}>
+                            помощник для владельцев<br/>и будущих владельцев домашних питомцев
+                        </h3>
+                    }
                 </div>
                 <img src={pets} alt={'Питомцы'} className={styles.main__photo}/>
             </div>
@@ -85,7 +90,6 @@ const HomePage: React.FC = () => {
                             </>}
                     </div>
                 </div>
-
                 <div className={styles.block}>
                     <div className={styles.title__show}>
                         {!isMobile ? <h2>Лучшие специалисты</h2> : <h4>Лучшие специалисты</h4>}
@@ -105,10 +109,8 @@ const HomePage: React.FC = () => {
                                 <SpecialistCard {...specialists[1]}/>
                             </>
                         }
-
                     </div>
                 </div>
-
                 <div className={styles.block}>
                     <div className={styles.title__show}>
                         {!isMobile ? <h2>Популярные организации</h2> : <h4>Популярные организации</h4>}
@@ -129,7 +131,6 @@ const HomePage: React.FC = () => {
                             </>}
                     </div>
                 </div>
-
                 <div className={styles.block}>
                     <div className={styles.title__show}>
                         {!isMobile ? <h2>Интересные мероприятия</h2> : <h4>Интересные мероприятия</h4>}

@@ -1,0 +1,70 @@
+.card {
+    width: 100%;
+    padding: 12px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.card:hover, .active {
+    background-color: var(--orange--50);
+}
+
+.photo {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.photo__wrapper {
+    position: relative;
+}
+
+.photo__wrapper:before {
+    content: '';
+    position: absolute;
+    background-color: var(--green--500);
+    border-radius: 50%;
+    right: 2%;
+    bottom: 2%;
+    border: 2px solid var(--base--0);
+    width: 8px;
+    height: 8px;
+}
+
+.info {
+    flex: 1;
+    overflow: hidden;
+    height: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.name__n__time {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    position: relative;
+}
+
+.last__message {
+    color: var(--base--700);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    padding-right: 12px;
+}
+
+.has__new__message {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: var(--red--500);
+    width: 12px;
+    height: 12px;
+    border-radius: 100%;
+}

@@ -2,7 +2,7 @@ import React, {useContext, useState} from 'react';
 import cn from 'classnames';
 
 import {iAuthProps} from '../Authorization';
-import {UserContext} from '../../../userContext';
+import {useUserContext} from '../../../userContext';
 import {emailRegExp, passwordRegExp} from '../../../constants/regularExpressions';
 import userService from '../../../services/userService';
 
@@ -27,7 +27,7 @@ const SignIn: React.FC<iAuthProps> = ({switchContent, closeModal, isMobile}) => 
     const [savePwd, setSavePwd] = useState(false);
     const [responseCode, setResponseCode] = useState(0);
 
-    const {user, setUser} = useContext(UserContext);
+    const {user, setUser} = useUserContext();
 
     const login = async () => {
         document.querySelectorAll('#login_form input').forEach((el) => {
@@ -84,7 +84,7 @@ const SignIn: React.FC<iAuthProps> = ({switchContent, closeModal, isMobile}) => 
                                     Неверный логин или пароль
                                 </p>
                             }
-                            <Button color={'orange'} text={'Войти'} onClick={login} type={'primary'}/>
+                            <Button color={'orange'} text={'Войти'} onClick={login} type={'primary'} loading={user.loading} disabled={!email.ok || !password.ok}/>
                         </div>
                         <p className={cn('secondary__text-1', generalStyles.switch__content)}>
                             У вас ещё нет аккаунта?
@@ -134,7 +134,7 @@ const SignIn: React.FC<iAuthProps> = ({switchContent, closeModal, isMobile}) => 
                                 Неверный логин или пароль
                             </p>
                         }
-                        <Button color={'orange'} text={'Войти'} onClick={login} type={'primary'} disabled={!email.ok || !password.ok}/>
+                        <Button color={'orange'} text={'Войти'} onClick={login} type={'primary'} loading={user.loading} disabled={!email.ok || !password.ok}/>
 
                         <p className={cn('primary__text', styles.sub__color)}>
                             У вас ещё нет аккаунта?<br/>

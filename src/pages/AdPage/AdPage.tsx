@@ -1,6 +1,7 @@
 import React, {useContext, useState} from 'react';
 import {useNavigate, useSearchParams} from 'react-router-dom';
-import {UserContext} from '../../userContext';
+
+import {useUserContext} from '../../userContext';
 
 import Chips from '../../components/UIKit/Chips';
 import Icons from '../../components/UIKit/Icons';
@@ -34,7 +35,7 @@ const AdPage = () => {
         navigate(-1);
     };
 
-    const {user, setUser} = useContext(UserContext);
+    const {user, setUser} = useUserContext();
     const [searchParams, setSearchParams] = useSearchParams();
     const userID = searchParams.get('user-id') || '';
 

@@ -1,6 +1,7 @@
 import HomePage from '../pages/HomePage/HomePage';
 import Profile from '../pages/Profile/Profile';
 import NewPet from '../pages/NewPet/NewPet';
+import Messenger from '../pages/Messenger/Messenger';
 import Page404 from '../pages/Page404/Page404';
 import EmailPage from '../pages/PasswordRecovery/EmailPage';
 import NewPasswordPage from '../pages/PasswordRecovery/NewPasswordPage';
@@ -34,19 +35,19 @@ const routesConfig = [
     },
     {
         path: PATH_PREFIX + '/services',
-        element: <AllServices />
+        element: <AllServices/>
     },
     {
         path: PATH_PREFIX + '/services/specialists',
-        element: <Specialists />
+        element: <Specialists/>
     },
     {
         path: PATH_PREFIX + '/services/organizations',
-        element: <Organizations />
+        element: <Organizations/>
     },
     {
         path: PATH_PREFIX + '/services/events',
-        element: <Events />
+        element: <Events/>
     },
     {
         path: PATH_PREFIX + '/new-pet',
@@ -71,6 +72,9 @@ const routesConfig = [
     {
         path: PATH_PREFIX + '/services/specialists/specialist',
         element: <SpecialistPage/>
+    },
+        path: PATH_PREFIX + '/messenger',
+        element: <Messenger/>
     },
     {
         path: PATH_PREFIX + '/services/organizations/organization',

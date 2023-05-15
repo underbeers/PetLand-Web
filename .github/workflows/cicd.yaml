@@ -49,9 +49,10 @@ jobs:
           context: .
           build-args: |
             "REACT_APP_API_URL=petland-backend-k8s.underbeers.space"
+            "REACT_APP_CHAT_API_URL=petland-chat-backend.underbeers.space"
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/pl_frontend:v2
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/pl_frontend:v3
 
   deploy:
     name: Deploy

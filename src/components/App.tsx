@@ -1,10 +1,14 @@
-import React, {useEffect, useState} from 'react';
-import {Route, Routes} from 'react-router-dom';
+import React, {useEffect, useRef, useState} from 'react';
+import {Route, Routes, useLocation, useSearchParams} from 'react-router-dom';
 import cn from 'classnames';
 
 import mainRoutesConfig from '../routes/mainRoutesConfig';
-import {initialUserContextState, UserContext} from '../userContext';
+import {initialUserContextState, iUser, UserContext} from '../userContext';
+import {ChatContext, ChatUserType, initialChatContextState} from '../chatContext';
 import userService from '../services/userService';
+
+// @ts-ignore
+import NotificationSound from '../static/notification.mp3';
 
 import Header from './Header/Header';
 import Footer from './Footer/Footer';
@@ -13,32 +17,134 @@ import styles from './App.module.css';
 
 
 const App: React.FC = () => {
+    const [user, setUser] = useState<iUser>(structuredClone(initialUserContextState.user));
+    const [chat, setChat] = useState<ChatContext>(initialChatContextState);
+    const location = useLocation();
 
-    const [user, setUser] = useState(initialUserContextState.user);
+    const audioPlayer = useRef(null);
+    const [searchParams, setSearchParams] = useSearchParams();
+    const chatParam = searchParams.get('chat');
+
+    function playAudio() {
+        // @ts-ignore
+        audioPlayer.current.play();
+    }
+
+    useEffect(() => {
+        chat.users.forEach(user_ => {
+            if (user_.userID == chatParam) {
+                user_.hasNewMessage = false;
+            }
+        });
+        //console.log('chatParam update');
+        setChat({...chat});
+    }, [chatParam]);
+
     useEffect(() => {
         const localUser = localStorage.getItem('accessToken');
         if (localUser && localUser != 'undefined') {
-            user.loading = true;
-            user.accessToken = localUser;
-            userService.syncUser(user, setUser, true);
+            setUser({...user, accessToken: localUser});
         }
     }, []);
 
+    useEffect(() => {
+        if (user.loading) {
+            return;
+        }
+        if (!user.empty) {
+            //console.log(user);
+            if (user.chatUserID && user.sessionID) {
+                // authorisation
+                chat.socket.auth = {sessionID: user.sessionID};
+            } else {
+                // registration
+                chat.socket.auth = {username: `${user.firstName} ${user.surName}`};
+            }
+            chat.socket.connect();
+            chat.socket.on('session', ({sessionID, userID}) => {
+                chat.socket.auth = {sessionID};
+                if (user.accessToken) {
+                    userService.setChatUserIDSessionID({chatID: userID, sessionID: sessionID}, user.accessToken);
+                }
+                // @ts-ignore
+                chat.socket.userID = userID;
+                chat.userID = userID;
+                // @ts-ignore
+                chat.setChat = setChat;
+                setChat({...chat});
+            });
+            chat.socket.onAny((event, ...args) => {
+                //console.log(event, args);
+            });
+            chat.socket.on('disconnect', () => {
+                setChat(initialChatContextState);
+            });
+            chat.socket.on('private message', (message: {
+                content: string,
+                from: string,
+                to: string,
+                time: string
+            }) => {
+                chat.users.forEach(user_ => {
+                    if (message.from == user_.userID && message.to == user.chatUserID ||
+                        message.from == user.chatUserID && message.to == user_.userID) {
+                        user_.messages.push(message);
+                    }
+                    if (message.from != user.chatUserID && chatParam != message.from && message.from == user_.userID) {
+                        user_.hasNewMessage = true;
+                        playAudio();
+                    }
+                });
+                setChat({...chat});
+            });
+            chat.socket.on('users', (usersNew: Array<ChatUserType>) => {
+                usersNew.forEach(u => u.hasNewMessage = false);
+                chat.users = structuredClone(usersNew);
+                setChat({...chat});
+            });
+            chat.socket.on('user connected', (user) => {
+                for (let i = 0; i < chat.users.length; i++) {
+                    if (chat.users[i].userID === user.userID) {
+                        chat.users[i].connected = true;
+                        setChat({...chat});
+                        return;
+                    }
+                }
+            });
+            chat.socket.on('user disconnected', (id) => {
+                for (let i = 0; i < chat.users.length; i++) {
+                    if (chat.users[i].userID === id) {
+                        chat.users[i].connected = false;
+                        setChat({...chat});
+                        return;
+                    }
+                }
+            });
+        } else {
+            if (user.accessToken) {
+                userService.syncUser(user, setUser);
+            }
+        }
+    }, [user]);
+
     return (
-        <UserContext.Provider value={{user, setUser}}>
-            <Header/>
-            <main className={cn(styles.main, 'container')}>
-                <Routes>
-                    {mainRoutesConfig.map((route, index) => (
-                        <Route
-                            key={index}
-                            path={route.path}
-                            element={route.element}
-                        />
-                    ))}
-                </Routes>
-            </main>
-            <Footer/>
+        <UserContext.Provider value={{user: user, setUser: setUser}}>
+            <ChatContext.Provider value={chat}>
+                <Header/>
+                <main className={cn(styles.main, 'container')}>
+                    <Routes>
+                        {mainRoutesConfig.map((route, index) => (
+                            <Route
+                                key={index}
+                                path={route.path}
+                                element={route.element}
+                            />
+                        ))}
+                    </Routes>
+                </main>
+                {location.pathname != '/messenger' && <Footer/>}
+                <audio ref={audioPlayer} src={NotificationSound}/>
+            </ChatContext.Provider>
         </UserContext.Provider>
     );
 };

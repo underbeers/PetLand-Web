@@ -73,6 +73,7 @@ const routesConfig = [
         path: PATH_PREFIX + '/services/specialists/specialist',
         element: <SpecialistPage/>
     },
+    {
         path: PATH_PREFIX + '/messenger',
         element: <Messenger/>
     },

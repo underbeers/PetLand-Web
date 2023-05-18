@@ -46,10 +46,15 @@ class UserService {
     public async getChatUserID(userID: string) {
         return fetch(API_URL + `/user/${userID}/chatID`,{
             method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
+            headers: {'Content-Type': 'application/json'}
         });
+    }
+
+    public async getUserInfoByID(userID: string) {
+        return fetch(API_URL + '/user/infoByID?userID=${userID}', {
+            method: 'GET',
+            headers: {'Content-Type': 'application/json'}
+        })
     }
 
     public async askPasswordRecovery(params: { email: string }) {

@@ -14,12 +14,14 @@ import PetAdCard from '../../components/PetAdCard/PetAdCard';
 
 import styles from './NewAd.module.css';
 import AdvertService from "../../services/advertService";
+import {unmountComponentAtNode} from "react-dom";
+import {types} from "util";
 
 
 const prices_radio = [
     {id: 0, value: 'Фиксированная'},
-    {id: 1, value: 'Договорная'},
-    {id: 2, value: 'Бесплатно'},
+    {id: 1, value: 'Бесплатно'},
+    {id: 2, value: 'Договорная'},
 ];
 
 type CityType = {
@@ -76,7 +78,6 @@ const NewAd = () => {
             }
         });
     }, []);
-    console.log(cities, districts);
     useEffect(() => {
         if (user.empty) {
             return;
@@ -86,10 +87,14 @@ const NewAd = () => {
             switch (response.status) {
                 case 200:
                     return response.json();
+                default:
+                    return null;
             }
         }).then(body => {
             //console.log(body);
-            setPets(body);
+            if (body) {
+                setPets(body);
+            }
         });
     }, [user]);
 
@@ -110,12 +115,87 @@ const NewAd = () => {
         setIsMobile(window.innerWidth <= 700);
     });
 
+    const createAd = () => {
+        document.querySelectorAll('#new_ad_form input').forEach(el => {
+            // @ts-ignore
+            el.focus();
+        });
+        document.querySelectorAll('#new_ad_form textarea').forEach(el => {
+            // @ts-ignore
+            el.focus();
+        });
+        let isOk: boolean = true;
+
+        const inputs = [
+            {state: description, setState: setDescription},
+            {state: city, setState: setCity},
+            {state: district, setState: setDistrict},
+        ];
+
+        inputs.forEach(({state, setState}) => {
+            if (!state.ok) {
+                isOk = false;
+            }
+        });
+
+        if (!isOk) {
+            console.log('Field validation error')
+            return;
+        }
+
+        const selectedCity = cities.find(city_ => city_.city == city.value);
+        if (!selectedCity) {
+            console.log('Wrong city');
+            return;
+        }
+        const selectedDistrict = districts.find(district_ => district_.district == district.value && district_.cityID == selectedCity.id);
+        if (!selectedDistrict) {
+            console.log('Wrong district');
+            return;
+        }
+
+        let params: {
+            petCardID: number, price: number, description: string, cityID: number,
+            districtID: number, chat: boolean, phone?: string
+        } = {
+            petCardID: Number(selectedPet),
+            price: selectedRadio == 2 ? (-1) : (selectedRadio == 1 ? 0 : Number(price.value)),
+            description: description.value,
+            cityID: selectedDistrict.cityID,
+            districtID: selectedDistrict.id,
+            chat
+        };
+        if (phoneCheck) {
+            params.phone = phoneNumber.value;
+        }
+        console.log(params.price)
+        AdvertService.createAdvert(params, user.accessToken).then(response => {
+            console.log(response);
+            switch (response.status) {
+                case 200:
+                    return response.json();
+                case 400:
+                    response.json().then(body => {
+                        alert(body.message);
+                    })
+                    return null;
+                default:
+                    return null;
+            }
+        }).then(body => {
+            if (body) {
+                console.log(body);
+                navigate('/bulletin-board');
+            }
+        });
+    }
+
     return (
         <>
             {isMobile && <TopBar leftButton={'burger'}>
                 <h5>Создание нового объявления</h5>
             </TopBar>}
-            <div className={styles.form}>
+            <form id={'new_ad_form'} className={styles.form}>
                 {!isMobile && <h1>Создание нового объявления</h1>}
                 <div className={styles.selectors}>
                     <div className={styles.select__pet}>
@@ -140,7 +220,7 @@ const NewAd = () => {
                     </div>
 
                     <div className={styles.select__price}>
-                        {!isMobile ? <h3>2. Цена</h3> : <h5>2. Цена</h5>}
+                        {!isMobile ? <h3>2. Цена (₽)</h3> : <h5>2. Цена (₽)</h5>}
                         <div className={styles.price__selectors}>
                             <Input type={'number'} value={price} setValue={setPrice} placeholder={'Введите цену'}
                                    className={styles.price__input} disabled={selectedRadio !== 0}/>
@@ -169,7 +249,8 @@ const NewAd = () => {
                             {!isMobile ? <h3>4. Адрес</h3> : <h5>4. Адрес</h5>}
                             <div className={styles.address__inputs}>
                                 <Input type={'dropdown'} value={city} setValue={setCity} label={'Город'}
-                                       placeholder={'Начните вводить название...'} dropdownItems={cities.map(city => city.city)}
+                                       placeholder={'Начните вводить название...'}
+                                       dropdownItems={cities.map(city => city.city)}
                                        className={styles.city__input} required={true}/>
                                 <Input type={'dropdown'} value={district} setValue={setDistrict} label={'Район'}
                                        placeholder={'Начните вводить название...'} className={styles.district__input}
@@ -180,7 +261,7 @@ const NewAd = () => {
 
                         <div className={styles.select__communication}>
                             {!isMobile ? <h3>5. Предпочитаемый способ связи</h3> :
-                                <h5>5. Предпочитаемый способ связи</h5>}
+                                <h5>5. Способ связи</h5>}
                             <div className={styles.communication__inputs}>
                                 <Checkbox isChecked={chat} setChecked={setChat}>Внутренний чат
                                     сервиса</Checkbox>
@@ -188,17 +269,17 @@ const NewAd = () => {
                                     <Checkbox isChecked={phoneCheck} setChecked={setPhoneCheck}>Номер
                                         телефона</Checkbox>
                                     <Input type={'phone'} value={phoneNumber} setValue={setPhoneNumber}
-                                           className={styles.phone__input} placeholder={'Номер телефона'} disabled={!phoneCheck}/>
+                                           className={styles.phone__input} placeholder={'Номер телефона'}
+                                           disabled={!phoneCheck}/>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div className={styles.publish}>
-                        <Button type={'primary'} text={'Опубликовать'} color={'orange'} onClick={() => {
-                        }}/>
+                        <Button type={'primary'} text={'Опубликовать'} color={'orange'} onClick={createAd}/>
                     </div>
                 </div>
-            </div>
+            </form>
         </>
     );
 };

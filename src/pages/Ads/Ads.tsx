@@ -1,11 +1,13 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {NavLink, useNavigate} from 'react-router-dom';
+
+import AdvertService from "../../services/advertService";
 
 import Checkbox from '../../components/UIKit/Checkbox';
 import Icons from '../../components/UIKit/Icons';
 import Button from '../../components/UIKit/Button';
 import Input from '../../components/UIKit/Input';
-import AdCards from '../../components/AdCards/AdCards';
+import AdCards, {AdCardInfoType} from '../../components/AdCards/AdCards';
 import PetTypes from '../../components/PetTypes/PetTypes';
 import TopBar from '../../components/TopBar/TopBar';
 import Tabs from '../../components/Tabs/Tabs';
@@ -18,7 +20,7 @@ const Ads: React.FC = () => {
     const [typeSelected, setTypeSelected] = useState(false);
 
     const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
-    const [isBigAd, setIsBigAd] = useState(false);
+    const [isBigAd, setIsBigAd] = useState(true);
     const [breed, setBreed] = useState(initialInputState);
     const [priceFrom, setPriceFrom] = useState(initialInputState);
     const [priceTo, setPriceTo] = useState(initialInputState);
@@ -30,6 +32,29 @@ const Ads: React.FC = () => {
     });
 
     const navigate = useNavigate();
+
+    const [adverts, setAdverts] = useState<Array<AdCardInfoType>>([]);
+
+    useEffect(()=>{
+        AdvertService.getAdverts().then(response => {
+            //console.log(response);
+            switch (response.status) {
+                case 200:
+                    return response.json();
+                default:
+                    //console.log('Error', response);
+                    return null;
+            }
+        }).then((body: {
+            nextPage: string,
+            records: Array<AdCardInfoType>,
+            totalCount: number, totalPage: number}) => {
+            if (body) {
+                console.log(body.records)
+                setAdverts(body.records);
+            }
+        });
+    }, []);
 
     return (
         <>
@@ -101,30 +126,14 @@ const Ads: React.FC = () => {
                         <>
                         </>
                     }
-
                     <div className={styles.all__ads}>
-                        {isBigAd ?
-                            <>
-                                <AdCards size={'big'} url={`/ad-page`}/>
-                                <AdCards size={'big'} url={`/ad-page`}/>
-                                <AdCards size={'big'} url={`/ad-page`}/>
-                                <AdCards size={'big'} url={`/ad-page`}/>
-                                <AdCards size={'big'} url={`/ad-page`}/>
-                                <AdCards size={'big'} url={`/ad-page`}/>
-                                <AdCards size={'big'} url={`/ad-page`}/>
-                                <AdCards size={'big'} url={`/ad-page`}/>
-                            </>
-                            :
-                            <>
-                                <AdCards size={'small'} url={`/ad-page`}/>
-                                <AdCards size={'small'} url={`/ad-page`}/>
-                                <AdCards size={'small'} url={`/ad-page`}/>
-                                <AdCards size={'small'} url={`/ad-page`}/>
-                                <AdCards size={'small'} url={`/ad-page`}/>
-                                <AdCards size={'small'} url={`/ad-page`}/>
-                                <AdCards size={'small'} url={`/ad-page`}/>
-                                <AdCards size={'small'} url={`/ad-page`}/>
-                            </>}
+                        {
+                            adverts.map((ad, index) =>
+                                <AdCards
+                                    key={index}
+                                    size={isBigAd ? 'big' : 'small'}
+                                    info={ad}/>)
+                        }
                     </div>
                 </div>
             </div>

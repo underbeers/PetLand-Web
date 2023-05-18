@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import cn from 'classnames';
 
@@ -8,7 +8,7 @@ import {events} from '../Services/Events/Events';
 
 import Icons from '../../components/UIKit/Icons';
 import Button from '../../components/UIKit/Button';
-import AdCards from '../../components/AdCards/AdCards';
+import AdCards, {AdCardInfoType} from '../../components/AdCards/AdCards';
 import SpecialistCard from '../../components/SpecialistCard/SpecialistCard';
 import OrganizationCard from '../../components/OrganizationCard/OrganizationCard';
 import EventCard from '../../components/EventCard/EventCard';
@@ -17,6 +17,7 @@ import TopBar from '../../components/TopBar/TopBar';
 import pets from './img/pets.png';
 
 import styles from './HomePage.module.css'
+import AdvertService from "../../services/advertService";
 
 
 const HomePage: React.FC = () => {
@@ -27,6 +28,28 @@ const HomePage: React.FC = () => {
     });
 
     const navigate = useNavigate();
+
+    const [adverts, setAdverts] = useState<Array<AdCardInfoType>>([]);
+
+    useEffect(()=>{
+        AdvertService.getAdverts().then(response => {
+            //console.log(response);
+            switch (response.status) {
+                case 200:
+                    return response.json();
+                default:
+                    //console.log('Error', response);
+                    return null;
+            }
+        }).then((body: {
+            nextPage: string,
+            records: Array<AdCardInfoType>,
+            totalCount: number, totalPage: number}) => {
+            if (body) {
+                setAdverts(body.records);
+            }
+        });
+    }, []);
 
     return (
         <>
@@ -78,16 +101,13 @@ const HomePage: React.FC = () => {
                         }}>Посмотреть все</p>
                     </div>
                     <div className={styles.cards__block}>
-                        {!isMobile ? <>
-                                <AdCards size={'small'} url={'/ad-page'}/>
-                                <AdCards size={'small'} url={'/ad-page'}/>
-                                <AdCards size={'small'} url={'/ad-page'}/>
-                                <AdCards size={'small'} url={'/ad-page'}/>
-                            </> :
-                            <>
-                                <AdCards size={'small'} url={'/ad-page'}/>
-                                <AdCards size={'small'} url={'/ad-page'}/>
-                            </>}
+                        {
+                            adverts.map((ad, index) =>
+                                <AdCards
+                                    key={index}
+                                    size={'small'}
+                                    info={ad}/>)
+                        }
                     </div>
                 </div>
                 <div className={styles.block}>

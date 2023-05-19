@@ -25,9 +25,24 @@ export type AdCardInfoType = {
     publication: string,
     userID: string
 }
+
 interface iAdCardProps {
     size: 'big' | 'small',
     info: AdCardInfoType
+}
+
+export const prettyAdPrice = (price: number) => {
+    return price < 0 ? 'Цена договорная' : price === 0 ? 'Бесплатно' : `${price} ₽`;
+}
+
+export const prettyPublicationTime = (publication: string) => {
+    const date = new Date();
+    let pub = new Date(publication);
+    pub.setMinutes(pub.getMinutes() - date.getTimezoneOffset());
+
+    const publicationDate = pub.toJSON().substring(0, 10).split('-').reverse().join('.');
+    const publicationTime = pub.toJSON().substring(11, 16);
+    return {date: publicationDate, time: publicationTime}
 }
 
 const AdCards: React.FC<iAdCardProps> = ({size, info}) => {
@@ -38,13 +53,8 @@ const AdCards: React.FC<iAdCardProps> = ({size, info}) => {
     window.addEventListener('resize', () => {
         setIsMobile(window.innerWidth <= 700)
     });
-    const date = new Date();
-    let publication = new Date(info.publication);
-    publication.setMinutes(publication.getMinutes() - date.getTimezoneOffset());
 
-    const publicationDate = publication.toJSON().substring(0, 10).split('-').reverse().join('.');
-    const publicationTime = publication.toJSON().substring(11, 16);
-
+    const publication = prettyPublicationTime(info.publication);
     return (
         <NavLink to={`/ad-page?id=${info.id}`} className={cn(styles.card, styles[size])}>
             <img className={styles.photo}
@@ -53,7 +63,7 @@ const AdCards: React.FC<iAdCardProps> = ({size, info}) => {
                 <div className={styles.name__like}>
                     <div className={styles.name__price}>
                         {!isMobile ? <h4>{info.petName}</h4> : <h5>{info.petName}</h5>}
-                        <p>{info.price < 0 ? 'Цена договорная' : info.price === 0 ? 'Бесплатно' : `${info.price} ₽`}</p>
+                        <p>{prettyAdPrice(info.price)}</p>
                     </div>
                     {isLiked ?
                         <Icons icon={'cards-heart'} className={styles.heart} onClick={(event) => {
@@ -82,7 +92,7 @@ const AdCards: React.FC<iAdCardProps> = ({size, info}) => {
                     <div className={styles.info}>
                         {size === 'big' && <p className={styles.name__owner}>{info.userID}</p>}
                         <p className={styles.address__date}>{info.district} р-н</p>
-                        <p className={styles.address__date}>{publicationDate} {publicationTime}</p>
+                        <p className={styles.address__date}>{publication.date} {publication.time}</p>
                     </div>
                 </div>
             </div>

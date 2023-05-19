@@ -168,9 +168,8 @@ const NewAd = () => {
         if (phoneCheck) {
             params.phone = phoneNumber.value;
         }
-        console.log(params.price)
         AdvertService.createAdvert(params, user.accessToken).then(response => {
-            console.log(response);
+            //console.log(response);
             switch (response.status) {
                 case 200:
                     return response.json();
@@ -184,7 +183,7 @@ const NewAd = () => {
             }
         }).then(body => {
             if (body) {
-                console.log(body);
+                //console.log(body);
                 navigate('/bulletin-board');
             }
         });

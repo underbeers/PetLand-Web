@@ -93,11 +93,11 @@ const Events = () => {
             }
 
             <div className={styles.cards}>
-                {events.map(e => <EventCard {...e}/>)}
+                {events.map((e, index) => <EventCard key={index} {...e}/>)}
             </div>
 
         </>
-    )
-}
+    );
+};
 
 export default Events;

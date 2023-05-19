@@ -102,7 +102,9 @@ const HomePage: React.FC = () => {
                     </div>
                     <div className={styles.cards__block}>
                         {
-                            adverts.map((ad, index) =>
+                            adverts.sort((ad1, ad2) => {
+                                return new Date(ad1.publication).getTime() - new Date(ad2.publication).getTime();
+                            }).reverse().slice(0, isMobile ? 2 : 4).map((ad, index) =>
                                 <AdCards
                                     key={index}
                                     size={'small'}

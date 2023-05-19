@@ -50,7 +50,6 @@ const Ads: React.FC = () => {
             records: Array<AdCardInfoType>,
             totalCount: number, totalPage: number}) => {
             if (body) {
-                console.log(body.records)
                 setAdverts(body.records);
             }
         });
@@ -131,7 +130,7 @@ const Ads: React.FC = () => {
                             adverts.map((ad, index) =>
                                 <AdCards
                                     key={index}
-                                    size={isBigAd ? 'big' : 'small'}
+                                    size={isMobile ? 'small' : isBigAd ? 'big' : 'small'}
                                     info={ad}/>)
                         }
                     </div>

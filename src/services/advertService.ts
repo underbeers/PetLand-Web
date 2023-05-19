@@ -35,6 +35,10 @@ class AdvertService {
             body: JSON.stringify(params)
         });
     }
+
+    public async getFullAdvert(id: string) {
+        return fetch(API_URL + `/adverts/full?id=${id}`);
+    }
 }
 
 export default new AdvertService();

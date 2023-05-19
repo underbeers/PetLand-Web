@@ -84,16 +84,18 @@ const Chat: React.FC<{ chatID: string }> = ({chatID}) => {
             </div>
             <div className={styles.chat}>
                 {user2.messages.map((message, index) => {
-                    const time = new Date(message.time);
+                    const now = new Date();
+                    let time = new Date(message.time);
+                    time.setMinutes(time.getMinutes() - now.getTimezoneOffset());
                     const printDate = prettyTime(time) != prettyTime(prevDate);
-                    const key = index + 1;
+                    console.log(index);
                     prevDate = time;
                     return <Bubble
                         key={index}
                         type={message.to == user2.userID ? 'my' : 'alien'}
                         text={message.content}
                         time={time.toTimeString().substring(0, 5)}
-                        printDate={printDate}
+                        printDate={index == 0 || printDate}
                         date={prettyTime(time)}
                     />
                 }).reverse()}

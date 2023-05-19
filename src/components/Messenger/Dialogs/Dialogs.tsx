@@ -12,7 +12,16 @@ const Dialogs: React.FC<{ chatID: string | null }> = ({chatID}) => {
     const getUsers = () => chat.users//.filter(user => user.userID == chat.userID);
     return (<>
         {
-            getUsers().map((user, index) =>
+            getUsers().sort((u2, u1) => {
+                if (u1.messages.length && u2.messages.length) {
+                    return new Date(u1.messages[u1.messages.length - 1].time).getTime() -
+                        new Date(u2.messages[u2.messages.length - 1].time).getTime();
+                }
+                if (u1.messages.length) {
+                    return 1;
+                }
+                return -1;
+            }).map((user, index) =>
                 <Dialog
                     key={index}
                     id={user.userID}

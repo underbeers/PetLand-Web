@@ -135,7 +135,7 @@ const NewPet: React.FC = () => {
             isOk = false;
         }
 
-        const birthDate = new Date(birthday.value).toISOString();
+        const birthDate = new Date(birthday.value).toISOString().replace('Z', '666Z');
 
         if (!isOk) {
             setSubmitLoading(false);

@@ -1,12 +1,12 @@
-import React, {useContext} from 'react';
-import {useUserContext} from '../../userContext';
+import React from 'react';
 import {NavLink} from 'react-router-dom';
 
+import {useUserContext} from '../../userContext';
 import {useChatContext} from '../../chatContext';
 import userService from '../../services/userService';
 
-import Icons from '../UIKit/Icons';
 import Image from '../Image/Image';
+import Icons from '../UIKit/Icons';
 
 import styles from './SideBarProfile.module.css'
 
@@ -44,9 +44,7 @@ const SideBarProfile = () => {
                     <Icons icon={'round-star'}/>
                     <p>Рейтинг</p>
                 </NavLink>
-
                 <div className={styles.divider}></div>
-
                 <NavLink to={'/profile/settings'} className={styles.menu__item}>
                     <Icons icon={'settings'}/>
                     <p>Настройки</p>

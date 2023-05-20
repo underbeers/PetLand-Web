@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
+import cn from 'classnames';
 
 import styles from './Image.module.css';
-import cn from 'classnames';
 
 
 interface iImageProps {

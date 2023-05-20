@@ -1,16 +1,16 @@
 import React, {useEffect, useState} from 'react';
 import {NavLink, useNavigate} from 'react-router-dom';
 
-import AdvertService from "../../services/advertService";
+import AdvertService from '../../services/advertService';
 
-import Checkbox from '../../components/UIKit/Checkbox';
-import Icons from '../../components/UIKit/Icons';
-import Button from '../../components/UIKit/Button';
-import Input from '../../components/UIKit/Input';
 import AdCards, {AdCardInfoType} from '../../components/AdCards/AdCards';
 import PetTypes from '../../components/PetTypes/PetTypes';
 import TopBar from '../../components/TopBar/TopBar';
 import Tabs from '../../components/Tabs/Tabs';
+import Checkbox from '../../components/UIKit/Checkbox';
+import Icons from '../../components/UIKit/Icons';
+import Button from '../../components/UIKit/Button';
+import Input from '../../components/UIKit/Input';
 
 import styles from './Ads.module.css';
 
@@ -35,7 +35,7 @@ const Ads: React.FC = () => {
 
     const [adverts, setAdverts] = useState<Array<AdCardInfoType>>([]);
 
-    useEffect(()=>{
+    useEffect(() => {
         AdvertService.getAdverts().then(response => {
             //console.log(response);
             switch (response.status) {
@@ -48,7 +48,8 @@ const Ads: React.FC = () => {
         }).then((body: {
             nextPage: string,
             records: Array<AdCardInfoType>,
-            totalCount: number, totalPage: number}) => {
+            totalCount: number, totalPage: number
+        }) => {
             if (body) {
                 setAdverts(body.records);
             }
@@ -71,19 +72,22 @@ const Ads: React.FC = () => {
                         <NavLink to={'/lost-pets'}>Потеряшки</NavLink>
                     </Tabs>
                     {!isMobile &&
-                        <Button color={'green'} onClick={() => navigate('/new-ad')} type={'secondary'} text={'Разместить объявление'}/>}
+                        <Button color={'green'} onClick={() => navigate('/new-ad')} type={'secondary'}
+                                text={'Разместить объявление'}/>}
                 </div>
                 {!isMobile &&
-                        <div className={styles.icon__city}>
-                            <Icons icon={'geo'}/>
-                            <a href={'#'} className={'underlined'}>Нижний Новгород</a>
-                        </div>
+                    <div className={styles.icon__city}>
+                        <Icons icon={'geo'}/>
+                        <a href={'#'} className={'underlined'}>Нижний Новгород</a>
+                    </div>
                 }
 
                 {!typeSelected && <PetTypes/>}
 
 
-                {!isMobile ? !typeSelected ? <h1>Актуальные объявления</h1> : <h1>Тип животного в Городе</h1> : !typeSelected ? <h3>Актуальные объявления</h3> : <h3>Тип животного в Городе</h3>}
+                {!isMobile ? !typeSelected ? <h1>Актуальные объявления</h1> :
+                    <h1>Тип животного в Городе</h1> : !typeSelected ? <h3>Актуальные объявления</h3> :
+                    <h3>Тип животного в Городе</h3>}
 
                 {typeSelected &&
                     <div className={styles.search__settings}>

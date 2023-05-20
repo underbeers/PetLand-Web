@@ -1,24 +1,24 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {UserContext} from '../../userContext';
 import {useNavigate} from 'react-router-dom';
+
+import {UserContext} from '../../userContext';
 import petService from '../../services/petService';
+import AdvertService from '../../services/advertService';
 import {withOfferToSignIn} from '../../hoc/withOfferToSignIn';
 import {iPetAdCardProps} from '../../components/PetAdCard/PetAdCard';
+
+import TopBar from '../../components/TopBar/TopBar';
+import PetAdCard from '../../components/PetAdCard/PetAdCard';
 
 import Button from '../../components/UIKit/Button';
 import Input from '../../components/UIKit/Input';
 import Checkbox from '../../components/UIKit/Checkbox';
 import Radio from '../../components/UIKit/Radio';
-import TopBar from '../../components/TopBar/TopBar';
-import PetAdCard from '../../components/PetAdCard/PetAdCard';
 
 import styles from './NewAd.module.css';
-import AdvertService from "../../services/advertService";
-import {unmountComponentAtNode} from "react-dom";
-import {types} from "util";
 
 
-const prices_radio = [
+const PRICES_RADIO = [
     {id: 0, value: 'Фиксированная'},
     {id: 1, value: 'Бесплатно'},
     {id: 2, value: 'Договорная'},
@@ -224,7 +224,7 @@ const NewAd = () => {
                             <Input type={'number'} value={price} setValue={setPrice} placeholder={'Введите цену'}
                                    className={styles.price__input} disabled={selectedRadio !== 0}/>
                             <div className={styles.radio__container}>
-                                {prices_radio.map((v, i) => {
+                                {PRICES_RADIO.map((v, i) => {
                                     return (
                                         <div
                                             key={i}

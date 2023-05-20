@@ -2,6 +2,8 @@ import React, {useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import cn from 'classnames';
 
+import AdvertService from '../../services/advertService';
+
 import {specialists} from '../Services/Specialists/Specialists';
 import {organizations} from '../Services/Organizations/Organizations';
 import {events} from '../Services/Events/Events';
@@ -17,7 +19,6 @@ import TopBar from '../../components/TopBar/TopBar';
 import pets from './img/pets.png';
 
 import styles from './HomePage.module.css'
-import AdvertService from "../../services/advertService";
 
 
 const HomePage: React.FC = () => {
@@ -31,7 +32,7 @@ const HomePage: React.FC = () => {
 
     const [adverts, setAdverts] = useState<Array<AdCardInfoType>>([]);
 
-    useEffect(()=>{
+    useEffect(() => {
         AdvertService.getAdverts().then(response => {
             //console.log(response);
             switch (response.status) {
@@ -44,7 +45,8 @@ const HomePage: React.FC = () => {
         }).then((body: {
             nextPage: string,
             records: Array<AdCardInfoType>,
-            totalCount: number, totalPage: number}) => {
+            totalCount: number, totalPage: number
+        }) => {
             if (body) {
                 setAdverts(body.records);
             }

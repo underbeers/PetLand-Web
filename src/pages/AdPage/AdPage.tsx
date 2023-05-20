@@ -1,7 +1,10 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useNavigate, useSearchParams} from 'react-router-dom';
 
 import {useUserContext} from '../../userContext';
+import AdvertService from '../../services/advertService';
+import {getAge} from '../../components/PetCard/PetCard';
+import {prettyAdPrice, prettyPublicationTime} from '../../components/AdCards/AdCards';
 
 import Chips from '../../components/UIKit/Chips';
 import Icons from '../../components/UIKit/Icons';
@@ -10,16 +13,10 @@ import TopBar from '../../components/TopBar/TopBar';
 import Slider from '../../components/Slider/Slider';
 import Gallery from '../../components/Gallery/Gallery';
 
-import cat from './img/cat.jpg';
-
 import styles from './AdPage.module.css'
-import AdvertService from "../../services/advertService";
-import {prettyAdPrice, prettyPublicationTime} from "../../components/AdCards/AdCards";
-import {getAge} from "../../components/PetCard/PetCard";
 
 
 const AdPage = () => {
-
     const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
     const [color, setColor] = useState(false);
     const [care, setCare] = useState(false);
@@ -168,7 +165,7 @@ const AdPage = () => {
                         </div>
                         <div className={styles.address}>
                             <h5>Адрес:</h5>
-                            <p>г. Нижний Новгород, {info.district} р-н</p>
+                            <p>г. {info.city}, {info.district} р-н</p>
                         </div>
                     </div>
                 </div>}
@@ -248,7 +245,7 @@ const AdPage = () => {
                     </div>
                     <div className={styles.address}>
                         <h5>Адрес:</h5>
-                        <p>г. Нижний Новгород, {info.district} р-н</p>
+                        <p>г. {info.city}, {info.district} р-н</p>
                     </div>
                 </div>
             </div>}

@@ -88,7 +88,6 @@ const Chat: React.FC<{ chatID: string }> = ({chatID}) => {
                     let time = new Date(message.time);
                     time.setMinutes(time.getMinutes() - now.getTimezoneOffset());
                     const printDate = prettyTime(time) != prettyTime(prevDate);
-                    console.log(index);
                     prevDate = time;
                     return <Bubble
                         key={index}

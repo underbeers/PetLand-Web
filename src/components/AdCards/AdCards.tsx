@@ -1,12 +1,13 @@
 import React, {useState} from 'react';
-import cn from 'classnames';
 import {NavLink} from 'react-router-dom';
+import cn from 'classnames';
+
+import {getAge} from '../PetCard/PetCard';
 
 import Icons from '../UIKit/Icons';
 import Chips from '../UIKit/Chips';
 
 import styles from './AdCards.module.css';
-import {getAge} from "../PetCard/PetCard";
 
 
 export type AdCardInfoType = {
@@ -46,7 +47,6 @@ export const prettyPublicationTime = (publication: string) => {
 }
 
 const AdCards: React.FC<iAdCardProps> = ({size, info}) => {
-
     const [isLiked, setIsLiked] = useState(false);
     const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
 
@@ -91,7 +91,7 @@ const AdCards: React.FC<iAdCardProps> = ({size, info}) => {
                         </p>}
                     <div className={styles.info}>
                         {size === 'big' && <p className={styles.name__owner}>{info.userID}</p>}
-                        <p className={styles.address__date}>{info.district} р-н</p>
+                        <p className={styles.address__date}>г. {info.city} {info.district} р-н</p>
                         <p className={styles.address__date}>{publication.date} {publication.time}</p>
                     </div>
                 </div>

@@ -36,9 +36,9 @@ const EventCard: React.FC<iEventProps> = ({id, name, description, city, place, d
                 </div>
 
                 {!isMobile ? <div className={styles.place}>
-                    <p>Место:</p>
-                    <p>{place}</p>
-                </div> :
+                        <p>Место:</p>
+                        <p>{place}</p>
+                    </div> :
                     <p className={'secondary__text-2'}>{place}</p>
                 }
 

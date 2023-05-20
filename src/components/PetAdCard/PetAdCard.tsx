@@ -3,6 +3,7 @@ import cn from 'classnames';
 
 import styles from '../PetAdCard/PetAdCard.module.css';
 
+
 export interface iPetAdCardProps {
     id: string,
     petName: string,
@@ -11,16 +12,19 @@ export interface iPetAdCardProps {
     setSelected: (isChecked: boolean) => void;
 }
 
-const PetAdCard: React.FC<iPetAdCardProps> = ({id,petName, photo, isSelected, setSelected}) => {
-
+const PetAdCard: React.FC<iPetAdCardProps> = ({id, petName, photo, isSelected, setSelected}) => {
     const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
 
     window.addEventListener('resize', () => {
         setIsMobile(window.innerWidth <= 700);
     });
 
+    const select = () => {
+        setSelected(!isSelected)
+    };
+
     return (
-        <div className={cn(styles.card, isSelected && styles.selected)} onClick={()=>{setSelected(!isSelected)}}>
+        <div className={cn(styles.card, isSelected && styles.selected)} onClick={select}>
             <img src={photo} alt={'Фото питомца'} className={styles.img}/>
             <div className={styles.pet__info}>
                 {!isMobile ?
@@ -30,7 +34,7 @@ const PetAdCard: React.FC<iPetAdCardProps> = ({id,petName, photo, isSelected, se
                 }
             </div>
         </div>
-    )
+    );
 };
 
 export default PetAdCard;

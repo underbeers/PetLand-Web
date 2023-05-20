@@ -43,33 +43,16 @@ jobs:
       - name: Set up Docker Build
         uses: docker/setup-buildx-action@v2
 
-      - name: Build and push
+      - name: Build and push prod image
         uses: docker/build-push-action@v3
         with:
           context: .
           build-args: |
-            "REACT_APP_API_URL=petland-backend-k8s.underbeers.space"
+            "REACT_APP_API_URL=petland-backend.underbeers.space"
             "REACT_APP_CHAT_API_URL=petland-chat-backend.underbeers.space"
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/pl_frontend:v3
-
-  deploy:
-    name: Deploy
-    runs-on: ubuntu-20.04
-    needs: [build]
-    steps:
-      #- name: Update image on server
-      #  uses: appleboy/ssh-action@master
-      #  with:
-      #    host: ${{ secrets.SSH_HOST }}
-      #    username: ${{ secrets.SSH_USERNAME }}
-      #    key: ${{ secrets.SSH_KEY }}
-      #    port: ${{ secrets.SSH_PORT }}
-      #    script: |
-      #      cd ./petland
-      #      docker-compose pull
-      #      docker-compose up -d
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/pl_frontend:v4
 
       - name: Send status
         if: ${{ always() }}
@@ -78,14 +61,14 @@ jobs:
           to: ${{ secrets.TELEGRAM_CHAT_ID }}
           token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           message: |
-            ${{ github.workflow }}: Deploy updated image ${{ job.status }} (fake, not deployed)
+            ${{ github.workflow }}: Publish updated image ${{ job.status }}
         env:
           status: ${{job.status}}
 
   send_result:
     if: ${{ always() }}
     name: Send result
-    needs: [ deploy ]
+    needs: [ build ]
     runs-on: ubuntu-20.04
     steps:
       - name: Sending telegram message

@@ -17,6 +17,15 @@
     border-bottom-left-radius: 0;
 }
 
+.bubble > p > a {
+    color: var(--base--600);
+    text-decoration: underline;
+}
+
+.bubble > p > a:hover {
+    text-decoration: none;
+}
+
 .angle {
     position: absolute;
     bottom: 0;

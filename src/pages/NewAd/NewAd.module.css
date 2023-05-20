@@ -3,7 +3,7 @@
     background-color: var(--base--0);
     border-radius: var(--border-12);
     padding: 60px 101px;
-    margin: 0 auto;
+    margin: 24px auto;
 }
 
 .form h1 {

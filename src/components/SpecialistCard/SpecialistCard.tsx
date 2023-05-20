@@ -42,9 +42,7 @@ const SpecialistCard: React.FC<iSpecialistProps> = ({
 
     return (
         <NavLink to={`/services/specialists/specialist?id=${id}`} className={styles.card}>
-            <img className={styles.photo}
-                 src={photo}
-                 alt={'Фото специалиста'}/>
+            <img className={styles.photo} src={photo} alt={'Фото специалиста'}/>
             <div className={styles.specInfo}>
                 <div className={styles.name__like}>
                     <h5>{name}</h5>
@@ -71,13 +69,13 @@ const SpecialistCard: React.FC<iSpecialistProps> = ({
                         <p>{rating}</p>
                     </div>
                 }
-
                 {!isMobile ?
                     <div className={styles.additional__info}>
                         <div className={styles.info__row}><p
                             className={cn('secondary__text-1', styles.title)}>Специальность: </p><p
                             className={cn('secondary__text-1', styles.data)}>{speciality}</p></div>
-                        <div className={styles.info__row}><p className={cn('secondary__text-1', styles.title)}>Стаж: </p>
+                        <div className={styles.info__row}><p
+                            className={cn('secondary__text-1', styles.title)}>Стаж: </p>
                             <p className={cn('secondary__text-1', styles.data)}>{experience}</p></div>
                         <div className={styles.info__row}><p
                             className={cn('secondary__text-1', styles.title)}>Животные: </p> <p
@@ -87,6 +85,7 @@ const SpecialistCard: React.FC<iSpecialistProps> = ({
                 }
             </div>
         </NavLink>
-    )
-}
+    );
+};
+
 export default SpecialistCard;

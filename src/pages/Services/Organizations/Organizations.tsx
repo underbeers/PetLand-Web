@@ -170,10 +170,10 @@ const Organizations = () => {
             }
 
             <div className={styles.cards}>
-                {organizations.map(o => <OrganizationCard {...o} />)}
+                {organizations.map((o, index) => <OrganizationCard key={index} {...o} />)}
             </div>
         </>
-    )
-}
+    );
+};
 
 export default Organizations;

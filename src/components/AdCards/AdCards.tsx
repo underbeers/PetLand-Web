@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
-import cn from 'classnames';
 import {NavLink} from 'react-router-dom';
+import cn from 'classnames';
+
+import {getAge} from '../PetCard/PetCard';
 
 import Icons from '../UIKit/Icons';
 import Chips from '../UIKit/Chips';
@@ -8,13 +10,43 @@ import Chips from '../UIKit/Chips';
 import styles from './AdCards.module.css';
 
 
-interface iAdCardProps {
-    size: 'big' | 'small',
-    url: string
+export type AdCardInfoType = {
+    birthDate: string,
+    breed: string,
+    city: string,
+    description: string,
+    district: string,
+    gender: string,
+    id: number,
+    mainPhoto: string,
+    petCardID: number,
+    petName: string,
+    petType: string,
+    price: number,
+    publication: string,
+    userID: string
 }
 
-const AdCards: React.FC<iAdCardProps> = ({size, url}) => {
+interface iAdCardProps {
+    size: 'big' | 'small',
+    info: AdCardInfoType
+}
 
+export const prettyAdPrice = (price: number) => {
+    return price < 0 ? 'Цена договорная' : price === 0 ? 'Бесплатно' : `${price} ₽`;
+}
+
+export const prettyPublicationTime = (publication: string) => {
+    const date = new Date();
+    let pub = new Date(publication);
+    pub.setMinutes(pub.getMinutes() - date.getTimezoneOffset());
+
+    const publicationDate = pub.toJSON().substring(0, 10).split('-').reverse().join('.');
+    const publicationTime = pub.toJSON().substring(11, 16);
+    return {date: publicationDate, time: publicationTime}
+}
+
+const AdCards: React.FC<iAdCardProps> = ({size, info}) => {
     const [isLiked, setIsLiked] = useState(false);
     const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
 
@@ -22,15 +54,16 @@ const AdCards: React.FC<iAdCardProps> = ({size, url}) => {
         setIsMobile(window.innerWidth <= 700)
     });
 
+    const publication = prettyPublicationTime(info.publication);
     return (
-        <NavLink to={url} className={cn(styles.card, styles[size])}>
+        <NavLink to={`/ad-page?id=${info.id}`} className={cn(styles.card, styles[size])}>
             <img className={styles.photo}
-                 src={'https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1143&q=80'}/>
+                 src={info.mainPhoto}/>
             <div className={styles.ad__content}>
                 <div className={styles.name__like}>
                     <div className={styles.name__price}>
-                        {!isMobile ? <h4>Кличка</h4> : <h5>Кличка</h5>}
-                        <p>Цена ₽</p>
+                        {!isMobile ? <h4>{info.petName}</h4> : <h5>{info.petName}</h5>}
+                        <p>{prettyAdPrice(info.price)}</p>
                     </div>
                     {isLiked ?
                         <Icons icon={'cards-heart'} className={styles.heart} onClick={(event) => {
@@ -45,24 +78,21 @@ const AdCards: React.FC<iAdCardProps> = ({size, url}) => {
                 </div>
                 {size === 'big' &&
                     <div className={styles.chips}>
-                        <Chips color={'green'} size={'small'} label={'вид'}/>
-                        <Chips color={'green'} size={'small'} label={'порода'}/>
-                        <Chips color={'green'} size={'small'} label={'пол'}/>
-                        <Chips color={'green'} size={'small'} label={'возраст'}/>
+                        <Chips color={'green'} size={'small'} label={info.petType}/>
+                        <Chips color={'green'} size={'small'} label={info.breed}/>
+                        <Chips color={'green'} size={'small'} label={info.gender}/>
+                        <Chips color={'green'} size={'small'} label={getAge(info.birthDate)}/>
                     </div>
                 }
                 <div className={styles.description__info}>
                     {size === 'big' &&
                         <p className={styles.description}>
-                            Кошка очень дружелюбная и ласковая, любит играть и общаться с людьми. Она привита и
-                            стерилизована, что делает ее идеальным питомцем для семьи. Кошка привыкла к лотку и
-                            когтеточке,
-                            идеально подходит для...
+                            {info.description}
                         </p>}
                     <div className={styles.info}>
-                        {size === 'big' && <p className={styles.name__owner}>Имя Фамилия</p>}
-                        <p className={styles.address__date}>Район р-н</p>
-                        <p className={styles.address__date}>дд месяц, чч:мм</p>
+                        {size === 'big' && <p className={styles.name__owner}>{info.userID}</p>}
+                        <p className={styles.address__date}>г. {info.city} {info.district} р-н</p>
+                        <p className={styles.address__date}>{publication.date} {publication.time}</p>
                     </div>
                 </div>
             </div>

@@ -1,7 +1,10 @@
-import React, {useContext, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useNavigate, useSearchParams} from 'react-router-dom';
 
 import {useUserContext} from '../../userContext';
+import AdvertService from '../../services/advertService';
+import {getAge} from '../../components/PetCard/PetCard';
+import {prettyAdPrice, prettyPublicationTime} from '../../components/AdCards/AdCards';
 
 import Chips from '../../components/UIKit/Chips';
 import Icons from '../../components/UIKit/Icons';
@@ -10,14 +13,10 @@ import TopBar from '../../components/TopBar/TopBar';
 import Slider from '../../components/Slider/Slider';
 import Gallery from '../../components/Gallery/Gallery';
 
-import cat from './img/cat.jpg';
-
 import styles from './AdPage.module.css'
 
 
-
 const AdPage = () => {
-
     const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
     const [color, setColor] = useState(false);
     const [care, setCare] = useState(false);
@@ -37,55 +36,56 @@ const AdPage = () => {
 
     const {user, setUser} = useUserContext();
     const [searchParams, setSearchParams] = useSearchParams();
-    const userID = searchParams.get('user-id') || '';
+    const id = searchParams.get('id') || '';
 
-    const images = [
-        {
-            original: cat,
-            thumbnail: cat,
-        },
-        {
-            original: cat,
-            thumbnail: cat,
-        },
-        {
-            original: cat,
-            thumbnail: cat,
-        },
-        {
-            original: cat,
-            thumbnail: cat,
-        },
-        {
-            original: cat,
-            thumbnail: cat,
-        },
+    const [info, setInfo] = useState<{
+        birthDate: string,
+        breed: string,
+        care: string,
+        chat: boolean,
+        city: string,
+        color: string,
+        description: string,
+        district: string,
+        gender: string,
+        id: number,
+        pedigree: string,
+        petCardID: number,
+        petCharacter: string,
+        petName: string,
+        petType: string,
+        phone: string,
+        photos: Array<{
+            original: string,
+            thumbnail: string
+        }>
+        price: number,
+        publication: string,
+        status: string,
+        sterilization: boolean,
+        userID: string,
+        vaccinations: boolean
+    } | null>(null);
 
-        {
-            original: cat,
-            thumbnail: cat,
-        },
-        {
-            original: cat,
-            thumbnail: cat,
-        },
-        {
-            original: cat,
-            thumbnail: cat,
-        },
-        {
-            original: cat,
-            thumbnail: cat,
-        },
-        {
-            original: cat,
-            thumbnail: cat,
-        },
+    useEffect(() => {
+        AdvertService.getFullAdvert(id).then(response => {
+            switch (response.status) {
+                case 200:
+                    return response.json();
+                default:
+                    return null;
+            }
+        }).then(body => {
+            //console.log(body);
+            if (body) {
+                setInfo(body);
+            }
+        });
+    }, []);
 
-    ];
-
-    const cats = [cat, cat, cat]
-
+    if (!info) {
+        return <div></div>;
+    }
 
     return (
         <div>
@@ -95,21 +95,21 @@ const AdPage = () => {
                         <div className={styles.arrow__container} onClick={handleGoBack}>
                             <Icons icon={'arrow-left'} className={styles.arrow__back}/>
                         </div>
-                        <h1 className={styles.name}>Кличка</h1>
-                        <h1>Цена ₽</h1>
+                        <h1 className={styles.name}>{info.petName}</h1>
+                        <h1>{prettyAdPrice(info.price)}</h1>
                     </div>
                     <div className={styles.chips}>
-                        <Chips color={'green'} size={'medium'} label={'вид'}/>
-                        <Chips color={'green'} size={'medium'} label={'пол'}/>
-                        <Chips color={'green'} size={'medium'} label={'порода'}/>
-                        <Chips color={'green'} size={'medium'} label={'возраст'}/>
+                        <Chips color={'green'} size={'medium'} label={info.petType}/>
+                        <Chips color={'green'} size={'medium'} label={info.gender}/>
+                        <Chips color={'green'} size={'medium'} label={info.breed}/>
+                        <Chips color={'green'} size={'medium'} label={getAge(info.birthDate)}/>
                     </div>
                 </>
                 :
                 <TopBar leftButton={'arrow'}>
-                    <h5>Кличка</h5>
+                    <h5>{info.petName}</h5>
                     <Icons icon={'share'}/>
-                    {userID === user.userID ? <Icons icon={'edit'}/> : !isLiked ?
+                    {id === user.userID ? <Icons icon={'edit'}/> : !isLiked ?
                         <Icons icon={'cards-heart-outline'} onClick={() => {
                             setIsLiked(!isLiked)
                         }} className={styles.heart__topbar}/> : <Icons icon={'cards-heart'} onClick={() => {
@@ -119,25 +119,25 @@ const AdPage = () => {
             }
 
             <div className={styles.photo__info}>
-                {!isMobile ? <Gallery items={images}/> :
+                {!isMobile ? <Gallery items={info.photos}/> :
                     <div className={styles.slider__name}>
-                        <Slider slides={cats}/>
+                        <Slider slides={info.photos.map(photo => photo.original)}/>
                         <div className={styles.name__price}>
-                            <h2>Кличка</h2>
-                            <h4>Цена ₽</h4>
+                            <h2>{info.petName}</h2>
+                            <h4>{prettyAdPrice(info.price)}</h4>
                         </div>
                         <div className={styles.chips}>
-                            <Chips color={'green'} size={'medium'} label={'вид'}/>
-                            <Chips color={'green'} size={'medium'} label={'пол'}/>
-                            <Chips color={'green'} size={'medium'} label={'порода'}/>
-                            <Chips color={'green'} size={'medium'} label={'возраст'}/>
+                            <Chips color={'green'} size={'medium'} label={info.petType}/>
+                            <Chips color={'green'} size={'medium'} label={info.gender}/>
+                            <Chips color={'green'} size={'medium'} label={info.breed}/>
+                            <Chips color={'green'} size={'medium'} label={getAge(info.birthDate)}/>
                         </div>
                     </div>}
 
                 {!isMobile && <div className={styles.owner__info}>
                     <div className={styles.owner}>
                         <h5>Владелец:</h5>
-                        <a href={'#'}>Имя Фамилия</a>
+                        <a href={'#'}>{info.userID}</a>
                         <div className={styles.stars}>
                             <Icons icon={'round-star'} className={styles.star}/>
                             <Icons icon={'round-star'} className={styles.star}/>
@@ -161,11 +161,11 @@ const AdPage = () => {
                     <div className={styles.date__address}>
                         <div className={styles.date}>
                             <h5>Дата публикации:</h5>
-                            <p>10.4.2023</p>
+                            <p>{prettyPublicationTime(info.publication).date}</p>
                         </div>
                         <div className={styles.address}>
                             <h5>Адрес:</h5>
-                            <p>г. Нижний Новгород, Нижегородский р-н</p>
+                            <p>г. {info.city}, {info.district} р-н</p>
                         </div>
                     </div>
                 </div>}
@@ -175,46 +175,39 @@ const AdPage = () => {
                 <div className={styles.column}>
                     <div className={styles.info__piece}>
                         <h5>Описание:</h5>
-                        <p>Продается очаровательная кошка породы. Она имеет короткую шерсть и зеленые глаза, которые
-                            привлекают внимание. Кошка очень дружелюбная и ласковая, любит играть и общаться с людьми.
-                            Она привита и стерилизована, что делает ее идеальным питомцем для семьи. Кошка привыкла к
-                            лотку и когтеточке, идеально подходит для жизни в квартире. Если вы ищете верного друга и
-                            надежного компаньона, то эта кошка для вас!</p>
+                        <p>{info.description}</p>
                     </div>
                     {color && <div className={styles.info__piece}>
                         <h5>Окрас:</h5>
-                        <p className={'primary__text'}>Бело-серый, пушистый. Длинная шерсть</p>
+                        <p className={'primary__text'}>{info.color}</p>
                     </div>}
 
                     {care && <div className={styles.info__piece}>
                         <h5>Особенности ухода:</h5>
-                        <p className={'primary__text'}>Приучен к лотку и когтеточке. Ест сухой и влажный корм Purina
-                            One.</p>
+                        <p className={'primary__text'}>{info.care}</p>
                     </div>}
 
                 </div>
                 <div className={styles.column}>
                     {pedigree && <div className={styles.pedigree}>
                         <h5>Родословная:</h5>
-                        <p className={'primary__text'}>Родословной не знаем. Забирали кота из приюта.</p>
+                        <p className={'primary__text'}>{info.pedigree}</p>
                     </div>}
 
                     {traits && <div className={styles.info__piece}>
                         <h5>Черты характера:</h5>
-                        <p className={'primary__text'}>Ласковый, ленивый, очень любит покушать. Играет нечасто, но
-                            любит
-                            взбираться на свою высокую когтеточку</p>
+                        <p className={'primary__text'}>{info.petCharacter}</p>
                     </div>}
 
 
                     <div className={styles.sterilization__vaccination}>
                         <div className={styles.info__check}>
-                            <Icons icon={'check'} className={styles.icon}/>
+                            <Icons icon={info.sterilization ? 'check' : 'cross'} className={styles.icon}/>
                             <h5>Стерилизация</h5>
                         </div>
 
                         <div className={styles.info__check}>
-                            <Icons icon={'cross'} className={styles.icon}/>
+                            <Icons icon={info.vaccinations ? 'check' : 'cross'} className={styles.icon}/>
                             <h5>Прививки</h5>
                         </div>
                     </div>
@@ -224,7 +217,7 @@ const AdPage = () => {
             {isMobile && <div className={styles.owner__info}>
                 <div className={styles.owner}>
                     <h5>Владелец:</h5>
-                    <a href={'#'}>Имя Фамилия</a>
+                    <a href={'#'}>{info.userID}</a>
                     <div className={styles.stars}>
                         <Icons icon={'round-star'} className={styles.star}/>
                         <Icons icon={'round-star'} className={styles.star}/>
@@ -248,16 +241,16 @@ const AdPage = () => {
                 <div className={styles.date__address}>
                     <div className={styles.date}>
                         <h5>Дата публикации:</h5>
-                        <p>10.4.2023</p>
+                        <p>{prettyPublicationTime(info.publication).date}</p>
                     </div>
                     <div className={styles.address}>
                         <h5>Адрес:</h5>
-                        <p>г. Нижний Новгород, Нижегородский р-н</p>
+                        <p>г. {info.city}, {info.district} р-н</p>
                     </div>
                 </div>
             </div>}
         </div>
-    )
-}
+    );
+};
 
 export default AdPage;

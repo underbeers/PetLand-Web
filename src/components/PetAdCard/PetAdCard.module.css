@@ -6,6 +6,7 @@
     flex-direction: column;
     transition: scale .2s;
     width: 172px;
+    cursor: pointer;
 }
 
 .card:hover {

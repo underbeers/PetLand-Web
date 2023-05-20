@@ -156,7 +156,6 @@ export const specialists =
     ]
 
 
-
 const Specialists = () => {
 
     const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
@@ -168,27 +167,27 @@ const Specialists = () => {
 
     return (
         <>
-        {isMobile &&
-            <TopBar leftButton={'burger'}>
-                <h5>Специалисты</h5>
-                <Icons icon={'geo'}/>
-            </TopBar>}
+            {isMobile &&
+                <TopBar leftButton={'burger'}>
+                    <h5>Специалисты</h5>
+                    <Icons icon={'geo'}/>
+                </TopBar>}
 
-        {!isMobile ?
-            <div className={styles.title__geo}>
-            <h1>Лучшие специалисты</h1>
-            <div className={styles.geo}>
-                <Icons icon={'geo'}/>
-                <p>Город</p>
-            </div>
-        </div> :
-        <h3 className={styles.title}>Лучшие специалисты</h3>
-        }
+            {!isMobile ?
+                <div className={styles.title__geo}>
+                    <h1>Лучшие специалисты</h1>
+                    <div className={styles.geo}>
+                        <Icons icon={'geo'}/>
+                        <p>Город</p>
+                    </div>
+                </div> :
+                <h3 className={styles.title}>Лучшие специалисты</h3>
+            }
             <div className={styles.cards}>
-                {specialists.map(s => <SpecialistCard {...s}/>)}
+                {specialists.map((s, index) => <SpecialistCard key={index} {...s}/>)}
             </div>
         </>
-    )
-}
+    );
+};
 
 export default Specialists;

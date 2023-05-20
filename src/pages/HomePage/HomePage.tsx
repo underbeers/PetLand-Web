@@ -1,6 +1,8 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import cn from 'classnames';
+
+import AdvertService from '../../services/advertService';
 
 import {specialists} from '../Services/Specialists/Specialists';
 import {organizations} from '../Services/Organizations/Organizations';
@@ -8,7 +10,7 @@ import {events} from '../Services/Events/Events';
 
 import Icons from '../../components/UIKit/Icons';
 import Button from '../../components/UIKit/Button';
-import AdCards from '../../components/AdCards/AdCards';
+import AdCards, {AdCardInfoType} from '../../components/AdCards/AdCards';
 import SpecialistCard from '../../components/SpecialistCard/SpecialistCard';
 import OrganizationCard from '../../components/OrganizationCard/OrganizationCard';
 import EventCard from '../../components/EventCard/EventCard';
@@ -27,6 +29,29 @@ const HomePage: React.FC = () => {
     });
 
     const navigate = useNavigate();
+
+    const [adverts, setAdverts] = useState<Array<AdCardInfoType>>([]);
+
+    useEffect(() => {
+        AdvertService.getAdverts().then(response => {
+            //console.log(response);
+            switch (response.status) {
+                case 200:
+                    return response.json();
+                default:
+                    //console.log('Error', response);
+                    return null;
+            }
+        }).then((body: {
+            nextPage: string,
+            records: Array<AdCardInfoType>,
+            totalCount: number, totalPage: number
+        }) => {
+            if (body) {
+                setAdverts(body.records);
+            }
+        });
+    }, []);
 
     return (
         <>
@@ -78,16 +103,15 @@ const HomePage: React.FC = () => {
                         }}>Посмотреть все</p>
                     </div>
                     <div className={styles.cards__block}>
-                        {!isMobile ? <>
-                                <AdCards size={'small'} url={'/ad-page'}/>
-                                <AdCards size={'small'} url={'/ad-page'}/>
-                                <AdCards size={'small'} url={'/ad-page'}/>
-                                <AdCards size={'small'} url={'/ad-page'}/>
-                            </> :
-                            <>
-                                <AdCards size={'small'} url={'/ad-page'}/>
-                                <AdCards size={'small'} url={'/ad-page'}/>
-                            </>}
+                        {
+                            adverts.sort((ad1, ad2) => {
+                                return new Date(ad1.publication).getTime() - new Date(ad2.publication).getTime();
+                            }).reverse().slice(0, isMobile ? 2 : 4).map((ad, index) =>
+                                <AdCards
+                                    key={index}
+                                    size={'small'}
+                                    info={ad}/>)
+                        }
                     </div>
                 </div>
                 <div className={styles.block}>

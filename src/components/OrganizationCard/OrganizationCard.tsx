@@ -19,8 +19,17 @@ interface iOrganizationProps {
     photo: string,
 }
 
-const OrganizationCard: React.FC<iOrganizationProps> = ({id, name, rating, type, schedule, city, address, phone, photo}) => {
-
+const OrganizationCard: React.FC<iOrganizationProps> = ({
+                                                            id,
+                                                            name,
+                                                            rating,
+                                                            type,
+                                                            schedule,
+                                                            city,
+                                                            address,
+                                                            phone,
+                                                            photo
+                                                        }) => {
     const [isLiked, setIsLiked] = useState(false);
     const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
 
@@ -73,6 +82,7 @@ const OrganizationCard: React.FC<iOrganizationProps> = ({id, name, rating, type,
                 }
             </div>
         </NavLink>
-    )
-}
+    );
+};
+
 export default OrganizationCard;

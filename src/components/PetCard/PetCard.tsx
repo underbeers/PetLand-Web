@@ -23,7 +23,8 @@ export interface iPetCardProps {
 
 const ageFromDateOfBirthdayInMonths: (dateOfBirth: string) => number = (dateOfBirth) => {
     const today = new Date();
-    const birthday = new Date(dateOfBirth);
+    let birthday = new Date(dateOfBirth);
+    birthday.setMinutes(birthday.getMinutes() - today.getTimezoneOffset());
     return (today.getFullYear() - birthday.getFullYear()) * 12 + today.getMonth() - birthday.getMonth();
 }
 

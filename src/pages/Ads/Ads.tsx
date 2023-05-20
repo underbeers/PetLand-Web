@@ -1,14 +1,16 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {NavLink, useNavigate} from 'react-router-dom';
 
+import AdvertService from '../../services/advertService';
+
+import AdCards, {AdCardInfoType} from '../../components/AdCards/AdCards';
+import PetTypes from '../../components/PetTypes/PetTypes';
+import TopBar from '../../components/TopBar/TopBar';
+import Tabs from '../../components/Tabs/Tabs';
 import Checkbox from '../../components/UIKit/Checkbox';
 import Icons from '../../components/UIKit/Icons';
 import Button from '../../components/UIKit/Button';
 import Input from '../../components/UIKit/Input';
-import AdCards from '../../components/AdCards/AdCards';
-import PetTypes from '../../components/PetTypes/PetTypes';
-import TopBar from '../../components/TopBar/TopBar';
-import Tabs from '../../components/Tabs/Tabs';
 
 import styles from './Ads.module.css';
 
@@ -18,7 +20,7 @@ const Ads: React.FC = () => {
     const [typeSelected, setTypeSelected] = useState(false);
 
     const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
-    const [isBigAd, setIsBigAd] = useState(false);
+    const [isBigAd, setIsBigAd] = useState(true);
     const [breed, setBreed] = useState(initialInputState);
     const [priceFrom, setPriceFrom] = useState(initialInputState);
     const [priceTo, setPriceTo] = useState(initialInputState);
@@ -30,6 +32,29 @@ const Ads: React.FC = () => {
     });
 
     const navigate = useNavigate();
+
+    const [adverts, setAdverts] = useState<Array<AdCardInfoType>>([]);
+
+    useEffect(() => {
+        AdvertService.getAdverts().then(response => {
+            //console.log(response);
+            switch (response.status) {
+                case 200:
+                    return response.json();
+                default:
+                    //console.log('Error', response);
+                    return null;
+            }
+        }).then((body: {
+            nextPage: string,
+            records: Array<AdCardInfoType>,
+            totalCount: number, totalPage: number
+        }) => {
+            if (body) {
+                setAdverts(body.records);
+            }
+        });
+    }, []);
 
     return (
         <>
@@ -47,19 +72,22 @@ const Ads: React.FC = () => {
                         <NavLink to={'/lost-pets'}>Потеряшки</NavLink>
                     </Tabs>
                     {!isMobile &&
-                        <Button color={'green'} onClick={() => navigate('/new-ad')} type={'secondary'} text={'Разместить объявление'}/>}
+                        <Button color={'green'} onClick={() => navigate('/new-ad')} type={'secondary'}
+                                text={'Разместить объявление'}/>}
                 </div>
                 {!isMobile &&
-                        <div className={styles.icon__city}>
-                            <Icons icon={'geo'}/>
-                            <a href={'#'} className={'underlined'}>Нижний Новгород</a>
-                        </div>
+                    <div className={styles.icon__city}>
+                        <Icons icon={'geo'}/>
+                        <a href={'#'} className={'underlined'}>Нижний Новгород</a>
+                    </div>
                 }
 
                 {!typeSelected && <PetTypes/>}
 
 
-                {!isMobile ? !typeSelected ? <h1>Актуальные объявления</h1> : <h1>Тип животного в Городе</h1> : !typeSelected ? <h3>Актуальные объявления</h3> : <h3>Тип животного в Городе</h3>}
+                {!isMobile ? !typeSelected ? <h1>Актуальные объявления</h1> :
+                    <h1>Тип животного в Городе</h1> : !typeSelected ? <h3>Актуальные объявления</h3> :
+                    <h3>Тип животного в Городе</h3>}
 
                 {typeSelected &&
                     <div className={styles.search__settings}>
@@ -101,30 +129,14 @@ const Ads: React.FC = () => {
                         <>
                         </>
                     }
-
                     <div className={styles.all__ads}>
-                        {isBigAd ?
-                            <>
-                                <AdCards size={'big'} url={`/ad-page`}/>
-                                <AdCards size={'big'} url={`/ad-page`}/>
-                                <AdCards size={'big'} url={`/ad-page`}/>
-                                <AdCards size={'big'} url={`/ad-page`}/>
-                                <AdCards size={'big'} url={`/ad-page`}/>
-                                <AdCards size={'big'} url={`/ad-page`}/>
-                                <AdCards size={'big'} url={`/ad-page`}/>
-                                <AdCards size={'big'} url={`/ad-page`}/>
-                            </>
-                            :
-                            <>
-                                <AdCards size={'small'} url={`/ad-page`}/>
-                                <AdCards size={'small'} url={`/ad-page`}/>
-                                <AdCards size={'small'} url={`/ad-page`}/>
-                                <AdCards size={'small'} url={`/ad-page`}/>
-                                <AdCards size={'small'} url={`/ad-page`}/>
-                                <AdCards size={'small'} url={`/ad-page`}/>
-                                <AdCards size={'small'} url={`/ad-page`}/>
-                                <AdCards size={'small'} url={`/ad-page`}/>
-                            </>}
+                        {
+                            adverts.map((ad, index) =>
+                                <AdCards
+                                    key={index}
+                                    size={isMobile ? 'small' : isBigAd ? 'big' : 'small'}
+                                    info={ad}/>)
+                        }
                     </div>
                 </div>
             </div>

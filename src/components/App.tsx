@@ -15,6 +15,15 @@ import Footer from './Footer/Footer';
 
 import styles from './App.module.css';
 
+const ScrollToTop = (props: any) => {
+    const location = useLocation();
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [location]);
+
+    return <>{props.children}</>
+};
+
 
 const App: React.FC = () => {
     const [user, setUser] = useState<iUser>(structuredClone(initialUserContextState.user));
@@ -130,20 +139,22 @@ const App: React.FC = () => {
     return (
         <UserContext.Provider value={{user: user, setUser: setUser}}>
             <ChatContext.Provider value={chat}>
-                <Header/>
-                <main className={cn(styles.main, 'container')}>
-                    <Routes>
-                        {mainRoutesConfig.map((route, index) => (
-                            <Route
-                                key={index}
-                                path={route.path}
-                                element={route.element}
-                            />
-                        ))}
-                    </Routes>
-                </main>
-                {location.pathname != '/messenger' && <Footer/>}
-                <audio ref={audioPlayer} src={NotificationSound}/>
+                <ScrollToTop>
+                    <Header/>
+                    <main className={cn(styles.main, 'container')}>
+                        <Routes>
+                            {mainRoutesConfig.map((route, index) => (
+                                <Route
+                                    key={index}
+                                    path={route.path}
+                                    element={route.element}
+                                />
+                            ))}
+                        </Routes>
+                    </main>
+                    {location.pathname != '/messenger' && <Footer/>}
+                    <audio ref={audioPlayer} src={NotificationSound}/>
+                </ScrollToTop>
             </ChatContext.Provider>
         </UserContext.Provider>
     );

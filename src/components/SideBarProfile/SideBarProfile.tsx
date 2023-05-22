@@ -28,7 +28,7 @@ const SideBarProfile = () => {
                     <Icons icon={'paw'}/>
                     <p>Питомцы</p>
                 </NavLink>
-                <NavLink to={'/profile/favorite'} className={styles.menu__item}>
+                <NavLink to={'/profile/favorites'} className={styles.menu__item}>
                     <Icons icon={'cards-heart'}/>
                     <p>Избранное</p>
                 </NavLink>

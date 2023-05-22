@@ -7,7 +7,9 @@ import {getAge} from '../PetCard/PetCard';
 import Icons from '../UIKit/Icons';
 import Chips from '../UIKit/Chips';
 
-import styles from './AdCards.module.css';
+import styles from './AdCard.module.css';
+import {useUserContext} from "../../contexts/userContext";
+import FavoritesService from "../../services/favoritesService";
 
 
 export type AdCardInfoType = {
@@ -16,8 +18,10 @@ export type AdCardInfoType = {
     city: string,
     description: string,
     district: string,
+    favoritesID: number,
     gender: string,
     id: number,
+    inFavorites: boolean,
     mainPhoto: string,
     petCardID: number,
     petName: string,
@@ -46,12 +50,13 @@ export const prettyPublicationTime = (publication: string) => {
     return {date: publicationDate, time: publicationTime}
 }
 
-const AdCards: React.FC<iAdCardProps> = ({size, info}) => {
-    const [isLiked, setIsLiked] = useState(false);
+const AdCard: React.FC<iAdCardProps> = ({size, info}) => {
     const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
 
+    const {user, setUser} = useUserContext();
+
     window.addEventListener('resize', () => {
-        setIsMobile(window.innerWidth <= 700)
+        setIsMobile(window.innerWidth <= 700);
     });
 
     const publication = prettyPublicationTime(info.publication);
@@ -65,16 +70,27 @@ const AdCards: React.FC<iAdCardProps> = ({size, info}) => {
                         {!isMobile ? <h4>{info.petName}</h4> : <h5>{info.petName}</h5>}
                         <p>{prettyAdPrice(info.price)}</p>
                     </div>
-                    {isLiked ?
-                        <Icons icon={'cards-heart'} className={styles.heart} onClick={(event) => {
-                            event.preventDefault();
-                            setIsLiked(!isLiked);
-                        }}/> :
-                        <Icons icon={'cards-heart-outline'} className={styles.heart}
-                               onClick={(event) => {
-                                   event.preventDefault();
-                                   setIsLiked(!isLiked);
-                               }}/>}
+                    {!user.empty &&
+                        <Icons icon={info.inFavorites ? 'cards-heart' : 'cards-heart-outline'} className={styles.heart}
+                               onClick={(e) => {
+                                   e.preventDefault();
+                                   setTimeout(()=>setUser({...user}), 100);
+                                   if (info.inFavorites) {
+                                       FavoritesService.deleteFromFavorites({id: info.favoritesID}, user.accessToken).then(response => {
+                                           console.log(response);
+                                           return response.json();
+                                       }).then(body => console.log(body));
+                                   } else {
+                                       FavoritesService.addToFavorites({
+                                           type: 'advert',
+                                           id: info.id
+                                       }, user.accessToken).then(response => {
+                                           console.log(response);
+                                       });
+                                   }
+                               }}
+                        />
+                    }
                 </div>
                 {size === 'big' &&
                     <div className={styles.chips}>
@@ -100,4 +116,4 @@ const AdCards: React.FC<iAdCardProps> = ({size, info}) => {
     );
 };
 
-export default AdCards;
+export default AdCard;

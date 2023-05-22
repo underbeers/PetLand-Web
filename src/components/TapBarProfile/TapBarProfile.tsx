@@ -20,7 +20,7 @@ const TapBarProfile: React.FC<iTapBarProps> = ({format}) => {
                 <span className={'secondary__text-3'}>Питомцы</span>
             </NavLink>
 
-            <NavLink to={'/profile/favorite'} className={styles.menu__item}>
+            <NavLink to={'/profile/favorites'} className={styles.menu__item}>
                 <Icons icon={'cards-heart'} className={styles.icon}/>
                 <span className={'secondary__text-3'}>Избранное</span>
             </NavLink>

@@ -56,12 +56,12 @@ const Header: React.FC = () => {
                         </ul>}
                     </li>
                     <li className={styles.icons}>
-                        <NavLink to={'/profile/favorite'}><Icons icon={'cards-heart'}/></NavLink>
+                        <NavLink to={'/profile/favorites'}><Icons icon={'cards-heart'}/></NavLink>
                         <NavLink to={'/profile/notifications'}><Icons icon={'bell'}/></NavLink>
                         <NavLink to={'/messenger'}><Icons icon={'chat'}/></NavLink>
                     </li>
                     <li className={styles.user}>
-                        {!user.empty || user.loading ?
+                        {!user.empty?
                             <>
                                 <NavLink
                                     to={'/profile'}
@@ -94,7 +94,7 @@ const Header: React.FC = () => {
                                         setProfileDropdown(false)
                                     }}>
                                     <li><NavLink to={'/profile/pets'}>Питомцы</NavLink></li>
-                                    <li><NavLink to={'/profile/favorite'}>Избранное</NavLink></li>
+                                    <li><NavLink to={'/profile/favorites'}>Избранное</NavLink></li>
                                     <li><NavLink to={'/profile/ads'}>Объявления</NavLink></li>
                                     <li><NavLink to={'/profile/reviews'}>Отзывы</NavLink></li>
                                     <li><NavLink to={'/profile/rates'}>Рейтинг</NavLink></li>

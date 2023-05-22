@@ -4,7 +4,7 @@ import {useNavigate, useSearchParams} from 'react-router-dom';
 import {useUserContext} from '../../contexts/userContext';
 import AdvertService from '../../services/advertService';
 import {getAge} from '../../components/PetCard/PetCard';
-import {prettyAdPrice, prettyPublicationTime} from '../../components/AdCards/AdCards';
+import {prettyAdPrice, prettyPublicationTime} from '../../components/AdCard/AdCard';
 
 import Chips from '../../components/UIKit/Chips';
 import Icons from '../../components/UIKit/Icons';

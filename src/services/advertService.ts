@@ -23,6 +23,16 @@ class AdvertService {
         });
     }
 
+    public async getAuthorizedAdverts(accessToken: string) {
+        return fetch(API_URL + '/auth/adverts', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${accessToken}`
+            }
+        });
+    }
+
     public async createAdvert(params: { petCardID: number, price: number, description: string, cityID: number,
         districtID: number, chat: boolean, phone?: string }, accessToken: string) {
         return fetch(API_URL + '/adverts/new', {

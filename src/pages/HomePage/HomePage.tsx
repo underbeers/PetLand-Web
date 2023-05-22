@@ -10,7 +10,7 @@ import {events} from '../Services/Events/Events';
 
 import Icons from '../../components/UIKit/Icons';
 import Button from '../../components/UIKit/Button';
-import AdCards, {AdCardInfoType} from '../../components/AdCards/AdCards';
+import AdCard, {AdCardInfoType} from '../../components/AdCard/AdCard';
 import SpecialistCard from '../../components/SpecialistCard/SpecialistCard';
 import OrganizationCard from '../../components/OrganizationCard/OrganizationCard';
 import EventCard from '../../components/EventCard/EventCard';
@@ -107,7 +107,7 @@ const HomePage: React.FC = () => {
                             adverts.sort((ad1, ad2) => {
                                 return new Date(ad1.publication).getTime() - new Date(ad2.publication).getTime();
                             }).reverse().slice(0, isMobile ? 2 : 4).map((ad, index) =>
-                                <AdCards
+                                <AdCard
                                     key={index}
                                     size={'small'}
                                     info={ad}/>)

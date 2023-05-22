@@ -2,8 +2,9 @@ import React, {useEffect, useState} from 'react';
 import {NavLink, useNavigate} from 'react-router-dom';
 
 import AdvertService from '../../services/advertService';
+import {useUserContext} from "../../contexts/userContext";
 
-import AdCards, {AdCardInfoType} from '../../components/AdCards/AdCards';
+import AdCard, {AdCardInfoType} from '../../components/AdCard/AdCard';
 import PetTypes from '../../components/PetTypes/PetTypes';
 import TopBar from '../../components/TopBar/TopBar';
 import Tabs from '../../components/Tabs/Tabs';
@@ -27,6 +28,8 @@ const Ads: React.FC = () => {
     const [sterilized, setSterilized] = useState(false);
     const [vaccines, setVaccines] = useState(false);
 
+    const {user, setUser} = useUserContext();
+
     window.addEventListener('resize', () => {
         setIsMobile(window.innerWidth <= 700)
     });
@@ -36,25 +39,50 @@ const Ads: React.FC = () => {
     const [adverts, setAdverts] = useState<Array<AdCardInfoType>>([]);
 
     useEffect(() => {
-        AdvertService.getAdverts().then(response => {
-            //console.log(response);
-            switch (response.status) {
-                case 200:
-                    return response.json();
-                default:
-                    //console.log('Error', response);
-                    return null;
+        console.log('user changed')
+        if (user.empty) {
+            AdvertService.getAdverts().then(response => {
+                //console.log(response);
+                switch (response.status) {
+                    case 200:
+                        return response.json();
+                    default:
+                        //console.log('Error', response);
+                        return null;
+                }
+            }).then((body: {
+                nextPage: string,
+                records: Array<AdCardInfoType>,
+                totalCount: number, totalPage: number
+            }) => {
+                if (body) {
+                    setAdverts(body.records);
+                }
+            });
+        } else {
+            if (user.accessToken) {
+                AdvertService.getAuthorizedAdverts(user.accessToken).then(response => {
+                    //console.log(response);
+                    switch (response.status) {
+                        case 200:
+                            return response.json();
+                        default:
+                            //console.log('Error', response);
+                            return null;
+                    }
+                }).then((body: {
+                    nextPage: string,
+                    records: Array<AdCardInfoType>,
+                    totalCount: number, totalPage: number
+                }) => {
+                    if (body) {
+                        console.log(body)
+                        setAdverts(body.records);
+                    }
+                });
             }
-        }).then((body: {
-            nextPage: string,
-            records: Array<AdCardInfoType>,
-            totalCount: number, totalPage: number
-        }) => {
-            if (body) {
-                setAdverts(body.records);
-            }
-        });
-    }, []);
+        }
+    }, [user]);
 
     return (
         <>
@@ -132,7 +160,7 @@ const Ads: React.FC = () => {
                     <div className={styles.all__ads}>
                         {
                             adverts.map((ad, index) =>
-                                <AdCards
+                                <AdCard
                                     key={index}
                                     size={isMobile ? 'small' : isBigAd ? 'big' : 'small'}
                                     info={ad}/>)

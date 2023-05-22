@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 
-import {UserContext} from '../../userContext';
+import {UserContext} from '../../contexts/userContext';
 import petService from '../../services/petService';
 import AdvertService from '../../services/advertService';
 import {withOfferToSignIn} from '../../hoc/withOfferToSignIn';

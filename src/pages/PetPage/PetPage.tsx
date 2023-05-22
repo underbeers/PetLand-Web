@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {useNavigate, useSearchParams} from 'react-router-dom';
-import {useUserContext} from '../../userContext';
+import {useUserContext} from '../../contexts/userContext';
 
 import petService from '../../services/petService';
 import {getAge} from '../../components/PetCard/PetCard';

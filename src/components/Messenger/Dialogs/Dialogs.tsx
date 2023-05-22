@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {useChatContext} from '../../../chatContext';
+import {useChatContext} from '../../../contexts/chatContext';
 
 import Dialog from '../Dialog/Dialog';
 

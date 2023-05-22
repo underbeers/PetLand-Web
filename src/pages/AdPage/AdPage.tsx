@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useNavigate, useSearchParams} from 'react-router-dom';
 
-import {useUserContext} from '../../userContext';
+import {useUserContext} from '../../contexts/userContext';
 import AdvertService from '../../services/advertService';
 import {getAge} from '../../components/PetCard/PetCard';
 import {prettyAdPrice, prettyPublicationTime} from '../../components/AdCards/AdCards';

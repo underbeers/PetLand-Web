@@ -3,8 +3,8 @@ import {NavLink} from 'react-router-dom';
 import cn from 'classnames';
 
 import userService from '../../services/userService';
-import {useChatContext} from '../../chatContext';
-import {useUserContext} from '../../userContext';
+import {useChatContext} from '../../contexts/chatContext';
+import {useUserContext} from '../../contexts/userContext';
 
 import Icons from '../UIKit/Icons';
 

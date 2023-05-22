@@ -2,7 +2,7 @@ import React from 'react';
 import {useNavigate, useSearchParams} from 'react-router-dom';
 import cn from 'classnames';
 
-import {useUserContext} from '../../../userContext';
+import {useUserContext} from '../../../contexts/userContext';
 
 import styles from './Dialog.module.css';
 

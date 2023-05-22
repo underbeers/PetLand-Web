@@ -1,6 +1,6 @@
 import {Socket} from 'socket.io-client';
 
-import {initialUserContextState, iUser} from '../userContext';
+import {initialUserContextState, iUser} from '../contexts/userContext';
 
 
 export const API_URL = `http://${process.env.REACT_APP_API_URL}/api/v1`;

@@ -1,8 +1,8 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom';
 
-import {useUserContext} from '../../userContext';
-import {useChatContext} from '../../chatContext';
+import {useUserContext} from '../../contexts/userContext';
+import {useChatContext} from '../../contexts/chatContext';
 import userService from '../../services/userService';
 
 import Image from '../Image/Image';

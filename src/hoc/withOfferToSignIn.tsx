@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
 
-import {useUserContext} from '../userContext';
+import {useUserContext} from '../contexts/userContext';
 
 import OfferToSignIn from '../pages/OfferToSignIn/OfferToSignIn';
 

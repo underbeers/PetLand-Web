@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState} from 'react';
 import cn from 'classnames';
 
-import {useUserContext} from '../../../userContext';
+import {useUserContext} from '../../../contexts/userContext';
 import {iAuthProps} from '../Authorization';
 import {emailRegExp, nameRegExp, passwordRegExp} from '../../../constants/regularExpressions';
 import userService from '../../../services/userService';

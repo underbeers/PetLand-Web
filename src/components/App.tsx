@@ -3,8 +3,8 @@ import {Route, Routes, useLocation, useSearchParams} from 'react-router-dom';
 import cn from 'classnames';
 
 import mainRoutesConfig from '../routes/mainRoutesConfig';
-import {initialUserContextState, iUser, UserContext} from '../userContext';
-import {ChatContext, ChatUserType, initialChatContextState} from '../chatContext';
+import {initialUserContextState, iUser, UserContext} from '../contexts/userContext';
+import {ChatContext, ChatUserType, initialChatContextState} from '../contexts/chatContext';
 import userService from '../services/userService';
 
 // @ts-ignore

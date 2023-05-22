@@ -1,5 +1,5 @@
 import React, {useContext, useState} from 'react';
-import {useUserContext} from '../../../userContext';
+import {useUserContext} from '../../../contexts/userContext';
 import {useNavigate} from 'react-router-dom';
 
 import Button from '../../../components/UIKit/Button';

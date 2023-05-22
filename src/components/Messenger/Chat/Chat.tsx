@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 
-import {ChatUserType, useChatContext} from '../../../chatContext';
-import {useUserContext} from '../../../userContext';
+import {ChatUserType, useChatContext} from '../../../contexts/chatContext';
+import {useUserContext} from '../../../contexts/userContext';
 
 import Button from '../../UIKit/Button';
 import Icons from '../../UIKit/Icons';

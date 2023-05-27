@@ -42,7 +42,7 @@ const Favorites: React.FC = () => {
     return (
         <div>
             <h1>Избранное</h1>
-            <div>
+            <div className={styles.pets}>
                 {favorites.adverts.map((ad, index) => {
                         ad.inFavorites = true;
                         return <AdCard key={index} size={"big"} info={ad}/>

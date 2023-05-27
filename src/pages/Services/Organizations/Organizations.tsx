@@ -143,7 +143,6 @@ export const organizations = [
 ]
 
 const Organizations = () => {
-
     const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
 
     window.addEventListener('resize', () => {
@@ -157,7 +156,6 @@ const Organizations = () => {
                     <h5>Организации</h5>
                     <Icons icon={'geo'}/>
                 </TopBar>}
-
             {!isMobile ?
                 <div className={styles.title__geo}>
                     <h1>Популярные организации</h1>
@@ -168,7 +166,6 @@ const Organizations = () => {
                 </div> :
                 <h3 className={styles.title}>Популярные организации</h3>
             }
-
             <div className={styles.cards}>
                 {organizations.map((o, index) => <OrganizationCard key={index} {...o} />)}
             </div>

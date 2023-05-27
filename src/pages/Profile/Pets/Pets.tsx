@@ -36,7 +36,7 @@ const Pets: React.FC = () => {
     return (pets ?
             <>
                 <div className={styles.title__button}>
-                    <h1>Мои питомцы</h1>
+                    <h1>Питомцы</h1>
                     <Button color={'orange'} text={'Добавить питомца'} onClick={() => navigate('/new-pet')}
                             type={'primary'}/>
                 </div>
@@ -51,7 +51,7 @@ const Pets: React.FC = () => {
             </>
             :
             <>
-                <h1>Мои питомцы</h1>
+                <h1>Питомцы</h1>
                 <span className={styles.title}>У вас пока нет питомцев</span>
                 <div className={styles.text__button}>
                     <p>Если у вас уже есть питомец,<br/> добавьте его описание на PetLand</p>

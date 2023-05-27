@@ -194,8 +194,17 @@ const NewPet: React.FC = () => {
             <div className={styles.input__row}>
                 <Input type={'date'} value={birthday} setValue={setBirthday} label={'Дата рождения'}
                        help={'Если вы не знаете точную дату, укажите примерную'} required={true}/>
-                <Input type={'file'} value={photo} setValue={setPhoto} label={'Загрузите фотографию'}
-                       help={'Эта фотография будет на аватарке питомца'}/>
+                <div className={styles.additional__info}>
+                    <p>Дополнительная информация</p>
+                    <div className={styles.checkboxes}>
+                        <Checkbox isChecked={sterilized} setChecked={setSterilized}>
+                            Стерилизация
+                        </Checkbox>
+                        <Checkbox isChecked={vaccinated} setChecked={setVaccinated}>
+                            Прививки
+                        </Checkbox>
+                    </div>
+                </div>
             </div>
             <div className={styles.input__row}>
                 <Input type={'textarea'} value={color} setValue={setColor} label={'Окрас'}
@@ -203,18 +212,6 @@ const NewPet: React.FC = () => {
                 <Input type={'textarea'} value={care} setValue={setCare} label={'Особенности ухода'}
                        placeholder={'Расскажите про уход'} className={styles.textarea}/>
             </div>
-            <div className={styles.additional__info}>
-                <p>Для кошек и собак Вы можете добавить дополнительную информацию</p>
-                <div className={styles.input__row}>
-                    <Checkbox isChecked={sterilized} setChecked={setSterilized}>
-                        Стерилизация
-                    </Checkbox>
-                    <Checkbox isChecked={vaccinated} setChecked={setVaccinated}>
-                        Прививки
-                    </Checkbox>
-                </div>
-            </div>
-
             <div className={styles.input__row}>
                 <Input type={'textarea'} value={pedigree} setValue={setPedigree} label={'Родословная'}
                        placeholder={'Расскажите про родословную'} className={styles.textarea}/>

@@ -9,7 +9,6 @@ import styles from './AllServices.module.css';
 
 
 const AllServices = () => {
-
     const navigate = useNavigate();
 
     const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
@@ -43,14 +42,11 @@ const AllServices = () => {
                         <h2>Специалисты</h2>
                         <p>Найдите подходящих ветеринаров,<br/>кинологов, грумеров для ваших питомцев</p>
                     </div>
-
                     <Icons icon={'doctor'} className={styles.spec__icon}/>
-
                     <Button type={'secondary'} onClick={() => {
                         navigate('/services/specialists')
                     }} color={'orange'} text={'Найти'} className={styles.button}/>
                 </div>
-
                 <div className={styles.card}>
                     <div className={styles.title__desc__card}>
                         <h2>Клиники и гостиницы</h2>
@@ -63,7 +59,6 @@ const AllServices = () => {
                         navigate('/services/organizations')
                     }} color={'orange'} text={'Выбрать'} className={styles.button}/>
                 </div>
-
                 <div className={styles.card}>
                     <div className={styles.title__desc__card}>
                         <h2>Мероприятия</h2>
@@ -87,7 +82,6 @@ const AllServices = () => {
                             ваших питомцев</p>
                     </div>
                 </div>
-
                 <div className={styles.item} onClick={() => {navigate('/services/organizations')}}>
                     <Icons icon={'hospital'} className={styles.org__icon__mobile}/>
                     <div className={styles.text__item}>
@@ -95,7 +89,6 @@ const AllServices = () => {
                         <p className={'secondary__text-2'}>Выберите лучшую ветклинику<br/>или гостиницу для животных</p>
                     </div>
                 </div>
-
                 <div className={styles.item} onClick={() => {navigate('/services/events')}}>
                     <Icons icon={'calendar-multiple'} className={styles.events__icon__mobile}/>
                     <div className={styles.text__item}>
@@ -106,9 +99,8 @@ const AllServices = () => {
                 </div>
             </div>
         }
-
         </>
-    )
-}
+    );
+};
 
 export default AllServices;

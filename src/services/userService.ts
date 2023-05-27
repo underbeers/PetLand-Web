@@ -1,6 +1,7 @@
 import {Socket} from 'socket.io-client';
 
 import {initialUserContextState, iUser} from '../contexts/userContext';
+import {resolveSrv} from "dns";
 
 
 export const API_URL = `http://${process.env.REACT_APP_API_URL}/api/v1`;
@@ -99,12 +100,12 @@ class UserService {
                 }
                 return null;
             }
-        }).then((body: { email: string, firstName: string, surName: string, userID: string, chatID: string, sessionID: string }) => {
-            //console.log(body);
+        }).then((body: { email: string, firstName: string, surName: string, userID: string, chatID: string, sessionID: string, imageLink: string }) => {
+            console.log(body);
             if (body) {
                 const newUser = {
                     ...body,
-                    photo: 'https://script.viserlab.com/stoclab/assets/user/profile/5fb0bd27eccb31605418279.jpg',
+                    photo: body.imageLink,
                     chatUserID: body.chatID,
                     accessToken: user.accessToken,
                     empty: false,
@@ -224,6 +225,27 @@ class UserService {
             return response.json();
         }).then((body) => {
             //console.log(body);
+        });
+    }
+
+    public async updateAvatarFetch(data: FormData, accessToken: string) {
+        return fetch(API_URL + '/fileUser', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                'Authorization': `Bearer ${accessToken}`
+            },
+            body: data
+        });
+    }
+    public async updateAvatar(data: FormData, accessToken: string) {
+        return fetch(API_URL + '/fileUser', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                'Authorization': `Bearer ${accessToken}`
+            },
+            body: data
         });
     }
 }

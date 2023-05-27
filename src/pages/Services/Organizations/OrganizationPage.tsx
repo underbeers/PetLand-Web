@@ -10,7 +10,7 @@ import Page404 from '../../Page404/Page404';
 import styles from './OrganizationPage.module.css';
 
 
-const getOrganizationById = (id:string | null) => {
+const getOrganizationById = (id: string | null) => {
     if (id === null) {
         return id;
     }
@@ -23,7 +23,6 @@ const getOrganizationById = (id:string | null) => {
 }
 
 const OrganizationPage = () => {
-
     const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
 
     window.addEventListener('resize', () => {
@@ -54,29 +53,11 @@ const OrganizationPage = () => {
                 <div className={styles.name__favorite}>
                     <Icons icon={'arrow-left'} className={styles.icon__arrow__back} onClick={handleGoBack}/>
                     <h1 className={styles.name}>{organization.name}</h1>
-                    <div className={styles.favorite}>
-                        <h5>В избранное</h5>
-                        {!isLiked ?
-                            <Icons icon={'cards-heart-outline'} className={styles.icon__heart} onClick={() => {setIsLiked(!isLiked)}}/>
-                        :
-                            <Icons icon={'cards-heart'} className={styles.icon__heart} onClick={() => {setIsLiked(!isLiked)}}/>
-                        }
-
-                    </div>
                 </div> :
                 <TopBar leftButton={'arrow'}>
                     <h5>{organization.name}</h5>
-                    {!isLiked ?
-                        <Icons icon={'cards-heart-outline'} onClick={() => {
-                            setIsLiked(!isLiked)
-                        }} className={styles.heart__topbar}/> :
-                        <Icons icon={'cards-heart'} onClick={() => {
-                            setIsLiked(!isLiked)
-                        }} className={styles.heart__topbar}/>
-                    }
                 </TopBar>
             }
-
             <div className={styles.photo__info}>
                 <img src={organization.photo} className={styles.photo}/>
                 <div className={styles.info}>
@@ -94,33 +75,26 @@ const OrganizationPage = () => {
                             <p className={'underlined'}>10 отзывов</p>
                         </div>
                     </div>
-
                     <div className={styles.type}>
                         <h3>Тип:</h3>
                         <p>{organization.type}</p>
                     </div>
-
                     <div className={styles.schedule}>
                         <h3>График работы:</h3>
                         <p>{organization.schedule}</p>
                     </div>
-
                     <div className={styles.address}>
                         <h3>Адрес:</h3>
                         <p>{organization.address}</p>
                     </div>
-
                     <div className={styles.contacts}>
                         <h3>Контакты:</h3>
                         <p>{organization.phone}</p>
                     </div>
-
                 </div>
             </div>
-
-
         </>
-    )
-}
+    );
+};
 
 export default OrganizationPage;

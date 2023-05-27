@@ -46,15 +46,6 @@ const SpecialistCard: React.FC<iSpecialistProps> = ({
             <div className={styles.specInfo}>
                 <div className={styles.name__like}>
                     <h5>{name}</h5>
-                    {isLiked ?
-                        <Icons icon={'cards-heart'} className={styles.heart} onClick={(event) => {
-                            event.preventDefault();
-                            setIsLiked(!isLiked);
-                        }}/> : <Icons icon={'cards-heart-outline'} className={styles.heart}
-                                      onClick={(event) => {
-                                          event.preventDefault();
-                                          setIsLiked(!isLiked);
-                                      }}/>}
                 </div>
                 {!isMobile ?
                     <div className={styles.rating__stars}>

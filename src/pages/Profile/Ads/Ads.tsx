@@ -13,7 +13,7 @@ import styles from './Ads.module.css';
 const Ads: React.FC = () => {
     return (
         <>
-            <h1 className={styles.heading}>Мои объявления</h1>
+            <h1 className={styles.heading}>Объявления</h1>
             <Tabs>
                 <NavLink to={'/profile/ads/actual'}>Актуальные</NavLink>
                 <NavLink to={'/profile/ads/moderation'}>На модерации</NavLink>

@@ -20,6 +20,10 @@ const profileRoutesConfig = [
         element: <Favorites/>
     },
     {
+        path: '/notifications',
+        element: <InDevelop/>
+    },
+    {
         path: '/adverts',
         element: <Navigate to={PROFILE_PREFIX + '/adverts/actual'} replace={true}/>
     },

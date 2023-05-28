@@ -6,6 +6,14 @@
     flex-wrap: wrap;
 }
 
+.no_favorites {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 24px;
+}
+
 @media screen and (max-width: 700px) {
     .pets {
         gap: 16px;

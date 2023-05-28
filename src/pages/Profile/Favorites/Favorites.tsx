@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import {useNavigate} from "react-router-dom";
 
 import FavoritesService from '../../../services/favoritesService';
 import {useUserContext} from '../../../contexts/userContext';
@@ -6,6 +7,7 @@ import {useIsMobileContext} from '../../../contexts/isMobileContext';
 
 import AdCard, {AdCardInfoType} from '../../../components/AdCard/AdCard';
 import TopBar from '../../../components/TopBar/TopBar';
+import Button from "../../../components/UIKit/Button";
 
 import styles from './Favorites.module.css';
 
@@ -23,6 +25,8 @@ const Favorites: React.FC = () => {
         organizations: [],
         specialists: []
     });
+    const navigate = useNavigate();
+
 
     const {user, setUser} = useUserContext();
     const isMobile = useIsMobileContext();
@@ -52,11 +56,18 @@ const Favorites: React.FC = () => {
                 <h1>Избранное</h1>
             }
             <div className={styles.pets}>
-                {favorites.adverts.map((ad, index) => {
-                        ad.inFavorites = true;
-                        return <AdCard key={index} size={isMobile ? 'small' : 'big'} info={ad}/>
-                    }
-                )}
+                {favorites.adverts.length ? favorites.adverts.map((ad, index) => {
+                            ad.inFavorites = true;
+                            return <AdCard key={index} size={isMobile ? 'small' : 'big'} info={ad}/>
+                        }
+                    )
+                    :
+                    <div className={styles.no_favorites}>
+                        <h4>Вы ещё ничего не добавили в избранное</h4>
+                        <Button type={"primary"} color={"orange"} text={'К доске объявлений'}
+                                onClick={() => navigate('/adverts')}/>
+                    </div>
+                }
             </div>
         </div>
     );

@@ -17,7 +17,7 @@ const SideBarProfile = () => {
     return (
         <div>
             <div className={styles.content}>
-                <input type={'file'} id={styles.user_photo} accept={'image/png, image/jpeg'} onChange={(e) => {
+                {false && <input type={'file'} id={styles.user_photo} accept={'image/png, image/jpeg'} onChange={(e) => {
                     console.log(e);
                     const fileInput = document.querySelector(`#${styles.user_photo}`);
                     if (!fileInput) {
@@ -36,14 +36,12 @@ const SideBarProfile = () => {
                     }).then(body => {
                         console.log(body);
                     });
-                }}/>
+                }}/>}
                 <Image
                     imageProps={{src: user.photo, alt: 'Фото', width: '172px', height: '172px'}}
                     borderRadius={'86px'}/>
                 <NavLink to={'/profile'}><h4>{user.firstName} {user.surName}</h4></NavLink>
-
                 <div className={styles.divider}></div>
-
                 <NavLink to={'/profile/pets'} className={styles.menu__item}>
                     <Icons icon={'paw'}/>
                     <p>Питомцы</p>

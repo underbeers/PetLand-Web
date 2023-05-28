@@ -2,13 +2,12 @@ import React, {useState} from 'react';
 import {NavLink} from 'react-router-dom';
 
 import styles from './Footer.module.css';
+import {useIsMobileContext} from "../../contexts/isMobileContext";
 
 
 const Footer: React.FC = () => {
-    const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
-    window.addEventListener('resize', () => {
-        setIsMobile(window.innerWidth <= 700)
-    });
+    const isMobile = useIsMobileContext();
+
     const year = new Date().getFullYear();
 
     return (
@@ -31,7 +30,7 @@ const Footer: React.FC = () => {
             <div className={styles.row}>
                 {!isMobile && <p>PetLand - сервис для владельцев питомцев.</p>}
                 <p>“PetLand” 2022-{year}</p>
-                <NavLink to={'#'}>Политика обработки данных</NavLink>
+                <NavLink to={'/policy'}>Политика обработки данных</NavLink>
             </div>
         </footer>
     );

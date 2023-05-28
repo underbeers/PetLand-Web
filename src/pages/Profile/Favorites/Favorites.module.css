@@ -1,5 +1,5 @@
 .pets {
-    padding-top: 24px;
+    padding: 24px 0;
     gap: 30px;
     display: flex;
     flex-direction: column;

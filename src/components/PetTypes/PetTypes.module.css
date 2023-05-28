@@ -4,6 +4,7 @@
     flex-direction: row;
     justify-content: space-between;
     overflow-x: auto;
+    padding: 16px 0;
 }
 
 .type {
@@ -39,7 +40,6 @@
         margin-left: -16px;
         -webkit-overflow-scrolling: touch;
         scrollbar-width: none;
-
     }
 
     .all__types {

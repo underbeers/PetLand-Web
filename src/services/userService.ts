@@ -2,6 +2,7 @@ import {Socket} from 'socket.io-client';
 
 import {initialUserContextState, iUser} from '../contexts/userContext';
 import {resolveSrv} from "dns";
+import axios from "axios";
 
 
 export const API_URL = `http://${process.env.REACT_APP_API_URL}/api/v1`;
@@ -231,22 +232,24 @@ class UserService {
     public async updateAvatarFetch(data: FormData, accessToken: string) {
         return fetch(API_URL + '/fileUser', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'multipart/form-data',
-                'Authorization': `Bearer ${accessToken}`
-            },
+            //headers: {
+            //    'Content-Type': 'multipart/form-data',
+            //    'Authorization': `Bearer ${accessToken}`
+            //},
             body: data
         });
     }
-    public async updateAvatar(data: FormData, accessToken: string) {
-        return fetch(API_URL + '/fileUser', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'multipart/form-data',
-                'Authorization': `Bearer ${accessToken}`
-            },
-            body: data
-        });
+    public async updateAvatarAxios(data: FormData, accessToken: string) {
+        return axios.post(
+            API_URL +  '/fileUser',
+            data,
+            {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    'Authorization': `Bearer ${accessToken}`
+                }
+            }
+        );
     }
 }
 

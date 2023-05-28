@@ -9,18 +9,14 @@ import Authorization from '../../components/Authorization/Authorization';
 import Modal from '../../components/Modal/Modal';
 
 import styles from './EmailPage.module.css';
+import {useIsMobileContext} from "../../contexts/isMobileContext";
 
 
 const EmailPage = () => {
     const initialInputState = {value: '', ok: false, edited: false};
     const [email, setEmail] = useState(initialInputState);
     const [emailSent, setEmailSent] = useState(false);
-
-    const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
-
-    window.addEventListener('resize', () => {
-        setIsMobile(window.innerWidth <= 700)
-    });
+    const isMobile = useIsMobileContext();
 
     const navigate = useNavigate();
 

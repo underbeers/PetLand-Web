@@ -6,16 +6,12 @@ import Button from '../../components/UIKit/Button';
 import TopBar from '../../components/TopBar/TopBar';
 
 import styles from './AllServices.module.css';
+import {useIsMobileContext} from "../../contexts/isMobileContext";
 
 
 const AllServices = () => {
     const navigate = useNavigate();
-
-    const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
-
-    window.addEventListener('resize', () => {
-        setIsMobile(window.innerWidth <= 700)
-    });
+    const isMobile = useIsMobileContext();
 
     return (
         <>

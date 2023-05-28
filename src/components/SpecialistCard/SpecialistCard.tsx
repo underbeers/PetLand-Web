@@ -5,6 +5,7 @@ import cn from 'classnames';
 import Icons from '../UIKit/Icons';
 
 import styles from './SpecialistCard.module.css';
+import {useIsMobileContext} from "../../contexts/isMobileContext";
 
 
 interface iSpecialistProps {
@@ -32,13 +33,7 @@ const SpecialistCard: React.FC<iSpecialistProps> = ({
                                                         phone,
                                                         photo
                                                     }) => {
-
-    const [isLiked, setIsLiked] = useState(false);
-    const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
-
-    window.addEventListener('resize', () => {
-        setIsMobile(window.innerWidth <= 700)
-    });
+    const isMobile = useIsMobileContext();
 
     return (
         <NavLink to={`/services/specialists/specialist?id=${id}`} className={styles.card}>

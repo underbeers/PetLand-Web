@@ -8,18 +8,15 @@ import SideBarProfile from '../../components/SideBarProfile/SideBarProfile';
 import TapBarProfile from '../../components/TapBarProfile/TapBarProfile';
 
 import styles from './Profile.module.css';
+import {useIsMobileContext} from "../../contexts/isMobileContext";
 
 
 const Profile: React.FC = () => {
-    const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
-
-    window.addEventListener('resize', () => {
-        setIsMobile(window.innerWidth <= 700)
-    });
+    const isMobile = useIsMobileContext();
 
     return (
         <div className={styles.wrapper}>
-            {!isMobile ? <SideBarProfile/> : <TapBarProfile format={'circle'}/>}
+            {!isMobile ? <SideBarProfile/> : <TapBarProfile/>}
             <div className={styles.content}>
                 <Routes>
                     {profileRoutesConfig.map((route, index) => (

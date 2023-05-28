@@ -9,6 +9,7 @@ import TopBar from '../../../components/TopBar/TopBar';
 import Icons from '../../../components/UIKit/Icons';
 
 import styles from './EventPage.module.css';
+import {useIsMobileContext} from "../../../contexts/isMobileContext";
 
 
 const getEventById = (id: string | null) => {
@@ -24,11 +25,7 @@ const getEventById = (id: string | null) => {
 }
 
 const EventPage = () => {
-    const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
-
-    window.addEventListener('resize', () => {
-        setIsMobile(window.innerWidth <= 700)
-    });
+    const isMobile = useIsMobileContext();
 
     const navigate = useNavigate();
 

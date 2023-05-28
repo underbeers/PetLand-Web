@@ -291,14 +291,17 @@ h5 {
     ::-webkit-scrollbar {
         width: 6px;
         height: 6px;
+        display: none;
     }
     
     ::-webkit-scrollbar-thumb {
         background-color: transparent;
         border-radius: 3px;
+        display: none;
     }
     
     ::-webkit-scrollbar-track {
         background-color: transparent;
+        display: none;
     }
 }

@@ -5,6 +5,7 @@ import cn from 'classnames';
 import Chips from '../UIKit/Chips';
 
 import styles from './PetCard.module.css'
+import {useIsMobileContext} from "../../contexts/isMobileContext";
 
 
 export interface iPetCardProps {
@@ -46,11 +47,7 @@ export const getAge: (dateOfBirth: string) => string = (dateOfBirth) => {
 }
 
 const PetCard: React.FC<iPetCardProps> = ({petInfo, size, url}) => {
-    const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
-
-    window.addEventListener('resize', () => {
-        setIsMobile(window.innerWidth <= 700);
-    });
+    const isMobile = useIsMobileContext();
 
     return (
         <NavLink to={url} className={cn(styles.card, styles[size])}>

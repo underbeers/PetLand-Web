@@ -7,15 +7,11 @@ import TopBar from '../../components/TopBar/TopBar';
 import sadDog from './img/sadDog.png';
 
 import styles from './Page404.module.css'
+import {useIsMobileContext} from "../../contexts/isMobileContext";
 
 
 const Page404: React.FC = () => {
-
-    const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
-
-    window.addEventListener('resize', () => {
-        setIsMobile(window.innerWidth <= 700)
-    });
+    const isMobile = useIsMobileContext();
 
     let navigate = useNavigate();
     const routeChange = () => {

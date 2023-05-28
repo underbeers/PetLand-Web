@@ -7,14 +7,11 @@ import chinchilla from './img/chinchilla.png';
 import parrot from './img/parrot.png';
 
 import styles from './PetTypes.module.css';
+import {useIsMobileContext} from "../../contexts/isMobileContext";
 
 
 const PetTypes = () => {
-    const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
-
-    window.addEventListener('resize', () => {
-        setIsMobile(window.innerWidth <= 760)
-    });
+    const isMobile = useIsMobileContext();
 
     return (
         <div className={styles.types__wrapper}>

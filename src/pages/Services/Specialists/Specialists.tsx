@@ -5,6 +5,7 @@ import SpecialistCard from '../../../components/SpecialistCard/SpecialistCard';
 import TopBar from '../../../components/TopBar/TopBar';
 
 import styles from './Specialists.module.css';
+import {useIsMobileContext} from "../../../contexts/isMobileContext";
 
 
 export const specialists = [
@@ -156,11 +157,7 @@ export const specialists = [
 
 
 const Specialists = () => {
-    const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
-
-    window.addEventListener('resize', () => {
-        setIsMobile(window.innerWidth <= 700)
-    });
+    const isMobile = useIsMobileContext();
 
     return (
         <>

@@ -5,6 +5,7 @@ import EventCard from '../../../components/EventCard/EventCard';
 import TopBar from '../../../components/TopBar/TopBar';
 
 import styles from './Events.module.css';
+import {useIsMobileContext} from "../../../contexts/isMobileContext";
 
 
 export const events = [
@@ -66,11 +67,7 @@ export const events = [
 ]
 
 const Events = () => {
-    const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
-
-    window.addEventListener('resize', () => {
-        setIsMobile(window.innerWidth <= 700)
-    });
+    const isMobile = useIsMobileContext();
 
     return (
         <>

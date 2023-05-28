@@ -7,14 +7,11 @@ import TopBar from '../../components/TopBar/TopBar';
 import cat from './img/cat.png'
 
 import styles from './OfferToSignIn.module.css'
+import {useIsMobileContext} from "../../contexts/isMobileContext";
 
 
 const OfferToSignIn: React.FC = () => {
-    const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
-
-    window.addEventListener('resize', () => {
-        setIsMobile(window.innerWidth <= 700)
-    });
+    const isMobile = useIsMobileContext();
 
     return (
         <div>

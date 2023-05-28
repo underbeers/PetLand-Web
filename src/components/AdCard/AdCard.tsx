@@ -10,6 +10,7 @@ import Chips from '../UIKit/Chips';
 import styles from './AdCard.module.css';
 import {useUserContext} from "../../contexts/userContext";
 import FavoritesService from "../../services/favoritesService";
+import {useIsMobileContext} from "../../contexts/isMobileContext";
 
 
 export type AdCardInfoType = {
@@ -51,15 +52,11 @@ export const prettyPublicationTime = (publication: string) => {
 }
 
 const AdCard: React.FC<iAdCardProps> = ({size, info}) => {
-    const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
-
     const {user, setUser} = useUserContext();
-
-    window.addEventListener('resize', () => {
-        setIsMobile(window.innerWidth <= 700);
-    });
+    const isMobile = useIsMobileContext();
 
     const publication = prettyPublicationTime(info.publication);
+
     return (
         <NavLink to={`/ad-page?id=${info.id}`} className={cn(styles.card, styles[size])}>
             <img className={styles.photo}

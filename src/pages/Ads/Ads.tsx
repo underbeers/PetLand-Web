@@ -14,13 +14,13 @@ import Button from '../../components/UIKit/Button';
 import Input from '../../components/UIKit/Input';
 
 import styles from './Ads.module.css';
+import {useIsMobileContext} from "../../contexts/isMobileContext";
 
 
 const Ads: React.FC = () => {
     const initialInputState = {value: '', ok: false, edited: false};
     const [typeSelected, setTypeSelected] = useState(false);
 
-    const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
     const [isBigAd, setIsBigAd] = useState(true);
     const [breed, setBreed] = useState(initialInputState);
     const [priceFrom, setPriceFrom] = useState(initialInputState);
@@ -29,10 +29,7 @@ const Ads: React.FC = () => {
     const [vaccines, setVaccines] = useState(false);
 
     const {user, setUser} = useUserContext();
-
-    window.addEventListener('resize', () => {
-        setIsMobile(window.innerWidth <= 700)
-    });
+    const isMobile = useIsMobileContext();
 
     const navigate = useNavigate();
 

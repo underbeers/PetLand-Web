@@ -4,6 +4,8 @@ import styles from './Favorites.module.css';
 import FavoritesService from "../../../services/favoritesService";
 import {useUserContext} from "../../../contexts/userContext";
 import AdCard, {AdCardInfoType} from "../../../components/AdCard/AdCard";
+import {useIsMobileContext} from "../../../contexts/isMobileContext";
+import TopBar from "../../../components/TopBar/TopBar";
 
 type FavoritesType = {
     adverts: Array<AdCardInfoType>,
@@ -21,6 +23,7 @@ const Favorites: React.FC = () => {
     });
 
     const {user, setUser} = useUserContext();
+    const isMobile = useIsMobileContext();
 
     useEffect(() => {
         FavoritesService.getFavorites(user.accessToken).then(response => {
@@ -41,7 +44,11 @@ const Favorites: React.FC = () => {
 
     return (
         <div>
-            <h1>Избранное</h1>
+            {isMobile ?
+                <TopBar leftButton={"burger"}><h5>Избранное</h5></TopBar>
+                :
+                <h1>Избранное</h1>
+            }
             <div className={styles.pets}>
                 {favorites.adverts.map((ad, index) => {
                         ad.inFavorites = true;

@@ -11,6 +11,7 @@ import TopBar from '../../components/TopBar/TopBar';
 import styles from './NewPet.module.css';
 import {useUserContext} from '../../contexts/userContext';
 import {useNavigate} from 'react-router-dom';
+import {useIsMobileContext} from "../../contexts/isMobileContext";
 
 
 const NewPet: React.FC = () => {
@@ -46,8 +47,12 @@ const NewPet: React.FC = () => {
     const genders = ['Мальчик', 'Девочка'];
 
     const {user, setUser} = useUserContext();
+    const isMobile = useIsMobileContext();
 
-    const listRegExp: (elements: Array<string>, error: string) => { regExp: RegExp, error: string } = (elements, error) => {
+    const listRegExp: (elements: Array<string>, error: string) => {
+        regExp: RegExp,
+        error: string
+    } = (elements, error) => {
         return {
             regExp: RegExp(
                 '^(' + elements.toString()
@@ -173,53 +178,59 @@ const NewPet: React.FC = () => {
     }
 
     return (
-        <form id={'new_pet_form'} className={styles.wrapper}>
-            <h2>Добавление нового питомца</h2>
-            <div className={styles.input__row}>
-                <Input type={'text'} value={name} setValue={setName} label={'Кличка'}
-                       placeholder={'Введите имя питомца'} required={true}/>
-                <Input type={'dropdown'} value={type} setValue={setType} label={'Вид'} placeholder={'Выберите вид'}
-                       dropdownItems={getTypes()} required={true}
-                       regularExpressions={[listRegExp(getTypes(), 'Введите вид из списка')]}/>
-            </div>
-            <div className={styles.input__row}>
-                <Input type={'dropdown'} value={gender} setValue={setGender} label={'Пол'} placeholder={'Выберите пол'}
-                       dropdownItems={genders} required={true}
-                       regularExpressions={[listRegExp(genders, 'Выберите пол из списка')]}/>
-                <Input type={'dropdown'} value={breed} setValue={setBreed} label={'Порода'}
-                       placeholder={'Выберите породу'} dropdownItems={getBreeds()}
-                       required={true} disabled={!type.ok}
-                       regularExpressions={[listRegExp(getBreeds(), 'Введите породу из списка')]}/>
-            </div>
-            <div className={styles.input__row}>
-                <Input type={'date'} value={birthday} setValue={setBirthday} label={'Дата рождения'}
-                       help={'Если вы не знаете точную дату, укажите примерную'} required={true}/>
-                <div className={styles.additional__info}>
-                    <p>Дополнительная информация</p>
-                    <div className={styles.checkboxes}>
-                        <Checkbox isChecked={sterilized} setChecked={setSterilized}>
-                            Стерилизация
-                        </Checkbox>
-                        <Checkbox isChecked={vaccinated} setChecked={setVaccinated}>
-                            Прививки
-                        </Checkbox>
+        <>
+            {isMobile &&
+                <TopBar leftButton={"arrow"}><h5>Добавление нового питомца</h5></TopBar>
+            }
+            <form id={'new_pet_form'} className={styles.wrapper}>
+                {!isMobile && <h2>Добавление нового питомца</h2>}
+                <div className={styles.input__row}>
+                    <Input type={'text'} value={name} setValue={setName} label={'Кличка'}
+                           placeholder={'Введите имя питомца'} required={true}/>
+                    <Input type={'dropdown'} value={type} setValue={setType} label={'Вид'} placeholder={'Выберите вид'}
+                           dropdownItems={getTypes()} required={true}
+                           regularExpressions={[listRegExp(getTypes(), 'Введите вид из списка')]}/>
+                </div>
+                <div className={styles.input__row}>
+                    <Input type={'dropdown'} value={gender} setValue={setGender} label={'Пол'}
+                           placeholder={'Выберите пол'}
+                           dropdownItems={genders} required={true}
+                           regularExpressions={[listRegExp(genders, 'Выберите пол из списка')]}/>
+                    <Input type={'dropdown'} value={breed} setValue={setBreed} label={'Порода'}
+                           placeholder={'Выберите породу'} dropdownItems={getBreeds()}
+                           required={true} disabled={!type.ok}
+                           regularExpressions={[listRegExp(getBreeds(), 'Введите породу из списка')]}/>
+                </div>
+                <div className={styles.input__row}>
+                    <Input type={'date'} value={birthday} setValue={setBirthday} label={'Дата рождения'}
+                           help={'Если вы не знаете точную дату, укажите примерную'} required={true}/>
+                    <div className={styles.additional__info}>
+                        <p>Дополнительная информация</p>
+                        <div className={styles.checkboxes}>
+                            <Checkbox isChecked={sterilized} setChecked={setSterilized}>
+                                Стерилизация
+                            </Checkbox>
+                            <Checkbox isChecked={vaccinated} setChecked={setVaccinated}>
+                                Прививки
+                            </Checkbox>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div className={styles.input__row}>
-                <Input type={'textarea'} value={color} setValue={setColor} label={'Окрас'}
-                       placeholder={'Опишите окрас питомца'} className={styles.textarea}/>
-                <Input type={'textarea'} value={care} setValue={setCare} label={'Особенности ухода'}
-                       placeholder={'Расскажите про уход'} className={styles.textarea}/>
-            </div>
-            <div className={styles.input__row}>
-                <Input type={'textarea'} value={pedigree} setValue={setPedigree} label={'Родословная'}
-                       placeholder={'Расскажите про родословную'} className={styles.textarea}/>
-                <Input type={'textarea'} value={character} setValue={setCharacter} label={'Черты характера'}
-                       placeholder={'Расскажите про поведение'} className={styles.textarea}/>
-            </div>
-            <Button type={'primary'} color={'orange'} text={'Сохранить'} onClick={submit} loading={submitLoading}/>
-        </form>
+                <div className={styles.input__row}>
+                    <Input type={'textarea'} value={color} setValue={setColor} label={'Окрас'}
+                           placeholder={'Опишите окрас питомца'} className={styles.textarea}/>
+                    <Input type={'textarea'} value={care} setValue={setCare} label={'Особенности ухода'}
+                           placeholder={'Расскажите про уход'} className={styles.textarea}/>
+                </div>
+                <div className={styles.input__row}>
+                    <Input type={'textarea'} value={pedigree} setValue={setPedigree} label={'Родословная'}
+                           placeholder={'Расскажите про родословную'} className={styles.textarea}/>
+                    <Input type={'textarea'} value={character} setValue={setCharacter} label={'Черты характера'}
+                           placeholder={'Расскажите про поведение'} className={styles.textarea}/>
+                </div>
+                <Button type={'primary'} color={'orange'} text={'Сохранить'} onClick={submit} loading={submitLoading}/>
+            </form>
+        </>
     );
 };
 

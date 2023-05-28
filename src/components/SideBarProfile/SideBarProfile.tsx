@@ -10,6 +10,8 @@ import Icons from '../UIKit/Icons';
 
 import styles from './SideBarProfile.module.css'
 import UserService from "../../services/userService";
+import {Simulate} from "react-dom/test-utils";
+import compositionStart = Simulate.compositionStart;
 
 
 const SideBarProfile = () => {
@@ -31,9 +33,9 @@ const SideBarProfile = () => {
                     // @ts-ignore
                     console.log(formData.get('file'))
                     // @ts-ignore
-                    UserService.updateAvatar(formData, user.accessToken).then(response => {
+                    UserService.updateAvatarAxios(formData, user.accessToken).then(response => {
                         console.log(response);
-                        return response.json();
+                        return response.data;
                     }).then(body => {
                         console.log(body);
                     });
@@ -41,7 +43,7 @@ const SideBarProfile = () => {
                 <Image
                     imageProps={{src: user.photo, alt: 'Фото', width: '172px', height: '172px'}}
                     borderRadius={'86px'}/>
-                <h4>{user.firstName} {user.surName}</h4>
+                <NavLink to={'/profile'}><h4>{user.firstName} {user.surName}</h4></NavLink>
 
                 <div className={styles.divider}></div>
 

@@ -1,5 +1,6 @@
 import React, {useContext, useState} from 'react';
 import {useUserContext} from '../../../contexts/userContext';
+import {useIsMobileContext} from "../../../contexts/isMobileContext";
 import {useNavigate} from 'react-router-dom';
 
 import Button from '../../../components/UIKit/Button';
@@ -20,14 +21,10 @@ const UserProfile: React.FC = () => {
 
 
     const {user, setUser} = useUserContext();
-
-    const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
+    const isMobile = useIsMobileContext();
 
     const navigate = useNavigate();
 
-    window.addEventListener('resize', () => {
-        setIsMobile(window.innerWidth <= 700)
-    });
 
     return (
         <>

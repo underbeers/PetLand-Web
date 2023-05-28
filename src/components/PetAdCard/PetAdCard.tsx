@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import cn from 'classnames';
 
 import styles from '../PetAdCard/PetAdCard.module.css';
+import {useIsMobileContext} from "../../contexts/isMobileContext";
 
 
 export interface iPetAdCardProps {
@@ -13,18 +14,10 @@ export interface iPetAdCardProps {
 }
 
 const PetAdCard: React.FC<iPetAdCardProps> = ({id, petName, photo, isSelected, setSelected}) => {
-    const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
-
-    window.addEventListener('resize', () => {
-        setIsMobile(window.innerWidth <= 700);
-    });
-
-    const select = () => {
-        setSelected(!isSelected)
-    };
+    const isMobile = useIsMobileContext();
 
     return (
-        <div className={cn(styles.card, isSelected && styles.selected)} onClick={select}>
+        <div className={cn(styles.card, isSelected && styles.selected)} onClick={() => setSelected(!isSelected)}>
             <img src={photo} alt={'Фото питомца'} className={styles.img}/>
             <div className={styles.pet__info}>
                 {!isMobile ?

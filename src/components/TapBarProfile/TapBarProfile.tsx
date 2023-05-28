@@ -6,12 +6,7 @@ import Icons from '../UIKit/Icons';
 import styles from './TapBarProfile.module.css';
 
 
-interface iTapBarProps {
-    format: 'profile' | 'circle';
-}
-
-
-const TapBarProfile: React.FC<iTapBarProps> = ({format}) => {
+const TapBarProfile: React.FC = () => {
 
     return (
         <div className={styles.nav}>

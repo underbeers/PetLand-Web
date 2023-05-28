@@ -8,6 +8,7 @@ import TopBar from '../../../components/TopBar/TopBar';
 import Page404 from '../../Page404/Page404';
 
 import styles from './OrganizationPage.module.css';
+import {useIsMobileContext} from "../../../contexts/isMobileContext";
 
 
 const getOrganizationById = (id: string | null) => {
@@ -23,11 +24,7 @@ const getOrganizationById = (id: string | null) => {
 }
 
 const OrganizationPage = () => {
-    const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
-
-    window.addEventListener('resize', () => {
-        setIsMobile(window.innerWidth <= 700)
-    });
+    const isMobile = useIsMobileContext();
 
     const [isLiked, setIsLiked] = useState(false);
 

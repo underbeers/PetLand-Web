@@ -3,6 +3,7 @@ import cn from 'classnames';
 import {CSSTransition} from 'react-transition-group';
 
 import styles from './Modal.module.css';
+import {useIsMobileContext} from "../../contexts/isMobileContext";
 
 
 type ModalProps = {
@@ -18,11 +19,7 @@ const Modal: React.FC<ModalProps> = ({content, contentProps, button}) => {
     const Content: ModalContent = content;
     const nodeRef = useRef(null);
 
-    const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
-
-    window.addEventListener('resize', () => {
-        setIsMobile(window.innerWidth <= 700)
-    });
+    const isMobile = useIsMobileContext();
 
     const cProps = {
         isMobile,

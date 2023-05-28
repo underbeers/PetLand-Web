@@ -9,6 +9,7 @@ import Input from '../../components/UIKit/Input';
 import Button from '../../components/UIKit/Button';
 
 import styles from './NewPasswordPage.module.css';
+import {useIsMobileContext} from "../../contexts/isMobileContext";
 
 
 const NewPasswordPage = () => {
@@ -20,11 +21,7 @@ const NewPasswordPage = () => {
     const [password2, setPassword2] = useState(initialInputState);
     const [passwordChanged, setPasswordChanged] = useState(false);
 
-    const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
-
-    window.addEventListener('resize', () => {
-        setIsMobile(window.innerWidth <= 700)
-    });
+    const isMobile = useIsMobileContext();
 
     const saveNewPassword = async () => {
         await userService.sendNewPassword({

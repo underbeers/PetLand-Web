@@ -19,39 +19,64 @@ import TopBar from '../../components/TopBar/TopBar';
 import pets from './img/pets.png';
 
 import styles from './HomePage.module.css'
+import {useUserContext} from "../../contexts/userContext";
+import {useIsMobileContext} from "../../contexts/isMobileContext";
 
 
 const HomePage: React.FC = () => {
-    const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
-
-    window.addEventListener('resize', () => {
-        setIsMobile(window.innerWidth <= 700)
-    });
-
     const navigate = useNavigate();
+    const {user, setUser} = useUserContext();
+    const isMobile = useIsMobileContext();
+
 
     const [adverts, setAdverts] = useState<Array<AdCardInfoType>>([]);
 
     useEffect(() => {
-        AdvertService.getAdverts().then(response => {
-            //console.log(response);
-            switch (response.status) {
-                case 200:
-                    return response.json();
-                default:
-                    //console.log('Error', response);
-                    return null;
+        console.log('user changed')
+        if (user.empty) {
+            AdvertService.getAdverts().then(response => {
+                //console.log(response);
+                switch (response.status) {
+                    case 200:
+                        return response.json();
+                    default:
+                        //console.log('Error', response);
+                        return null;
+                }
+            }).then((body: {
+                nextPage: string,
+                records: Array<AdCardInfoType>,
+                totalCount: number, totalPage: number
+            }) => {
+                if (body) {
+                    setAdverts(body.records);
+                }
+            });
+        } else {
+            if (user.accessToken) {
+                AdvertService.getAuthorizedAdverts(user.accessToken).then(response => {
+                    //console.log(response);
+                    switch (response.status) {
+                        case 200:
+                            return response.json();
+                        default:
+                            //console.log('Error', response);
+                            return null;
+                    }
+                }).then((body: {
+                    nextPage: string,
+                    records: Array<AdCardInfoType>,
+                    totalCount: number, totalPage: number
+                }) => {
+                    if (body) {
+                        console.log(body)
+                        setAdverts(body.records);
+                    }
+                });
             }
-        }).then((body: {
-            nextPage: string,
-            records: Array<AdCardInfoType>,
-            totalCount: number, totalPage: number
-        }) => {
-            if (body) {
-                setAdverts(body.records);
-            }
-        });
-    }, []);
+        }
+    }, [user]);
+
 
     return (
         <>

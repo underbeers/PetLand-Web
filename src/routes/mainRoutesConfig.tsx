@@ -16,6 +16,7 @@ import Organizations from '../pages/Services/Organizations/Organizations';
 import OrganizationPage from '../pages/Services/Organizations/OrganizationPage';
 import Events from '../pages/Services/Events/Events';
 import EventPage from '../pages/Services/Events/EventPage';
+import InDevelop from "../pages/InDevelop/InDevelop";
 
 
 export const PATH_PREFIX = '';
@@ -84,6 +85,10 @@ const routesConfig = [
     {
         path: PATH_PREFIX + '/services/events/event',
         element: <EventPage/>
+    },
+    {
+        path: PATH_PREFIX + '/policy',
+        element: <InDevelop/>
     },
     {
         path: PATH_PREFIX + '/profile/*',

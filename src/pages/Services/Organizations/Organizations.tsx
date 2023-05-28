@@ -5,6 +5,7 @@ import TopBar from '../../../components/TopBar/TopBar';
 import OrganizationCard from '../../../components/OrganizationCard/OrganizationCard';
 
 import styles from './Organizations.module.css';
+import {useIsMobileContext} from "../../../contexts/isMobileContext";
 
 
 export const organizations = [
@@ -143,12 +144,7 @@ export const organizations = [
 ]
 
 const Organizations = () => {
-    const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
-
-    window.addEventListener('resize', () => {
-        setIsMobile(window.innerWidth <= 700)
-    });
-
+    const isMobile = useIsMobileContext();
     return (
         <>
             {isMobile &&

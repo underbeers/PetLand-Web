@@ -16,6 +16,7 @@ import Checkbox from '../../components/UIKit/Checkbox';
 import Radio from '../../components/UIKit/Radio';
 
 import styles from './NewAd.module.css';
+import {useIsMobileContext} from "../../contexts/isMobileContext";
 
 
 const PRICES_RADIO = [
@@ -109,11 +110,7 @@ const NewAd = () => {
     const [selectedRadio, setSelectedRadio] = useState(0);
     const [selectedPet, setSelectedPet] = useState('');
 
-    const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
-
-    window.addEventListener('resize', () => {
-        setIsMobile(window.innerWidth <= 700);
-    });
+    const isMobile = useIsMobileContext();
 
     const createAd = () => {
         document.querySelectorAll('#new_ad_form input').forEach(el => {
@@ -191,7 +188,7 @@ const NewAd = () => {
 
     return (
         <>
-            {isMobile && <TopBar leftButton={'burger'}>
+            {isMobile && <TopBar leftButton={'arrow'}>
                 <h5>Создание нового объявления</h5>
             </TopBar>}
             <form id={'new_ad_form'} className={styles.form}>

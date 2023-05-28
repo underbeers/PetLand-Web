@@ -5,6 +5,7 @@ import Ads from '../pages/Profile/Ads/Ads';
 import UserProfile from '../pages/Profile/UserProfile/UserProfile';
 import Page404 from '../pages/Page404/Page404';
 import Favorites from "../pages/Profile/Favorites/Favorites";
+import InDevelop from "../pages/InDevelop/InDevelop";
 
 
 const PROFILE_PREFIX = '/profile';
@@ -19,12 +20,20 @@ const profileRoutesConfig = [
         element: <Favorites/>
     },
     {
-        path: '/',
-        element: <UserProfile/>
-    },
-    {
         path: '/ads',
         element: <Navigate to={PROFILE_PREFIX + '/ads/actual'} replace={true}/>
+    },
+    {
+        path: '/reviews',
+        element: <InDevelop/>
+    },
+    {
+        path: '/rates',
+        element: <InDevelop/>
+    },
+    {
+        path: '/',
+        element: <UserProfile/>
     },
     {
         path: '/ads/*',

@@ -5,6 +5,7 @@ import cn from 'classnames';
 import Icons from '../UIKit/Icons';
 
 import styles from './OrganizationCard.module.css';
+import {useIsMobileContext} from "../../contexts/isMobileContext";
 
 
 interface iOrganizationProps {
@@ -30,12 +31,7 @@ const OrganizationCard: React.FC<iOrganizationProps> = ({
                                                             phone,
                                                             photo
                                                         }) => {
-    const [isLiked, setIsLiked] = useState(false);
-    const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
-
-    window.addEventListener('resize', () => {
-        setIsMobile(window.innerWidth <= 700)
-    });
+    const isMobile = useIsMobileContext();
 
     return (
         <NavLink to={`/services/organizations/organization?id=${id}`} className={styles.card}>

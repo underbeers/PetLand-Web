@@ -13,6 +13,7 @@ import Slider from '../../components/Slider/Slider';
 import Gallery from '../../components/Gallery/Gallery';
 
 import styles from './PetPage.module.css'
+import {useIsMobileContext} from "../../contexts/isMobileContext";
 
 
 export interface iPetInfo {
@@ -40,13 +41,8 @@ const PetPage: React.FC = () => {
     const userID = searchParams.get('user-id') || '';
     const petID = searchParams.get('pet-id') || '';
 
-    const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
-
     const {user, setUser} = useUserContext();
-
-    window.addEventListener('resize', () => {
-        setIsMobile(window.innerWidth <= 700)
-    });
+    const isMobile = useIsMobileContext();
 
     const [info, setInfo] = useState<iPetInfo>({
         petName: '', photos: [], petType: '', userID: '', petCharacter: '', breed: '', id: -1,

@@ -51,7 +51,7 @@ const PetCard: React.FC<iPetCardProps> = ({petInfo, size, url}) => {
     const isMobile = useIsMobileContext();
 
     return (
-        <NavLink to={url} className={cn(styles.card, styles[size])}>
+        <NavLink target={'_blank'} to={url} className={cn(styles.card, styles[size])}>
             <img src={petInfo.photo} alt={'Фото питомца'} className={styles.img}/>
             <div className={styles.pet__info}>
                 {!isMobile ?

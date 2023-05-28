@@ -43,7 +43,7 @@ const Adverts: React.FC = () => {
                 setAdverts(body.records);
             }
         });
-    }, []);
+    }, [user]);
 
     return (
         <>

@@ -48,7 +48,20 @@ class AdvertService {
     }
 
     public async getFullAdvert(id: string) {
-        return fetch(API_URL + `/adverts/full?id=${id}`);
+        return fetch(API_URL + `/adverts/full?id=${id}`, {
+            method: 'GET',
+            headers: {'Content-Type': 'application/json'}
+        });
+    }
+
+    public async getAuthorizedFullAdvert(id: string, accessToken: string) {
+        return fetch(API_URL + `/auth/adverts/full?id=${id}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${accessToken}`
+            }
+        });
     }
 }
 

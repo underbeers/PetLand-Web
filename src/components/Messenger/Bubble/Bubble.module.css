@@ -77,3 +77,9 @@
     border-radius: 18px;
 
 }
+
+@media screen and (max-width: 700px) {
+    .bubble {
+        max-width: 75vw;
+    }
+}

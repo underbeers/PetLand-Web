@@ -72,7 +72,7 @@ const Adverts: React.FC = () => {
                     totalCount: number, totalPage: number
                 }) => {
                     if (body) {
-                        //console.log(body)
+                        console.log(body.records)
                         setAdverts(body.records);
                     }
                 });

@@ -1,5 +1,7 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {useNavigate} from 'react-router-dom';
+
+import {useIsMobileContext} from '../../contexts/isMobileContext';
 
 import Button from '../../components/UIKit/Button';
 import TopBar from '../../components/TopBar/TopBar';
@@ -7,7 +9,6 @@ import TopBar from '../../components/TopBar/TopBar';
 import sadDog from './img/sadDog.png';
 
 import styles from './Page404.module.css'
-import {useIsMobileContext} from "../../contexts/isMobileContext";
 
 
 const Page404: React.FC = () => {

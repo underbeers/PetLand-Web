@@ -2,13 +2,13 @@ import React, {useState} from 'react';
 import {useNavigate, useSearchParams} from 'react-router-dom';
 
 import {specialists} from './Specialists';
+import {useIsMobileContext} from '../../../contexts/isMobileContext';
 
 import Icons from '../../../components/UIKit/Icons';
 import TopBar from '../../../components/TopBar/TopBar';
 import Page404 from '../../Page404/Page404';
 
 import styles from './SpecialistPage.module.css';
-import {useIsMobileContext} from "../../../contexts/isMobileContext";
 
 
 const getSpecById = (id: string | null) => {

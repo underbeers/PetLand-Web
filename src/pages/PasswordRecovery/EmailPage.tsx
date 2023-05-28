@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 
 import userService from '../../services/userService';
+import {useIsMobileContext} from '../../contexts/isMobileContext';
 
 import Input from '../../components/UIKit/Input';
 import Button from '../../components/UIKit/Button';
@@ -9,7 +10,6 @@ import Authorization from '../../components/Authorization/Authorization';
 import Modal from '../../components/Modal/Modal';
 
 import styles from './EmailPage.module.css';
-import {useIsMobileContext} from "../../contexts/isMobileContext";
 
 
 const EmailPage = () => {

@@ -1,14 +1,14 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Route, Routes} from 'react-router-dom';
 
 import profileRoutesConfig from '../../routes/profileRoutesConfig';
+import {useIsMobileContext} from '../../contexts/isMobileContext';
 import {withOfferToSignIn} from '../../hoc/withOfferToSignIn';
 
 import SideBarProfile from '../../components/SideBarProfile/SideBarProfile';
 import TapBarProfile from '../../components/TapBarProfile/TapBarProfile';
 
 import styles from './Profile.module.css';
-import {useIsMobileContext} from "../../contexts/isMobileContext";
 
 
 const Profile: React.FC = () => {

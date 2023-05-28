@@ -1,8 +1,6 @@
 import {Socket} from 'socket.io-client';
 
 import {initialUserContextState, iUser} from '../contexts/userContext';
-import {resolveSrv} from "dns";
-import axios from "axios";
 
 
 export const API_URL = `http://${process.env.REACT_APP_API_URL}/api/v1`;
@@ -46,7 +44,7 @@ class UserService {
     }
 
     public async getChatUserID(userID: string) {
-        return fetch(API_URL + `/user/${userID}/chatID`,{
+        return fetch(API_URL + `/user/${userID}/chatID`, {
             method: 'GET',
             headers: {'Content-Type': 'application/json'}
         });
@@ -101,8 +99,16 @@ class UserService {
                 }
                 return null;
             }
-        }).then((body: { email: string, firstName: string, surName: string, userID: string, chatID: string, sessionID: string, imageLink: string }) => {
-            console.log(body);
+        }).then((body: {
+            email: string,
+            firstName: string,
+            surName: string,
+            userID: string,
+            chatID: string,
+            sessionID: string,
+            imageLink: string
+        }) => {
+            //console.log(body);
             if (body) {
                 const newUser = {
                     ...body,
@@ -239,18 +245,19 @@ class UserService {
             body: data
         });
     }
-    public async updateAvatarAxios(data: FormData, accessToken: string) {
-        return axios.post(
-            API_URL +  '/fileUser',
-            data,
-            {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                    'Authorization': `Bearer ${accessToken}`
-                }
-            }
-        );
-    }
+
+    //public async updateAvatarAxios(data: FormData, accessToken: string) {
+    //    return axios.post(
+    //        API_URL + '/fileUser',
+    //        data,
+    //        {
+    //            headers: {
+    //                'Content-Type': 'multipart/form-data',
+    //                'Authorization': `Bearer ${accessToken}`
+    //            }
+    //        }
+    //    );
+    //}
 }
 
 export default new UserService();

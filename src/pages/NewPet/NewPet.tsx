@@ -1,7 +1,11 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import petService, {createPetCardParameters} from '../../services/petService';
 import {withOfferToSignIn} from '../../hoc/withOfferToSignIn';
+import {useUserContext} from '../../contexts/userContext';
+import {useNavigate} from 'react-router-dom';
+import {useIsMobileContext} from '../../contexts/isMobileContext';
+
 
 import Input from '../../components/UIKit/Input';
 import Checkbox from '../../components/UIKit/Checkbox';
@@ -9,9 +13,6 @@ import Button from '../../components/UIKit/Button';
 import TopBar from '../../components/TopBar/TopBar';
 
 import styles from './NewPet.module.css';
-import {useUserContext} from '../../contexts/userContext';
-import {useNavigate} from 'react-router-dom';
-import {useIsMobileContext} from "../../contexts/isMobileContext";
 
 
 const NewPet: React.FC = () => {
@@ -180,7 +181,7 @@ const NewPet: React.FC = () => {
     return (
         <>
             {isMobile &&
-                <TopBar leftButton={"arrow"}><h5>Добавление нового питомца</h5></TopBar>
+                <TopBar leftButton={'arrow'}><h5>Добавление нового питомца</h5></TopBar>
             }
             <form id={'new_pet_form'} className={styles.wrapper}>
                 {!isMobile && <h2>Добавление нового питомца</h2>}

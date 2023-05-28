@@ -1,11 +1,12 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {NavLink} from 'react-router-dom';
 import cn from 'classnames';
+
+import {useIsMobileContext} from '../../contexts/isMobileContext';
 
 import Icons from '../UIKit/Icons';
 
 import styles from './SpecialistCard.module.css';
-import {useIsMobileContext} from "../../contexts/isMobileContext";
 
 
 interface iSpecialistProps {

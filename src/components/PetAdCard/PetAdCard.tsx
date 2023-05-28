@@ -1,8 +1,9 @@
-import React, {useState} from 'react';
+import React from 'react';
 import cn from 'classnames';
 
+import {useIsMobileContext} from '../../contexts/isMobileContext';
+
 import styles from '../PetAdCard/PetAdCard.module.css';
-import {useIsMobileContext} from "../../contexts/isMobileContext";
 
 
 export interface iPetAdCardProps {

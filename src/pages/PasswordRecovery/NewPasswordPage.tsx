@@ -3,13 +3,13 @@ import {useNavigate, useSearchParams} from 'react-router-dom';
 import cn from 'classnames';
 
 import {passwordRegExp} from '../../constants/regularExpressions';
+import {useIsMobileContext} from '../../contexts/isMobileContext';
 import userService from '../../services/userService';
 
 import Input from '../../components/UIKit/Input';
 import Button from '../../components/UIKit/Button';
 
 import styles from './NewPasswordPage.module.css';
-import {useIsMobileContext} from "../../contexts/isMobileContext";
 
 
 const NewPasswordPage = () => {

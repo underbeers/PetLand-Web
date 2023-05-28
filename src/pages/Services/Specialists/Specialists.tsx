@@ -1,11 +1,12 @@
-import React, {useState} from 'react';
+import React from 'react';
+
+import {useIsMobileContext} from '../../../contexts/isMobileContext';
 
 import Icons from '../../../components/UIKit/Icons';
 import SpecialistCard from '../../../components/SpecialistCard/SpecialistCard';
 import TopBar from '../../../components/TopBar/TopBar';
 
 import styles from './Specialists.module.css';
-import {useIsMobileContext} from "../../../contexts/isMobileContext";
 
 
 export const specialists = [

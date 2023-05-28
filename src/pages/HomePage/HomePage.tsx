@@ -16,11 +16,12 @@ import OrganizationCard from '../../components/OrganizationCard/OrganizationCard
 import EventCard from '../../components/EventCard/EventCard';
 import TopBar from '../../components/TopBar/TopBar';
 
+import {useUserContext} from '../../contexts/userContext';
+import {useIsMobileContext} from '../../contexts/isMobileContext';
+
 import pets from './img/pets.png';
 
 import styles from './HomePage.module.css'
-import {useUserContext} from "../../contexts/userContext";
-import {useIsMobileContext} from "../../contexts/isMobileContext";
 
 
 const HomePage: React.FC = () => {
@@ -28,13 +29,11 @@ const HomePage: React.FC = () => {
     const {user, setUser} = useUserContext();
     const isMobile = useIsMobileContext();
 
-
     const [adverts, setAdverts] = useState<Array<AdCardInfoType>>([]);
 
     useEffect(() => {
-        console.log('user changed')
         if (user.empty) {
-            AdvertService.getAdverts().then(response => {
+            AdvertService.getAdverts('?status=published').then(response => {
                 //console.log(response);
                 switch (response.status) {
                     case 200:
@@ -54,7 +53,7 @@ const HomePage: React.FC = () => {
             });
         } else {
             if (user.accessToken) {
-                AdvertService.getAuthorizedAdverts(user.accessToken).then(response => {
+                AdvertService.getAuthorizedAdverts(user.accessToken, '?status=published').then(response => {
                     //console.log(response);
                     switch (response.status) {
                         case 200:
@@ -69,7 +68,7 @@ const HomePage: React.FC = () => {
                     totalCount: number, totalPage: number
                 }) => {
                     if (body) {
-                        console.log(body)
+                        //console.log(body)
                         setAdverts(body.records);
                     }
                 });
@@ -107,7 +106,7 @@ const HomePage: React.FC = () => {
             </div>
             <div className={styles.buttons}>
                 <Button type={'primary'} color={'green'} text={'Доска объявлений'} onClick={() => {
-                    navigate('/bulletin-board')
+                    navigate('/adverts')
                 }}/>
                 <Button type={'primary'} color={'green'} text={'Специалисты'} onClick={() => {
                     navigate('/services/specialists')
@@ -124,7 +123,7 @@ const HomePage: React.FC = () => {
                     <div className={styles.title__show}>
                         {!isMobile ? <h2>Новые объявления</h2> : <h4>Новые объявления</h4>}
                         <p className={cn('underlined', styles.show)} onClick={() => {
-                            navigate('/bulletin-board')
+                            navigate('/adverts')
                         }}>Посмотреть все</p>
                     </div>
                     <div className={styles.cards__block}>

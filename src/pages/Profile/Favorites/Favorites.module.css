@@ -2,5 +2,12 @@
     padding: 24px 0;
     gap: 30px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+@media screen and (max-width: 700px) {
+    .pets {
+        gap: 16px;
+    }
 }

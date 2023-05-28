@@ -3,15 +3,12 @@ import {NavLink} from 'react-router-dom';
 
 import {useUserContext} from '../../contexts/userContext';
 import {useChatContext} from '../../contexts/chatContext';
-import userService from '../../services/userService';
+import UserService from '../../services/userService';
 
 import Image from '../Image/Image';
 import Icons from '../UIKit/Icons';
 
 import styles from './SideBarProfile.module.css'
-import UserService from "../../services/userService";
-import {Simulate} from "react-dom/test-utils";
-import compositionStart = Simulate.compositionStart;
 
 
 const SideBarProfile = () => {
@@ -20,7 +17,7 @@ const SideBarProfile = () => {
     return (
         <div>
             <div className={styles.content}>
-                <input type={"file"} id={styles.user_photo} accept={"image/png, image/jpeg"} onChange={(e) => {
+                <input type={'file'} id={styles.user_photo} accept={'image/png, image/jpeg'} onChange={(e) => {
                     console.log(e);
                     const fileInput = document.querySelector(`#${styles.user_photo}`);
                     if (!fileInput) {
@@ -33,9 +30,9 @@ const SideBarProfile = () => {
                     // @ts-ignore
                     console.log(formData.get('file'))
                     // @ts-ignore
-                    UserService.updateAvatarAxios(formData, user.accessToken).then(response => {
+                    UserService.updateAvatarFetch(formData, user.accessToken).then(response => {
                         console.log(response);
-                        return response.data;
+                        return response.json();
                     }).then(body => {
                         console.log(body);
                     });
@@ -55,7 +52,7 @@ const SideBarProfile = () => {
                     <Icons icon={'cards-heart'}/>
                     <p>Избранное</p>
                 </NavLink>
-                <NavLink to={'/profile/ads'} className={styles.menu__item}>
+                <NavLink to={'/profile/adverts'} className={styles.menu__item}>
                     <Icons icon={'ad'}/>
                     <p>Объявления</p>
                 </NavLink>
@@ -72,7 +69,7 @@ const SideBarProfile = () => {
                     <Icons icon={'settings'}/>
                     <p>Настройки</p>
                 </NavLink>
-                <a className={styles.menu__item} onClick={() => userService.signOut(setUser, socket)}>
+                <a className={styles.menu__item} onClick={() => UserService.signOut(setUser, socket)}>
                     <Icons icon={'sign-out'}/>
                     <p>Выход</p>
                 </a>

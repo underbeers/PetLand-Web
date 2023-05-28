@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {useNavigate, useSearchParams} from 'react-router-dom';
 
 import {useUserContext} from '../../contexts/userContext';
+import {useIsMobileContext} from '../../contexts/isMobileContext';
 import AdvertService from '../../services/advertService';
 import {getAge} from '../../components/PetCard/PetCard';
 import {prettyAdPrice, prettyPublicationTime} from '../../components/AdCard/AdCard';
@@ -14,7 +15,6 @@ import Slider from '../../components/Slider/Slider';
 import Gallery from '../../components/Gallery/Gallery';
 
 import styles from './AdPage.module.css'
-import {useIsMobileContext} from "../../contexts/isMobileContext";
 
 
 const AdPage = () => {

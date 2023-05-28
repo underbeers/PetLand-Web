@@ -1,11 +1,12 @@
-import React, {useState} from 'react'
+import React from 'react'
 import {NavLink} from 'react-router-dom';
 import cn from 'classnames';
+
+import {useIsMobileContext} from '../../contexts/isMobileContext';
 
 import Chips from '../UIKit/Chips';
 
 import styles from './PetCard.module.css'
-import {useIsMobileContext} from "../../contexts/isMobileContext";
 
 
 export interface iPetCardProps {

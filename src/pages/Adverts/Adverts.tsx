@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import {NavLink, useNavigate} from 'react-router-dom';
 
+import {useUserContext} from '../../contexts/userContext';
+import {useIsMobileContext} from '../../contexts/isMobileContext';
 import AdvertService from '../../services/advertService';
-import {useUserContext} from "../../contexts/userContext";
 
 import AdCard, {AdCardInfoType} from '../../components/AdCard/AdCard';
 import PetTypes from '../../components/PetTypes/PetTypes';
@@ -13,13 +14,12 @@ import Icons from '../../components/UIKit/Icons';
 import Button from '../../components/UIKit/Button';
 import Input from '../../components/UIKit/Input';
 
-import styles from './Ads.module.css';
-import {useIsMobileContext} from "../../contexts/isMobileContext";
+import styles from './Adverts.module.css';
 
 
-const Ads: React.FC = () => {
+const Adverts: React.FC = () => {
     const initialInputState = {value: '', ok: false, edited: false};
-    const [typeSelected, setTypeSelected] = useState(false);
+    const [typeSelected, setTypeSelected] = useState(true);
 
     const [isBigAd, setIsBigAd] = useState(true);
     const [breed, setBreed] = useState(initialInputState);
@@ -36,9 +36,8 @@ const Ads: React.FC = () => {
     const [adverts, setAdverts] = useState<Array<AdCardInfoType>>([]);
 
     useEffect(() => {
-        console.log('user changed')
         if (user.empty) {
-            AdvertService.getAdverts().then(response => {
+            AdvertService.getAdverts('?status=published').then(response => {
                 //console.log(response);
                 switch (response.status) {
                     case 200:
@@ -58,7 +57,7 @@ const Ads: React.FC = () => {
             });
         } else {
             if (user.accessToken) {
-                AdvertService.getAuthorizedAdverts(user.accessToken).then(response => {
+                AdvertService.getAuthorizedAdverts(user.accessToken, '?status=published').then(response => {
                     //console.log(response);
                     switch (response.status) {
                         case 200:
@@ -73,7 +72,7 @@ const Ads: React.FC = () => {
                     totalCount: number, totalPage: number
                 }) => {
                     if (body) {
-                        console.log(body)
+                        //console.log(body)
                         setAdverts(body.records);
                     }
                 });
@@ -93,12 +92,13 @@ const Ads: React.FC = () => {
             <div className={styles.content}>
                 <div className={styles.tabs__button}>
                     <Tabs>
-                        <NavLink to={'/bulletin-board'}>Объявления</NavLink>
+                        <NavLink to={'/adverts'}>Объявления</NavLink>
                         <NavLink to={'/lost-pets'}>Потеряшки</NavLink>
                     </Tabs>
                     {!isMobile &&
                         <Button color={'green'} onClick={() => navigate('/new-ad')} type={'secondary'}
-                                text={'Разместить объявление'}/>}
+                                text={'Разместить объявление'}/>
+                    }
                 </div>
                 {!isMobile &&
                     <div className={styles.icon__city}>
@@ -106,14 +106,10 @@ const Ads: React.FC = () => {
                         <a href={'#'} className={'underlined'}>Нижний Новгород</a>
                     </div>
                 }
-
                 {!typeSelected && <PetTypes/>}
-
-
                 {!isMobile ? !typeSelected ? <h1>Актуальные объявления</h1> :
                     <h1>Тип животного в Городе</h1> : !typeSelected ? <h3>Актуальные объявления</h3> :
                     <h3>Тип животного в Городе</h3>}
-
                 {typeSelected &&
                     <div className={styles.search__settings}>
                         <div className={styles.sort}>
@@ -133,7 +129,6 @@ const Ads: React.FC = () => {
                         }
                     </div>
                 }
-
                 <div className={styles.all__ads__filter}>
                     {typeSelected && !isMobile ?
                         <div className={styles.filters}>
@@ -160,7 +155,8 @@ const Ads: React.FC = () => {
                                 <AdCard
                                     key={index}
                                     size={isMobile ? 'small' : isBigAd ? 'big' : 'small'}
-                                    info={ad}/>)
+                                    info={ad}/>
+                            )
                         }
                     </div>
                 </div>
@@ -169,4 +165,4 @@ const Ads: React.FC = () => {
     );
 };
 
-export default Ads;
+export default Adverts;

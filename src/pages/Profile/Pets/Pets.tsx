@@ -2,13 +2,13 @@ import React, {useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 
 import {useUserContext} from '../../../contexts/userContext';
-import {useIsMobileContext} from "../../../contexts/isMobileContext";
+import {useIsMobileContext} from '../../../contexts/isMobileContext';
 import petService from '../../../services/petService';
 
 import PetCard, {iPetCardProps} from '../../../components/PetCard/PetCard';
-import TopBar from "../../../components/TopBar/TopBar";
+import TopBar from '../../../components/TopBar/TopBar';
 
-import Icons from "../../../components/UIKit/Icons";
+import Icons from '../../../components/UIKit/Icons';
 import Button from '../../../components/UIKit/Button';
 
 import styles from './Pets.module.css';
@@ -42,7 +42,7 @@ const Pets: React.FC = () => {
             {isMobile ?
                 <TopBar leftButton={'burger'}>
                     <h5>Питомцы</h5>
-                    <Icons icon={"plus-circle-outline"} onClick={() => navigate('/new-pet')}/>
+                    <Icons icon={'plus-circle-outline'} onClick={() => navigate('/new-pet')}/>
                 </TopBar>
                 :
                 <div className={styles.title__button}>
@@ -74,7 +74,7 @@ const Pets: React.FC = () => {
                     <div className={styles.text__button}>
                         <p>Или найдите друга<br/> в объявлениях PetLand</p>
                         <Button color={'green'} text={'Доска объявлений'}
-                                onClick={() => navigate('/bulletin-board')} type={'primary'}/>
+                                onClick={() => navigate('/adverts')} type={'primary'}/>
                     </div>
                 </>}
         </>

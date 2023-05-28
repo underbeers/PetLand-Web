@@ -2,13 +2,13 @@ import React, {useState} from 'react';
 import {useNavigate, useSearchParams} from 'react-router-dom';
 
 import {organizations} from './Organizations';
+import {useIsMobileContext} from '../../../contexts/isMobileContext';
 
 import Icons from '../../../components/UIKit/Icons';
 import TopBar from '../../../components/TopBar/TopBar';
 import Page404 from '../../Page404/Page404';
 
 import styles from './OrganizationPage.module.css';
-import {useIsMobileContext} from "../../../contexts/isMobileContext";
 
 
 const getOrganizationById = (id: string | null) => {

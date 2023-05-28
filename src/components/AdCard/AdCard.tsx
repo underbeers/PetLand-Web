@@ -2,15 +2,15 @@ import React, {useState} from 'react';
 import {NavLink} from 'react-router-dom';
 import cn from 'classnames';
 
+import {useUserContext} from '../../contexts/userContext';
+import {useIsMobileContext} from '../../contexts/isMobileContext';
+import FavoritesService from '../../services/favoritesService';
 import {getAge} from '../PetCard/PetCard';
 
 import Icons from '../UIKit/Icons';
 import Chips from '../UIKit/Chips';
 
 import styles from './AdCard.module.css';
-import {useUserContext} from "../../contexts/userContext";
-import FavoritesService from "../../services/favoritesService";
-import {useIsMobileContext} from "../../contexts/isMobileContext";
 
 
 export type AdCardInfoType = {
@@ -57,6 +57,16 @@ const AdCard: React.FC<iAdCardProps> = ({size, info}) => {
 
     const publication = prettyPublicationTime(info.publication);
 
+    const [userInfo, setUserInfo] = useState(null);
+    //useEffect(()=>{
+    //    userService.getUserInfoByID(info.userID).then(res => {
+    //        console.log(res);
+    //        return res.json();
+    //    }).then(body => {
+    //        console.log(body);
+    //    });
+    //}, []);
+
     return (
         <NavLink to={`/ad-page?id=${info.id}`} className={cn(styles.card, styles[size])}>
             <img className={styles.photo}
@@ -71,19 +81,14 @@ const AdCard: React.FC<iAdCardProps> = ({size, info}) => {
                         <Icons icon={info.inFavorites ? 'cards-heart' : 'cards-heart-outline'} className={styles.heart}
                                onClick={(e) => {
                                    e.preventDefault();
-                                   setTimeout(()=>setUser({...user}), 100);
+                                   setTimeout(() => setUser({...user}), 100);
                                    if (info.inFavorites) {
-                                       FavoritesService.deleteFromFavorites({id: info.favoritesID}, user.accessToken).then(response => {
-                                           console.log(response);
-                                           return response.json();
-                                       }).then(body => console.log(body));
+                                       FavoritesService.deleteFromFavorites({id: info.favoritesID}, user.accessToken);
                                    } else {
                                        FavoritesService.addToFavorites({
                                            type: 'advert',
                                            id: info.id
-                                       }, user.accessToken).then(response => {
-                                           console.log(response);
-                                       });
+                                       }, user.accessToken);
                                    }
                                }}
                         />

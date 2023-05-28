@@ -1,11 +1,12 @@
-import React, {useState} from 'react';
+import React from 'react';
+
+import {useIsMobileContext} from '../../../contexts/isMobileContext';
 
 import Icons from '../../../components/UIKit/Icons';
 import EventCard from '../../../components/EventCard/EventCard';
 import TopBar from '../../../components/TopBar/TopBar';
 
 import styles from './Events.module.css';
-import {useIsMobileContext} from "../../../contexts/isMobileContext";
 
 
 export const events = [

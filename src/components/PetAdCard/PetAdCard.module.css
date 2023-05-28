@@ -33,7 +33,7 @@
 
 @media screen and (max-width: 700px) {
     .card {
-        width: 154px;
+        width: calc(50% - 16px);
     }
 
     .img {

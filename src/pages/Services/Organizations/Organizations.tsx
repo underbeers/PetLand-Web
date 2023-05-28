@@ -1,11 +1,12 @@
-import React, {useState} from 'react';
+import React from 'react';
+
+import {useIsMobileContext} from '../../../contexts/isMobileContext';
 
 import Icons from '../../../components/UIKit/Icons';
 import TopBar from '../../../components/TopBar/TopBar';
 import OrganizationCard from '../../../components/OrganizationCard/OrganizationCard';
 
 import styles from './Organizations.module.css';
-import {useIsMobileContext} from "../../../contexts/isMobileContext";
 
 
 export const organizations = [

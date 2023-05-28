@@ -2,6 +2,7 @@ import React, {useContext, useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 
 import {UserContext} from '../../contexts/userContext';
+import {useIsMobileContext} from '../../contexts/isMobileContext';
 import petService from '../../services/petService';
 import AdvertService from '../../services/advertService';
 import {withOfferToSignIn} from '../../hoc/withOfferToSignIn';
@@ -16,7 +17,6 @@ import Checkbox from '../../components/UIKit/Checkbox';
 import Radio from '../../components/UIKit/Radio';
 
 import styles from './NewAd.module.css';
-import {useIsMobileContext} from "../../contexts/isMobileContext";
 
 
 const PRICES_RADIO = [
@@ -181,7 +181,7 @@ const NewAd = () => {
         }).then(body => {
             if (body) {
                 //console.log(body);
-                navigate('/bulletin-board');
+                navigate('/adverts');
             }
         });
     }
@@ -218,9 +218,9 @@ const NewAd = () => {
                     <div className={styles.select__price}>
                         {!isMobile ? <h3>2. Цена (₽)</h3> : <h5>2. Цена (₽)</h5>}
                         <div className={styles.price__selectors}>
-                            <Input type={'number'} value={price} setValue={setPrice} placeholder={'Введите цену'}
-                                   className={styles.price__input} disabled={selectedRadio !== 0}/>
                             <div className={styles.radio__container}>
+                                <Input type={'number'} value={price} setValue={setPrice} placeholder={'Введите цену'}
+                                       className={styles.price__input} disabled={selectedRadio !== 0}/>
                                 {PRICES_RADIO.map((v, i) => {
                                     return (
                                         <div

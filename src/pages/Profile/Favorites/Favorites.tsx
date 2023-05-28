@@ -1,11 +1,13 @@
 import React, {useEffect, useState} from 'react';
 
+import FavoritesService from '../../../services/favoritesService';
+import {useUserContext} from '../../../contexts/userContext';
+import {useIsMobileContext} from '../../../contexts/isMobileContext';
+
+import AdCard, {AdCardInfoType} from '../../../components/AdCard/AdCard';
+import TopBar from '../../../components/TopBar/TopBar';
+
 import styles from './Favorites.module.css';
-import FavoritesService from "../../../services/favoritesService";
-import {useUserContext} from "../../../contexts/userContext";
-import AdCard, {AdCardInfoType} from "../../../components/AdCard/AdCard";
-import {useIsMobileContext} from "../../../contexts/isMobileContext";
-import TopBar from "../../../components/TopBar/TopBar";
 
 type FavoritesType = {
     adverts: Array<AdCardInfoType>,
@@ -27,7 +29,7 @@ const Favorites: React.FC = () => {
 
     useEffect(() => {
         FavoritesService.getFavorites(user.accessToken).then(response => {
-            console.log(response);
+            //console.log(response);
             switch (response.status) {
                 case 200:
                     return response.json();
@@ -35,7 +37,7 @@ const Favorites: React.FC = () => {
                     return null;
             }
         }).then(body => {
-            console.log(body);
+            //console.log(body);
             if (body) {
                 setFavorites(body);
             }
@@ -45,14 +47,14 @@ const Favorites: React.FC = () => {
     return (
         <div>
             {isMobile ?
-                <TopBar leftButton={"burger"}><h5>Избранное</h5></TopBar>
+                <TopBar leftButton={'burger'}><h5>Избранное</h5></TopBar>
                 :
                 <h1>Избранное</h1>
             }
             <div className={styles.pets}>
                 {favorites.adverts.map((ad, index) => {
                         ad.inFavorites = true;
-                        return <AdCard key={index} size={"big"} info={ad}/>
+                        return <AdCard key={index} size={isMobile ? 'small' : 'big'} info={ad}/>
                     }
                 )}
             </div>

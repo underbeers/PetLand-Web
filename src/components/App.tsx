@@ -5,7 +5,7 @@ import cn from 'classnames';
 import mainRoutesConfig from '../routes/mainRoutesConfig';
 import {initialUserContextState, iUser, UserContext} from '../contexts/userContext';
 import {ChatContext, ChatUserType, initialChatContextState} from '../contexts/chatContext';
-import {IsMobileContext} from "../contexts/isMobileContext";
+import {IsMobileContext} from '../contexts/isMobileContext';
 import userService from '../services/userService';
 
 // @ts-ignore
@@ -21,7 +21,6 @@ const ScrollToTop = (props: any) => {
     useEffect(() => {
         window.scrollTo(0, 0);
     }, [location]);
-
     return <>{props.children}</>
 };
 
@@ -160,7 +159,8 @@ const App: React.FC = () => {
                                 ))}
                             </Routes>
                         </main>
-                        {location.pathname != '/messenger' && location.pathname.substring(0, 8) != '/profile' && <Footer/>}
+                        {location.pathname != '/messenger' && location.pathname.substring(0, 8) != '/profile' &&
+                            <Footer/>}
                         <audio ref={audioPlayer} src={NotificationSound}/>
                     </ScrollToTop>
                 </ChatContext.Provider>

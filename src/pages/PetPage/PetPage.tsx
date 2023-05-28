@@ -1,7 +1,8 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useNavigate, useSearchParams} from 'react-router-dom';
 import {useUserContext} from '../../contexts/userContext';
 
+import {useIsMobileContext} from '../../contexts/isMobileContext';
 import petService from '../../services/petService';
 import {getAge} from '../../components/PetCard/PetCard';
 
@@ -13,7 +14,6 @@ import Slider from '../../components/Slider/Slider';
 import Gallery from '../../components/Gallery/Gallery';
 
 import styles from './PetPage.module.css'
-import {useIsMobileContext} from "../../contexts/isMobileContext";
 
 
 export interface iPetInfo {

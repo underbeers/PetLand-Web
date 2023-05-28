@@ -1,7 +1,8 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {useNavigate, useSearchParams} from 'react-router-dom';
 
 import {events} from './Events';
+import {useIsMobileContext} from '../../../contexts/isMobileContext';
 
 import Page404 from '../../Page404/Page404';
 import TopBar from '../../../components/TopBar/TopBar';
@@ -9,7 +10,6 @@ import TopBar from '../../../components/TopBar/TopBar';
 import Icons from '../../../components/UIKit/Icons';
 
 import styles from './EventPage.module.css';
-import {useIsMobileContext} from "../../../contexts/isMobileContext";
 
 
 const getEventById = (id: string | null) => {
@@ -26,7 +26,6 @@ const getEventById = (id: string | null) => {
 
 const EventPage = () => {
     const isMobile = useIsMobileContext();
-
     const navigate = useNavigate();
 
     const handleGoBack: React.MouseEventHandler<SVGSVGElement> = (e) => {
@@ -36,7 +35,6 @@ const EventPage = () => {
 
     const [searchParams, setSearchParams] = useSearchParams();
     const id = searchParams.get('id');
-
     const event = getEventById(id);
 
     if (event == null) {
@@ -79,7 +77,6 @@ const EventPage = () => {
                     </div>
                 </div>
             </div>
-
         </>
     );
 };

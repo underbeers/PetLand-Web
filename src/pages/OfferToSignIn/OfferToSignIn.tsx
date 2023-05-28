@@ -1,4 +1,6 @@
-import React, {useState} from 'react';
+import React from 'react';
+
+import {useIsMobileContext} from '../../contexts/isMobileContext';
 
 import Authorization from '../../components/Authorization/Authorization';
 import Modal from '../../components/Modal/Modal';
@@ -7,7 +9,6 @@ import TopBar from '../../components/TopBar/TopBar';
 import cat from './img/cat.png'
 
 import styles from './OfferToSignIn.module.css'
-import {useIsMobileContext} from "../../contexts/isMobileContext";
 
 
 const OfferToSignIn: React.FC = () => {

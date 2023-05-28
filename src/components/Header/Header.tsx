@@ -3,7 +3,7 @@ import {NavLink} from 'react-router-dom';
 
 import {useUserContext} from '../../contexts/userContext';
 import {useChatContext} from '../../contexts/chatContext';
-import {useIsMobileContext} from "../../contexts/isMobileContext";
+import {useIsMobileContext} from '../../contexts/isMobileContext';
 import userService from '../../services/userService';
 
 import Icons from '../UIKit/Icons';
@@ -32,7 +32,7 @@ const Header: React.FC = () => {
                 <NavLink to={'/'} className={styles.logo}>PetLand</NavLink>
             </li>
             <li className={styles.nav}>
-                <NavLink to={'/bulletin-board'}>Доска объявлений</NavLink>
+                <NavLink to={'/adverts'}>Доска объявлений</NavLink>
                 <NavLink onMouseEnter={() => {
                     setServicesDropdown(true)
                 }} onMouseLeave={() => {
@@ -94,7 +94,7 @@ const Header: React.FC = () => {
                             }}>
                             <li><NavLink to={'/profile/pets'}>Питомцы</NavLink></li>
                             <li><NavLink to={'/profile/favorites'}>Избранное</NavLink></li>
-                            <li><NavLink to={'/profile/ads'}>Объявления</NavLink></li>
+                            <li><NavLink to={'/profile/adverts'}>Объявления</NavLink></li>
                             <li><NavLink to={'/profile/reviews'}>Отзывы</NavLink></li>
                             <li><NavLink to={'/profile/rates'}>Рейтинг</NavLink></li>
                             <li><span className={styles.divider}></span></li>

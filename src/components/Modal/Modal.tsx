@@ -2,8 +2,9 @@ import React, {useRef, useState} from 'react';
 import cn from 'classnames';
 import {CSSTransition} from 'react-transition-group';
 
+import {useIsMobileContext} from '../../contexts/isMobileContext';
+
 import styles from './Modal.module.css';
-import {useIsMobileContext} from "../../contexts/isMobileContext";
 
 
 type ModalProps = {

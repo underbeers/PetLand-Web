@@ -24,7 +24,7 @@
     gap: 30px;
 }
 
-.icon__city{
+.icon__city {
     display: flex;
     flex-direction: row;
     gap: 4px;
@@ -81,7 +81,7 @@
     flex-wrap: wrap;
 }
 
-@media screen and (max-width: 700px)  {
+@media screen and (max-width: 700px) {
     .search {
         width: 576px;
     }

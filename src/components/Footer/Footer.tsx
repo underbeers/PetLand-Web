@@ -1,27 +1,27 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {NavLink} from 'react-router-dom';
 
+import {useIsMobileContext} from '../../contexts/isMobileContext';
+
 import styles from './Footer.module.css';
-import {useIsMobileContext} from "../../contexts/isMobileContext";
 
 
 const Footer: React.FC = () => {
     const isMobile = useIsMobileContext();
-
     const year = new Date().getFullYear();
 
     return (
         <footer className={styles.footer}>
             {!isMobile ?
                 <div className={styles.row}>
-                    <NavLink to={'/bulletin-board'}>Объявления</NavLink>
+                    <NavLink to={'/adverts'}>Объявления</NavLink>
                     <NavLink to={'/services/specialists'}>Специалисты</NavLink>
                     <NavLink to={'/services/organizations'}>Клиники и гостиницы</NavLink>
                     <NavLink to={'/services/events'}>Мероприятия</NavLink>
                     <NavLink to={'#'}>Мобильное приложение</NavLink>
                 </div> :
                 <div className={styles.row}>
-                    <NavLink to={'/bulletin-board'}>Объявления</NavLink>
+                    <NavLink to={'/adverts'}>Объявления</NavLink>
                     <NavLink to={'/services'}>Сервисы</NavLink>
                     <NavLink to={'#'}>Приложение</NavLink>
                 </div>
@@ -34,6 +34,6 @@ const Footer: React.FC = () => {
             </div>
         </footer>
     );
-}
+};
 
 export default Footer;

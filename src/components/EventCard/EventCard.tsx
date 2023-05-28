@@ -1,8 +1,9 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {NavLink} from 'react-router-dom';
 
+import {useIsMobileContext} from '../../contexts/isMobileContext';
+
 import styles from './EventCard.module.css';
-import {useIsMobileContext} from "../../contexts/isMobileContext";
 
 
 interface iEventProps {

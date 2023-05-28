@@ -1,4 +1,6 @@
-import React, {useState} from 'react';
+import React from 'react';
+
+import {useIsMobileContext} from '../../../contexts/isMobileContext';
 
 import Icons from '../../../components/UIKit/Icons';
 import TopBar from '../../../components/TopBar/TopBar';
@@ -143,13 +145,7 @@ export const organizations = [
 ]
 
 const Organizations = () => {
-
-    const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
-
-    window.addEventListener('resize', () => {
-        setIsMobile(window.innerWidth <= 700)
-    });
-
+    const isMobile = useIsMobileContext();
     return (
         <>
             {isMobile &&
@@ -157,7 +153,6 @@ const Organizations = () => {
                     <h5>Организации</h5>
                     <Icons icon={'geo'}/>
                 </TopBar>}
-
             {!isMobile ?
                 <div className={styles.title__geo}>
                     <h1>Популярные организации</h1>
@@ -168,7 +163,6 @@ const Organizations = () => {
                 </div> :
                 <h3 className={styles.title}>Популярные организации</h3>
             }
-
             <div className={styles.cards}>
                 {organizations.map((o, index) => <OrganizationCard key={index} {...o} />)}
             </div>

@@ -37,8 +37,8 @@
 }
 
 .additional__info {
-    width: 778px;
     gap: 20px;
+    width: 374px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;

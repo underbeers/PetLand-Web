@@ -1,0 +1,17 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 60px);
+    gap: 12px;
+}
+
+@media screen and (max-width: 700px) {
+    .wrapper > h1 {
+        font-size: 18px;
+    }
+    .wrapper > h2 {
+        font-size: 16px;
+    }
+}

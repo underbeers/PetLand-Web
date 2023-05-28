@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 
 import userService from '../../services/userService';
+import {useIsMobileContext} from '../../contexts/isMobileContext';
 
 import Input from '../../components/UIKit/Input';
 import Button from '../../components/UIKit/Button';
@@ -15,12 +16,7 @@ const EmailPage = () => {
     const initialInputState = {value: '', ok: false, edited: false};
     const [email, setEmail] = useState(initialInputState);
     const [emailSent, setEmailSent] = useState(false);
-
-    const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
-
-    window.addEventListener('resize', () => {
-        setIsMobile(window.innerWidth <= 700)
-    });
+    const isMobile = useIsMobileContext();
 
     const navigate = useNavigate();
 

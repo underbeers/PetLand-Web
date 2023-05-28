@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 
-import {ChatUserType, useChatContext} from '../../../chatContext';
-import {useUserContext} from '../../../userContext';
+import {ChatUserType, useChatContext} from '../../../contexts/chatContext';
+import {useUserContext} from '../../../contexts/userContext';
 
 import Button from '../../UIKit/Button';
 import Icons from '../../UIKit/Icons';
@@ -29,7 +29,6 @@ const Chat: React.FC<{ chatID: string }> = ({chatID}) => {
         return function cleanup() {
             document.removeEventListener('keydown', handleKeyDown);
         }
-
     }, []);
 
     const getUser: () => ChatUserType = () => {
@@ -45,7 +44,6 @@ const Chat: React.FC<{ chatID: string }> = ({chatID}) => {
     useEffect(() => {
         setUser2(getUser());
     }, [chat, chatID]);
-
     const sendMessage = () => {
         if (chatID && message) {
             const user2 = getUser();

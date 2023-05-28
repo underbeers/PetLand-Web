@@ -1,7 +1,8 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 
-import {UserContext} from '../../userContext';
+import {UserContext} from '../../contexts/userContext';
+import {useIsMobileContext} from '../../contexts/isMobileContext';
 import petService from '../../services/petService';
 import AdvertService from '../../services/advertService';
 import {withOfferToSignIn} from '../../hoc/withOfferToSignIn';
@@ -109,11 +110,7 @@ const NewAd = () => {
     const [selectedRadio, setSelectedRadio] = useState(0);
     const [selectedPet, setSelectedPet] = useState('');
 
-    const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
-
-    window.addEventListener('resize', () => {
-        setIsMobile(window.innerWidth <= 700);
-    });
+    const isMobile = useIsMobileContext();
 
     const createAd = () => {
         document.querySelectorAll('#new_ad_form input').forEach(el => {
@@ -184,14 +181,14 @@ const NewAd = () => {
         }).then(body => {
             if (body) {
                 //console.log(body);
-                navigate('/bulletin-board');
+                navigate('/adverts');
             }
         });
     }
 
     return (
         <>
-            {isMobile && <TopBar leftButton={'burger'}>
+            {isMobile && <TopBar leftButton={'arrow'}>
                 <h5>Создание нового объявления</h5>
             </TopBar>}
             <form id={'new_ad_form'} className={styles.form}>
@@ -221,9 +218,9 @@ const NewAd = () => {
                     <div className={styles.select__price}>
                         {!isMobile ? <h3>2. Цена (₽)</h3> : <h5>2. Цена (₽)</h5>}
                         <div className={styles.price__selectors}>
-                            <Input type={'number'} value={price} setValue={setPrice} placeholder={'Введите цену'}
-                                   className={styles.price__input} disabled={selectedRadio !== 0}/>
                             <div className={styles.radio__container}>
+                                <Input type={'number'} value={price} setValue={setPrice} placeholder={'Введите цену'}
+                                       className={styles.price__input} disabled={selectedRadio !== 0}/>
                                 {PRICES_RADIO.map((v, i) => {
                                     return (
                                         <div

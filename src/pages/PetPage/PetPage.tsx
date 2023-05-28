@@ -1,7 +1,8 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useNavigate, useSearchParams} from 'react-router-dom';
-import {useUserContext} from '../../userContext';
+import {useUserContext} from '../../contexts/userContext';
 
+import {useIsMobileContext} from '../../contexts/isMobileContext';
 import petService from '../../services/petService';
 import {getAge} from '../../components/PetCard/PetCard';
 
@@ -29,7 +30,7 @@ export interface iPetInfo {
     petName: string,
     petType: string,
     petTypeID: number,
-    photo: string,
+    photos: Array<{original: string, thumbnail: string}>,
     sterilization: boolean,
     userID: string,
     vaccinations: boolean
@@ -40,16 +41,11 @@ const PetPage: React.FC = () => {
     const userID = searchParams.get('user-id') || '';
     const petID = searchParams.get('pet-id') || '';
 
-    const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
-
     const {user, setUser} = useUserContext();
-
-    window.addEventListener('resize', () => {
-        setIsMobile(window.innerWidth <= 700)
-    });
+    const isMobile = useIsMobileContext();
 
     const [info, setInfo] = useState<iPetInfo>({
-        petName: '', photo: '', petType: '', userID: '', petCharacter: '', breed: '', id: -1,
+        petName: '', photos: [], petType: '', userID: '', petCharacter: '', breed: '', id: -1,
         breedID: -1, care: '', petTypeID: -1, color: '', gender: '',
         male: false, pedigree: '', birthDate: '', sterilization: false, vaccinations: false
     });
@@ -109,12 +105,9 @@ const PetPage: React.FC = () => {
                 </TopBar>
             }
             <div className={styles.photo__info}>
-                {!isMobile ? <Gallery items={[{thumbnail: info.photo, original: info.photo}, {
-                        thumbnail: info.photo,
-                        original: info.photo
-                    }]}/> :
+                {!isMobile ? <Gallery items={info.photos}/> :
                     <div className={styles.slider__name}>
-                        <Slider slides={[info.photo, info.photo]}/>
+                        <Slider slides={info.photos.map(photo => photo.original)}/>
                         <h2>{info.petName}</h2>
                         {chips}
                     </div>}

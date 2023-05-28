@@ -10,11 +10,14 @@ import {events} from '../Services/Events/Events';
 
 import Icons from '../../components/UIKit/Icons';
 import Button from '../../components/UIKit/Button';
-import AdCards, {AdCardInfoType} from '../../components/AdCards/AdCards';
+import AdCard, {AdCardInfoType} from '../../components/AdCard/AdCard';
 import SpecialistCard from '../../components/SpecialistCard/SpecialistCard';
 import OrganizationCard from '../../components/OrganizationCard/OrganizationCard';
 import EventCard from '../../components/EventCard/EventCard';
 import TopBar from '../../components/TopBar/TopBar';
+
+import {useUserContext} from '../../contexts/userContext';
+import {useIsMobileContext} from '../../contexts/isMobileContext';
 
 import pets from './img/pets.png';
 
@@ -22,36 +25,57 @@ import styles from './HomePage.module.css'
 
 
 const HomePage: React.FC = () => {
-    const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
-
-    window.addEventListener('resize', () => {
-        setIsMobile(window.innerWidth <= 700)
-    });
-
     const navigate = useNavigate();
+    const {user, setUser} = useUserContext();
+    const isMobile = useIsMobileContext();
 
     const [adverts, setAdverts] = useState<Array<AdCardInfoType>>([]);
 
     useEffect(() => {
-        AdvertService.getAdverts().then(response => {
-            //console.log(response);
-            switch (response.status) {
-                case 200:
-                    return response.json();
-                default:
-                    //console.log('Error', response);
-                    return null;
+        if (user.empty) {
+            AdvertService.getAdverts('?status=published').then(response => {
+                //console.log(response);
+                switch (response.status) {
+                    case 200:
+                        return response.json();
+                    default:
+                        //console.log('Error', response);
+                        return null;
+                }
+            }).then((body: {
+                nextPage: string,
+                records: Array<AdCardInfoType>,
+                totalCount: number, totalPage: number
+            }) => {
+                if (body) {
+                    setAdverts(body.records);
+                }
+            });
+        } else {
+            if (user.accessToken) {
+                AdvertService.getAuthorizedAdverts(user.accessToken, '?status=published').then(response => {
+                    //console.log(response);
+                    switch (response.status) {
+                        case 200:
+                            return response.json();
+                        default:
+                            //console.log('Error', response);
+                            return null;
+                    }
+                }).then((body: {
+                    nextPage: string,
+                    records: Array<AdCardInfoType>,
+                    totalCount: number, totalPage: number
+                }) => {
+                    if (body) {
+                        //console.log(body)
+                        setAdverts(body.records);
+                    }
+                });
             }
-        }).then((body: {
-            nextPage: string,
-            records: Array<AdCardInfoType>,
-            totalCount: number, totalPage: number
-        }) => {
-            if (body) {
-                setAdverts(body.records);
-            }
-        });
-    }, []);
+        }
+    }, [user]);
+
 
     return (
         <>
@@ -82,7 +106,7 @@ const HomePage: React.FC = () => {
             </div>
             <div className={styles.buttons}>
                 <Button type={'primary'} color={'green'} text={'Доска объявлений'} onClick={() => {
-                    navigate('/bulletin-board')
+                    navigate('/adverts')
                 }}/>
                 <Button type={'primary'} color={'green'} text={'Специалисты'} onClick={() => {
                     navigate('/services/specialists')
@@ -99,7 +123,7 @@ const HomePage: React.FC = () => {
                     <div className={styles.title__show}>
                         {!isMobile ? <h2>Новые объявления</h2> : <h4>Новые объявления</h4>}
                         <p className={cn('underlined', styles.show)} onClick={() => {
-                            navigate('/bulletin-board')
+                            navigate('/adverts')
                         }}>Посмотреть все</p>
                     </div>
                     <div className={styles.cards__block}>
@@ -107,7 +131,7 @@ const HomePage: React.FC = () => {
                             adverts.sort((ad1, ad2) => {
                                 return new Date(ad1.publication).getTime() - new Date(ad2.publication).getTime();
                             }).reverse().slice(0, isMobile ? 2 : 4).map((ad, index) =>
-                                <AdCards
+                                <AdCard
                                     key={index}
                                     size={'small'}
                                     info={ad}/>)

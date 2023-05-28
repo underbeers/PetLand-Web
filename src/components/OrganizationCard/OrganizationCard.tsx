@@ -1,6 +1,8 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {NavLink} from 'react-router-dom';
 import cn from 'classnames';
+
+import {useIsMobileContext} from '../../contexts/isMobileContext';
 
 import Icons from '../UIKit/Icons';
 
@@ -30,12 +32,7 @@ const OrganizationCard: React.FC<iOrganizationProps> = ({
                                                             phone,
                                                             photo
                                                         }) => {
-    const [isLiked, setIsLiked] = useState(false);
-    const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
-
-    window.addEventListener('resize', () => {
-        setIsMobile(window.innerWidth <= 700)
-    });
+    const isMobile = useIsMobileContext();
 
     return (
         <NavLink to={`/services/organizations/organization?id=${id}`} className={styles.card}>
@@ -45,15 +42,6 @@ const OrganizationCard: React.FC<iOrganizationProps> = ({
             <div className={styles.orgInfo}>
                 <div className={styles.name__like}>
                     <h5>{name}</h5>
-                    {isLiked ?
-                        <Icons icon={'cards-heart'} className={styles.heart} onClick={(event) => {
-                            event.preventDefault();
-                            setIsLiked(!isLiked);
-                        }}/> : <Icons icon={'cards-heart-outline'} className={styles.heart}
-                                      onClick={(event) => {
-                                          event.preventDefault();
-                                          setIsLiked(!isLiked);
-                                      }}/>}
                 </div>
                 {!isMobile ?
                     <div className={styles.rating__stars}>

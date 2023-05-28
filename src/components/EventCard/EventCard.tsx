@@ -1,5 +1,7 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {NavLink} from 'react-router-dom';
+
+import {useIsMobileContext} from '../../contexts/isMobileContext';
 
 import styles from './EventCard.module.css';
 
@@ -17,13 +19,7 @@ interface iEventProps {
 }
 
 const EventCard: React.FC<iEventProps> = ({id, name, description, city, place, date, price, phone, photo}) => {
-
-    const [isLiked, setIsLiked] = useState(false);
-    const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
-
-    window.addEventListener('resize', () => {
-        setIsMobile(window.innerWidth <= 700)
-    });
+    const isMobile = useIsMobileContext();
 
     return (
         <NavLink to={`/services/events/event?id=${id}`} className={styles.card}>

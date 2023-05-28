@@ -3,6 +3,7 @@ import {useNavigate, useSearchParams} from 'react-router-dom';
 import cn from 'classnames';
 
 import {passwordRegExp} from '../../constants/regularExpressions';
+import {useIsMobileContext} from '../../contexts/isMobileContext';
 import userService from '../../services/userService';
 
 import Input from '../../components/UIKit/Input';
@@ -20,11 +21,7 @@ const NewPasswordPage = () => {
     const [password2, setPassword2] = useState(initialInputState);
     const [passwordChanged, setPasswordChanged] = useState(false);
 
-    const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
-
-    window.addEventListener('resize', () => {
-        setIsMobile(window.innerWidth <= 700)
-    });
+    const isMobile = useIsMobileContext();
 
     const saveNewPassword = async () => {
         await userService.sendNewPassword({

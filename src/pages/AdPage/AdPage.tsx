@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import {useNavigate, useSearchParams} from 'react-router-dom';
 
-import {useUserContext} from '../../userContext';
+import {useUserContext} from '../../contexts/userContext';
+import {useIsMobileContext} from '../../contexts/isMobileContext';
 import AdvertService from '../../services/advertService';
 import {getAge} from '../../components/PetCard/PetCard';
-import {prettyAdPrice, prettyPublicationTime} from '../../components/AdCards/AdCards';
+import {prettyAdPrice, prettyPublicationTime} from '../../components/AdCard/AdCard';
 
 import Chips from '../../components/UIKit/Chips';
 import Icons from '../../components/UIKit/Icons';
@@ -17,16 +18,13 @@ import styles from './AdPage.module.css'
 
 
 const AdPage = () => {
-    const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
     const [color, setColor] = useState(false);
     const [care, setCare] = useState(false);
     const [pedigree, setPedigree] = useState(false);
     const [traits, setTraits] = useState(false);
     const [isLiked, setIsLiked] = useState(false);
 
-    window.addEventListener('resize', () => {
-        setIsMobile(window.innerWidth <= 700)
-    });
+    const isMobile = useIsMobileContext();
 
     const navigate = useNavigate();
     const handleGoBack: React.MouseEventHandler<HTMLDivElement> = (e) => {

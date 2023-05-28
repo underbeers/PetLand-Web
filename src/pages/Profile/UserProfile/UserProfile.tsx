@@ -1,5 +1,6 @@
-import React, {useContext, useState} from 'react';
-import {useUserContext} from '../../../userContext';
+import React, {useState} from 'react';
+import {useUserContext} from '../../../contexts/userContext';
+import {useIsMobileContext} from '../../../contexts/isMobileContext';
 import {useNavigate} from 'react-router-dom';
 
 import Button from '../../../components/UIKit/Button';
@@ -18,16 +19,11 @@ const UserProfile: React.FC = () => {
     const [isReviews, setIsReviews] = useState(false);
     const [isSpecialist, setIsSpecialist] = useState(false);
 
-
     const {user, setUser} = useUserContext();
-
-    const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
+    const isMobile = useIsMobileContext();
 
     const navigate = useNavigate();
 
-    window.addEventListener('resize', () => {
-        setIsMobile(window.innerWidth <= 700)
-    });
 
     return (
         <>
@@ -77,7 +73,8 @@ const UserProfile: React.FC = () => {
                         <h5 className={styles.title__pets}>Питомцы</h5>
                         <p style={{marginBottom: '8px'}}>У вас еще не добавлены питомцы на
                             PetLand</p>
-                        <Button color={'orange'} text={'Добавить питомца'} onClick={() => navigate('/new-pet')} type={'primary'}/>
+                        <Button color={'orange'} text={'Добавить питомца'} onClick={() => navigate('/new-pet')}
+                                type={'primary'}/>
                     </div>
                 }
                 <div className={styles.statistic__specialist}>

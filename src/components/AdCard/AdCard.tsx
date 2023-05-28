@@ -2,12 +2,15 @@ import React, {useState} from 'react';
 import {NavLink} from 'react-router-dom';
 import cn from 'classnames';
 
+import {useUserContext} from '../../contexts/userContext';
+import {useIsMobileContext} from '../../contexts/isMobileContext';
+import FavoritesService from '../../services/favoritesService';
 import {getAge} from '../PetCard/PetCard';
 
 import Icons from '../UIKit/Icons';
 import Chips from '../UIKit/Chips';
 
-import styles from './AdCards.module.css';
+import styles from './AdCard.module.css';
 
 
 export type AdCardInfoType = {
@@ -16,8 +19,10 @@ export type AdCardInfoType = {
     city: string,
     description: string,
     district: string,
+    favoritesID: number,
     gender: string,
     id: number,
+    inFavorites: boolean,
     mainPhoto: string,
     petCardID: number,
     petName: string,
@@ -46,15 +51,22 @@ export const prettyPublicationTime = (publication: string) => {
     return {date: publicationDate, time: publicationTime}
 }
 
-const AdCards: React.FC<iAdCardProps> = ({size, info}) => {
-    const [isLiked, setIsLiked] = useState(false);
-    const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
-
-    window.addEventListener('resize', () => {
-        setIsMobile(window.innerWidth <= 700)
-    });
+const AdCard: React.FC<iAdCardProps> = ({size, info}) => {
+    const {user, setUser} = useUserContext();
+    const isMobile = useIsMobileContext();
 
     const publication = prettyPublicationTime(info.publication);
+
+    const [userInfo, setUserInfo] = useState(null);
+    //useEffect(()=>{
+    //    userService.getUserInfoByID(info.userID).then(res => {
+    //        console.log(res);
+    //        return res.json();
+    //    }).then(body => {
+    //        console.log(body);
+    //    });
+    //}, []);
+
     return (
         <NavLink to={`/ad-page?id=${info.id}`} className={cn(styles.card, styles[size])}>
             <img className={styles.photo}
@@ -65,16 +77,22 @@ const AdCards: React.FC<iAdCardProps> = ({size, info}) => {
                         {!isMobile ? <h4>{info.petName}</h4> : <h5>{info.petName}</h5>}
                         <p>{prettyAdPrice(info.price)}</p>
                     </div>
-                    {isLiked ?
-                        <Icons icon={'cards-heart'} className={styles.heart} onClick={(event) => {
-                            event.preventDefault();
-                            setIsLiked(!isLiked);
-                        }}/> :
-                        <Icons icon={'cards-heart-outline'} className={styles.heart}
-                               onClick={(event) => {
-                                   event.preventDefault();
-                                   setIsLiked(!isLiked);
-                               }}/>}
+                    {!user.empty &&
+                        <Icons icon={info.inFavorites ? 'cards-heart' : 'cards-heart-outline'} className={styles.heart}
+                               onClick={(e) => {
+                                   e.preventDefault();
+                                   setTimeout(() => setUser({...user}), 100);
+                                   if (info.inFavorites) {
+                                       FavoritesService.deleteFromFavorites({id: info.favoritesID}, user.accessToken);
+                                   } else {
+                                       FavoritesService.addToFavorites({
+                                           type: 'advert',
+                                           id: info.id
+                                       }, user.accessToken);
+                                   }
+                               }}
+                        />
+                    }
                 </div>
                 {size === 'big' &&
                     <div className={styles.chips}>
@@ -100,4 +118,4 @@ const AdCards: React.FC<iAdCardProps> = ({size, info}) => {
     );
 };
 
-export default AdCards;
+export default AdCard;

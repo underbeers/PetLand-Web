@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {useNavigate, useSearchParams} from 'react-router-dom';
 
 import {specialists} from './Specialists';
+import {useIsMobileContext} from '../../../contexts/isMobileContext';
 
 import Icons from '../../../components/UIKit/Icons';
 import TopBar from '../../../components/TopBar/TopBar';
@@ -10,7 +11,7 @@ import Page404 from '../../Page404/Page404';
 import styles from './SpecialistPage.module.css';
 
 
-const getSpecById = (id:string | null) => {
+const getSpecById = (id: string | null) => {
     if (id === null) {
         return id;
     }
@@ -23,12 +24,7 @@ const getSpecById = (id:string | null) => {
 }
 
 const SpecialistPage = () => {
-
-    const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
-
-    window.addEventListener('resize', () => {
-        setIsMobile(window.innerWidth <= 700)
-    });
+    const isMobile = useIsMobileContext();
 
     const [isLiked, setIsLiked] = useState(false);
 
@@ -47,36 +43,18 @@ const SpecialistPage = () => {
     if (specialist == null) {
         return <Page404/>;
     }
+
     return (
         <>
-
             {!isMobile ?
                 <div className={styles.name__favorite}>
                     <Icons icon={'arrow-left'} className={styles.icon__arrow__back} onClick={handleGoBack}/>
                     <h1 className={styles.name}>{specialist.name}</h1>
-                    <div className={styles.favorite}>
-                        <h5>В избранное</h5>
-                        {!isLiked ?
-                            <Icons icon={'cards-heart-outline'} className={styles.icon__heart} onClick={() => {setIsLiked(!isLiked)}}/>
-                            :
-                            <Icons icon={'cards-heart'} className={styles.icon__heart} onClick={() => {setIsLiked(!isLiked)}}/>
-                        }
-                    </div>
                 </div> :
                 <TopBar leftButton={'arrow'}>
                     <h5>{specialist.name}</h5>
-                    {!isLiked ?
-                        <Icons icon={'cards-heart-outline'} onClick={() => {
-                            setIsLiked(!isLiked)
-                        }} className={styles.heart__topbar}/> :
-                        <Icons icon={'cards-heart'} onClick={() => {
-                            setIsLiked(!isLiked)
-                        }} className={styles.heart__topbar}/>
-                    }
                 </TopBar>
             }
-
-
             <div className={styles.photo__info}>
                 <img className={styles.photo} src={specialist.photo} alt={'Фото специалиста'}></img>
                 <div className={styles.info}>
@@ -94,24 +72,19 @@ const SpecialistPage = () => {
                             <p className={'underlined'}>10 отзывов</p>
                         </div>
                     </div>
-
                     <div className={styles.speciality}>
                         <h3>Специальность:</h3>
                         <p>{specialist.speciality}</p>
                     </div>
-
                     <div className={styles.experience}>
                         <h3>Стаж:</h3>
                         <p>{specialist.experience}</p>
                     </div>
-
                     <div className={styles.pets}>
                         <h3>Животные:</h3>
                         <p>{specialist.pets}</p>
                     </div>
-
                     <h3>{specialist.place}</h3>
-
                     <div className={styles.contacts}>
                         <h3>Контакты:</h3>
                         <p>{specialist.phone}</p>
@@ -120,7 +93,7 @@ const SpecialistPage = () => {
                 </div>
             </div>
         </>
-    )
-}
+    );
+};
 
 export default SpecialistPage;

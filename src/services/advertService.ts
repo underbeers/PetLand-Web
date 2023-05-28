@@ -16,15 +16,27 @@ class AdvertService {
         })
     }
 
-    public async getAdverts() {
-        return fetch(API_URL + '/adverts', {
+    public async getAdverts(params?: string) {
+        return fetch(API_URL + '/adverts' + (params ? params : ''), {
             method: 'GET',
             headers: {'Content-Type': 'application/json'}
         });
     }
 
-    public async createAdvert(params: { petCardID: number, price: number, description: string, cityID: number,
-        districtID: number, chat: boolean, phone?: string }, accessToken: string) {
+    public async getAuthorizedAdverts(accessToken: string, params?: string) {
+        return fetch(API_URL + '/auth/adverts' + (params ? params : ''), {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${accessToken}`
+            }
+        });
+    }
+
+    public async createAdvert(params: {
+        petCardID: number, price: number, description: string, cityID: number,
+        districtID: number, chat: boolean, phone?: string
+    }, accessToken: string) {
         return fetch(API_URL + '/adverts/new', {
             method: 'POST',
             headers: {

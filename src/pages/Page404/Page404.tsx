@@ -1,5 +1,7 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {useNavigate} from 'react-router-dom';
+
+import {useIsMobileContext} from '../../contexts/isMobileContext';
 
 import Button from '../../components/UIKit/Button';
 import TopBar from '../../components/TopBar/TopBar';
@@ -10,12 +12,7 @@ import styles from './Page404.module.css'
 
 
 const Page404: React.FC = () => {
-
-    const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
-
-    window.addEventListener('resize', () => {
-        setIsMobile(window.innerWidth <= 700)
-    });
+    const isMobile = useIsMobileContext();
 
     let navigate = useNavigate();
     const routeChange = () => {

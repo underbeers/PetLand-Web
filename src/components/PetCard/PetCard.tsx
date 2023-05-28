@@ -1,6 +1,8 @@
-import React, {useState} from 'react'
+import React from 'react'
 import {NavLink} from 'react-router-dom';
 import cn from 'classnames';
+
+import {useIsMobileContext} from '../../contexts/isMobileContext';
 
 import Chips from '../UIKit/Chips';
 
@@ -46,11 +48,7 @@ export const getAge: (dateOfBirth: string) => string = (dateOfBirth) => {
 }
 
 const PetCard: React.FC<iPetCardProps> = ({petInfo, size, url}) => {
-    const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
-
-    window.addEventListener('resize', () => {
-        setIsMobile(window.innerWidth <= 700);
-    });
+    const isMobile = useIsMobileContext();
 
     return (
         <NavLink to={url} className={cn(styles.card, styles[size])}>

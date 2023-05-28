@@ -1,4 +1,6 @@
-import React, {useState} from 'react';
+import React from 'react';
+
+import {useIsMobileContext} from '../../../contexts/isMobileContext';
 
 import Icons from '../../../components/UIKit/Icons';
 import EventCard from '../../../components/EventCard/EventCard';
@@ -66,12 +68,7 @@ export const events = [
 ]
 
 const Events = () => {
-
-    const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
-
-    window.addEventListener('resize', () => {
-        setIsMobile(window.innerWidth <= 700)
-    });
+    const isMobile = useIsMobileContext();
 
     return (
         <>
@@ -80,7 +77,6 @@ const Events = () => {
                     <h5>Мероприятия</h5>
                     <Icons icon={'geo'}/>
                 </TopBar>}
-
             {!isMobile ?
                 <div className={styles.title__geo}>
                     <h1>Интересные мероприятия</h1>
@@ -91,11 +87,9 @@ const Events = () => {
                 </div> :
                 <h3 className={styles.title}>Интересные мероприятия</h3>
             }
-
             <div className={styles.cards}>
                 {events.map((e, index) => <EventCard key={index} {...e}/>)}
             </div>
-
         </>
     );
 };

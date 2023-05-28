@@ -3,8 +3,8 @@ import {NavLink} from 'react-router-dom';
 import cn from 'classnames';
 
 import userService from '../../services/userService';
-import {useChatContext} from '../../chatContext';
-import {useUserContext} from '../../userContext';
+import {useChatContext} from '../../contexts/chatContext';
+import {useUserContext} from '../../contexts/userContext';
 
 import Icons from '../UIKit/Icons';
 
@@ -38,12 +38,11 @@ const BurgerMenu: React.FC<{ openedBurger: boolean, toggleBurger: () => void }> 
                             content={Authorization}/>
                     }
                 </div>
-
                 <nav className={styles.burger__items}>
                     <div className={styles.block}>
-                        <NavLink onClick={toggleBurger} to={'/bulletin-board'}
+                        <NavLink onClick={toggleBurger} to={'/adverts'}
                                  className={cn('primary__text', styles.burger__item)}>
-                            <Icons icon={'bulletin-board'} className={styles.icon}/>
+                            <Icons icon={'adverts'} className={styles.icon}/>
                             Доска объявлений
                         </NavLink>
                         <NavLink onClick={toggleBurger} to={'/services/specialists'}
@@ -66,15 +65,10 @@ const BurgerMenu: React.FC<{ openedBurger: boolean, toggleBurger: () => void }> 
                     <span className={styles.divider}></span>
 
                     <div className={styles.block}>
-                        <NavLink onClick={toggleBurger} to={'/new_ad'}
+                        <NavLink onClick={toggleBurger} to={'/new-ad'}
                                  className={cn('primary__text', styles.burger__item)}>
                             <Icons icon={'ad'} className={styles.icon}/>
                             Разместить объявление
-                        </NavLink>
-                        <NavLink onClick={toggleBurger} to={'/become_specialist'}
-                                 className={cn('primary__text', styles.burger__item)}>
-                            <Icons icon={'plus-circle-outline'} className={styles.icon}/>
-                            Стать специалистом
                         </NavLink>
                     </div>
 
@@ -86,7 +80,7 @@ const BurgerMenu: React.FC<{ openedBurger: boolean, toggleBurger: () => void }> 
                             <Icons icon={'bell'} className={styles.icon}/>
                             Уведомления
                         </NavLink>
-                        <NavLink onClick={toggleBurger} to={'/profile/favorite'}
+                        <NavLink onClick={toggleBurger} to={'/profile/favorites'}
                                  className={cn('primary__text', styles.burger__item)}>
                             <Icons icon={'cards-heart'} className={styles.icon}/>
                             Избранное

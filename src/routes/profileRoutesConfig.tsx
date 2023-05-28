@@ -1,9 +1,11 @@
 import {Navigate} from 'react-router-dom';
 
 import Pets from '../pages/Profile/Pets/Pets';
-import Ads from '../pages/Profile/Ads/Ads';
+import Adverts from '../pages/Profile/Adverts/Adverts';
 import UserProfile from '../pages/Profile/UserProfile/UserProfile';
 import Page404 from '../pages/Page404/Page404';
+import Favorites from '../pages/Profile/Favorites/Favorites';
+import InDevelop from '../pages/InDevelop/InDevelop';
 
 
 const PROFILE_PREFIX = '/profile';
@@ -14,16 +16,32 @@ const profileRoutesConfig = [
         element: <Pets/>
     },
     {
+        path: '/favorites',
+        element: <Favorites/>
+    },
+    {
+        path: '/notifications',
+        element: <InDevelop/>
+    },
+    {
+        path: '/adverts',
+        element: <Navigate to={PROFILE_PREFIX + '/adverts/actual'} replace={true}/>
+    },
+    {
+        path: '/reviews',
+        element: <InDevelop/>
+    },
+    {
+        path: '/rates',
+        element: <InDevelop/>
+    },
+    {
         path: '/',
         element: <UserProfile/>
     },
     {
-        path: '/ads',
-        element: <Navigate to={PROFILE_PREFIX + '/ads/actual'} replace={true}/>
-    },
-    {
-        path: '/ads/*',
-        element: <Ads/>
+        path: '/adverts/*',
+        element: <Adverts/>
     },
     {
         path: '/*',

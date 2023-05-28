@@ -1,7 +1,8 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Route, Routes} from 'react-router-dom';
 
 import profileRoutesConfig from '../../routes/profileRoutesConfig';
+import {useIsMobileContext} from '../../contexts/isMobileContext';
 import {withOfferToSignIn} from '../../hoc/withOfferToSignIn';
 
 import SideBarProfile from '../../components/SideBarProfile/SideBarProfile';
@@ -11,15 +12,11 @@ import styles from './Profile.module.css';
 
 
 const Profile: React.FC = () => {
-    const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
-
-    window.addEventListener('resize', () => {
-        setIsMobile(window.innerWidth <= 700)
-    });
+    const isMobile = useIsMobileContext();
 
     return (
         <div className={styles.wrapper}>
-            {!isMobile ? <SideBarProfile/> : <TapBarProfile format={'circle'}/>}
+            {!isMobile ? <SideBarProfile/> : <TapBarProfile/>}
             <div className={styles.content}>
                 <Routes>
                     {profileRoutesConfig.map((route, index) => (

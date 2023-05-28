@@ -3,8 +3,9 @@ import {Route, Routes, useLocation, useSearchParams} from 'react-router-dom';
 import cn from 'classnames';
 
 import mainRoutesConfig from '../routes/mainRoutesConfig';
-import {initialUserContextState, iUser, UserContext} from '../userContext';
-import {ChatContext, ChatUserType, initialChatContextState} from '../chatContext';
+import {initialUserContextState, iUser, UserContext} from '../contexts/userContext';
+import {ChatContext, ChatUserType, initialChatContextState} from '../contexts/chatContext';
+import {IsMobileContext} from '../contexts/isMobileContext';
 import userService from '../services/userService';
 
 // @ts-ignore
@@ -20,7 +21,6 @@ const ScrollToTop = (props: any) => {
     useEffect(() => {
         window.scrollTo(0, 0);
     }, [location]);
-
     return <>{props.children}</>
 };
 
@@ -33,6 +33,12 @@ const App: React.FC = () => {
     const audioPlayer = useRef(null);
     const [searchParams, setSearchParams] = useSearchParams();
     const chatParam = searchParams.get('chat');
+
+    const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
+
+    window.addEventListener('resize', () => {
+        setIsMobile(window.innerWidth <= 700);
+    });
 
     function playAudio() {
         // @ts-ignore
@@ -137,26 +143,29 @@ const App: React.FC = () => {
     }, [user]);
 
     return (
-        <UserContext.Provider value={{user: user, setUser: setUser}}>
-            <ChatContext.Provider value={chat}>
-                <ScrollToTop>
-                    <Header/>
-                    <main className={cn(styles.main, 'container')}>
-                        <Routes>
-                            {mainRoutesConfig.map((route, index) => (
-                                <Route
-                                    key={index}
-                                    path={route.path}
-                                    element={route.element}
-                                />
-                            ))}
-                        </Routes>
-                    </main>
-                    {location.pathname != '/messenger' && <Footer/>}
-                    <audio ref={audioPlayer} src={NotificationSound}/>
-                </ScrollToTop>
-            </ChatContext.Provider>
-        </UserContext.Provider>
+        <IsMobileContext.Provider value={isMobile}>
+            <UserContext.Provider value={{user: user, setUser: setUser}}>
+                <ChatContext.Provider value={chat}>
+                    <ScrollToTop>
+                        <Header/>
+                        <main className={cn(styles.main, 'container')}>
+                            <Routes>
+                                {mainRoutesConfig.map((route, index) => (
+                                    <Route
+                                        key={index}
+                                        path={route.path}
+                                        element={route.element}
+                                    />
+                                ))}
+                            </Routes>
+                        </main>
+                        {location.pathname != '/messenger' && location.pathname.substring(0, 8) != '/profile' &&
+                            <Footer/>}
+                        <audio ref={audioPlayer} src={NotificationSound}/>
+                    </ScrollToTop>
+                </ChatContext.Provider>
+            </UserContext.Provider>
+        </IsMobileContext.Provider>
     );
 };
 

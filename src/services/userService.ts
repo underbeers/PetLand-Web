@@ -1,6 +1,6 @@
 import {Socket} from 'socket.io-client';
 
-import {initialUserContextState, iUser} from '../userContext';
+import {initialUserContextState, iUser} from '../contexts/userContext';
 
 
 export const API_URL = `http://${process.env.REACT_APP_API_URL}/api/v1`;
@@ -44,7 +44,7 @@ class UserService {
     }
 
     public async getChatUserID(userID: string) {
-        return fetch(API_URL + `/user/${userID}/chatID`,{
+        return fetch(API_URL + `/user/${userID}/chatID`, {
             method: 'GET',
             headers: {'Content-Type': 'application/json'}
         });
@@ -99,12 +99,20 @@ class UserService {
                 }
                 return null;
             }
-        }).then((body: { email: string, firstName: string, surName: string, userID: string, chatID: string, sessionID: string }) => {
+        }).then((body: {
+            email: string,
+            firstName: string,
+            surName: string,
+            userID: string,
+            chatID: string,
+            sessionID: string,
+            imageLink: string
+        }) => {
             //console.log(body);
             if (body) {
                 const newUser = {
                     ...body,
-                    photo: 'https://script.viserlab.com/stoclab/assets/user/profile/5fb0bd27eccb31605418279.jpg',
+                    photo: body.imageLink,
                     chatUserID: body.chatID,
                     accessToken: user.accessToken,
                     empty: false,
@@ -226,6 +234,30 @@ class UserService {
             //console.log(body);
         });
     }
+
+    public async updateAvatarFetch(data: FormData, accessToken: string) {
+        return fetch(API_URL + '/fileUser', {
+            method: 'POST',
+            //headers: {
+            //    'Content-Type': 'multipart/form-data',
+            //    'Authorization': `Bearer ${accessToken}`
+            //},
+            body: data
+        });
+    }
+
+    //public async updateAvatarAxios(data: FormData, accessToken: string) {
+    //    return axios.post(
+    //        API_URL + '/fileUser',
+    //        data,
+    //        {
+    //            headers: {
+    //                'Content-Type': 'multipart/form-data',
+    //                'Authorization': `Bearer ${accessToken}`
+    //            }
+    //        }
+    //    );
+    //}
 }
 
 export default new UserService();

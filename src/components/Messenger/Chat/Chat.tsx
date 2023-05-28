@@ -3,6 +3,7 @@ import {useNavigate} from 'react-router-dom';
 
 import {ChatUserType, useChatContext} from '../../../contexts/chatContext';
 import {useUserContext} from '../../../contexts/userContext';
+import {useIsMobileContext} from '../../../contexts/isMobileContext';
 
 import Button from '../../UIKit/Button';
 import Icons from '../../UIKit/Icons';
@@ -11,14 +12,27 @@ import Bubble from '../Bubble/Bubble';
 
 import styles from './Chat.module.css';
 
+type ChatProps = {
+    chatID: string,
+    user2: ChatUserType,
+    setUser2: (user2: ChatUserType) => void,
+    getUser: () => ChatUserType
+};
 
-const Chat: React.FC<{ chatID: string }> = ({chatID}) => {
+const Chat: React.FC<ChatProps> = ({chatID, user2, setUser2, getUser}) => {
     const navigate = useNavigate();
     const {user, setUser} = useUserContext();
     const chat = useChatContext();
     const [message, setMessage] = useState('');
+    const isMobile = useIsMobileContext();
+
+    const focusInput = () => {
+        // @ts-ignore
+        document.getElementById(styles.textarea).focus();
+    }
 
     useEffect(() => {
+        focusInput();
         function handleKeyDown(e: any) {
             if (e.key == 'Escape') {
                 navigate('/messenger');
@@ -29,21 +43,9 @@ const Chat: React.FC<{ chatID: string }> = ({chatID}) => {
         return function cleanup() {
             document.removeEventListener('keydown', handleKeyDown);
         }
+
     }, []);
 
-    const getUser: () => ChatUserType = () => {
-        for (let i = 0; i < chat.users.length; i++) {
-            if (chat.users[i].userID == chatID) {
-                return chat.users[i];
-            }
-        }
-        return {userID: '', connected: false, hasNewMessage: true, username: '', messages: []};
-    }
-    const [user2, setUser2] = useState(getUser());
-
-    useEffect(() => {
-        setUser2(getUser());
-    }, [chat, chatID]);
     const sendMessage = () => {
         if (chatID && message) {
             const user2 = getUser();
@@ -56,6 +58,7 @@ const Chat: React.FC<{ chatID: string }> = ({chatID}) => {
             socket.userID = user.chatUserID;
             socket.emit('private message', {content: message, to: user2.userID});
             setMessage('');
+            focusInput();
         }
     }
 
@@ -64,8 +67,7 @@ const Chat: React.FC<{ chatID: string }> = ({chatID}) => {
 
     return (
         <div className={styles.wrapper}>
-
-            <div className={styles.info}>
+            {!isMobile && <div className={styles.info}>
                 <div className={styles.user}>
                     {user2.userID != chat.userID && <img
                         src={'https://apronhub.in/wp-content/uploads/2022/01/team14-scaled.jpg'}
@@ -79,12 +81,12 @@ const Chat: React.FC<{ chatID: string }> = ({chatID}) => {
                     <Button type={'secondary'} color={'orange'} text={'Передать питомца'} onClick={() => {
                     }}/>
                 }
-            </div>
+            </div>}
             <div className={styles.chat}>
                 {user2.messages.map((message, index) => {
                     const now = new Date();
                     let time = new Date(message.time);
-                    time.setMinutes(time.getMinutes() - now.getTimezoneOffset());
+                    //time.setMinutes(time.getMinutes() - now.getTimezoneOffset());
                     const printDate = prettyTime(time) != prettyTime(prevDate);
                     prevDate = time;
                     return <Bubble
@@ -113,7 +115,7 @@ const Chat: React.FC<{ chatID: string }> = ({chatID}) => {
                         event.preventDefault();
                         setMessage(event.target.value);
                     }}
-                    className={styles.textarea} placeholder={'Напишите сообщение...'}/>
+                    className={styles.textarea} id={styles.textarea} placeholder={'Напишите сообщение...'}/>
                 <Icons className={styles.send} icon={'send'} onClick={sendMessage}/>
             </div>
         </div>

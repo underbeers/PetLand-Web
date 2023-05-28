@@ -68,7 +68,7 @@ const AdCard: React.FC<iAdCardProps> = ({size, info}) => {
     //}, []);
 
     return (
-        <NavLink to={`/ad-page?id=${info.id}`} className={cn(styles.card, styles[size])}>
+        <NavLink target={'_blank'} to={`/ad-page?id=${info.id}`} className={cn(styles.card, styles[size])}>
             <img className={styles.photo}
                  src={info.mainPhoto}/>
             <div className={styles.ad__content}>

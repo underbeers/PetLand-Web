@@ -24,7 +24,6 @@ const UserProfile: React.FC = () => {
 
     const navigate = useNavigate();
 
-
     return (
         <>
             {isMobile &&
@@ -32,16 +31,15 @@ const UserProfile: React.FC = () => {
                     <h5>Профиль</h5>
                 </TopBar>
             }
-            {!isMobile ? <h1>Профиль</h1> : <h3 className={styles.title__mobile}>Профиль</h3>}
+            {!isMobile && <h1>Профиль</h1>}
             <p className={styles.date}>На PetLand с ноября 2022</p>
-
             {isMobile &&
                 <div className={styles.photo__name}>
                     <Image
                         imageProps={{src: user.photo, alt: '', width: '100px', height: '100px'}}
                         borderRadius={'50px 50px 50px 50px'}
                         className={styles.image}/>
-                    <h5>Имя<br/>Фамилия</h5>
+                    <h5>{user.firstName}<br/>{user.surName}</h5>
                 </div>
             }
             {isDescription ?
@@ -55,8 +53,8 @@ const UserProfile: React.FC = () => {
                 <div className={styles.description}>
                     <h5>Описание: </h5>
                     <p style={{marginBottom: '8px'}}>Вы еще не добавили описание</p>
-                    <Button color={'green'} text={'Настроить профиль'} onClick={() => {
-                    }} type={'primary'}/>
+                    <Button color={'green'} text={'Настроить профиль'} type={'primary'}
+                            onClick={() => navigate('/profile/settings')}/>
                 </div>
             }
             <div className={styles.statistic}>
@@ -65,8 +63,6 @@ const UserProfile: React.FC = () => {
                         <h5 className={styles.title__pets}>Питомцы</h5>
                         <p>3 добавленных питомца</p>
                         <div className={styles.pets__block}>
-
-
                         </div>
                     </div> :
                     <div className={styles.stat__pets}>
@@ -79,37 +75,40 @@ const UserProfile: React.FC = () => {
                 }
                 <div className={styles.statistic__specialist}>
                     <div className={styles.rating__reviews}>
-                        {isRating ?
-                            <div className={styles.stat__rating}>
-                                <h5>Рейтинг</h5>
-                                <div className={styles.stars__reviews}>
-                                    <div className={styles.stars}>
-                                        <Icons icon={'round-star'}/>
-                                        <Icons icon={'round-star'}/>
-                                        <Icons icon={'round-star'}/>
-                                        <Icons icon={'round-star'}/>
-                                        <Icons icon={'round-star'}/>
+                        {false && <>{
+                            isRating ?
+                                <div className={styles.stat__rating}>
+                                    <h5>Рейтинг</h5>
+                                    <div className={styles.stars__reviews}>
+                                        <div className={styles.stars}>
+                                            <Icons icon={'round-star'}/>
+                                            <Icons icon={'round-star'}/>
+                                            <Icons icon={'round-star'}/>
+                                            <Icons icon={'round-star'}/>
+                                            <Icons icon={'round-star'}/>
+                                        </div>
+                                        <span>4,0</span>
+                                        <a href={'#'}>2 отзыва</a>
                                     </div>
-                                    <span>4,0</span>
-                                    <a href={'#'}>2 отзыва</a>
+                                    <p>3 завершенных сделки</p>
                                 </div>
-                                <p>3 завершенных сделки</p>
-                            </div>
-                            :
-                            <div className={styles.stat__rating}>
-                                <h5>Рейтинг</h5>
-                                <p>Вы еще не совершали сделок</p>
-                            </div>
+                                :
+                                <div className={styles.stat__rating}>
+                                    <h5>Рейтинг</h5>
+                                    <p>Вы еще не совершали сделок</p>
+                                </div>
                         }
-                        {isReviews ?
-                            <div className={styles.reviews}>
-                                <h5>Объявления</h5>
-                                <a>1 активное объявление</a>
-                            </div> :
-                            <div className={styles.reviews}>
-                                <h5>Объявления</h5>
-                                <p>Нет активных объявлений</p>
-                            </div>
+                            {isReviews ?
+                                <div className={styles.reviews}>
+                                    <h5>Объявления</h5>
+                                    <a>1 активное объявление</a>
+                                </div>
+                                :
+                                <div className={styles.reviews}>
+                                    <h5>Объявления</h5>
+                                    <p>Нет активных объявлений</p>
+                                </div>
+                            }</>
                         }
                     </div>
                     {isSpecialist &&

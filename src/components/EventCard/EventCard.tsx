@@ -22,7 +22,7 @@ const EventCard: React.FC<iEventProps> = ({id, name, description, city, place, d
     const isMobile = useIsMobileContext();
 
     return (
-        <NavLink to={`/services/events/event?id=${id}`} className={styles.card}>
+        <NavLink target={'_blank'} to={`/services/events/event?id=${id}`} className={styles.card}>
             <img className={styles.photo}
                  src={photo}
                  alt={'Фото мероприятия'}/>

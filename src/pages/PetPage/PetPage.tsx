@@ -116,15 +116,7 @@ const PetPage: React.FC = () => {
                         <div className={styles.owner}>
                             <h5>Владелец:</h5>
                             <a href={'#'}>Имя Фамилия</a>
-                            <div className={styles.stars}>
-                                <Icons icon={'round-star'} className={styles.star}/>
-                                <Icons icon={'round-star'} className={styles.star}/>
-                                <Icons icon={'round-star'} className={styles.star}/>
-                                <Icons icon={'round-star'} className={styles.star}/>
-                                <Icons icon={'round-star'} className={styles.star}/>
-                            </div>
                         </div>
-
                         <Button color={'orange'} type={'primary'} text={'Написать'} onClick={() => {
                         }} className={styles.button__text}/>
                     </div>}

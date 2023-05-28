@@ -36,6 +36,10 @@ const profileRoutesConfig = [
         element: <InDevelop/>
     },
     {
+        path: '/settings',
+        element: <InDevelop/>
+    },
+    {
         path: '/',
         element: <UserProfile/>
     },

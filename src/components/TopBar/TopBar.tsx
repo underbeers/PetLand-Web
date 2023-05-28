@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
+import cn from 'classnames';
 
 import BurgerMenu from '../BurgerMenu/BurgerMenu';
 import Icons from '../UIKit/Icons';
@@ -10,10 +11,10 @@ import styles from './TopBar.module.css';
 interface iTopBarProps {
     children: React.ReactNode;
     leftButton: 'burger' | 'arrow';
+    className?: string;
 }
 
-
-const TopBar: React.FC<iTopBarProps> = ({children, leftButton}) => {
+const TopBar: React.FC<iTopBarProps> = ({children, leftButton, className}) => {
     const [openedBurger, setOpenedBurger] = useState(false);
     const toggleBurger = () => setOpenedBurger(!openedBurger);
 
@@ -25,7 +26,7 @@ const TopBar: React.FC<iTopBarProps> = ({children, leftButton}) => {
     };
 
     return (
-        <div className={styles.bar}>
+        <div className={cn(styles.bar, className)}>
             {leftButton === 'burger' ?
                 <>
                     <Icons icon={'burger'} onClick={toggleBurger} className={styles.icon__left}/>

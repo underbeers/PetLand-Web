@@ -4,6 +4,7 @@ import {useNavigate, useSearchParams} from 'react-router-dom';
 import {useUserContext} from '../../contexts/userContext';
 import {useIsMobileContext} from '../../contexts/isMobileContext';
 import AdvertService from '../../services/advertService';
+import FavoritesService from '../../services/favoritesService';
 import {getAge} from '../../components/PetCard/PetCard';
 import {prettyAdPrice, prettyPublicationTime} from '../../components/AdCard/AdCard';
 
@@ -16,6 +17,36 @@ import Gallery from '../../components/Gallery/Gallery';
 
 import styles from './AdPage.module.css'
 
+export type AdInfoType = {
+    birthDate: string,
+    breed: string,
+    care: string,
+    chat: boolean,
+    city: string,
+    color: string,
+    description: string,
+    district: string,
+    favoritesID: number,
+    gender: string,
+    id: number,
+    inFavorites: string,
+    pedigree: string,
+    petCardID: number,
+    petCharacter: string,
+    petName: string,
+    petType: string,
+    phone: string,
+    photos: Array<{
+        original: string,
+        thumbnail: string
+    }>,
+    price: number,
+    publication: string,
+    status: string,
+    sterilization: boolean,
+    userID: string,
+    vaccinations: boolean,
+}
 
 const AdPage = () => {
     const [color, setColor] = useState(false);
@@ -24,65 +55,50 @@ const AdPage = () => {
     const [traits, setTraits] = useState(false);
     const [isLiked, setIsLiked] = useState(false);
 
+    const {user, setUser} = useUserContext();
     const isMobile = useIsMobileContext();
 
     const navigate = useNavigate();
-    const handleGoBack: React.MouseEventHandler<HTMLDivElement> = (e) => {
-        e.preventDefault();
-        navigate(-1);
-    };
 
-    const {user, setUser} = useUserContext();
     const [searchParams, setSearchParams] = useSearchParams();
     const id = searchParams.get('id') || '';
 
-    const [info, setInfo] = useState<{
-        birthDate: string,
-        breed: string,
-        care: string,
-        chat: boolean,
-        city: string,
-        color: string,
-        description: string,
-        district: string,
-        gender: string,
-        id: number,
-        pedigree: string,
-        petCardID: number,
-        petCharacter: string,
-        petName: string,
-        petType: string,
-        phone: string,
-        photos: Array<{
-            original: string,
-            thumbnail: string
-        }>
-        price: number,
-        publication: string,
-        status: string,
-        sterilization: boolean,
-        userID: string,
-        vaccinations: boolean
-    } | null>(null);
+    const [info, setInfo] = useState<AdInfoType>();
 
     useEffect(() => {
-        AdvertService.getFullAdvert(id).then(response => {
-            switch (response.status) {
-                case 200:
-                    return response.json();
-                default:
-                    return null;
-            }
-        }).then(body => {
-            //console.log(body);
-            if (body) {
-                setInfo(body);
-            }
-        });
-    }, []);
+        if (user.empty) {
+            AdvertService.getFullAdvert(id).then(response => {
+                switch (response.status) {
+                    case 200:
+                        return response.json();
+                    default:
+                        return null;
+                }
+            }).then((body: AdInfoType) => {
+                console.log(body);
+                if (body) {
+                    setInfo(body);
+                }
+            });
+        } else {
+            AdvertService.getAuthorizedFullAdvert(id, user.accessToken).then(response => {
+                switch (response.status) {
+                    case 200:
+                        return response.json();
+                    default:
+                        return null;
+                }
+            }).then((body: AdInfoType) => {
+                console.log(body);
+                if (body) {
+                    setInfo(body);
+                }
+            });
+        }
+    }, [user]);
 
     if (!info) {
-        return <div></div>;
+        return <></>;
     }
 
     return (
@@ -90,9 +106,6 @@ const AdPage = () => {
             {!isMobile ?
                 <>
                     <div className={styles.back__name__price}>
-                        <div className={styles.arrow__container} onClick={handleGoBack}>
-                            <Icons icon={'arrow-left'} className={styles.arrow__back}/>
-                        </div>
                         <h1 className={styles.name}>{info.petName}</h1>
                         <h1>{prettyAdPrice(info.price)}</h1>
                     </div>
@@ -104,18 +117,28 @@ const AdPage = () => {
                     </div>
                 </>
                 :
-                <TopBar leftButton={'arrow'}>
+                <TopBar leftButton={'burger'}>
                     <h5>{info.petName}</h5>
-                    <Icons icon={'share'}/>
-                    {id === user.userID ? <Icons icon={'edit'}/> : !isLiked ?
-                        <Icons icon={'cards-heart-outline'} onClick={() => {
-                            setIsLiked(!isLiked)
-                        }} className={styles.heart__topbar}/> : <Icons icon={'cards-heart'} onClick={() => {
-                            setIsLiked(!isLiked)
-                        }} className={styles.heart__topbar}/>}
+                    {!user.empty &&
+                        <Icons icon={info.inFavorites ? 'cards-heart' : 'cards-heart-outline'}
+                               className={styles.heart}
+                               onClick={(e) => {
+                                   e.preventDefault();
+                                   setTimeout(() => setUser({...user}), 100);
+                                   if (info.inFavorites) {
+                                       FavoritesService.deleteFromFavorites({id: info.favoritesID}, user.accessToken);
+                                   } else {
+                                       FavoritesService.addToFavorites({
+                                           type: 'advert',
+                                           id: info.id
+                                       }, user.accessToken);
+                                   }
+                               }}
+                        />
+                    }
+                    {info.userID === user.userID && <Icons icon={'edit'}/>}
                 </TopBar>
             }
-
             <div className={styles.photo__info}>
                 {!isMobile ? <Gallery items={info.photos}/> :
                     <div className={styles.slider__name}>
@@ -131,31 +154,34 @@ const AdPage = () => {
                             <Chips color={'green'} size={'medium'} label={getAge(info.birthDate)}/>
                         </div>
                     </div>}
-
                 {!isMobile && <div className={styles.owner__info}>
                     <div className={styles.owner}>
                         <h5>Владелец:</h5>
                         <a href={'#'}>{info.userID}</a>
-                        <div className={styles.stars}>
-                            <Icons icon={'round-star'} className={styles.star}/>
-                            <Icons icon={'round-star'} className={styles.star}/>
-                            <Icons icon={'round-star'} className={styles.star}/>
-                            <Icons icon={'round-star'} className={styles.star}/>
-                            <Icons icon={'round-star'} className={styles.star}/>
-                        </div>
                     </div>
-
                     <div className={styles.text__like}>
-                        <Button color={'orange'} type={'primary'} text={'Написать'} onClick={() => {
-                        }} className={styles.button__text}/>
-                        <div className={styles.heart__container} onClick={() => {
-                            setIsLiked(!isLiked)
-                        }}>
-                            {!isLiked ? <Icons icon={'cards-heart-outline'} className={styles.heart}/> :
-                                <Icons icon={'cards-heart'} className={styles.heart}/>}
+                        <Button color={'orange'} type={'primary'} text={'Написать'}
+                                onClick={() => navigate('/messenger')} className={styles.button__text}/>
+                        <div className={styles.heart__container}>
+                            {!user.empty &&
+                                <Icons icon={info.inFavorites ? 'cards-heart' : 'cards-heart-outline'}
+                                       className={styles.heart}
+                                       onClick={(e) => {
+                                           e.preventDefault();
+                                           setTimeout(() => setUser({...user}), 100);
+                                           if (info.inFavorites) {
+                                               FavoritesService.deleteFromFavorites({id: info.favoritesID}, user.accessToken);
+                                           } else {
+                                               FavoritesService.addToFavorites({
+                                                   type: 'advert',
+                                                   id: info.id
+                                               }, user.accessToken);
+                                           }
+                                       }}
+                                />
+                            }
                         </div>
                     </div>
-
                     <div className={styles.date__address}>
                         <div className={styles.date}>
                             <h5>Дата публикации:</h5>
@@ -168,7 +194,6 @@ const AdPage = () => {
                     </div>
                 </div>}
             </div>
-
             <div className={styles.pet__info}>
                 <div className={styles.column}>
                     <div className={styles.info__piece}>
@@ -179,31 +204,25 @@ const AdPage = () => {
                         <h5>Окрас:</h5>
                         <p className={'primary__text'}>{info.color}</p>
                     </div>}
-
                     {care && <div className={styles.info__piece}>
                         <h5>Особенности ухода:</h5>
                         <p className={'primary__text'}>{info.care}</p>
                     </div>}
-
                 </div>
                 <div className={styles.column}>
                     {pedigree && <div className={styles.pedigree}>
                         <h5>Родословная:</h5>
                         <p className={'primary__text'}>{info.pedigree}</p>
                     </div>}
-
                     {traits && <div className={styles.info__piece}>
                         <h5>Черты характера:</h5>
                         <p className={'primary__text'}>{info.petCharacter}</p>
                     </div>}
-
-
                     <div className={styles.sterilization__vaccination}>
                         <div className={styles.info__check}>
                             <Icons icon={info.sterilization ? 'check' : 'cross'} className={styles.icon}/>
                             <h5>Стерилизация</h5>
                         </div>
-
                         <div className={styles.info__check}>
                             <Icons icon={info.vaccinations ? 'check' : 'cross'} className={styles.icon}/>
                             <h5>Прививки</h5>
@@ -211,31 +230,34 @@ const AdPage = () => {
                     </div>
                 </div>
             </div>
-
             {isMobile && <div className={styles.owner__info}>
                 <div className={styles.owner}>
                     <h5>Владелец:</h5>
                     <a href={'#'}>{info.userID}</a>
-                    <div className={styles.stars}>
-                        <Icons icon={'round-star'} className={styles.star}/>
-                        <Icons icon={'round-star'} className={styles.star}/>
-                        <Icons icon={'round-star'} className={styles.star}/>
-                        <Icons icon={'round-star'} className={styles.star}/>
-                        <Icons icon={'round-star'} className={styles.star}/>
-                    </div>
                 </div>
-
                 <div className={styles.text__like}>
                     <Button color={'orange'} type={'primary'} text={'Написать'} onClick={() => {
                     }} className={styles.button__text}/>
-                    <div className={styles.heart__container} onClick={() => {
-                        setIsLiked(!isLiked)
-                    }}>
-                        {!isLiked ? <Icons icon={'cards-heart-outline'} className={styles.heart}/> :
-                            <Icons icon={'cards-heart'} className={styles.heart}/>}
+                    <div className={styles.heart__container}>
+                        {!user.empty &&
+                            <Icons icon={info.inFavorites ? 'cards-heart' : 'cards-heart-outline'}
+                                   className={styles.heart}
+                                   onClick={(e) => {
+                                       e.preventDefault();
+                                       setTimeout(() => setUser({...user}), 100);
+                                       if (info.inFavorites) {
+                                           FavoritesService.deleteFromFavorites({id: info.favoritesID}, user.accessToken);
+                                       } else {
+                                           FavoritesService.addToFavorites({
+                                               type: 'advert',
+                                               id: info.id
+                                           }, user.accessToken);
+                                       }
+                                   }}
+                            />
+                        }
                     </div>
                 </div>
-
                 <div className={styles.date__address}>
                     <div className={styles.date}>
                         <h5>Дата публикации:</h5>

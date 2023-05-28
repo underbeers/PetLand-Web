@@ -1,11 +1,11 @@
-import React, {useState} from 'react';
-import {useNavigate, useSearchParams} from 'react-router-dom';
+import React from 'react';
+import {useSearchParams} from 'react-router-dom';
 
 import {specialists} from './Specialists';
 import {useIsMobileContext} from '../../../contexts/isMobileContext';
 
-import Icons from '../../../components/UIKit/Icons';
 import TopBar from '../../../components/TopBar/TopBar';
+import Stars from '../../../components/Stars/Stars';
 import Page404 from '../../Page404/Page404';
 
 import styles from './SpecialistPage.module.css';
@@ -25,16 +25,6 @@ const getSpecById = (id: string | null) => {
 
 const SpecialistPage = () => {
     const isMobile = useIsMobileContext();
-
-    const [isLiked, setIsLiked] = useState(false);
-
-    const navigate = useNavigate();
-
-    const handleGoBack: React.MouseEventHandler<SVGSVGElement> = (e) => {
-        e.preventDefault();
-        navigate(-1);
-    };
-
     const [searchParams, setSearchParams] = useSearchParams();
     const id = searchParams.get('id');
 
@@ -48,7 +38,6 @@ const SpecialistPage = () => {
         <>
             {!isMobile ?
                 <div className={styles.name__favorite}>
-                    <Icons icon={'arrow-left'} className={styles.icon__arrow__back} onClick={handleGoBack}/>
                     <h1 className={styles.name}>{specialist.name}</h1>
                 </div> :
                 <TopBar leftButton={'arrow'}>
@@ -62,14 +51,7 @@ const SpecialistPage = () => {
                         <h3>Рейтинг:</h3>
                         <div className={styles.stars__reviews}>
                             <p>{specialist.rating}</p>
-                            <div className={styles.stars}>
-                                <Icons icon={'round-star'}/>
-                                <Icons icon={'round-star'}/>
-                                <Icons icon={'round-star'}/>
-                                <Icons icon={'round-star'}/>
-                                <Icons icon={'round-star'}/>
-                            </div>
-                            <p className={'underlined'}>10 отзывов</p>
+                            <Stars rating={specialist.rating}/>
                         </div>
                     </div>
                     <div className={styles.speciality}>

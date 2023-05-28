@@ -4,6 +4,8 @@ import cn from 'classnames';
 
 import {useIsMobileContext} from '../../contexts/isMobileContext';
 
+import Stars from '../Stars/Stars';
+
 import Icons from '../UIKit/Icons';
 
 import styles from './SpecialistCard.module.css';
@@ -37,20 +39,14 @@ const SpecialistCard: React.FC<iSpecialistProps> = ({
     const isMobile = useIsMobileContext();
 
     return (
-        <NavLink to={`/services/specialists/specialist?id=${id}`} className={styles.card}>
+        <NavLink target={'_blank'} to={`/services/specialists/specialist?id=${id}`} className={styles.card}>
             <img className={styles.photo} src={photo} alt={'Фото специалиста'}/>
             <div className={styles.specInfo}>
                 <div className={styles.name__like}>
                     <h5>{name}</h5>
                 </div>
                 {!isMobile ?
-                    <div className={styles.rating__stars}>
-                        <Icons icon={'round-star'} className={styles.star}/>
-                        <Icons icon={'round-star'} className={styles.star}/>
-                        <Icons icon={'round-star'} className={styles.star}/>
-                        <Icons icon={'round-star'} className={styles.star}/>
-                        <Icons icon={'round-star'} className={styles.star}/>
-                    </div> :
+                    <Stars rating={rating}/> :
                     <div className={styles.star__number}>
                         <Icons icon={'round-star'} className={styles.star}/>
                         <p>{rating}</p>

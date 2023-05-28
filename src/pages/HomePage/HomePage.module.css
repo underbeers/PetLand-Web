@@ -24,6 +24,7 @@
     bottom: 0;
     width: 760px;
     height: 486px;
+    object-fit: contain;
 }
 
 .buttons {

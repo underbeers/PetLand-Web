@@ -26,13 +26,6 @@ const getEventById = (id: string | null) => {
 
 const EventPage = () => {
     const isMobile = useIsMobileContext();
-    const navigate = useNavigate();
-
-    const handleGoBack: React.MouseEventHandler<SVGSVGElement> = (e) => {
-        e.preventDefault();
-        navigate(-1);
-    };
-
     const [searchParams, setSearchParams] = useSearchParams();
     const id = searchParams.get('id');
     const event = getEventById(id);
@@ -45,10 +38,9 @@ const EventPage = () => {
         <>
             {!isMobile ?
                 <div className={styles.name__favorite}>
-                    <Icons icon={'arrow-left'} className={styles.icon__arrow__back} onClick={handleGoBack}/>
                     <h1 className={styles.name}>{event.name}</h1>
                 </div> :
-                <TopBar leftButton={'arrow'}>
+                <TopBar leftButton={'burger'}>
                     <h5>{event.name}</h5>
                 </TopBar>
             }

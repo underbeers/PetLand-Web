@@ -4,6 +4,8 @@ import cn from 'classnames';
 
 import {useIsMobileContext} from '../../contexts/isMobileContext';
 
+import Stars from '../Stars/Stars';
+
 import Icons from '../UIKit/Icons';
 
 import styles from './OrganizationCard.module.css';
@@ -35,7 +37,7 @@ const OrganizationCard: React.FC<iOrganizationProps> = ({
     const isMobile = useIsMobileContext();
 
     return (
-        <NavLink to={`/services/organizations/organization?id=${id}`} className={styles.card}>
+        <NavLink target={'_blank'} to={`/services/organizations/organization?id=${id}`} className={styles.card}>
             <img className={styles.photo}
                  src={photo}
                  alt={'Фото организации'}/>
@@ -44,13 +46,8 @@ const OrganizationCard: React.FC<iOrganizationProps> = ({
                     <h5>{name}</h5>
                 </div>
                 {!isMobile ?
-                    <div className={styles.rating__stars}>
-                        <Icons icon={'round-star'} className={styles.star}/>
-                        <Icons icon={'round-star'} className={styles.star}/>
-                        <Icons icon={'round-star'} className={styles.star}/>
-                        <Icons icon={'round-star'} className={styles.star}/>
-                        <Icons icon={'round-star'} className={styles.star}/>
-                    </div> :
+                    <Stars rating={rating}/>
+                    :
                     <div className={styles.star__number}>
                         <Icons icon={'round-star'} className={styles.star}/>
                         <p>{rating}</p>

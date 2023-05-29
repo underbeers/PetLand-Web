@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {NavLink} from 'react-router-dom';
 import cn from 'classnames';
 
@@ -11,6 +11,7 @@ import Icons from '../UIKit/Icons';
 import Chips from '../UIKit/Chips';
 
 import styles from './AdCard.module.css';
+import UserService from "../../services/userService";
 
 
 export type AdCardInfoType = {
@@ -29,6 +30,15 @@ export type AdCardInfoType = {
     petType: string,
     price: number,
     publication: string,
+    userID: string
+}
+
+export type UserInfoType = {
+    chatID: string,
+    email: string,
+    firstName: string,
+    imageLink: string,
+    surName: string,
     userID: string
 }
 
@@ -54,18 +64,28 @@ export const prettyPublicationTime = (publication: string) => {
 const AdCard: React.FC<iAdCardProps> = ({size, info}) => {
     const {user, setUser} = useUserContext();
     const isMobile = useIsMobileContext();
+    const [userInfo, setUserInfo] = useState<UserInfoType>();
 
     const publication = prettyPublicationTime(info.publication);
 
-    const [userInfo, setUserInfo] = useState(null);
-    //useEffect(()=>{
-    //    userService.getUserInfoByID(info.userID).then(res => {
-    //        console.log(res);
-    //        return res.json();
-    //    }).then(body => {
-    //        console.log(body);
-    //    });
-    //}, []);
+    useEffect(() => {
+        if (!info) {
+            return;
+        }
+        UserService.getUserInfoByID(`?userID=${info.userID}`).then(response => {
+            //console.log(response);
+            switch (response.status) {
+                case 200:
+                    return response.json();
+                default:
+                    return null;
+            }
+        }).then(body => {
+            if (body) {
+                setUserInfo(body);
+            }
+        })
+    }, [info]);
 
     return (
         <NavLink target={'_blank'} to={`/ad-page?id=${info.id}`} className={cn(styles.card, styles[size])}>
@@ -108,7 +128,7 @@ const AdCard: React.FC<iAdCardProps> = ({size, info}) => {
                             {info.description}
                         </p>}
                     <div className={styles.info}>
-                        {size === 'big' && <p className={styles.name__owner}>{info.userID}</p>}
+                        {userInfo && size === 'big' && <p className={styles.name__owner}>{userInfo.firstName} {userInfo.surName}</p>}
                         <p className={styles.address__date}>г. {info.city} {info.district} р-н</p>
                         <p className={styles.address__date}>{publication.date} {publication.time}</p>
                     </div>

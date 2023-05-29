@@ -14,6 +14,8 @@ import Slider from '../../components/Slider/Slider';
 import Gallery from '../../components/Gallery/Gallery';
 
 import styles from './PetPage.module.css'
+import {UserInfoType} from "../../components/AdCard/AdCard";
+import UserService from "../../services/userService";
 
 
 export interface iPetInfo {
@@ -30,7 +32,7 @@ export interface iPetInfo {
     petName: string,
     petType: string,
     petTypeID: number,
-    photos: Array<{original: string, thumbnail: string}>,
+    photos: Array<{ original: string, thumbnail: string }>,
     sterilization: boolean,
     userID: string,
     vaccinations: boolean
@@ -44,11 +46,32 @@ const PetPage: React.FC = () => {
     const {user, setUser} = useUserContext();
     const isMobile = useIsMobileContext();
 
+    const [userInfo, setUserInfo] = useState<UserInfoType>();
+
     const [info, setInfo] = useState<iPetInfo>({
         petName: '', photos: [], petType: '', userID: '', petCharacter: '', breed: '', id: -1,
         breedID: -1, care: '', petTypeID: -1, color: '', gender: '',
         male: false, pedigree: '', birthDate: '', sterilization: false, vaccinations: false
     });
+
+    useEffect(() => {
+        if (!info) {
+            return;
+        }
+        UserService.getUserInfoByID(`?userID=${info.userID}`).then(response => {
+            //console.log(response);
+            switch (response.status) {
+                case 200:
+                    return response.json();
+                default:
+                    return null;
+            }
+        }).then(body => {
+            if (body) {
+                setUserInfo(body);
+            }
+        })
+    }, [info]);
 
     const navigate = useNavigate();
     const handleGoBack: React.MouseEventHandler<HTMLDivElement> = (e) => {
@@ -87,18 +110,17 @@ const PetPage: React.FC = () => {
             {!isMobile ?
                 <>
                     <div className={styles.back__name__button}>
-                        <div className={styles.arrow__container} onClick={handleGoBack}>
-                            <Icons icon={'arrow-left'} className={styles.arrow__back}/>
-                        </div>
                         <h2 className={styles.name}>{info.petName}</h2>
-                        {userID === user.userID && <Button color={'orange'} type={'secondary'} onClick={() => {
-                        }} text={'Редактировать страницу'}/>}
-
+                        {userID === user.userID &&
+                            <Button color={'orange'} type={'secondary'}
+                                    onClick={() => 1}
+                                    text={'Редактировать страницу'}/>
+                        }
                     </div>
                     {chips}
                 </>
                 :
-                <TopBar leftButton={'arrow'}>
+                <TopBar leftButton={'burger'}>
                     <h5>{info.petName}</h5>
                     <Icons icon={'share'}/>
                     {userID === user.userID ? <Icons icon={'edit'}/> : <Icons icon={'dots-vertical'}/>}
@@ -113,12 +135,17 @@ const PetPage: React.FC = () => {
                     </div>}
                 <div className={styles.full__info}>
                     {userID !== user.userID && <div className={styles.owner__info}>
-                        <div className={styles.owner}>
-                            <h5>Владелец:</h5>
-                            <a href={'#'}>Имя Фамилия</a>
-                        </div>
-                        <Button color={'orange'} type={'primary'} text={'Написать'} onClick={() => {
-                        }} className={styles.button__text}/>
+                        {userInfo &&
+                            <div className={styles.owner}>
+                                <h5>Владелец:</h5>
+                                <p>{userInfo.firstName} {userInfo.surName}</p>
+                            </div>
+                        }
+                        {userInfo && user.userID != userInfo.userID &&
+                            <Button color={'orange'} type={'primary'} text={'Написать'}
+                                    onClick={() => navigate(`/messenger?chat=${userInfo?.chatID}`)}
+                                    className={styles.button__text}/>
+                        }
                     </div>}
 
                     <div className={styles.description}>
@@ -127,7 +154,7 @@ const PetPage: React.FC = () => {
                                 <h5>Окрас:</h5>
                                 <p className={'primary__text'}>{info.color}</p>
                             </div> :
-                        userID === user.userID &&
+                            userID === user.userID &&
                             <div className={styles.color}>
                                 <h5>Окрас:</h5>
                                 <p className={'primary__text'}>Описание окраса не добавлено. Добавьте его в

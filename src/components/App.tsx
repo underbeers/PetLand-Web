@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {Route, Routes, useLocation, useSearchParams} from 'react-router-dom';
+import {Route, Routes, useLocation, useNavigate, useSearchParams} from 'react-router-dom';
 import cn from 'classnames';
 
 import mainRoutesConfig from '../routes/mainRoutesConfig';
@@ -29,6 +29,8 @@ const App: React.FC = () => {
     const [user, setUser] = useState<iUser>(structuredClone(initialUserContextState.user));
     const [chat, setChat] = useState<ChatContext>(initialChatContextState);
     const location = useLocation();
+
+    const navigate = useNavigate();
 
     const audioPlayer = useRef(null);
     const [searchParams, setSearchParams] = useSearchParams();
@@ -60,6 +62,11 @@ const App: React.FC = () => {
         if (localUser && localUser != 'undefined') {
             setUser({...user, accessToken: localUser});
         }
+        if(!("Notification" in window)) {
+            console.log("This browser does not support system notifications!")
+        } else if (Notification.permission !== 'denied') {
+            Notification.requestPermission();
+        }
     }, []);
 
     useEffect(() => {
@@ -68,7 +75,7 @@ const App: React.FC = () => {
         }
         if (!user.empty) {
             //console.log(user);
-            if (user.chatUserID && user.sessionID) {
+            if (user.chatID && user.sessionID) {
                 // authorisation
                 chat.socket.auth = {sessionID: user.sessionID};
             } else {
@@ -77,6 +84,12 @@ const App: React.FC = () => {
             }
             chat.socket.connect();
             chat.socket.on('session', ({sessionID, userID}) => {
+                if (user.sessionID && user.chatID) {
+                    return;
+                }
+                if (user.sessionID == sessionID && user.chatID == userID) {
+                    return;
+                }
                 chat.socket.auth = {sessionID};
                 if (user.accessToken) {
                     userService.setChatUserIDSessionID({chatID: userID, sessionID: sessionID}, user.accessToken);
@@ -101,13 +114,17 @@ const App: React.FC = () => {
                 time: string
             }) => {
                 chat.users.forEach(user_ => {
-                    if (message.from == user_.userID && message.to == user.chatUserID ||
-                        message.from == user.chatUserID && message.to == user_.userID) {
+                    if (message.from == user_.userID && message.to == user.chatID ||
+                        message.from == user.chatID && message.to == user_.userID) {
                         user_.messages.push(message);
                     }
-                    if (message.from != user.chatUserID && chatParam != message.from && message.from == user_.userID) {
+                    if (message.from != user.chatID && chatParam != message.from && message.from == user_.userID) {
                         user_.hasNewMessage = true;
                         playAudio();
+                        const n = new Notification('new message', {
+                            body: `${message.from}: ${message.content}`
+                        });
+                        n.onclick = () => navigate(`/messenger?chat=${message.from}`);
                     }
                 });
                 setChat({...chat});

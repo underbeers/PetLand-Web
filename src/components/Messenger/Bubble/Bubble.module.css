@@ -82,4 +82,8 @@
     .bubble {
         max-width: 75vw;
     }
+
+    .bubble > p > a {
+        word-wrap: break-word;
+    }
 }

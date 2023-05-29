@@ -6,7 +6,7 @@ import {useIsMobileContext} from '../../contexts/isMobileContext';
 import AdvertService from '../../services/advertService';
 import FavoritesService from '../../services/favoritesService';
 import {getAge} from '../../components/PetCard/PetCard';
-import {prettyAdPrice, prettyPublicationTime} from '../../components/AdCard/AdCard';
+import {prettyAdPrice, prettyPublicationTime, UserInfoType} from '../../components/AdCard/AdCard';
 
 import Chips from '../../components/UIKit/Chips';
 import Icons from '../../components/UIKit/Icons';
@@ -16,6 +16,7 @@ import Slider from '../../components/Slider/Slider';
 import Gallery from '../../components/Gallery/Gallery';
 
 import styles from './AdPage.module.css'
+import UserService from "../../services/userService";
 
 export type AdInfoType = {
     birthDate: string,
@@ -53,7 +54,6 @@ const AdPage = () => {
     const [care, setCare] = useState(false);
     const [pedigree, setPedigree] = useState(false);
     const [traits, setTraits] = useState(false);
-    const [isLiked, setIsLiked] = useState(false);
 
     const {user, setUser} = useUserContext();
     const isMobile = useIsMobileContext();
@@ -64,6 +64,7 @@ const AdPage = () => {
     const id = searchParams.get('id') || '';
 
     const [info, setInfo] = useState<AdInfoType>();
+    const [userInfo, setUserInfo] = useState<UserInfoType>();
 
     useEffect(() => {
         if (user.empty) {
@@ -75,7 +76,7 @@ const AdPage = () => {
                         return null;
                 }
             }).then((body: AdInfoType) => {
-                console.log(body);
+                //console.log(body);
                 if (body) {
                     setInfo(body);
                 }
@@ -89,13 +90,32 @@ const AdPage = () => {
                         return null;
                 }
             }).then((body: AdInfoType) => {
-                console.log(body);
+                //console.log(body);
                 if (body) {
                     setInfo(body);
                 }
             });
         }
     }, [user]);
+
+    useEffect(() => {
+        if (!info) {
+            return;
+        }
+        UserService.getUserInfoByID(`?userID=${info.userID}`).then(response => {
+            //console.log(response);
+            switch (response.status) {
+                case 200:
+                    return response.json();
+                default:
+                    return null;
+            }
+        }).then(body => {
+            if (body) {
+                setUserInfo(body);
+            }
+        })
+    }, [info]);
 
     if (!info) {
         return <></>;
@@ -156,12 +176,19 @@ const AdPage = () => {
                     </div>}
                 {!isMobile && <div className={styles.owner__info}>
                     <div className={styles.owner}>
-                        <h5>Владелец:</h5>
-                        <a href={'#'}>{info.userID}</a>
+                        {userInfo &&
+                            <>
+                                <h5>Владелец:</h5>
+                                <p>{userInfo.firstName} {userInfo.surName}</p>
+                            </>
+                        }
                     </div>
                     <div className={styles.text__like}>
-                        <Button color={'orange'} type={'primary'} text={'Написать'}
-                                onClick={() => navigate('/messenger')} className={styles.button__text}/>
+                        {info.userID != user.userID && userInfo &&
+                            <Button color={'orange'} type={'primary'} text={'Написать'}
+                                    onClick={() => navigate(`/messenger?chat=${userInfo.chatID}`)}
+                                    className={styles.button__text}/>
+                        }
                         <div className={styles.heart__container}>
                             {!user.empty &&
                                 <Icons icon={info.inFavorites ? 'cards-heart' : 'cards-heart-outline'}

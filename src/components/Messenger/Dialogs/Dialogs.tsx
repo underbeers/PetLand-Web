@@ -3,13 +3,15 @@ import React from 'react';
 import {useChatContext} from '../../../contexts/chatContext';
 
 import Dialog from '../Dialog/Dialog';
+import {useUserContext} from "../../../contexts/userContext";
 
 
 const Dialogs: React.FC<{ chatID: string | null }> = ({chatID}) => {
     const chat = useChatContext();
+    const {user, setUser} = useUserContext();
 
     // TODO: return only active dialogs or favorites
-    const getUsers = () => chat.users.sort((u2, u1) => {
+    const users = chat.users.sort((u2, u1) => {
         if (u1.messages.length && u2.messages.length) {
             return new Date(u1.messages[u1.messages.length - 1].time).getTime() -
                 new Date(u2.messages[u2.messages.length - 1].time).getTime();
@@ -23,15 +25,15 @@ const Dialogs: React.FC<{ chatID: string | null }> = ({chatID}) => {
     return (
         <>
             {
-                getUsers().map((user, index) =>
+                users.map((user_, index) =>
                     <Dialog
                         key={index}
-                        id={user.userID}
-                        message={user.messages.length ? user.messages[user.messages.length - 1].content : ''}
-                        username={user.userID == chat.userID ? 'Избранное' : user.username}
-                        time={user.messages.length ? user.messages[user.messages.length - 1].time : ''}
-                        connected={user.userID == chat.userID ? false : user.connected}
-                        hasNewMessage={user.hasNewMessage}/>
+                        id={user_.userID}
+                        message={user_.messages.length ? user_.messages[user_.messages.length - 1].content : ''}
+                        username={user_.userID == user.chatID ? 'Избранное' : user_.username}
+                        time={user_.messages.length ? user_.messages[user_.messages.length - 1].time : ''}
+                        connected={user_.userID == user.chatID ? false : user_.connected}
+                        hasNewMessage={user_.hasNewMessage}/>
                 )
             }
         </>

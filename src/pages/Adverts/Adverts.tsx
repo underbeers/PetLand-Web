@@ -72,7 +72,6 @@ const Adverts: React.FC = () => {
                     totalCount: number, totalPage: number
                 }) => {
                     if (body) {
-                        console.log(body.records)
                         setAdverts(body.records);
                     }
                 });
@@ -103,7 +102,28 @@ const Adverts: React.FC = () => {
                 {!isMobile &&
                     <div className={styles.icon__city}>
                         <Icons icon={'geo'}/>
-                        <a href={'#'} className={'underlined'}>Нижний Новгород</a>
+                        <a href={'#'}
+                           onClick={() => {
+                               if (!("Notification" in window)) {
+                                   // Check if the browser supports notifications
+                                   alert("This browser does not support desktop notification");
+                               } else if (Notification.permission === "granted") {
+                                   // Check whether notification permissions have already been granted;
+                                   // if so, create a notification
+                                   const notification = new Notification("Пасхалка открыта!");
+                                   // …
+                               } else if (Notification.permission !== "denied") {
+                                   // We need to ask the user for permission
+                                   Notification.requestPermission().then((permission) => {
+                                       // If the user accepts, let's create a notification
+                                       if (permission === "granted") {
+                                           const notification = new Notification("Пасхалка открыта!");
+                                           // …
+                                       }
+                                   });
+                               }
+                           }}
+                           className={'underlined'}>Нижний Новгород</a>
                     </div>
                 }
                 {!typeSelected && <PetTypes/>}

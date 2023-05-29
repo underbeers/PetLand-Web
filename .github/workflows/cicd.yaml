@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - develop
+      - PL-234-fix-problems
 
 jobs:
   sending_message:

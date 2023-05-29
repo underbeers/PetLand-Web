@@ -30,7 +30,7 @@ const Bubble: React.FC<BubbleProps> = ({type, text, time, printDate, date}) => {
     return (
         <>
             <div className={cn(styles.bubble, styles[type])}>
-                <p dangerouslySetInnerHTML={{__html: addURLs(text)}}></p>
+                <p dangerouslySetInnerHTML={{__html: addURLs(text).replaceAll('\n', '<br/>')}}></p>
                 {angle}
                 <p className={cn('secondary__text-2', styles.time, styles[type])}>{time}</p>
             </div>

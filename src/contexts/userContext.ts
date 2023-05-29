@@ -6,7 +6,7 @@ export interface iUser {
     firstName: string;
     surName: string;
     userID: string;
-    chatUserID: string;
+    chatID: string;
     sessionID: string;
     photo: string;
     accessToken: string;
@@ -25,7 +25,7 @@ export const initialUserContextState: UserContext = {
         firstName: '',
         surName: '',
         userID: '',
-        chatUserID: '',
+        chatID: '',
         sessionID: '',
         photo: '',
         accessToken: '',

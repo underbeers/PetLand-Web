@@ -22,7 +22,7 @@ type ChatProps = {
 const Chat: React.FC<ChatProps> = ({chatID, user2, setUser2, getUser}) => {
     const navigate = useNavigate();
     const {user, setUser} = useUserContext();
-    const chat = useChatContext();
+        const chat = useChatContext();
     const [message, setMessage] = useState('');
     const isMobile = useIsMobileContext();
 
@@ -69,15 +69,15 @@ const Chat: React.FC<ChatProps> = ({chatID, user2, setUser2, getUser}) => {
         <div className={styles.wrapper}>
             {!isMobile && <div className={styles.info}>
                 <div className={styles.user}>
-                    {user2.userID != chat.userID && <img
+                    {user2.userID != user.chatID && <img
                         src={'https://apronhub.in/wp-content/uploads/2022/01/team14-scaled.jpg'}
                         alt={'user'}/>}
                     <div className={styles.name}>
-                        <h5>{user2.userID == chat.userID ? 'Избранное' : user2.username}</h5>
-                        <p className={'secondary__text-2'}>{user2.userID != chat.userID && (user2.connected ? 'Онлайн' : 'Оффлайн')}</p>
+                        <h5>{user2.userID == user.chatID ? 'Избранное' : user2.username}</h5>
+                        <p className={'secondary__text-2'}>{user2.userID != user.chatID && (user2.connected ? 'Онлайн' : 'Оффлайн')}</p>
                     </div>
                 </div>
-                {user2.userID != chat.userID &&
+                {user2.userID != user.chatID &&
                     <Button type={'secondary'} color={'orange'} text={'Передать питомца'} onClick={() => {
                     }}/>
                 }

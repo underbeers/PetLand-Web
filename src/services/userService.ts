@@ -43,18 +43,11 @@ class UserService {
         });
     }
 
-    public async getChatUserID(userID: string) {
-        return fetch(API_URL + `/user/${userID}/chatID`, {
+    public async getUserInfoByID(params: string) {
+        return fetch(API_URL + '/user/infoByID' + (params ? params : ''), {
             method: 'GET',
             headers: {'Content-Type': 'application/json'}
         });
-    }
-
-    public async getUserInfoByID(userID: string) {
-        return fetch(API_URL + '/user/infoByID?userID=${userID}', {
-            method: 'GET',
-            headers: {'Content-Type': 'application/json'}
-        })
     }
 
     public async askPasswordRecovery(params: { email: string }) {
@@ -113,7 +106,6 @@ class UserService {
                 const newUser = {
                     ...body,
                     photo: body.imageLink,
-                    chatUserID: body.chatID,
                     accessToken: user.accessToken,
                     empty: false,
                     loading: false

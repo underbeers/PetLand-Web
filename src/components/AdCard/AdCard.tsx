@@ -5,13 +5,13 @@ import cn from 'classnames';
 import {useUserContext} from '../../contexts/userContext';
 import {useIsMobileContext} from '../../contexts/isMobileContext';
 import FavoritesService from '../../services/favoritesService';
+import UserService from '../../services/userService';
 import {getAge} from '../PetCard/PetCard';
 
 import Icons from '../UIKit/Icons';
 import Chips from '../UIKit/Chips';
 
 import styles from './AdCard.module.css';
-import UserService from "../../services/userService";
 
 
 export type AdCardInfoType = {
@@ -48,7 +48,7 @@ interface iAdCardProps {
 }
 
 export const prettyAdPrice = (price: number) => {
-    return price < 0 ? 'Цена договорная' : price === 0 ? 'Бесплатно' : `${price} ₽`;
+    return price < 0 ? 'Цена договорная' : price == 0 ? 'Бесплатно' : `${price} ₽`;
 }
 
 export const prettyPublicationTime = (publication: string) => {
@@ -89,8 +89,7 @@ const AdCard: React.FC<iAdCardProps> = ({size, info}) => {
 
     return (
         <NavLink target={'_blank'} to={`/ad-page?id=${info.id}`} className={cn(styles.card, styles[size])}>
-            <img className={styles.photo}
-                 src={info.mainPhoto}/>
+            <img className={styles.photo} src={info.mainPhoto}/>
             <div className={styles.ad__content}>
                 <div className={styles.name__like}>
                     <div className={styles.name__price}>
@@ -114,7 +113,7 @@ const AdCard: React.FC<iAdCardProps> = ({size, info}) => {
                         />
                     }
                 </div>
-                {size === 'big' &&
+                {size == 'big' &&
                     <div className={styles.chips}>
                         <Chips color={'green'} size={'small'} label={info.petType}/>
                         <Chips color={'green'} size={'small'} label={info.breed}/>
@@ -123,12 +122,15 @@ const AdCard: React.FC<iAdCardProps> = ({size, info}) => {
                     </div>
                 }
                 <div className={styles.description__info}>
-                    {size === 'big' &&
+                    {size == 'big' &&
                         <p className={styles.description}>
                             {info.description}
-                        </p>}
+                        </p>
+                    }
                     <div className={styles.info}>
-                        {userInfo && size === 'big' && <p className={styles.name__owner}>{userInfo.firstName} {userInfo.surName}</p>}
+                        {userInfo && size == 'big' &&
+                            <p className={styles.name__owner}>{userInfo.firstName} {userInfo.surName}</p>
+                        }
                         <p className={styles.address__date}>г. {info.city} {info.district} р-н</p>
                         <p className={styles.address__date}>{publication.date} {publication.time}</p>
                     </div>

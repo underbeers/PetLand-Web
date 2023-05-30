@@ -52,17 +52,14 @@ const Pets: React.FC = () => {
                 </div>
             }
             {pets.length ?
-                <>
-
-                    <div className={styles.cards}>
-                        {
-                            pets.map(pet =>
-                                <PetCard size={'medium'} petInfo={pet} key={pet.id}
-                                         url={`/pet?user-id=${user.userID}&pet-id=${pet.id}`}/>
-                            )
-                        }
-                    </div>
-                </>
+                <div className={styles.cards}>
+                    {
+                        pets.map(pet =>
+                            <PetCard size={'medium'} petInfo={pet} key={pet.id}
+                                     url={`/pet?user-id=${user.userID}&pet-id=${pet.id}`}/>
+                        )
+                    }
+                </div>
                 :
                 <>
                     <span className={styles.title}>У вас пока нет питомцев</span>
@@ -76,7 +73,8 @@ const Pets: React.FC = () => {
                         <Button color={'green'} text={'Доска объявлений'}
                                 onClick={() => navigate('/adverts')} type={'primary'}/>
                     </div>
-                </>}
+                </>
+            }
         </>
     );
 };

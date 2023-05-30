@@ -71,11 +71,11 @@ class UserService {
         setUser: (user: iUser) => void,
         setResponseCode?: (code: number) => void,
         onFinish?: () => void) {
-        if (!user.empty || user.loading) {
+        if (user.loading) {
             return;
         }
         setUser({...user, loading: true});
-        this.authorize(user.accessToken).then(response => {
+        return this.authorize(user.accessToken).then(response => {
             //console.log(response);
             setResponseCode && setResponseCode(response.status);
             if (response.ok) {
@@ -101,7 +101,7 @@ class UserService {
             sessionID: string,
             imageLink: string
         }) => {
-            //console.log(body);
+            console.log(body);
             if (body) {
                 const newUser = {
                     ...body,

@@ -34,9 +34,11 @@ const Bubble: React.FC<BubbleProps> = ({type, text, time, printDate, date}) => {
                 {angle}
                 <p className={cn('secondary__text-2', styles.time, styles[type])}>{time}</p>
             </div>
-            {printDate && <div className={styles.date__wrapper}>
-                <p className={cn(styles.date, 'secondary__text-1')}>{date}</p>
-            </div>}
+            {printDate &&
+                <div className={styles.date__wrapper}>
+                    <p className={cn(styles.date, 'secondary__text-1')}>{date}</p>
+                </div>
+            }
         </>
     );
 };

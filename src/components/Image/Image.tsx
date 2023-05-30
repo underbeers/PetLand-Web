@@ -32,10 +32,8 @@ const Image: React.FC<iImageProps> = ({imageProps, borderRadius, className}: iIm
                     <div></div>
                 </div>
             }
-            <img style={{borderRadius}}
-                 className={loaded ? styles.loaded : styles.not__loaded}
-                 onLoad={() => setLoaded(true)}
-                 {...imageProps}/>
+            <img style={{borderRadius}} className={loaded ? styles.loaded : styles.not__loaded}
+                 onLoad={() => setLoaded(true)} {...imageProps}/>
         </div>
     );
 };

@@ -12,11 +12,11 @@ import styles from './OrganizationPage.module.css';
 
 
 const getOrganizationById = (id: string | null) => {
-    if (id === null) {
+    if (id == null) {
         return id;
     }
     for (let i = 0; i < organizations.length; i++) {
-        if (organizations[i].id === id) {
+        if (organizations[i].id == id) {
             return (organizations[i]);
         }
     }
@@ -27,7 +27,6 @@ const OrganizationPage = () => {
     const isMobile = useIsMobileContext();
     const [searchParams, setSearchParams] = useSearchParams();
     const id = searchParams.get('id');
-
     const organization = getOrganizationById(id);
 
     if (organization == null) {
@@ -39,8 +38,9 @@ const OrganizationPage = () => {
             {!isMobile ?
                 <div className={styles.name__favorite}>
                     <h1 className={styles.name}>{organization.name}</h1>
-                </div> :
-                <TopBar leftButton={'arrow'}>
+                </div>
+                :
+                <TopBar leftButton={'burger'}>
                     <h5>{organization.name}</h5>
                 </TopBar>
             }

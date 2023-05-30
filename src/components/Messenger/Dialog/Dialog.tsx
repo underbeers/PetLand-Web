@@ -1,11 +1,10 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {useNavigate, useSearchParams} from 'react-router-dom';
 import cn from 'classnames';
 
 import {useUserContext} from '../../../contexts/userContext';
 
 import styles from './Dialog.module.css';
-import UserService from "../../../services/userService";
 
 
 export type DialogProps = {

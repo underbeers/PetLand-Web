@@ -1,7 +1,9 @@
 import React, {useState} from 'react';
+import {useNavigate} from 'react-router-dom';
+
 import {useUserContext} from '../../../contexts/userContext';
 import {useIsMobileContext} from '../../../contexts/isMobileContext';
-import {useNavigate} from 'react-router-dom';
+import UserService from '../../../services/userService';
 
 import Button from '../../../components/UIKit/Button';
 import Chips from '../../../components/UIKit/Chips';
@@ -35,10 +37,36 @@ const UserProfile: React.FC = () => {
             <p className={styles.date}>На PetLand с ноября 2022</p>
             {isMobile &&
                 <div className={styles.photo__name}>
-                    <Image
-                        imageProps={{src: user.photo, alt: '', width: '100px', height: '100px'}}
-                        borderRadius={'50px 50px 50px 50px'}
-                        className={styles.image}/>
+                    <label>
+                        <Image
+                            imageProps={{src: user.photo, alt: '', width: '100px', height: '100px'}}
+                            borderRadius={'50%'}/>
+                        <input
+                            hidden={true}
+                            type={'file'}
+                            id={styles.user_photo}
+                            accept={'image/png, image/jpeg'}
+                            onChange={(e) => {
+                                console.log(e);
+                                const fileInput = document.querySelector(`#${styles.user_photo}`);
+                                if (!fileInput) {
+                                    console.log(styles.user_photo)
+                                    return;
+                                }
+                                const formData = new FormData();
+                                // @ts-ignore
+                                formData.append('file', fileInput.files[0]);
+                                formData.append('accessToken', user.accessToken);
+                                // @ts-ignore
+                                console.log(formData.get('file'));
+                                // @ts-ignore
+                                UserService.updateAvatar(formData).then(response => {
+                                    console.log(response);
+                                    UserService.syncUser(user, setUser);
+                                });
+                            }}
+                        />
+                    </label>
                     <h5>{user.firstName}<br/>{user.surName}</h5>
                 </div>
             }
@@ -64,7 +92,8 @@ const UserProfile: React.FC = () => {
                         <p>3 добавленных питомца</p>
                         <div className={styles.pets__block}>
                         </div>
-                    </div> :
+                    </div>
+                    :
                     <div className={styles.stat__pets}>
                         <h5 className={styles.title__pets}>Питомцы</h5>
                         <p style={{marginBottom: '8px'}}>У вас еще не добавлены питомцы на
@@ -75,40 +104,43 @@ const UserProfile: React.FC = () => {
                 }
                 <div className={styles.statistic__specialist}>
                     <div className={styles.rating__reviews}>
-                        {false && <>{
-                            isRating ?
-                                <div className={styles.stat__rating}>
-                                    <h5>Рейтинг</h5>
-                                    <div className={styles.stars__reviews}>
-                                        <div className={styles.stars}>
-                                            <Icons icon={'round-star'}/>
-                                            <Icons icon={'round-star'}/>
-                                            <Icons icon={'round-star'}/>
-                                            <Icons icon={'round-star'}/>
-                                            <Icons icon={'round-star'}/>
+                        {false &&
+                            <>
+                                {
+                                    isRating ?
+                                        <div className={styles.stat__rating}>
+                                            <h5>Рейтинг</h5>
+                                            <div className={styles.stars__reviews}>
+                                                <div className={styles.stars}>
+                                                    <Icons icon={'round-star'}/>
+                                                    <Icons icon={'round-star'}/>
+                                                    <Icons icon={'round-star'}/>
+                                                    <Icons icon={'round-star'}/>
+                                                    <Icons icon={'round-star'}/>
+                                                </div>
+                                                <span>4,0</span>
+                                                <a href={'#'}>2 отзыва</a>
+                                            </div>
+                                            <p>3 завершенных сделки</p>
                                         </div>
-                                        <span>4,0</span>
-                                        <a href={'#'}>2 отзыва</a>
+                                        :
+                                        <div className={styles.stat__rating}>
+                                            <h5>Рейтинг</h5>
+                                            <p>Вы еще не совершали сделок</p>
+                                        </div>
+                                }
+                                {isReviews ?
+                                    <div className={styles.reviews}>
+                                        <h5>Объявления</h5>
+                                        <a>1 активное объявление</a>
                                     </div>
-                                    <p>3 завершенных сделки</p>
-                                </div>
-                                :
-                                <div className={styles.stat__rating}>
-                                    <h5>Рейтинг</h5>
-                                    <p>Вы еще не совершали сделок</p>
-                                </div>
-                        }
-                            {isReviews ?
-                                <div className={styles.reviews}>
-                                    <h5>Объявления</h5>
-                                    <a>1 активное объявление</a>
-                                </div>
-                                :
-                                <div className={styles.reviews}>
-                                    <h5>Объявления</h5>
-                                    <p>Нет активных объявлений</p>
-                                </div>
-                            }</>
+                                    :
+                                    <div className={styles.reviews}>
+                                        <h5>Объявления</h5>
+                                        <p>Нет активных объявлений</p>
+                                    </div>
+                                }
+                            </>
                         }
                     </div>
                     {isSpecialist &&

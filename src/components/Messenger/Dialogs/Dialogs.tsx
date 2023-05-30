@@ -1,9 +1,9 @@
 import React from 'react';
 
 import {useChatContext} from '../../../contexts/chatContext';
+import {useUserContext} from '../../../contexts/userContext';
 
 import Dialog from '../Dialog/Dialog';
-import {useUserContext} from "../../../contexts/userContext";
 
 
 const Dialogs: React.FC<{ chatID: string | null }> = ({chatID}) => {

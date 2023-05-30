@@ -13,7 +13,7 @@ export interface iAuthProps {
 }
 
 const Authorization: ModalContent = ({closeModal, isMobile, isFormSignIn}) => {
-    const [formSignIn, setFormSignIn] = useState<boolean>(isFormSignIn === undefined ? true : isFormSignIn);
+    const [formSignIn, setFormSignIn] = useState<boolean>(isFormSignIn == undefined ? true : isFormSignIn);
     const signInRef = useRef(null);
     const signUpRef = useRef(null);
     const nodeRef = formSignIn ? signInRef : signUpRef;
@@ -23,15 +23,13 @@ const Authorization: ModalContent = ({closeModal, isMobile, isFormSignIn}) => {
         <SwitchTransition mode='out-in'>
             <CSSTransition
                 // @ts-ignore
-                key={formSignIn}
-                nodeRef={nodeRef}
+                key={formSignIn} nodeRef={nodeRef} classNames='fade'
                 // @ts-ignore
-                addEndListener={(done: () => void) => {nodeRef.current.addEventListener('transitionend', done, false)}}
-                classNames='fade'>
+                addEndListener={(done: () => void) => nodeRef.current.addEventListener('transitionend', done, false)}>
                 <div ref={!isMobile ? nodeRef : null}>
                     {formSignIn ?
-                        <SignIn switchContent={() => {setFormSignIn(false)}} {...signInUpProps}/> :
-                        <SignUp switchContent={() => {setFormSignIn(true)}} {...signInUpProps}/>
+                        <SignIn switchContent={() => setFormSignIn(false)} {...signInUpProps}/> :
+                        <SignUp switchContent={() => setFormSignIn(true)} {...signInUpProps}/>
                     }
                 </div>
             </CSSTransition>

@@ -6,10 +6,10 @@ import {useChatContext} from '../../contexts/chatContext';
 import {useIsMobileContext} from '../../contexts/isMobileContext';
 import userService from '../../services/userService';
 
-import Icons from '../UIKit/Icons';
-
 import Modal from '../Modal/Modal';
 import Authorization from '../Authorization/Authorization';
+
+import Icons from '../UIKit/Icons';
 
 import styles from './Header.module.css';
 
@@ -33,26 +33,20 @@ const Header: React.FC = () => {
             </li>
             <li className={styles.nav}>
                 <NavLink to={'/adverts'}>Доска объявлений</NavLink>
-                <NavLink onMouseEnter={() => {
-                    setServicesDropdown(true)
-                }} onMouseLeave={() => {
-                    setServicesDropdown(false)
-                }} className={styles.services__btn}
-                         to={'/services'}>
+                <NavLink onMouseEnter={() => setServicesDropdown(true)} onMouseLeave={() => setServicesDropdown(false)}
+                         className={styles.services__btn} to={'/services'}>
                     Сервисы
                 </NavLink>
-                {servicesDropdown && <ul
-                    className={styles.services}
-                    onMouseEnter={() => {
-                        setServicesDropdown(true)
-                    }}
-                    onMouseLeave={() => {
-                        setServicesDropdown(false)
-                    }}>
-                    <li><NavLink to={'/services/specialists'}>Специалисты</NavLink></li>
-                    <li><NavLink to={'/services/organizations'}>Клиники и гостиницы</NavLink></li>
-                    <li><NavLink to={'/services/events'}>Мероприятия</NavLink></li>
-                </ul>}
+                {servicesDropdown &&
+                    <ul
+                        className={styles.services}
+                        onMouseEnter={() => setServicesDropdown(true)}
+                        onMouseLeave={() => setServicesDropdown(false)}>
+                        <li><NavLink to={'/services/specialists'}>Специалисты</NavLink></li>
+                        <li><NavLink to={'/services/organizations'}>Клиники и гостиницы</NavLink></li>
+                        <li><NavLink to={'/services/events'}>Мероприятия</NavLink></li>
+                    </ul>
+                }
             </li>
             <li className={styles.icons}>
                 <NavLink to={'/profile/favorites'}><Icons icon={'cards-heart'}/></NavLink>
@@ -72,43 +66,33 @@ const Header: React.FC = () => {
                             }}>
                             {user.loading ?
                                 <>
-                                    <div className={'loading'}
-                                         style={{width: 100, height: '1.5em', borderRadius: 5}}></div>
-                                    <div className={'loading'}
-                                         style={{width: 40, height: 40, borderRadius: 20}}></div>
-                                </> :
+                                    <div className={'loading'} style={{width: 100, height: '1.5em', borderRadius: 5}}/>
+                                    <div className={'loading'} style={{width: 40, height: 40, borderRadius: 20}}/>
+                                </>
+                                :
                                 <>
                                     <h5>{user.firstName}&nbsp;{user.surName}&nbsp;</h5>
-                                    <img src={user.photo} alt={`${user.firstName} ${user.surName}`}
-                                         title={'Профиль'}/>
-                                </>}
+                                    <img src={user.photo} alt={`${user.firstName} ${user.surName}`} title={'Профиль'}/>
+                                </>
+                            }
                         </NavLink>
-                        {profileDropdown && <ul
-                            className={styles.services}
-                            style={{left: -20, width: 160, cursor: 'initial'}}
-                            onMouseEnter={() => {
-                                setProfileDropdown(true)
-                            }}
-                            onMouseLeave={() => {
-                                setProfileDropdown(false)
-                            }}>
-                            <li><NavLink to={'/profile/pets'}>Питомцы</NavLink></li>
-                            <li><NavLink to={'/profile/favorites'}>Избранное</NavLink></li>
-                            <li><NavLink to={'/profile/adverts'}>Объявления</NavLink></li>
-                            <li><NavLink to={'/profile/reviews'}>Отзывы</NavLink></li>
-                            <li><NavLink to={'/profile/rates'}>Рейтинг</NavLink></li>
-                            <li><span className={styles.divider}></span></li>
-                            <li><a onClick={() => userService.signOut(setUser, socket)}>Выход</a></li>
-                        </ul>}
-                    </> :
-                    <Modal
-                        button={
-                            <>
-                                <h5>Войти</h5>
-                                <Icons icon={'account'}/>
-                            </>
+                        {profileDropdown &&
+                            <ul
+                                className={styles.services} style={{left: -20, width: 160, cursor: 'initial'}}
+                                onMouseEnter={() => setProfileDropdown(true)}
+                                onMouseLeave={() => setProfileDropdown(false)}>
+                                <li><NavLink to={'/profile/pets'}>Питомцы</NavLink></li>
+                                <li><NavLink to={'/profile/favorites'}>Избранное</NavLink></li>
+                                <li><NavLink to={'/profile/adverts'}>Объявления</NavLink></li>
+                                <li><NavLink to={'/profile/reviews'}>Отзывы</NavLink></li>
+                                <li><NavLink to={'/profile/rates'}>Рейтинг</NavLink></li>
+                                <li><span className={styles.divider}></span></li>
+                                <li><a onClick={() => userService.signOut(setUser, socket)}>Выход</a></li>
+                            </ul>
                         }
-                        content={Authorization}/>
+                    </>
+                    :
+                    <Modal button={<><h5>Войти</h5><Icons icon={'account'}/> </>} content={Authorization}/>
                 }
             </li>
         </ul>

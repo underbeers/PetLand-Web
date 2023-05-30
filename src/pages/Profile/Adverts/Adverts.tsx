@@ -55,14 +55,16 @@ const Adverts: React.FC = () => {
                 <h1 className={styles.heading}>Объявления</h1>
             }
             <br/>
-            {false && <Tabs>
-                <NavLink to={'/profile/adverts/actual'}>Актуальные</NavLink>
-                <NavLink to={'/profile/adverts/archive'}>Архив</NavLink>
-            </Tabs>}
+            {false &&
+                <Tabs>
+                    <NavLink to={'/profile/adverts/actual'}>Актуальные</NavLink>
+                    <NavLink to={'/profile/adverts/archive'}>Архив</NavLink>
+                </Tabs>
+            }
             <Routes>
                 <Route path={'/actual'} element={
-                    <>{
-                        adverts.length ?
+                    <>
+                        {adverts.length ?
                             <div className={styles.all__ads}>
                                 {adverts.map((ad, index) =>
                                     <AdCard
@@ -78,7 +80,8 @@ const Adverts: React.FC = () => {
                                 <Button type={'primary'} color={'orange'} text={'Разместить объявление'}
                                         onClick={() => navigate('/new-ad')}/>
                             </div>
-                    }</>
+                        }
+                    </>
                 }/>
                 <Route path={'/archive'} element={
                     <div className={styles.no__ads}>

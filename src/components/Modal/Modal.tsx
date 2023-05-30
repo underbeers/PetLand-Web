@@ -29,22 +29,14 @@ const Modal: React.FC<ModalProps> = ({content, contentProps, button}) => {
 
     return (
         <>
-            <a onClick={() => {
-                setIsOpened(true)
-            }}>{button}</a>
-            <div id={'modal_overlay'}
-                 className={cn(styles.overlay, isOpened ? styles.opened : styles.closed)}
-                 onClick={() => {
-                     setIsOpened(false)
-                 }}
-            />
-            <CSSTransition in={isOpened} nodeRef={nodeRef} timeout={isMobile ? 0 : 200} classNames='modal'
-                           unmountOnExit>
+            <a onClick={() => setIsOpened(true)}>{button}</a>
+            <div id={'modal_overlay'} className={cn(styles.overlay, isOpened ? styles.opened : styles.closed)}
+                 onClick={() => setIsOpened(false)}/>
+            <CSSTransition in={isOpened} nodeRef={nodeRef} unmountOnExit
+                           timeout={isMobile ? 0 : 200} classNames={'modal'}>
                 <div className={styles.wrapper}>
                     <div className={styles.modal} ref={nodeRef}>
-                        <Content closeModal={() => {
-                            setIsOpened(false)
-                        }} {...cProps} />
+                        <Content closeModal={() => setIsOpened(false)} {...cProps} />
                     </div>
                 </div>
             </CSSTransition>

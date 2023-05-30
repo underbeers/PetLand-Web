@@ -71,25 +71,25 @@ class PetService {
         });
     }
 
-    public async editPetCard(petCardID: string, params: updatePetCardParameters, accessToken: string) {
-        return fetch(API_URL + `/petCards/update/${petCardID}`, {
-            method: 'PUT',
+    public async addPhoto(data: FormData) {
+        return fetch(API_URL + '/filePet', {
+            method: 'POST',
+            body: data
+        });
+    }
+
+    public async transferPet(params: {
+        petCardID: string,
+        newOwnerID: string
+    }, accessToken: string) {
+        return fetch(API_URL + '/petCards/transfer', {
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${accessToken}`
             },
             body: JSON.stringify(params)
-        });
-    }
-
-    public async deletePetCard(petCardID: string, accessToken: string) {
-        return fetch(API_URL + `/petCards/delete/${petCardID}`, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${accessToken}`
-            }
-        });
+        })
     }
 }
 

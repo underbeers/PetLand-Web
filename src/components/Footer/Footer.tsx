@@ -19,7 +19,8 @@ const Footer: React.FC = () => {
                     <NavLink to={'/services/organizations'}>Клиники и гостиницы</NavLink>
                     <NavLink to={'/services/events'}>Мероприятия</NavLink>
                     <NavLink to={'#'}>Мобильное приложение</NavLink>
-                </div> :
+                </div>
+                :
                 <div className={styles.row}>
                     <NavLink to={'/adverts'}>Объявления</NavLink>
                     <NavLink to={'/services'}>Сервисы</NavLink>

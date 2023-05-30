@@ -27,11 +27,12 @@ const TopBar: React.FC<iTopBarProps> = ({children, leftButton, className}) => {
 
     return (
         <div className={cn(styles.bar, className)}>
-            {leftButton === 'burger' ?
+            {leftButton == 'burger' ?
                 <>
                     <Icons icon={'burger'} onClick={toggleBurger} className={styles.icon__left}/>
                     <BurgerMenu openedBurger={openedBurger} toggleBurger={toggleBurger}/>
-                </> :
+                </>
+                :
                 <>
                     <Icons icon={'arrow-left'} onClick={handleGoBack} className={styles.icon__left}/>
                 </>

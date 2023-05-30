@@ -14,7 +14,7 @@ import styles from './Page404.module.css'
 const Page404: React.FC = () => {
     const isMobile = useIsMobileContext();
 
-    let navigate = useNavigate();
+    const navigate = useNavigate();
     const routeChange = () => {
         let path = `/`;
         navigate(path);
@@ -25,7 +25,8 @@ const Page404: React.FC = () => {
             {isMobile &&
                 <TopBar leftButton={'burger'}>
                     <h5>PetLand</h5>
-                </TopBar>}
+                </TopBar>
+            }
             <div className={styles.wrapper}>
                 <div className={styles.error__dog}>
                     <div className={styles.error__desc}>

@@ -32,10 +32,10 @@ const ageFromDateOfBirthdayInMonths: (dateOfBirth: string) => number = (dateOfBi
 
 const getWord = (num: number, scale: 'years' | 'months'): string => {
     const numCopy = scale == 'years' ? Math.floor(num / 12) : num;
-    if (numCopy % 100 >= 10 && numCopy % 100 < 20 || numCopy % 10 === 0 || numCopy % 10 > 4) {
+    if (numCopy % 100 >= 10 && numCopy % 100 < 20 || numCopy % 10 == 0 || numCopy % 10 > 4) {
         return scale == 'years' ? 'лет' : 'месяцев';
     }
-    if (numCopy % 10 === 1) {
+    if (numCopy % 10 == 1) {
         return scale == 'years' ? 'год' : 'месяц';
     }
     return scale == 'years' ? 'года' : 'месяца';
@@ -59,7 +59,7 @@ const PetCard: React.FC<iPetCardProps> = ({petInfo, size, url}) => {
                     :
                     <h3>{petInfo.petName}</h3>
                 }
-                {size === 'medium' &&
+                {size == 'medium' &&
                     <div className={styles.chips}>
                         <Chips label={petInfo.breed} size={'small'} color={'green'}/>
                         <Chips label={petInfo.petType} size={'small'} color={'green'}/>

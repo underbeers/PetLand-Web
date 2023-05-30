@@ -30,20 +30,21 @@ const EventCard: React.FC<iEventProps> = ({id, name, description, city, place, d
                 <div className={styles.name}>
                     <h5>{name}</h5>
                 </div>
-
-                {!isMobile ? <div className={styles.place}>
+                {!isMobile ?
+                    <div className={styles.place}>
                         <p>Место:</p>
                         <p>{place}</p>
-                    </div> :
+                    </div>
+                    :
                     <p className={'secondary__text-2'}>{place}</p>
                 }
-
                 <div className={styles.date__price}>
                     <p className={styles.date}>{date}</p>
                     <p className={styles.price}>{price}</p>
                 </div>
             </div>
         </NavLink>
-    )
-}
+    );
+};
+
 export default EventCard;

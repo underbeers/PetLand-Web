@@ -102,42 +102,28 @@ const Adverts: React.FC = () => {
                 {!isMobile &&
                     <div className={styles.icon__city}>
                         <Icons icon={'geo'}/>
-                        <a href={'#'}
-                           onClick={() => {
-                               if (!("Notification" in window)) {
-                                   // Check if the browser supports notifications
-                                   alert("This browser does not support desktop notification");
-                               } else if (Notification.permission === "granted") {
-                                   // Check whether notification permissions have already been granted;
-                                   // if so, create a notification
-                                   const notification = new Notification("Пасхалка открыта!");
-                                   // …
-                               } else if (Notification.permission !== "denied") {
-                                   // We need to ask the user for permission
-                                   Notification.requestPermission().then((permission) => {
-                                       // If the user accepts, let's create a notification
-                                       if (permission === "granted") {
-                                           const notification = new Notification("Пасхалка открыта!");
-                                           // …
-                                       }
-                                   });
-                               }
-                           }}
-                           className={'underlined'}>Нижний Новгород</a>
+                        <a href={'#'} className={'underlined'}>Нижний Новгород</a>
                     </div>
                 }
                 {!typeSelected && <PetTypes/>}
-                {!isMobile ? !typeSelected ? <h1>Актуальные объявления</h1> :
-                    <h1>Тип животного в Городе</h1> : !typeSelected ? <h3>Актуальные объявления</h3> :
-                    <h3>Тип животного в Городе</h3>}
+                {!isMobile ?
+                    !typeSelected ?
+                        <h1>Актуальные объявления</h1>
+                        :
+                        <h1>Тип животного в Городе</h1>
+                    : !typeSelected ?
+                        <h3>Актуальные объявления</h3>
+                        :
+                        <h3>Тип животного в Городе</h3>
+                }
                 {typeSelected &&
                     <div className={styles.search__settings}>
                         <div className={styles.sort}>
                             <Icons icon={'sort-alt'}/>
                             <p>Сортировка</p>
                         </div>
-
-                        {!isMobile ? <div className={styles.grid} onClick={() => setIsBigAd(!isBigAd)}>
+                        {!isMobile ?
+                            <div className={styles.grid} onClick={() => setIsBigAd(!isBigAd)}>
                                 <Icons icon={'grid-2-2'}/>
                                 <p>Изменить сетку</p>
                             </div>
@@ -150,7 +136,7 @@ const Adverts: React.FC = () => {
                     </div>
                 }
                 <div className={styles.all__ads__filter}>
-                    {typeSelected && !isMobile ?
+                    {typeSelected && !isMobile &&
                         <div className={styles.filters}>
                             <Input type={'dropdown'} value={breed} placeholder={'Порода'} setValue={setBreed}
                                    label={'Порода'} dropdownItems={[]}/>
@@ -162,12 +148,9 @@ const Adverts: React.FC = () => {
                             </div>
                             <Checkbox isChecked={sterilized} setChecked={setSterilized}>Стерилизация</Checkbox>
                             <Checkbox isChecked={vaccines} setChecked={setVaccines}>Прививки</Checkbox>
-                            <Button type={'secondary'} color={'orange'} text={'Применить'} onClick={() => {
-                            }} disabled={true}/>
+                            <Button type={'secondary'} color={'orange'} text={'Применить'} onClick={() => 0}
+                                    disabled={true}/>
                         </div>
-                        :
-                        <>
-                        </>
                     }
                     <div className={styles.all__ads}>
                         {

@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import {useNavigate} from 'react-router-dom';
 
 import userService from '../../services/userService';
 import {useIsMobileContext} from '../../contexts/isMobileContext';
@@ -18,8 +17,6 @@ const EmailPage = () => {
     const [emailSent, setEmailSent] = useState(false);
     const isMobile = useIsMobileContext();
 
-    const navigate = useNavigate();
-
     const send = async () => {
         await userService.askPasswordRecovery({email: email.value}).then(response => {
             switch (response.status) {
@@ -27,7 +24,7 @@ const EmailPage = () => {
                     setEmailSent(true);
                     break;
                 default:
-                    alert(`Неизвестная ошибка, код ${response.status}`)
+                    alert(`Неизвестная ошибка, код ${response.status}`);
             }
         });
     };
@@ -44,8 +41,7 @@ const EmailPage = () => {
                                 className={styles.button1} disabled={!email.ok}/>
                         <Modal
                             button={<Button type={'secondary'} color={'orange'} text={'Вернуться к авторизации'}
-                                            onClick={() => {
-                                            }} className={styles.button2}/>}
+                                            onClick={() => 0} className={styles.button2}/>}
                             content={Authorization}
                             contentProps={{isFormSignIn: true}}/>
                     </div>
@@ -54,16 +50,20 @@ const EmailPage = () => {
                 <>
                     {!isMobile ?
                         <>
-                            <h1 style={{color: 'var(--orange--primary--color)'}} className={styles.check}>Проверьте
-                                почту</h1>
-                            <h3 className={styles.desc}>Ссылка для обновления пароля <br/> отправлена на указанный email
+                            <h1 style={{color: 'var(--orange--primary--color)'}} className={styles.check}>
+                                Проверьте почту
+                            </h1>
+                            <h3 className={styles.desc}>
+                                Ссылка для обновления пароля <br/> отправлена на указанный email
                             </h3>
                         </>
                         :
                         <>
-                            <h3 style={{color: 'var(--orange--primary--color)'}} className={styles.check}>Проверьте
-                                почту</h3>
-                            <h5 className={styles.desc}>Ссылка для обновления пароля <br/> отправлена на указанный email
+                            <h3 style={{color: 'var(--orange--primary--color)'}} className={styles.check}>
+                                Проверьте почту
+                            </h3>
+                            <h5 className={styles.desc}>
+                                Ссылка для обновления пароля <br/> отправлена на указанный email
                             </h5>
                         </>
                     }

@@ -14,16 +14,21 @@ import styles from './SideBarProfile.module.css'
 const SideBarProfile = () => {
     const {user, setUser} = useUserContext();
     const {socket} = useChatContext();
+
     return (
         <div>
             <div className={styles.content}>
-                {
-                    <label className={styles.update__photo}>
-                        <Image
-                            className={styles.photo__image}
-                            imageProps={{src: user.photo, alt: 'Фото', width: '172px', height: '172px'}}
-                            borderRadius={'86px'}/>
-                        <input hidden={true} type={'file'} id={styles.user_photo} accept={'image/png, image/jpeg'} onChange={(e) => {
+                <label className={styles.update__photo}>
+                    <Image
+                        className={styles.photo__image}
+                        imageProps={{src: user.photo, alt: 'Фото', width: '172px', height: '172px'}}
+                        borderRadius={'86px'}/>
+                    <input
+                        hidden={true}
+                        type={'file'}
+                        id={styles.user_photo}
+                        accept={'image/png, image/jpeg'}
+                        onChange={(e) => {
                             console.log(e);
                             const fileInput = document.querySelector(`#${styles.user_photo}`);
                             if (!fileInput) {
@@ -39,15 +44,11 @@ const SideBarProfile = () => {
                             // @ts-ignore
                             UserService.updateAvatar(formData).then(response => {
                                 console.log(response);
-                                return response.json();
-                            }).then(body => {
-                                console.log(body);
+                                UserService.syncUser(user, setUser);
                             });
                         }}
-                               title={'Обновить фото'}/>
-                    </label>
-                }
-
+                    />
+                </label>
                 <NavLink to={'/profile'}><h4>{user.firstName} {user.surName}</h4></NavLink>
                 <div className={styles.divider}></div>
                 <NavLink to={'/profile/pets'} className={styles.menu__item}>

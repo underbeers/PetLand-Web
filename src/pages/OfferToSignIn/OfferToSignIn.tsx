@@ -40,7 +40,8 @@ const OfferToSignIn: React.FC = () => {
                                 <br/>
                                 для полного доступа к функционалу PetLand
                             </h4>
-                        </> :
+                        </>
+                        :
                         <>
                             <h1 className={styles.text}>Это доступно только <br/> для авторизованных пользователей</h1>
                             <h3 className={styles.text}>
@@ -58,7 +59,6 @@ const OfferToSignIn: React.FC = () => {
                             </h3>
                         </>
                     }
-
                 </div>
             </div>
         </div>

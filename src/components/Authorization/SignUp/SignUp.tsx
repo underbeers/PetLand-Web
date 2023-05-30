@@ -190,7 +190,7 @@ const SignUp: React.FC<iAuthProps> = ({switchContent, closeModal, isMobile}) => 
             </div>
             :
             <div className={generalStyles.modal}>
-                {(stage === 2 || stage === 3) &&
+                {(stage == 2 || stage == 3) &&
                     <Icons icon={'arrow-left'} onClick={() => setStage(stage - 1)} className={styles.arrow}/>
                 }
                 <Icons icon={'cross'} className={generalStyles.cross} onClick={closeModal}/>
@@ -198,15 +198,15 @@ const SignUp: React.FC<iAuthProps> = ({switchContent, closeModal, isMobile}) => 
                        imageProps={{src: dogMobile, alt: 'Собака', width: '100%', height: '230px'}}/>
                 <div className={generalStyles.form__wrapper}>
                     <h3>Регистрация</h3>
-                    <div className={generalStyles.form} style={{display: stage === 1 ? 'flex' : 'none'}}>
+                    <div className={generalStyles.form} style={{display: stage == 1 ? 'flex' : 'none'}}>
                         {firstLastName}
                     </div>
-                    <div className={generalStyles.form} style={{display: stage === 2 ? 'flex' : 'none'}}>
+                    <div className={generalStyles.form} style={{display: stage == 2 ? 'flex' : 'none'}}>
                         {emailInput}
                         {sendCodeBtn}
                         {codeInput}
                     </div>
-                    <div className={generalStyles.form} style={{display: stage === 3 ? 'flex' : 'none'}}>
+                    <div className={generalStyles.form} style={{display: stage == 3 ? 'flex' : 'none'}}>
                         {passwords}
                         <Checkbox isChecked={policyChecked} setChecked={setPolicyChecked}>
                             Согласие с условиями сервиса
@@ -222,11 +222,11 @@ const SignUp: React.FC<iAuthProps> = ({switchContent, closeModal, isMobile}) => 
                                 Пароли не совпадают
                             </p>
                         }
-                        <Button color={'orange'} text={stage === 3 ? 'Создать аккаунт' : 'Следующий шаг'}
-                                onClick={stage === 3 ? register : () => {
+                        <Button color={'orange'} text={stage == 3 ? 'Создать аккаунт' : 'Следующий шаг'}
+                                onClick={stage == 3 ? register : () => {
                                     setStage(stage + 1)
                                 }}
-                                type={stage === 3 ? 'primary' : 'secondary'} disabled={isNextStageDisabled()}
+                                type={stage == 3 ? 'primary' : 'secondary'} disabled={isNextStageDisabled()}
                                 loading={user.loading}/>
                         <p className={cn('primary__text', styles.sub__color)}>
                             У вас уже есть аккаунт? <br/>

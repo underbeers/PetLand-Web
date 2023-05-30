@@ -22,7 +22,7 @@ type ChatProps = {
 const Chat: React.FC<ChatProps> = ({chatID, user2, setUser2, getUser}) => {
     const navigate = useNavigate();
     const {user, setUser} = useUserContext();
-        const chat = useChatContext();
+    const chat = useChatContext();
     const [message, setMessage] = useState('');
     const isMobile = useIsMobileContext();
 
@@ -33,6 +33,7 @@ const Chat: React.FC<ChatProps> = ({chatID, user2, setUser2, getUser}) => {
 
     useEffect(() => {
         focusInput();
+
         function handleKeyDown(e: any) {
             if (e.key == 'Escape') {
                 navigate('/messenger');
@@ -78,8 +79,7 @@ const Chat: React.FC<ChatProps> = ({chatID, user2, setUser2, getUser}) => {
                     </div>
                 </div>
                 {user2.userID != user.chatID &&
-                    <Button type={'secondary'} color={'orange'} text={'Передать питомца'} onClick={() => {
-                    }}/>
+                    <Button type={'secondary'} color={'orange'} text={'Передать питомца'} onClick={() => 0}/>
                 }
             </div>}
             <div className={styles.chat}>
@@ -103,8 +103,7 @@ const Chat: React.FC<ChatProps> = ({chatID, user2, setUser2, getUser}) => {
                 <textarea
                     onKeyDown={(event) => {
                         if (event.key == 'Enter') {
-                            if (event.shiftKey) {
-                            } else {
+                            if (!event.shiftKey) {
                                 event.preventDefault()
                                 sendMessage();
                             }

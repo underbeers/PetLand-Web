@@ -33,7 +33,7 @@
 }
 
 
-@media screen and (max-width: 700px){
+@media screen and (max-width: 700px) {
     .types__wrapper {
         overflow: scroll;
         width: 100vw;
@@ -63,5 +63,4 @@
     .photo {
         height: 80px;
     }
-
 }

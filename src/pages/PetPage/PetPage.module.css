@@ -26,6 +26,10 @@
     flex: 1;
 }
 
+.add_photo {
+
+}
+
 .slider__name h2 {
     margin-top: 32px;
 }
@@ -43,10 +47,6 @@
     width: 100%;
     align-items: flex-start;
     margin-top: 32px;
-}
-
-.photo__info div:first-child {
-    width: 600px;
 }
 
 .full__info {

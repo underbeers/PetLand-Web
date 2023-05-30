@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {Route, Routes, useLocation, useNavigate, useSearchParams} from 'react-router-dom';
+import {Route, Routes, useLocation, useSearchParams} from 'react-router-dom';
 import cn from 'classnames';
 
 import mainRoutesConfig from '../routes/mainRoutesConfig';
@@ -30,8 +30,6 @@ const App: React.FC = () => {
     const [chat, setChat] = useState<ChatContext>(initialChatContextState);
     const location = useLocation();
 
-    const navigate = useNavigate();
-
     const audioPlayer = useRef(null);
     const [searchParams, setSearchParams] = useSearchParams();
     const chatParam = searchParams.get('chat');
@@ -56,18 +54,6 @@ const App: React.FC = () => {
         //console.log('chatParam update');
         setChat({...chat});
     }, [chatParam]);
-
-    useEffect(() => {
-        const localUser = localStorage.getItem('accessToken');
-        if (localUser && localUser != 'undefined') {
-            setUser({...user, accessToken: localUser});
-        }
-        if(!("Notification" in window)) {
-            console.log("This browser does not support system notifications!")
-        } else if (Notification.permission !== 'denied') {
-            Notification.requestPermission();
-        }
-    }, []);
 
     useEffect(() => {
         if (user.loading) {
@@ -121,10 +107,6 @@ const App: React.FC = () => {
                     if (message.from != user.chatID && chatParam != message.from && message.from == user_.userID) {
                         user_.hasNewMessage = true;
                         playAudio();
-                        const n = new Notification('new message', {
-                            body: `${message.from}: ${message.content}`
-                        });
-                        n.onclick = () => navigate(`/messenger?chat=${message.from}`);
                     }
                 });
                 setChat({...chat});
@@ -136,7 +118,7 @@ const App: React.FC = () => {
             });
             chat.socket.on('user connected', (user) => {
                 for (let i = 0; i < chat.users.length; i++) {
-                    if (chat.users[i].userID === user.userID) {
+                    if (chat.users[i].userID == user.userID) {
                         chat.users[i].connected = true;
                         setChat({...chat});
                         return;
@@ -145,7 +127,7 @@ const App: React.FC = () => {
             });
             chat.socket.on('user disconnected', (id) => {
                 for (let i = 0; i < chat.users.length; i++) {
-                    if (chat.users[i].userID === id) {
+                    if (chat.users[i].userID == id) {
                         chat.users[i].connected = false;
                         setChat({...chat});
                         return;
@@ -163,22 +145,19 @@ const App: React.FC = () => {
         <IsMobileContext.Provider value={isMobile}>
             <UserContext.Provider value={{user: user, setUser: setUser}}>
                 <ChatContext.Provider value={chat}>
+                    <audio ref={audioPlayer} src={NotificationSound}/>
                     <ScrollToTop>
                         <Header/>
                         <main className={cn(styles.main, 'container')}>
                             <Routes>
                                 {mainRoutesConfig.map((route, index) => (
-                                    <Route
-                                        key={index}
-                                        path={route.path}
-                                        element={route.element}
-                                    />
+                                    <Route key={index} path={route.path} element={route.element}/>
                                 ))}
                             </Routes>
                         </main>
                         {location.pathname != '/messenger' && location.pathname.substring(0, 8) != '/profile' &&
-                            <Footer/>}
-                        <audio ref={audioPlayer} src={NotificationSound}/>
+                            <Footer/>
+                        }
                     </ScrollToTop>
                 </ChatContext.Provider>
             </UserContext.Provider>

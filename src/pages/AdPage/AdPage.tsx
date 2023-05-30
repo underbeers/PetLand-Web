@@ -263,8 +263,11 @@ const AdPage = () => {
                     <a href={'#'}>{info.userID}</a>
                 </div>
                 <div className={styles.text__like}>
-                    <Button color={'orange'} type={'primary'} text={'Написать'} onClick={() => {
-                    }} className={styles.button__text}/>
+                    {info.userID != user.userID && userInfo &&
+                        <Button color={'orange'} type={'primary'} text={'Написать'}
+                                onClick={() => navigate(`/messenger?chat=${userInfo.chatID}`)}
+                                className={styles.button__text}/>
+                    }
                     <div className={styles.heart__container}>
                         {!user.empty &&
                             <Icons icon={info.inFavorites ? 'cards-heart' : 'cards-heart-outline'}

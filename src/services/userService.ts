@@ -227,29 +227,12 @@ class UserService {
         });
     }
 
-    public async updateAvatarFetch(data: FormData, accessToken: string) {
+    public async updateAvatar(data: FormData) {
         return fetch(API_URL + '/fileUser', {
             method: 'POST',
-            //headers: {
-            //    'Content-Type': 'multipart/form-data',
-            //    'Authorization': `Bearer ${accessToken}`
-            //},
             body: data
         });
     }
-
-    //public async updateAvatarAxios(data: FormData, accessToken: string) {
-    //    return axios.post(
-    //        API_URL + '/fileUser',
-    //        data,
-    //        {
-    //            headers: {
-    //                'Content-Type': 'multipart/form-data',
-    //                'Authorization': `Bearer ${accessToken}`
-    //            }
-    //        }
-    //    );
-    //}
 }
 
 export default new UserService();

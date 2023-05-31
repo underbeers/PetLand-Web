@@ -3,7 +3,7 @@ import {useNavigate} from 'react-router-dom';
 
 import {useUserContext} from '../../../contexts/userContext';
 import {useIsMobileContext} from '../../../contexts/isMobileContext';
-import petService from '../../../services/petService';
+import PetService from '../../../services/petService';
 
 import PetCard, {iPetCardProps} from '../../../components/PetCard/PetCard';
 import TopBar from '../../../components/TopBar/TopBar';
@@ -25,7 +25,7 @@ const Pets: React.FC = () => {
         if (user.empty) {
             return;
         }
-        petService.getShortPetCards(user.userID).then(response => {
+        PetService.getShortPetCards(user.userID).then(response => {
             //console.log(response);
             switch (response.status) {
                 case 200:
@@ -52,17 +52,14 @@ const Pets: React.FC = () => {
                 </div>
             }
             {pets.length ?
-                <>
-
-                    <div className={styles.cards}>
-                        {
-                            pets.map(pet =>
-                                <PetCard size={'medium'} petInfo={pet} key={pet.id}
-                                         url={`/pet?user-id=${user.userID}&pet-id=${pet.id}`}/>
-                            )
-                        }
-                    </div>
-                </>
+                <div className={styles.cards}>
+                    {
+                        pets.map(pet =>
+                            <PetCard size={'medium'} petInfo={pet} key={pet.id}
+                                     url={`/pet?user-id=${user.userID}&pet-id=${pet.id}`}/>
+                        )
+                    }
+                </div>
                 :
                 <>
                     <span className={styles.title}>У вас пока нет питомцев</span>
@@ -76,7 +73,8 @@ const Pets: React.FC = () => {
                         <Button color={'green'} text={'Доска объявлений'}
                                 onClick={() => navigate('/adverts')} type={'primary'}/>
                     </div>
-                </>}
+                </>
+            }
         </>
     );
 };

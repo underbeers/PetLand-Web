@@ -1,11 +1,15 @@
 import React, {useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 
+import PetService from '../../../services/petService';
 import {ChatUserType, useChatContext} from '../../../contexts/chatContext';
 import {useUserContext} from '../../../contexts/userContext';
 import {useIsMobileContext} from '../../../contexts/isMobileContext';
 
+import {AdCardInfoType, UserInfoType} from '../../AdCard/AdCard';
+
 import Button from '../../UIKit/Button';
+import Input from '../../UIKit/Input';
 import Icons from '../../UIKit/Icons';
 
 import Bubble from '../Bubble/Bubble';
@@ -16,15 +20,27 @@ type ChatProps = {
     chatID: string,
     user2: ChatUserType,
     setUser2: (user2: ChatUserType) => void,
-    getUser: () => ChatUserType
+    getUser: () => ChatUserType,
+    userInfo?: UserInfoType,
+    advert: {
+        value: string,
+        ok: boolean,
+        edited: boolean
+    },
+    setAdvert: (advert: any) => void,
+    adverts: Array<AdCardInfoType>
 };
 
-const Chat: React.FC<ChatProps> = ({chatID, user2, setUser2, getUser}) => {
+const Chat: React.FC<ChatProps> = ({chatID, user2, setUser2, getUser, userInfo, advert, setAdvert, adverts}) => {
     const navigate = useNavigate();
+
     const {user, setUser} = useUserContext();
     const chat = useChatContext();
-    const [message, setMessage] = useState('');
     const isMobile = useIsMobileContext();
+
+    const [message, setMessage] = useState('');
+
+    const [transfer, setTransfer] = useState(false);
 
     const focusInput = () => {
         // @ts-ignore
@@ -33,6 +49,7 @@ const Chat: React.FC<ChatProps> = ({chatID, user2, setUser2, getUser}) => {
 
     useEffect(() => {
         focusInput();
+
         function handleKeyDown(e: any) {
             if (e.key == 'Escape') {
                 navigate('/messenger');
@@ -43,7 +60,6 @@ const Chat: React.FC<ChatProps> = ({chatID, user2, setUser2, getUser}) => {
         return function cleanup() {
             document.removeEventListener('keydown', handleKeyDown);
         }
-
     }, []);
 
     const sendMessage = () => {
@@ -67,21 +83,55 @@ const Chat: React.FC<ChatProps> = ({chatID, user2, setUser2, getUser}) => {
 
     return (
         <div className={styles.wrapper}>
-            {!isMobile && <div className={styles.info}>
-                <div className={styles.user}>
-                    {user2.userID != chat.userID && <img
-                        src={'https://apronhub.in/wp-content/uploads/2022/01/team14-scaled.jpg'}
-                        alt={'user'}/>}
-                    <div className={styles.name}>
-                        <h5>{user2.userID == chat.userID ? 'Избранное' : user2.username}</h5>
-                        <p className={'secondary__text-2'}>{user2.userID != chat.userID && (user2.connected ? 'Онлайн' : 'Оффлайн')}</p>
+            {!isMobile &&
+                <div className={styles.info}>
+                    <div className={styles.user}>
+                        {userInfo && userInfo.chatID != user.chatID && userInfo &&
+                            <img src={userInfo.imageLink}/>
+                        }
+                        <div className={styles.name}>
+                            <h5>{user2.userID == user.chatID ? 'Избранное' : user2.username}</h5>
+                            <p className={'secondary__text-2'}>{user2.userID != user.chatID && (user2.connected ? 'Онлайн' : 'Оффлайн')}</p>
+                        </div>
                     </div>
+                    {user2.userID != user.chatID &&
+                        <>
+                            {!transfer ?
+                                <Button type={'secondary'} color={'orange'} text={'Передать питомца'}
+                                        onClick={() => setTransfer(!transfer)}/>
+                                :
+                                <>
+                                    {
+                                        userInfo &&
+                                        <>
+                                            <Input type={'dropdown'} value={advert} setValue={setAdvert}
+                                                   className={styles.transfer__input}
+                                                   dropdownItems={adverts.map(ad => ad.petName + ', ' + ad.breed)}/>
+                                            <Button type={'primary'} color={'orange'} text={'Передать'} onClick={() => {
+                                                const petCardID = adverts.find(a => a.petName + ', ' + a.breed == advert.value)?.petCardID;
+                                                if (!petCardID) {
+                                                    return;
+                                                }
+                                                console.log(petCardID)
+                                                PetService.transferPet({
+                                                    petCardID: petCardID,
+                                                    newOwnerID: userInfo.userID
+                                                }, user.accessToken).then(response => {
+                                                    if (response.status == 200) {
+                                                        setTransfer(!transfer);
+                                                    }
+                                                });
+                                            }}/>
+                                            <Button type={'secondary'} color={'orange'} text={'Отмена'}
+                                                    onClick={() => setTransfer(!transfer)}/>
+                                        </>
+                                    }
+                                </>
+                            }
+                        </>
+                    }
                 </div>
-                {user2.userID != chat.userID &&
-                    <Button type={'secondary'} color={'orange'} text={'Передать питомца'} onClick={() => {
-                    }}/>
-                }
-            </div>}
+            }
             <div className={styles.chat}>
                 {user2.messages.map((message, index) => {
                     const now = new Date();
@@ -103,8 +153,7 @@ const Chat: React.FC<ChatProps> = ({chatID, user2, setUser2, getUser}) => {
                 <textarea
                     onKeyDown={(event) => {
                         if (event.key == 'Enter') {
-                            if (event.shiftKey) {
-                            } else {
+                            if (!event.shiftKey) {
                                 event.preventDefault()
                                 sendMessage();
                             }
@@ -119,7 +168,8 @@ const Chat: React.FC<ChatProps> = ({chatID, user2, setUser2, getUser}) => {
                 <Icons className={styles.send} icon={'send'} onClick={sendMessage}/>
             </div>
         </div>
-    );
+    )
+        ;
 };
 
 export default Chat;

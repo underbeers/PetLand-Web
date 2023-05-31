@@ -3,7 +3,7 @@ import {useNavigate} from 'react-router-dom';
 
 import {UserContext} from '../../contexts/userContext';
 import {useIsMobileContext} from '../../contexts/isMobileContext';
-import petService from '../../services/petService';
+import PetService from '../../services/petService';
 import AdvertService from '../../services/advertService';
 import {withOfferToSignIn} from '../../hoc/withOfferToSignIn';
 import {iPetAdCardProps} from '../../components/PetAdCard/PetAdCard';
@@ -83,7 +83,7 @@ const NewAd = () => {
         if (user.empty) {
             return;
         }
-        petService.getShortPetCards(user.userID).then(response => {
+        PetService.getShortPetCards(user.userID).then(response => {
             //console.log(response);
             switch (response.status) {
                 case 200:
@@ -188,9 +188,11 @@ const NewAd = () => {
 
     return (
         <>
-            {isMobile && <TopBar leftButton={'arrow'}>
-                <h5>Создание нового объявления</h5>
-            </TopBar>}
+            {isMobile &&
+                <TopBar leftButton={'arrow'}>
+                    <h5>Создание нового объявления</h5>
+                </TopBar>
+            }
             <form id={'new_ad_form'} className={styles.form}>
                 {!isMobile && <h1>Создание нового объявления</h1>}
                 <div className={styles.selectors}>
@@ -204,7 +206,7 @@ const NewAd = () => {
                                         id={pet.id}
                                         petName={pet.petName}
                                         photo={pet.photo}
-                                        isSelected={selectedPet === pet.id}
+                                        isSelected={selectedPet == pet.id}
                                         setSelected={() => setSelectedPet(pet.id)}/>
                                 )
                             }
@@ -214,20 +216,19 @@ const NewAd = () => {
                                     onClick={() => navigate('/new-pet')}/>
                         </div>
                     </div>
-
                     <div className={styles.select__price}>
                         {!isMobile ? <h3>2. Цена (₽)</h3> : <h5>2. Цена (₽)</h5>}
                         <div className={styles.price__selectors}>
                             <div className={styles.radio__container}>
                                 <Input type={'number'} value={price} setValue={setPrice} placeholder={'Введите цену'}
-                                       className={styles.price__input} disabled={selectedRadio !== 0}/>
+                                       className={styles.price__input} disabled={selectedRadio != 0}/>
                                 {PRICES_RADIO.map((v, i) => {
                                     return (
                                         <div
                                             key={i}
                                             onClick={(e) => setSelectedRadio(v.id)}
-                                            className={styles.radio__btn + ' ' + (selectedRadio === v.id ? styles.selected : '')}>
-                                            <Radio isChecked={selectedRadio === v.id}
+                                            className={styles.radio__btn + ' ' + (selectedRadio == v.id ? styles.selected : '')}>
+                                            <Radio isChecked={selectedRadio == v.id}
                                                    setChecked={() => {
                                                        setSelectedRadio(v.id);
                                                    }}>{v.value}</Radio>
@@ -254,7 +255,6 @@ const NewAd = () => {
                                        required={true}/>
                             </div>
                         </div>
-
                         <div className={styles.select__communication}>
                             {!isMobile ? <h3>5. Предпочитаемый способ связи</h3> :
                                 <h5>5. Способ связи</h5>}

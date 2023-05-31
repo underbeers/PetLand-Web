@@ -25,6 +25,7 @@
     background-color: var(--base--600);
     border-top-left-radius: 8px;
     border-bottom-left-radius: 8px;
+    object-fit: cover;
 }
 
 .small .photo {
@@ -33,6 +34,7 @@
     background-color: var(--base--600);
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
+    object-fit: cover;
 }
 
 .ad__content {
@@ -79,7 +81,7 @@
 }
 
 .description {
-    width: 400px;
+    width: 300px;
     height: 78px;
     display: flex;
     flex-direction: column;

@@ -2,7 +2,7 @@ import React from 'react';
 import {NavLink} from 'react-router-dom';
 import cn from 'classnames';
 
-import userService from '../../services/userService';
+import UserService from '../../services/userService';
 import {useChatContext} from '../../contexts/chatContext';
 import {useUserContext} from '../../contexts/userContext';
 
@@ -25,9 +25,10 @@ const BurgerMenu: React.FC<{ openedBurger: boolean, toggleBurger: () => void }> 
                 <div className={styles.header__burger}>
                     {!user.empty ?
                         <NavLink to={'/profile'} onClick={toggleBurger} className={styles.content__header__burger}>
-                            <Icons icon={'account-circle'} className={styles.icon__header__burger}/>
+                            <img src={user.photo} className={styles.image__header__burger}/>
                             <h3 className={styles.title__header__burger}>{user.firstName}&nbsp;{user.surName}&nbsp;</h3>
-                        </NavLink> :
+                        </NavLink>
+                        :
                         <Modal
                             button={
                                 <div className={styles.content__header__burger}>
@@ -61,7 +62,6 @@ const BurgerMenu: React.FC<{ openedBurger: boolean, toggleBurger: () => void }> 
                             Мероприятия
                         </NavLink>
                     </div>
-
                     <span className={styles.divider}></span>
 
                     <div className={styles.block}>
@@ -71,9 +71,7 @@ const BurgerMenu: React.FC<{ openedBurger: boolean, toggleBurger: () => void }> 
                             Разместить объявление
                         </NavLink>
                     </div>
-
                     <span className={styles.divider}></span>
-
                     <div className={styles.block}>
                         <NavLink onClick={toggleBurger} to={'/profile/notifications'}
                                  className={cn('primary__text', styles.burger__item)}>
@@ -91,9 +89,7 @@ const BurgerMenu: React.FC<{ openedBurger: boolean, toggleBurger: () => void }> 
                             Сообщения
                         </NavLink>
                     </div>
-
                     <span className={styles.divider}></span>
-
                     <div className={styles.block}>
                         <NavLink onClick={toggleBurger} to={'/profile'}
                                  className={cn('primary__text', styles.burger__item)}>
@@ -108,7 +104,7 @@ const BurgerMenu: React.FC<{ openedBurger: boolean, toggleBurger: () => void }> 
                         {!user.empty &&
                             <a onClick={() => {
                                 toggleBurger();
-                                userService.signOut(setUser, socket);
+                                UserService.signOut(setUser, socket);
                             }} className={cn('primary__text', styles.burger__item)}>
                                 <Icons icon={'sign-out'} className={styles.icon}/>
                                 Выход

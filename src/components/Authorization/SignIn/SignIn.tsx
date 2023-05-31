@@ -4,7 +4,7 @@ import cn from 'classnames';
 import {iAuthProps} from '../Authorization';
 import {useUserContext} from '../../../contexts/userContext';
 import {emailRegExp, passwordRegExp} from '../../../constants/regularExpressions';
-import userService from '../../../services/userService';
+import UserService from '../../../services/userService';
 
 import Input from '../../UIKit/Input';
 import Button from '../../UIKit/Button';
@@ -50,10 +50,11 @@ const SignIn: React.FC<iAuthProps> = ({switchContent, closeModal, isMobile}) => 
         if (!isOk) {
             return;
         }
-        await userService.signIn(email.value, password.value, savePwd, setResponseCode, user, setUser, closeModal);
+        await UserService.signIn(email.value, password.value, savePwd, setResponseCode, user, setUser, closeModal);
     };
 
-    return (!isMobile ?
+    return (
+        !isMobile ?
             <div className={generalStyles.modal}>
                 <Icons icon={'cross'} className={generalStyles.cross} onClick={closeModal}/>
 
@@ -84,7 +85,8 @@ const SignIn: React.FC<iAuthProps> = ({switchContent, closeModal, isMobile}) => 
                                     Неверный логин или пароль
                                 </p>
                             }
-                            <Button color={'orange'} text={'Войти'} onClick={login} type={'primary'} loading={user.loading} disabled={!email.ok || !password.ok}/>
+                            <Button color={'orange'} text={'Войти'} onClick={login} type={'primary'}
+                                    loading={user.loading} disabled={!email.ok || !password.ok}/>
                         </div>
                         <p className={cn('secondary__text-1', generalStyles.switch__content)}>
                             У вас ещё нет аккаунта?
@@ -99,31 +101,21 @@ const SignIn: React.FC<iAuthProps> = ({switchContent, closeModal, isMobile}) => 
                         </p>
                     </div>
                 </div>
-            </div> :
+            </div>
+            :
             <div className={generalStyles.modal}>
-                <Icons icon={'cross'} className={generalStyles.cross} onClick={closeModal} />
+                <Icons icon={'cross'} className={generalStyles.cross} onClick={closeModal}/>
                 <Image imageProps={{src: dogMobile, alt: 'Собака', width: '100%', height: '230px'}}
                        className={generalStyles.image}/>
                 <div className={generalStyles.form__wrapper}>
                     <h3>Авторизация</h3>
                     <div className={generalStyles.form}>
-                        <Input
-                            type={'email'}
-                            placeholder={'Email'}
-                            value={email}
-                            regularExpressions={emailRegExp}
-                            setValue={setEmail}
-                            required={true}
-                        />
-                        <Input
-                            type={'password'}
-                            placeholder={'Пароль'}
-                            value={password}
-                            regularExpressions={passwordRegExp}
-                            setValue={setPassword}
-                            required={true}
-                        />
-                        <a className={cn('secondary__text-1', 'underlined', styles.forgot__pwd__mobile)} href={'/password-recovery'}>Забыли пароль?</a>
+                        <Input type={'email'} placeholder={'Email'} value={email} regularExpressions={emailRegExp}
+                               setValue={setEmail} required={true}/>
+                        <Input type={'password'} placeholder={'Пароль'} value={password} required={true}
+                               regularExpressions={passwordRegExp} setValue={setPassword}/>
+                        <a className={cn('secondary__text-1', 'underlined', styles.forgot__pwd__mobile)}
+                           href={'/password-recovery'}>Забыли пароль?</a>
                         <div style={{alignSelf: 'flex-start'}}>
                             <Checkbox isChecked={savePwd} setChecked={setSavePwd}>Не выходить из аккаунта</Checkbox>
                         </div>
@@ -134,11 +126,12 @@ const SignIn: React.FC<iAuthProps> = ({switchContent, closeModal, isMobile}) => 
                                 Неверный логин или пароль
                             </p>
                         }
-                        <Button color={'orange'} text={'Войти'} onClick={login} type={'primary'} loading={user.loading} disabled={!email.ok || !password.ok}/>
-
+                        <Button color={'orange'} text={'Войти'} onClick={login} type={'primary'} loading={user.loading}
+                                disabled={!email.ok || !password.ok}/>
                         <p className={cn('primary__text', styles.sub__color)}>
                             У вас ещё нет аккаунта?<br/>
-                            <a className={cn('primary__text', 'underlined')} onClick={switchContent}>Зарегистрироваться</a>
+                            <a className={cn('primary__text', 'underlined')}
+                               onClick={switchContent}>Зарегистрироваться</a>
                         </p>
                     </div>
                 </div>

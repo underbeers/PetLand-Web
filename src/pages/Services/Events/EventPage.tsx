@@ -1,5 +1,5 @@
 import React from 'react';
-import {useNavigate, useSearchParams} from 'react-router-dom';
+import {useSearchParams} from 'react-router-dom';
 
 import {events} from './Events';
 import {useIsMobileContext} from '../../../contexts/isMobileContext';
@@ -7,17 +7,15 @@ import {useIsMobileContext} from '../../../contexts/isMobileContext';
 import Page404 from '../../Page404/Page404';
 import TopBar from '../../../components/TopBar/TopBar';
 
-import Icons from '../../../components/UIKit/Icons';
-
 import styles from './EventPage.module.css';
 
 
 const getEventById = (id: string | null) => {
-    if (id === null) {
+    if (id == null) {
         return id;
     }
     for (let i = 0; i < events.length; i++) {
-        if (events[i].id === id) {
+        if (events[i].id == id) {
             return (events[i]);
         }
     }
@@ -39,7 +37,8 @@ const EventPage = () => {
             {!isMobile ?
                 <div className={styles.name__favorite}>
                     <h1 className={styles.name}>{event.name}</h1>
-                </div> :
+                </div>
+                :
                 <TopBar leftButton={'burger'}>
                     <h5>{event.name}</h5>
                 </TopBar>

@@ -82,13 +82,8 @@ const HomePage: React.FC = () => {
             {isMobile &&
                 <TopBar leftButton={'burger'}>
                     <h5>PetLand</h5>
-                    <Icons icon={'geo'}/>
-                </TopBar>}
-            {!isMobile &&
-                <div className={styles.geo}>
-                    <Icons icon={'geo'}/>
-                    <p>Нижний Новгород</p>
-                </div>}
+                </TopBar>
+            }
             <div className={styles.main__screen}>
                 <div className={styles.title__desc}>
                     <p className={styles.title}>PetLand</p>
@@ -105,53 +100,48 @@ const HomePage: React.FC = () => {
                 <img src={pets} alt={'Питомцы'} className={styles.main__photo}/>
             </div>
             <div className={styles.buttons}>
-                <Button type={'primary'} color={'green'} text={'Доска объявлений'} onClick={() => {
-                    navigate('/adverts')
-                }}/>
-                <Button type={'primary'} color={'green'} text={'Специалисты'} onClick={() => {
-                    navigate('/services/specialists')
-                }}/>
-                <Button type={'primary'} color={'green'} text={'Клиники и отели'} onClick={() => {
-                    navigate('/services/organizations')
-                }}/>
-                <Button type={'primary'} color={'green'} text={'Мероприятия'} onClick={() => {
-                    navigate('/services/events')
-                }}/>
+                <Button type={'primary'} color={'green'} text={'Доска объявлений'}
+                        onClick={() => navigate('/adverts')}/>
+                <Button type={'primary'} color={'green'} text={'Специалисты'}
+                        onClick={() => navigate('/services/specialists')}/>
+                <Button type={'primary'} color={'green'} text={'Клиники и отели'}
+                        onClick={() => navigate('/services/organizations')}/>
+                <Button type={'primary'} color={'green'} text={'Мероприятия'}
+                        onClick={() => navigate('/services/events')}/>
             </div>
             <div className={styles.services__blocks}>
                 <div className={styles.block}>
                     <div className={styles.title__show}>
                         {!isMobile ? <h2>Новые объявления</h2> : <h4>Новые объявления</h4>}
-                        <p className={cn('underlined', styles.show)} onClick={() => {
-                            navigate('/adverts')
-                        }}>Посмотреть все</p>
+                        <p className={cn('underlined', styles.show)} onClick={() => navigate('/adverts')}>
+                            Посмотреть все
+                        </p>
                     </div>
                     <div className={styles.cards__block}>
                         {
                             adverts.sort((ad1, ad2) => {
                                 return new Date(ad1.publication).getTime() - new Date(ad2.publication).getTime();
                             }).reverse().slice(0, isMobile ? 2 : 4).map((ad, index) =>
-                                <AdCard
-                                    key={index}
-                                    size={'small'}
-                                    info={ad}/>)
+                                <AdCard key={index} size={'small'} info={ad}/>)
                         }
                     </div>
                 </div>
                 <div className={styles.block}>
                     <div className={styles.title__show}>
                         {!isMobile ? <h2>Лучшие специалисты</h2> : <h4>Лучшие специалисты</h4>}
-                        <p className={cn('underlined', styles.show)} onClick={() => {
-                            navigate('/services/specialists')
-                        }}>Посмотреть все</p>
+                        <p className={cn('underlined', styles.show)} onClick={() => navigate('/services/specialists')}>
+                            Посмотреть все
+                        </p>
                     </div>
                     <div className={styles.cards__block}>
-                        {!isMobile ? <>
+                        {!isMobile ?
+                            <>
                                 <SpecialistCard {...specialists[0]}/>
                                 <SpecialistCard {...specialists[1]}/>
                                 <SpecialistCard {...specialists[2]}/>
                                 <SpecialistCard {...specialists[3]}/>
-                            </> :
+                            </>
+                            :
                             <>
                                 <SpecialistCard {...specialists[0]}/>
                                 <SpecialistCard {...specialists[1]}/>
@@ -162,12 +152,14 @@ const HomePage: React.FC = () => {
                 <div className={styles.block}>
                     <div className={styles.title__show}>
                         {!isMobile ? <h2>Популярные организации</h2> : <h4>Популярные организации</h4>}
-                        <p className={cn('underlined', styles.show)} onClick={() => {
-                            navigate('/services/organizations')
-                        }}>Посмотреть все</p>
+                        <p className={cn('underlined', styles.show)}
+                           onClick={() => navigate('/services/organizations')}>
+                            Посмотреть все
+                        </p>
                     </div>
                     <div className={styles.cards__block}>
-                        {!isMobile ? <>
+                        {!isMobile ?
+                            <>
                                 <OrganizationCard {...organizations[0]}/>
                                 <OrganizationCard {...organizations[1]}/>
                                 <OrganizationCard {...organizations[2]}/>
@@ -176,15 +168,16 @@ const HomePage: React.FC = () => {
                             <>
                                 <OrganizationCard {...organizations[0]}/>
                                 <OrganizationCard {...organizations[1]}/>
-                            </>}
+                            </>
+                        }
                     </div>
                 </div>
                 <div className={styles.block}>
                     <div className={styles.title__show}>
                         {!isMobile ? <h2>Интересные мероприятия</h2> : <h4>Интересные мероприятия</h4>}
-                        <p className={cn('underlined', styles.show)} onClick={() => {
-                            navigate('/services/events')
-                        }}>Посмотреть все</p>
+                        <p className={cn('underlined', styles.show)} onClick={() => navigate('/services/events')}>
+                            Посмотреть все
+                        </p>
                     </div>
                     <div className={styles.cards__block}>
                         {!isMobile ? <>
@@ -196,7 +189,8 @@ const HomePage: React.FC = () => {
                             <>
                                 <EventCard {...events[0]}/>
                                 <EventCard {...events[1]}/>
-                            </>}
+                            </>
+                        }
                     </div>
                 </div>
             </div>

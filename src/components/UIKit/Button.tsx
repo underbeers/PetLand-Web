@@ -11,16 +11,17 @@ interface iButtonProps {
     onClick: Function,
     disabled?: boolean,
     loading?: boolean,
-    className? : string
+    className?: string
 }
 
-const Button: React.FC<iButtonProps> = ({type, color, text, onClick, disabled, loading, className}) => {
-    return (
-        <button disabled={disabled} className={cn(styles.button, styles[color], styles[type], loading && styles.loading, className)}
-                onClick={event => {event.preventDefault();onClick()}}>
-            {text}{loading && <div className={styles.loading_spinner}/>}
-        </button>
-    );
-};
+const Button: React.FC<iButtonProps> = ({type, color, text, onClick, disabled, loading, className}) =>
+    <button disabled={disabled}
+            className={cn(styles.button, styles[color], styles[type], loading && styles.loading, className)}
+            onClick={event => {
+                event.preventDefault();
+                onClick()
+            }}>
+        {text}{loading && <div className={styles.loading_spinner}/>}
+    </button>;
 
 export default Button;

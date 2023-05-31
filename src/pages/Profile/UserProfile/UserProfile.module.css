@@ -16,6 +16,10 @@
     margin-bottom: 24px;
 }
 
+.user_photo {
+
+}
+
 .description {
     width: 577px;
     margin-top: 12px;
@@ -41,6 +45,8 @@
     display: flex;
     flex-direction: row;
     gap: 30px;
+    flex-wrap: wrap;
+    margin-bottom: 36px;
 }
 
 .statistic__specialist {

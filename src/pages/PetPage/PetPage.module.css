@@ -22,9 +22,12 @@
     fill: var(--base--800);
 }
 
-.name{
+.name {
     flex: 1;
-    margin-left: 32px;
+}
+
+.add_photo {
+
 }
 
 .slider__name h2 {
@@ -112,5 +115,9 @@
         flex-direction: column;
         width: 100%;
         align-items: normal;
+    }
+
+    .photo__info div:first-child {
+        width: initial;
     }
 }

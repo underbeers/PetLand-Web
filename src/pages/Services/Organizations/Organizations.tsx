@@ -146,21 +146,19 @@ export const organizations = [
 
 const Organizations = () => {
     const isMobile = useIsMobileContext();
+
     return (
         <>
             {isMobile &&
                 <TopBar leftButton={'burger'}>
                     <h5>Организации</h5>
-                    <Icons icon={'geo'}/>
-                </TopBar>}
+                </TopBar>
+            }
             {!isMobile ?
                 <div className={styles.title__geo}>
                     <h1>Популярные организации</h1>
-                    <div className={styles.geo}>
-                        <Icons icon={'geo'}/>
-                        <p>Город</p>
-                    </div>
-                </div> :
+                </div>
+                :
                 <h3 className={styles.title}>Популярные организации</h3>
             }
             <div className={styles.cards}>

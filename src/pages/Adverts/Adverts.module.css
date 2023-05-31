@@ -14,6 +14,23 @@
     width: 100%;
 }
 
+.grid, .sort {
+    cursor: pointer;
+    transition: color .2s;
+}
+
+.grid path, .sort path {
+    transition: fill .2s;
+}
+
+.grid:hover, .sort:hover {
+    color: var(--orange--primary--color);
+}
+
+.grid:hover path, .sort:hover path {
+    fill: var(--orange--primary--color);
+}
+
 .search {
     width: 576px;
 }

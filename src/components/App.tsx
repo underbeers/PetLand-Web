@@ -6,7 +6,7 @@ import mainRoutesConfig from '../routes/mainRoutesConfig';
 import {initialUserContextState, iUser, UserContext} from '../contexts/userContext';
 import {ChatContext, ChatUserType, initialChatContextState} from '../contexts/chatContext';
 import {IsMobileContext} from '../contexts/isMobileContext';
-import userService from '../services/userService';
+import UserService from '../services/userService';
 
 // @ts-ignore
 import NotificationSound from '../static/notification.mp3';
@@ -46,6 +46,13 @@ const App: React.FC = () => {
     }
 
     useEffect(() => {
+        const localUser = localStorage.getItem('accessToken');
+        if (localUser && localUser != 'undefined') {
+            setUser({...user, accessToken: localUser});
+        }
+    }, []);
+
+    useEffect(() => {
         chat.users.forEach(user_ => {
             if (user_.userID == chatParam) {
                 user_.hasNewMessage = false;
@@ -56,19 +63,12 @@ const App: React.FC = () => {
     }, [chatParam]);
 
     useEffect(() => {
-        const localUser = localStorage.getItem('accessToken');
-        if (localUser && localUser != 'undefined') {
-            setUser({...user, accessToken: localUser});
-        }
-    }, []);
-
-    useEffect(() => {
         if (user.loading) {
             return;
         }
         if (!user.empty) {
             //console.log(user);
-            if (user.chatUserID && user.sessionID) {
+            if (user.chatID && user.sessionID) {
                 // authorisation
                 chat.socket.auth = {sessionID: user.sessionID};
             } else {
@@ -77,9 +77,16 @@ const App: React.FC = () => {
             }
             chat.socket.connect();
             chat.socket.on('session', ({sessionID, userID}) => {
+                if (user.sessionID && user.chatID) {
+                    return;
+                }
+                if (user.sessionID == sessionID && user.chatID == userID) {
+                    return;
+                }
                 chat.socket.auth = {sessionID};
                 if (user.accessToken) {
-                    userService.setChatUserIDSessionID({chatID: userID, sessionID: sessionID}, user.accessToken);
+                    UserService.setChatUserIDSessionID({chatID: userID, sessionID: sessionID}, user.accessToken)
+                        .then(() => UserService.syncUser(user, setUser));
                 }
                 // @ts-ignore
                 chat.socket.userID = userID;
@@ -101,11 +108,11 @@ const App: React.FC = () => {
                 time: string
             }) => {
                 chat.users.forEach(user_ => {
-                    if (message.from == user_.userID && message.to == user.chatUserID ||
-                        message.from == user.chatUserID && message.to == user_.userID) {
+                    if (message.from == user_.userID && message.to == user.chatID ||
+                        message.from == user.chatID && message.to == user_.userID) {
                         user_.messages.push(message);
                     }
-                    if (message.from != user.chatUserID && chatParam != message.from && message.from == user_.userID) {
+                    if (message.from != user.chatID && chatParam != message.from && message.from == user_.userID) {
                         user_.hasNewMessage = true;
                         playAudio();
                     }
@@ -119,7 +126,7 @@ const App: React.FC = () => {
             });
             chat.socket.on('user connected', (user) => {
                 for (let i = 0; i < chat.users.length; i++) {
-                    if (chat.users[i].userID === user.userID) {
+                    if (chat.users[i].userID == user.userID) {
                         chat.users[i].connected = true;
                         setChat({...chat});
                         return;
@@ -128,7 +135,7 @@ const App: React.FC = () => {
             });
             chat.socket.on('user disconnected', (id) => {
                 for (let i = 0; i < chat.users.length; i++) {
-                    if (chat.users[i].userID === id) {
+                    if (chat.users[i].userID == id) {
                         chat.users[i].connected = false;
                         setChat({...chat});
                         return;
@@ -137,7 +144,7 @@ const App: React.FC = () => {
             });
         } else {
             if (user.accessToken) {
-                userService.syncUser(user, setUser);
+                UserService.syncUser(user, setUser);
             }
         }
     }, [user]);
@@ -146,22 +153,19 @@ const App: React.FC = () => {
         <IsMobileContext.Provider value={isMobile}>
             <UserContext.Provider value={{user: user, setUser: setUser}}>
                 <ChatContext.Provider value={chat}>
+                    <audio ref={audioPlayer} src={NotificationSound}/>
                     <ScrollToTop>
                         <Header/>
                         <main className={cn(styles.main, 'container')}>
                             <Routes>
                                 {mainRoutesConfig.map((route, index) => (
-                                    <Route
-                                        key={index}
-                                        path={route.path}
-                                        element={route.element}
-                                    />
+                                    <Route key={index} path={route.path} element={route.element}/>
                                 ))}
                             </Routes>
                         </main>
                         {location.pathname != '/messenger' && location.pathname.substring(0, 8) != '/profile' &&
-                            <Footer/>}
-                        <audio ref={audioPlayer} src={NotificationSound}/>
+                            <Footer/>
+                        }
                     </ScrollToTop>
                 </ChatContext.Provider>
             </UserContext.Provider>

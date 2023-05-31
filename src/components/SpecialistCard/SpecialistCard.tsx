@@ -46,7 +46,8 @@ const SpecialistCard: React.FC<iSpecialistProps> = ({
                     <h5>{name}</h5>
                 </div>
                 {!isMobile ?
-                    <Stars rating={rating}/> :
+                    <Stars rating={rating}/>
+                    :
                     <div className={styles.star__number}>
                         <Icons icon={'round-star'} className={styles.star}/>
                         <p>{rating}</p>
@@ -63,7 +64,8 @@ const SpecialistCard: React.FC<iSpecialistProps> = ({
                         <div className={styles.info__row}><p
                             className={cn('secondary__text-1', styles.title)}>Животные: </p> <p
                             className={cn('secondary__text-1', styles.data)}>{pets}</p></div>
-                    </div> :
+                    </div>
+                    :
                     <p className={'secondary__text-2'}>Специальность:<br/>{speciality}</p>
                 }
             </div>

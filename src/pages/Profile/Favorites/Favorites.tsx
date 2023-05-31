@@ -11,6 +11,7 @@ import Button from '../../../components/UIKit/Button';
 
 import styles from './Favorites.module.css';
 
+
 type FavoritesType = {
     adverts: Array<AdCardInfoType>,
     events: Array<{}>,
@@ -26,7 +27,6 @@ const Favorites: React.FC = () => {
         specialists: []
     });
     const navigate = useNavigate();
-
 
     const {user, setUser} = useUserContext();
     const isMobile = useIsMobileContext();
@@ -56,7 +56,8 @@ const Favorites: React.FC = () => {
                 <h1>Избранное</h1>
             }
             <div className={styles.pets}>
-                {favorites.adverts.length ? favorites.adverts.map((ad, index) => {
+                {favorites.adverts.length ?
+                    favorites.adverts.map((ad, index) => {
                             ad.inFavorites = true;
                             return <AdCard key={index} size={isMobile ? 'small' : 'big'} info={ad}/>
                         }

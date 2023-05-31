@@ -53,7 +53,6 @@ const OrganizationCard: React.FC<iOrganizationProps> = ({
                         <p>{rating}</p>
                     </div>
                 }
-
                 {!isMobile ?
                     <div className={styles.additional__info}>
                         <div className={styles.info__row}><p
@@ -62,7 +61,8 @@ const OrganizationCard: React.FC<iOrganizationProps> = ({
                         <div className={styles.info__row}><p
                             className={cn('secondary__text-1', styles.title)}>Адрес: </p><p
                             className={cn('secondary__text-1', styles.data)}>{address}</p></div>
-                    </div> :
+                    </div>
+                    :
                     <p className={'secondary__text-2'}>Тип:<br/>{type}</p>
                 }
             </div>

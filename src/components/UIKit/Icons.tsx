@@ -1,7 +1,7 @@
 import React, {MouseEventHandler} from 'react';
 
 
-type Icon = 'account' | 'account-circle'  | 'ad' | 'bell' | 'calendar' | 'cards-heart' | 'cards-heart-outline' |
+type Icon = 'account' | 'account-circle' | 'ad' | 'bell' | 'calendar' | 'cards-heart' | 'cards-heart-outline' |
     'chat' | 'checkbox-blank-outline' | 'checkbox-marked' | 'chevron-down' | 'chevron-up' | 'cross' | 'eye' |
     'eye-slash' | 'filter' | 'grid-2-1' | 'grid-2-2' | 'paw' | 'reviews' | 'round-star' |
     'round-star-border' | 'search-rounded' | 'settings' | 'sign-out' | 'sort-alt' | 'radio-button-marked' |
@@ -110,12 +110,9 @@ const path = (icon: Icon) => {
     }
 };
 
-const Icons: React.FC<IconsProps> = ({className, onClick, icon}) => {
-    return (
-        <svg onClick={onClick} className={className} width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>
-            {path(icon)}
-        </svg>
-    );
-};
+const Icons: React.FC<IconsProps> = ({className, onClick, icon}) =>
+    <svg onClick={onClick} className={className} width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>
+        {path(icon)}
+    </svg>;
 
 export default Icons;

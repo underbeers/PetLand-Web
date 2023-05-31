@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import cn from 'classnames';
 
 import {RegExpPair} from '../../constants/regularExpressions';
@@ -85,12 +85,7 @@ const Input: React.FC<iInputProps> = ({
     const renderInput: () => JSX.Element = () => {
         switch (type) {
             case 'textarea':
-                return (
-                    <textarea
-                        className={cn('primary__text', styles.standard_input)}
-                        {...inputProps}
-                    />
-                );
+                return <textarea className={cn('primary__text', styles.standard_input)} {...inputProps}/>;
             case 'dropdown':
                 return (
                     <>
@@ -109,7 +104,7 @@ const Input: React.FC<iInputProps> = ({
             default:
                 return (
                     <>
-                        {type === 'search' && <Icons icon={'search-rounded'} className={styles.search__icon}/>}
+                        {type == 'search' && <Icons icon={'search-rounded'} className={styles.search__icon}/>}
                         <input
                             type={pwdShown ? 'text' : type}
                             className={cn('primary__text', styles.standard_input)}
@@ -117,9 +112,9 @@ const Input: React.FC<iInputProps> = ({
                             onKeyDown={onKeyDown}
                         />
                         {type == 'password' &&
-                            <Icons icon={pwdShown ? 'eye' : 'eye-slash'} className={styles.icon} onClick={() => {
-                                setPwdShown(!pwdShown)
-                            }}/>}
+                            <Icons icon={pwdShown ? 'eye' : 'eye-slash'} className={styles.icon}
+                                   onClick={() => setPwdShown(!pwdShown)}/>
+                        }
                     </>
                 );
         }
@@ -128,7 +123,8 @@ const Input: React.FC<iInputProps> = ({
     return (
         <label className={cn(styles.input_container, className)}>
             {label &&
-                <h5 className={styles.label}>{label}{required && <span className={styles.error__message}>*</span>}</h5>}
+                <h5 className={styles.label}>{label}{required && <span className={styles.error__message}>*</span>}</h5>
+            }
             <span className={cn(styles.input, regExpErrorMsg && styles.error__input)}>
                 {renderInput()}
             </span>

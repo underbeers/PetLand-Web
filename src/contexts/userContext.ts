@@ -3,10 +3,12 @@ import {createContext, useContext} from 'react';
 
 export interface iUser {
     email: string;
+    date_registration: string;
+    description: string;
     firstName: string;
     surName: string;
     userID: string;
-    chatUserID: string;
+    chatID: string;
     sessionID: string;
     photo: string;
     accessToken: string;
@@ -22,10 +24,12 @@ export type UserContext = {
 export const initialUserContextState: UserContext = {
     user: {
         email: '',
+        date_registration: '',
+        description: '',
         firstName: '',
         surName: '',
         userID: '',
-        chatUserID: '',
+        chatID: '',
         sessionID: '',
         photo: '',
         accessToken: '',

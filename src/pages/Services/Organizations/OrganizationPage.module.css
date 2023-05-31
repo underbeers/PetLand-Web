@@ -38,7 +38,7 @@
 .photo__info {
     display: flex;
     gap: 30px;
-    padding : 32px 0;
+    padding: 32px 0;
 }
 
 .photo {
@@ -69,7 +69,6 @@
 }
 
 
-
 @media screen and (max-width: 700px) {
     .photo {
         width: 100%;
@@ -80,6 +79,6 @@
         display: flex;
         flex-direction: column;
         gap: 20px;
-        padding : 0;
+        padding: 0;
     }
 }

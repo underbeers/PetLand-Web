@@ -12,11 +12,11 @@ import styles from './SpecialistPage.module.css';
 
 
 const getSpecById = (id: string | null) => {
-    if (id === null) {
+    if (id == null) {
         return id;
     }
     for (let i = 0; i < specialists.length; i++) {
-        if (specialists[i].id === id) {
+        if (specialists[i].id == id) {
             return (specialists[i]);
         }
     }
@@ -27,7 +27,6 @@ const SpecialistPage = () => {
     const isMobile = useIsMobileContext();
     const [searchParams, setSearchParams] = useSearchParams();
     const id = searchParams.get('id');
-
     const specialist = getSpecById(id);
 
     if (specialist == null) {
@@ -40,7 +39,7 @@ const SpecialistPage = () => {
                 <div className={styles.name__favorite}>
                     <h1 className={styles.name}>{specialist.name}</h1>
                 </div> :
-                <TopBar leftButton={'arrow'}>
+                <TopBar leftButton={'burger'}>
                     <h5>{specialist.name}</h5>
                 </TopBar>
             }
@@ -71,7 +70,6 @@ const SpecialistPage = () => {
                         <h3>Контакты:</h3>
                         <p>{specialist.phone}</p>
                     </div>
-
                 </div>
             </div>
         </>

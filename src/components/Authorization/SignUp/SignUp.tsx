@@ -4,7 +4,7 @@ import cn from 'classnames';
 import {useUserContext} from '../../../contexts/userContext';
 import {iAuthProps} from '../Authorization';
 import {emailRegExp, nameRegExp, passwordRegExp} from '../../../constants/regularExpressions';
-import userService from '../../../services/userService';
+import UserService from '../../../services/userService';
 
 import Input from '../../UIKit/Input';
 import Button from '../../UIKit/Button';
@@ -57,7 +57,7 @@ const SignUp: React.FC<iAuthProps> = ({switchContent, closeModal, isMobile}) => 
         setCounter(30);
         const code = genCode();
         setVerificationCodeFromBackend(code);
-        await userService.sendCode({email: email.value, code});
+        await UserService.sendCode({email: email.value, code});
     }
 
     useEffect(() => {
@@ -111,9 +111,9 @@ const SignUp: React.FC<iAuthProps> = ({switchContent, closeModal, isMobile}) => 
         if (!isOk) {
             return;
         }
-        await userService.signUp(firstName.value, surName.value, email.value, password1.value,
+        await UserService.signUp(firstName.value, surName.value, email.value, password1.value,
             setResponseCode, () => {
-                userService.signIn(email.value, password1.value, false, setResponseCode, user, setUser, closeModal)
+                UserService.signIn(email.value, password1.value, false, setResponseCode, user, setUser, closeModal)
             });
     }
 
@@ -134,7 +134,7 @@ const SignUp: React.FC<iAuthProps> = ({switchContent, closeModal, isMobile}) => 
     const sendCodeBtn = <>
         <Button color={'green'} type={'secondary'}
                 text={`Отправить код${counter ? `(${counter})` : ''}`}
-                onClick={sendCode} disabled={!email.ok || waitCode && counter !== 0}/>
+                onClick={sendCode} disabled={!email.ok || waitCode && counter != 0}/>
     </>;
     const codeInput = <>
         <Input type={'number'} placeholder={'Код'} value={verificationCode} required={true}
@@ -190,7 +190,7 @@ const SignUp: React.FC<iAuthProps> = ({switchContent, closeModal, isMobile}) => 
             </div>
             :
             <div className={generalStyles.modal}>
-                {(stage === 2 || stage === 3) &&
+                {(stage == 2 || stage == 3) &&
                     <Icons icon={'arrow-left'} onClick={() => setStage(stage - 1)} className={styles.arrow}/>
                 }
                 <Icons icon={'cross'} className={generalStyles.cross} onClick={closeModal}/>
@@ -198,15 +198,15 @@ const SignUp: React.FC<iAuthProps> = ({switchContent, closeModal, isMobile}) => 
                        imageProps={{src: dogMobile, alt: 'Собака', width: '100%', height: '230px'}}/>
                 <div className={generalStyles.form__wrapper}>
                     <h3>Регистрация</h3>
-                    <div className={generalStyles.form} style={{display: stage === 1 ? 'flex' : 'none'}}>
+                    <div className={generalStyles.form} style={{display: stage == 1 ? 'flex' : 'none'}}>
                         {firstLastName}
                     </div>
-                    <div className={generalStyles.form} style={{display: stage === 2 ? 'flex' : 'none'}}>
+                    <div className={generalStyles.form} style={{display: stage == 2 ? 'flex' : 'none'}}>
                         {emailInput}
                         {sendCodeBtn}
                         {codeInput}
                     </div>
-                    <div className={generalStyles.form} style={{display: stage === 3 ? 'flex' : 'none'}}>
+                    <div className={generalStyles.form} style={{display: stage == 3 ? 'flex' : 'none'}}>
                         {passwords}
                         <Checkbox isChecked={policyChecked} setChecked={setPolicyChecked}>
                             Согласие с условиями сервиса
@@ -222,11 +222,11 @@ const SignUp: React.FC<iAuthProps> = ({switchContent, closeModal, isMobile}) => 
                                 Пароли не совпадают
                             </p>
                         }
-                        <Button color={'orange'} text={stage === 3 ? 'Создать аккаунт' : 'Следующий шаг'}
-                                onClick={stage === 3 ? register : () => {
+                        <Button color={'orange'} text={stage == 3 ? 'Создать аккаунт' : 'Следующий шаг'}
+                                onClick={stage == 3 ? register : () => {
                                     setStage(stage + 1)
                                 }}
-                                type={stage === 3 ? 'primary' : 'secondary'} disabled={isNextStageDisabled()}
+                                type={stage == 3 ? 'primary' : 'secondary'} disabled={isNextStageDisabled()}
                                 loading={user.loading}/>
                         <p className={cn('primary__text', styles.sub__color)}>
                             У вас уже есть аккаунт? <br/>

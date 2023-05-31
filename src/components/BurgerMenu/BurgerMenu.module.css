@@ -53,13 +53,19 @@
     padding-left: 12px;
 }
 
-.icon__header__burger{
+.icon__header__burger {
     width: 48px;
     height: 48px;
 }
 
 .icon__header__burger path {
     fill: var(--base--0);
+}
+
+.image__header__burger {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
 }
 
 .title__header__burger {

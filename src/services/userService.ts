@@ -43,18 +43,11 @@ class UserService {
         });
     }
 
-    public async getChatUserID(userID: string) {
-        return fetch(API_URL + `/user/${userID}/chatID`, {
+    public async getUserInfoByID(params: string) {
+        return fetch(API_URL + '/user/infoByID' + (params ? params : ''), {
             method: 'GET',
             headers: {'Content-Type': 'application/json'}
         });
-    }
-
-    public async getUserInfoByID(userID: string) {
-        return fetch(API_URL + '/user/infoByID?userID=${userID}', {
-            method: 'GET',
-            headers: {'Content-Type': 'application/json'}
-        })
     }
 
     public async askPasswordRecovery(params: { email: string }) {
@@ -78,11 +71,11 @@ class UserService {
         setUser: (user: iUser) => void,
         setResponseCode?: (code: number) => void,
         onFinish?: () => void) {
-        if (!user.empty || user.loading) {
+        if (user.loading) {
             return;
         }
         setUser({...user, loading: true});
-        this.authorize(user.accessToken).then(response => {
+        return this.authorize(user.accessToken).then(response => {
             //console.log(response);
             setResponseCode && setResponseCode(response.status);
             if (response.ok) {
@@ -100,20 +93,21 @@ class UserService {
                 return null;
             }
         }).then((body: {
+            chatID: string,
+            date_registration: string,
+            description: string,
             email: string,
             firstName: string,
-            surName: string,
-            userID: string,
-            chatID: string,
+            imageLink: string,
             sessionID: string,
-            imageLink: string
+            surName: string,
+            userID: string
         }) => {
-            //console.log(body);
+            console.log(body);
             if (body) {
                 const newUser = {
                     ...body,
                     photo: body.imageLink,
-                    chatUserID: body.chatID,
                     accessToken: user.accessToken,
                     empty: false,
                     loading: false
@@ -235,29 +229,12 @@ class UserService {
         });
     }
 
-    public async updateAvatarFetch(data: FormData, accessToken: string) {
+    public async updateAvatar(data: FormData) {
         return fetch(API_URL + '/fileUser', {
             method: 'POST',
-            //headers: {
-            //    'Content-Type': 'multipart/form-data',
-            //    'Authorization': `Bearer ${accessToken}`
-            //},
             body: data
         });
     }
-
-    //public async updateAvatarAxios(data: FormData, accessToken: string) {
-    //    return axios.post(
-    //        API_URL + '/fileUser',
-    //        data,
-    //        {
-    //            headers: {
-    //                'Content-Type': 'multipart/form-data',
-    //                'Authorization': `Bearer ${accessToken}`
-    //            }
-    //        }
-    //    );
-    //}
 }
 
 export default new UserService();

@@ -48,7 +48,7 @@ const Messenger: React.FC = () => {
         if (user.empty) {
             return;
         }
-        AdvertService.getAuthorizedAdverts(user.accessToken, `?userID=${user.userID}`).then(response => {
+        AdvertService.getAuthorizedAdverts(user.accessToken, `?userID=${user.userID}&perPage=100`).then(response => {
             switch (response.status) {
                 case 200:
                     return response.json();

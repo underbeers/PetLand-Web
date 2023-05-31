@@ -37,7 +37,7 @@ const Adverts: React.FC = () => {
     const [adverts, setAdverts] = useState<Array<AdCardInfoType>>([]);
 
     useEffect(() => {
-        let params = '?';
+        let params = '?perPage=100&';
         switch (sort) {
             case 1:
                 params += 'sort=minPrice&';

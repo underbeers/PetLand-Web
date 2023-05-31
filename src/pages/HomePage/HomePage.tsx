@@ -33,7 +33,7 @@ const HomePage: React.FC = () => {
 
     useEffect(() => {
         if (user.empty) {
-            AdvertService.getAdverts('?status=published').then(response => {
+            AdvertService.getAdverts('?status=published&perPage=100').then(response => {
                 //console.log(response);
                 switch (response.status) {
                     case 200:
@@ -53,7 +53,7 @@ const HomePage: React.FC = () => {
             });
         } else {
             if (user.accessToken) {
-                AdvertService.getAuthorizedAdverts(user.accessToken, '?status=published').then(response => {
+                AdvertService.getAuthorizedAdverts(user.accessToken, '?status=published&perPage=100').then(response => {
                     //console.log(response);
                     switch (response.status) {
                         case 200:

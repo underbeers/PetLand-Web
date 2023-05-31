@@ -4,7 +4,7 @@ import cn from 'classnames';
 
 import {passwordRegExp} from '../../constants/regularExpressions';
 import {useIsMobileContext} from '../../contexts/isMobileContext';
-import userService from '../../services/userService';
+import UserService from '../../services/userService';
 
 import Input from '../../components/UIKit/Input';
 import Button from '../../components/UIKit/Button';
@@ -23,7 +23,7 @@ const NewPasswordPage = () => {
     const [searchParams] = useSearchParams();
 
     const saveNewPassword = async () => {
-        await userService.sendNewPassword({
+        await UserService.sendNewPassword({
             newPassword: password1.value,
             hashID: searchParams.get('id') || ''
         }).then(response => {

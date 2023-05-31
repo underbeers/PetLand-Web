@@ -75,16 +75,11 @@ const Events = () => {
             {isMobile &&
                 <TopBar leftButton={'burger'}>
                     <h5>Мероприятия</h5>
-                    <Icons icon={'geo'}/>
                 </TopBar>
             }
             {!isMobile ?
                 <div className={styles.title__geo}>
                     <h1>Интересные мероприятия</h1>
-                    <div className={styles.geo}>
-                        <Icons icon={'geo'}/>
-                        <p>Город</p>
-                    </div>
                 </div>
                 :
                 <h3 className={styles.title}>Интересные мероприятия</h3>

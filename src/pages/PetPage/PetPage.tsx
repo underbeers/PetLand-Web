@@ -4,7 +4,7 @@ import {useUserContext} from '../../contexts/userContext';
 
 import {useIsMobileContext} from '../../contexts/isMobileContext';
 import {UserInfoType} from '../../components/AdCard/AdCard';
-import petService from '../../services/petService';
+import PetService from '../../services/petService';
 import UserService from '../../services/userService';
 import {getAge} from '../../components/PetCard/PetCard';
 
@@ -75,7 +75,7 @@ const PetPage: React.FC = () => {
     const navigate = useNavigate();
 
     const load = async () => {
-        petService.getFullPetCard(userID, petID).then(response => {
+        PetService.getFullPetCard(userID, petID).then(response => {
             //console.log(response);
             switch (response.status) {
                 case 200:
@@ -234,7 +234,7 @@ const PetPage: React.FC = () => {
                     // @ts-ignore
                     console.log(formData.get('file'));
                     // @ts-ignore
-                    petService.addPhoto(formData).then(response => {
+                    PetService.addPhoto(formData).then(response => {
                         console.log(response);
                         load();
                     });

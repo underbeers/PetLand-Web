@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 
-import petService, {createPetCardParameters} from '../../services/petService';
+import PetService, {createPetCardParameters} from '../../services/petService';
 import {withOfferToSignIn} from '../../hoc/withOfferToSignIn';
 import {useUserContext} from '../../contexts/userContext';
 import {useNavigate} from 'react-router-dom';
@@ -66,7 +66,7 @@ const NewPet: React.FC = () => {
     };
 
     useEffect(() => {
-        petService.getPetTypes().then(response => {
+        PetService.getPetTypes().then(response => {
             if (response.ok) {
                 return (response.json());
             } else {
@@ -80,7 +80,7 @@ const NewPet: React.FC = () => {
     useEffect(() => {
         for (let i = 0; i < types.length; i++) {
             if (type.value == types[i].petType) {
-                petService.getBreedByPetTypeId(types[i].id.toString()).then(response => {
+                PetService.getBreedByPetTypeId(types[i].id.toString()).then(response => {
                     //console.log(response);
                     if (response.ok) {
                         return (response.json());
@@ -163,7 +163,7 @@ const NewPet: React.FC = () => {
         params.vaccinations = vaccinated;
 
 
-        await petService.createPetCard(params, user.accessToken).then(response => {
+        await PetService.createPetCard(params, user.accessToken).then(response => {
             switch (response.status) {
                 case 200:
                     return response.json();

@@ -93,13 +93,15 @@ class UserService {
                 return null;
             }
         }).then((body: {
+            chatID: string,
+            date_registration: string,
+            description: string,
             email: string,
             firstName: string,
-            surName: string,
-            userID: string,
-            chatID: string,
+            imageLink: string,
             sessionID: string,
-            imageLink: string
+            surName: string,
+            userID: string
         }) => {
             console.log(body);
             if (body) {

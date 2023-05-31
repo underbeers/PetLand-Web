@@ -4,7 +4,7 @@ import {NavLink} from 'react-router-dom';
 import {useUserContext} from '../../contexts/userContext';
 import {useChatContext} from '../../contexts/chatContext';
 import {useIsMobileContext} from '../../contexts/isMobileContext';
-import userService from '../../services/userService';
+import UserService from '../../services/userService';
 
 import Modal from '../Modal/Modal';
 import Authorization from '../Authorization/Authorization';
@@ -87,7 +87,7 @@ const Header: React.FC = () => {
                                 <li><NavLink to={'/profile/reviews'}>Отзывы</NavLink></li>
                                 <li><NavLink to={'/profile/rates'}>Рейтинг</NavLink></li>
                                 <li><span className={styles.divider}></span></li>
-                                <li><a onClick={() => userService.signOut(setUser, socket)}>Выход</a></li>
+                                <li><a onClick={() => UserService.signOut(setUser, socket)}>Выход</a></li>
                             </ul>
                         }
                     </>

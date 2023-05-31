@@ -3,7 +3,7 @@ import {useNavigate} from 'react-router-dom';
 
 import {UserContext} from '../../contexts/userContext';
 import {useIsMobileContext} from '../../contexts/isMobileContext';
-import petService from '../../services/petService';
+import PetService from '../../services/petService';
 import AdvertService from '../../services/advertService';
 import {withOfferToSignIn} from '../../hoc/withOfferToSignIn';
 import {iPetAdCardProps} from '../../components/PetAdCard/PetAdCard';
@@ -83,7 +83,7 @@ const NewAd = () => {
         if (user.empty) {
             return;
         }
-        petService.getShortPetCards(user.userID).then(response => {
+        PetService.getShortPetCards(user.userID).then(response => {
             //console.log(response);
             switch (response.status) {
                 case 200:
@@ -221,7 +221,7 @@ const NewAd = () => {
                         <div className={styles.price__selectors}>
                             <div className={styles.radio__container}>
                                 <Input type={'number'} value={price} setValue={setPrice} placeholder={'Введите цену'}
-                                       className={styles.price__input} disabled={selectedRadio !== 0}/>
+                                       className={styles.price__input} disabled={selectedRadio != 0}/>
                                 {PRICES_RADIO.map((v, i) => {
                                     return (
                                         <div

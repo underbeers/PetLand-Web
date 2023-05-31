@@ -4,7 +4,7 @@ import cn from 'classnames';
 import {iAuthProps} from '../Authorization';
 import {useUserContext} from '../../../contexts/userContext';
 import {emailRegExp, passwordRegExp} from '../../../constants/regularExpressions';
-import userService from '../../../services/userService';
+import UserService from '../../../services/userService';
 
 import Input from '../../UIKit/Input';
 import Button from '../../UIKit/Button';
@@ -50,7 +50,7 @@ const SignIn: React.FC<iAuthProps> = ({switchContent, closeModal, isMobile}) => 
         if (!isOk) {
             return;
         }
-        await userService.signIn(email.value, password.value, savePwd, setResponseCode, user, setUser, closeModal);
+        await UserService.signIn(email.value, password.value, savePwd, setResponseCode, user, setUser, closeModal);
     };
 
     return (

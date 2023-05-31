@@ -45,6 +45,8 @@
     display: flex;
     flex-direction: row;
     gap: 30px;
+    flex-wrap: wrap;
+    margin-bottom: 36px;
 }
 
 .statistic__specialist {

@@ -35,6 +35,8 @@ export type AdCardInfoType = {
 
 export type UserInfoType = {
     chatID: string,
+    date_registration: string,
+    description: string,
     email: string,
     firstName: string,
     imageLink: string,

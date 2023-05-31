@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 
-import userService from '../../services/userService';
+import UserService from '../../services/userService';
 import {useIsMobileContext} from '../../contexts/isMobileContext';
 
 import Input from '../../components/UIKit/Input';
@@ -18,7 +18,7 @@ const EmailPage = () => {
     const isMobile = useIsMobileContext();
 
     const send = async () => {
-        await userService.askPasswordRecovery({email: email.value}).then(response => {
+        await UserService.askPasswordRecovery({email: email.value}).then(response => {
             switch (response.status) {
                 case 200:
                     setEmailSent(true);

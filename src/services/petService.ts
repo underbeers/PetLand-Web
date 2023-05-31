@@ -79,7 +79,7 @@ class PetService {
     }
 
     public async transferPet(params: {
-        petCardID: string,
+        petCardID: number,
         newOwnerID: string
     }, accessToken: string) {
         return fetch(API_URL + '/petCards/transfer', {
@@ -89,7 +89,7 @@ class PetService {
                 'Authorization': `Bearer ${accessToken}`
             },
             body: JSON.stringify(params)
-        })
+        });
     }
 }
 

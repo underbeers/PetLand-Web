@@ -82,14 +82,7 @@ const HomePage: React.FC = () => {
             {isMobile &&
                 <TopBar leftButton={'burger'}>
                     <h5>PetLand</h5>
-                    <Icons icon={'geo'}/>
                 </TopBar>
-            }
-            {!isMobile &&
-                <div className={styles.geo}>
-                    <Icons icon={'geo'}/>
-                    <p>Нижний Новгород</p>
-                </div>
             }
             <div className={styles.main__screen}>
                 <div className={styles.title__desc}>

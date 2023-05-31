@@ -4,7 +4,7 @@ import cn from 'classnames';
 import {useUserContext} from '../../../contexts/userContext';
 import {iAuthProps} from '../Authorization';
 import {emailRegExp, nameRegExp, passwordRegExp} from '../../../constants/regularExpressions';
-import userService from '../../../services/userService';
+import UserService from '../../../services/userService';
 
 import Input from '../../UIKit/Input';
 import Button from '../../UIKit/Button';
@@ -57,7 +57,7 @@ const SignUp: React.FC<iAuthProps> = ({switchContent, closeModal, isMobile}) => 
         setCounter(30);
         const code = genCode();
         setVerificationCodeFromBackend(code);
-        await userService.sendCode({email: email.value, code});
+        await UserService.sendCode({email: email.value, code});
     }
 
     useEffect(() => {
@@ -111,9 +111,9 @@ const SignUp: React.FC<iAuthProps> = ({switchContent, closeModal, isMobile}) => 
         if (!isOk) {
             return;
         }
-        await userService.signUp(firstName.value, surName.value, email.value, password1.value,
+        await UserService.signUp(firstName.value, surName.value, email.value, password1.value,
             setResponseCode, () => {
-                userService.signIn(email.value, password1.value, false, setResponseCode, user, setUser, closeModal)
+                UserService.signIn(email.value, password1.value, false, setResponseCode, user, setUser, closeModal)
             });
     }
 
@@ -134,7 +134,7 @@ const SignUp: React.FC<iAuthProps> = ({switchContent, closeModal, isMobile}) => 
     const sendCodeBtn = <>
         <Button color={'green'} type={'secondary'}
                 text={`Отправить код${counter ? `(${counter})` : ''}`}
-                onClick={sendCode} disabled={!email.ok || waitCode && counter !== 0}/>
+                onClick={sendCode} disabled={!email.ok || waitCode && counter != 0}/>
     </>;
     const codeInput = <>
         <Input type={'number'} placeholder={'Код'} value={verificationCode} required={true}

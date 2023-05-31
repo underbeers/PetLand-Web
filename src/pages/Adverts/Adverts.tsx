@@ -22,7 +22,8 @@ const Adverts: React.FC = () => {
     const [typeSelected, setTypeSelected] = useState(true);
 
     const [isBigAd, setIsBigAd] = useState(true);
-    const [breed, setBreed] = useState(initialInputState);
+
+    const [sort, setSort] = useState(0);
     const [priceFrom, setPriceFrom] = useState(initialInputState);
     const [priceTo, setPriceTo] = useState(initialInputState);
     const [sterilized, setSterilized] = useState(false);
@@ -36,8 +37,35 @@ const Adverts: React.FC = () => {
     const [adverts, setAdverts] = useState<Array<AdCardInfoType>>([]);
 
     useEffect(() => {
+        let params = '?';
+        switch (sort) {
+            case 1:
+                params += 'sort=minPrice&';
+                break;
+            case 2:
+                params += 'sort=maxPrice&';
+                break;
+            case 3:
+                params += 'sort=publication&';
+                break;
+            default:
+                break;
+        }
+
+        if (priceFrom.value) {
+            params += `minPrice=${priceFrom.value}&`;
+        }
+        if (priceTo.value) {
+            params += `maxPrice=${priceTo.value}&`;
+        }
+
+        if (sterilized) {
+            params += ''
+        }
+        console.log(params)
+
         if (user.empty) {
-            AdvertService.getAdverts('?status=published').then(response => {
+            AdvertService.getAdverts(params).then(response => {
                 //console.log(response);
                 switch (response.status) {
                     case 200:
@@ -57,7 +85,7 @@ const Adverts: React.FC = () => {
             });
         } else {
             if (user.accessToken) {
-                AdvertService.getAuthorizedAdverts(user.accessToken, '?status=published').then(response => {
+                AdvertService.getAuthorizedAdverts(user.accessToken, params).then(response => {
                     //console.log(response);
                     switch (response.status) {
                         case 200:
@@ -77,14 +105,32 @@ const Adverts: React.FC = () => {
                 });
             }
         }
-    }, [user]);
+    }, [user, sort, priceFrom, priceTo, sterilized, vaccines]);
+
+    const toggleSort = () => {
+        setSort((sort + 1) % 4);
+    }
+
+    const sortType = (sort: number) => {
+        switch (sort) {
+            case 0:
+                return 'По умолчанию';
+            case 1:
+                return 'По возрастанию цены';
+            case 2:
+                return 'По убыванию цены';
+            case 3:
+                return 'По дате публикации';
+            default:
+                return '';
+        }
+    }
 
     return (
         <>
             {isMobile &&
                 <TopBar leftButton={'burger'}>
                     <h5>Доска объявлений</h5>
-                    <Icons icon={'geo'}/>
                     <Icons icon={'plus-circle-outline'} onClick={() => navigate('/new-ad')}/>
                 </TopBar>
             }
@@ -99,67 +145,44 @@ const Adverts: React.FC = () => {
                                 text={'Разместить объявление'}/>
                     }
                 </div>
-                {!isMobile &&
-                    <div className={styles.icon__city}>
-                        <Icons icon={'geo'}/>
-                        <a href={'#'} className={'underlined'}>Нижний Новгород</a>
-                    </div>
-                }
-                {!typeSelected && <PetTypes/>}
                 {!isMobile ?
-                    !typeSelected ?
-                        <h1>Актуальные объявления</h1>
-                        :
-                        <h1>Тип животного в Городе</h1>
-                    : !typeSelected ?
-                        <h3>Актуальные объявления</h3>
-                        :
-                        <h3>Тип животного в Городе</h3>
+                    <h1>Фильтры</h1>
+                    :
+                    <h3>Фильтры</h3>
                 }
-                {typeSelected &&
-                    <div className={styles.search__settings}>
-                        <div className={styles.sort}>
-                            <Icons icon={'sort-alt'}/>
-                            <p>Сортировка</p>
-                        </div>
-                        {!isMobile ?
-                            <div className={styles.grid} onClick={() => setIsBigAd(!isBigAd)}>
-                                <Icons icon={'grid-2-2'}/>
-                                <p>Изменить сетку</p>
-                            </div>
-                            :
-                            <div className={styles.filters__mobile}>
-                                <Icons icon={'filter'}/>
-                                <p>Фильтры</p>
-                            </div>
-                        }
+                <div className={styles.search__settings}>
+                    <div className={styles.sort} onClick={toggleSort}>
+                        <Icons icon={'sort-alt'}/>
+                        <p>Сортировка ({sortType(sort)})</p>
                     </div>
-                }
+                    {!isMobile &&
+                        <div className={styles.grid} onClick={() => setIsBigAd(!isBigAd)}>
+                            <Icons icon={isBigAd ? 'grid-2-1' : 'grid-2-2'}/>
+                            <p>Изменить сетку</p>
+                        </div>
+                    }
+                </div>
+
                 <div className={styles.all__ads__filter}>
-                    {typeSelected && !isMobile &&
+                    {typeSelected &&
                         <div className={styles.filters}>
-                            <Input type={'dropdown'} value={breed} placeholder={'Порода'} setValue={setBreed}
-                                   label={'Порода'} dropdownItems={[]}/>
                             <div className={styles.price}>
                                 <Input type={'number'} value={priceFrom} setValue={setPriceFrom} label={'Цена'}
                                        placeholder={'От'} className={styles.priceFrom}/>
                                 <Input type={'number'} value={priceTo} setValue={setPriceTo} placeholder={'До'}
                                        className={styles.priceTo}/>
                             </div>
-                            <Checkbox isChecked={sterilized} setChecked={setSterilized}>Стерилизация</Checkbox>
-                            <Checkbox isChecked={vaccines} setChecked={setVaccines}>Прививки</Checkbox>
-                            <Button type={'secondary'} color={'orange'} text={'Применить'} onClick={() => 0}
-                                    disabled={true}/>
                         </div>
                     }
                     <div className={styles.all__ads}>
-                        {
+                        {adverts.length ?
                             adverts.map((ad, index) =>
                                 <AdCard
                                     key={index}
                                     size={isMobile ? 'small' : isBigAd ? 'big' : 'small'}
-                                    info={ad}/>
-                            )
+                                    info={ad}/>)
+                            :
+                            <h3>Объявлений по вашему запросу не найдено</h3>
                         }
                     </div>
                 </div>

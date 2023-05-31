@@ -3,7 +3,7 @@ import {useNavigate} from 'react-router-dom';
 
 import {useUserContext} from '../../../contexts/userContext';
 import {useIsMobileContext} from '../../../contexts/isMobileContext';
-import petService from '../../../services/petService';
+import PetService from '../../../services/petService';
 
 import PetCard, {iPetCardProps} from '../../../components/PetCard/PetCard';
 import TopBar from '../../../components/TopBar/TopBar';
@@ -25,7 +25,7 @@ const Pets: React.FC = () => {
         if (user.empty) {
             return;
         }
-        petService.getShortPetCards(user.userID).then(response => {
+        PetService.getShortPetCards(user.userID).then(response => {
             //console.log(response);
             switch (response.status) {
                 case 200:

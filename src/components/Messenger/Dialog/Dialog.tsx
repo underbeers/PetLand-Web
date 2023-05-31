@@ -1,8 +1,10 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {useNavigate, useSearchParams} from 'react-router-dom';
 import cn from 'classnames';
 
 import {useUserContext} from '../../../contexts/userContext';
+import UserService from '../../../services/userService';
+import {UserInfoType} from '../../AdCard/AdCard';
 
 import styles from './Dialog.module.css';
 
@@ -22,16 +24,33 @@ const Dialog: React.FC<DialogProps> = ({id, message, username, time, connected, 
     const navigate = useNavigate();
     const {user, setUser} = useUserContext();
 
+    const [userInfo, setUserInfo] = useState<UserInfoType>();
+
     const today = new Date();
     const prettyTime = new Date(time);
+
+    useEffect(() => {
+        UserService.getUserInfoByID(`?chatID=${id}`).then(response => {
+            //console.log(response);
+            switch (response.status) {
+                case 200:
+                    return response.json();
+                default:
+                    return null;
+            }
+        }).then(body => {
+            //console.log(body);
+            if (body) {
+                setUserInfo(body);
+            }
+        });
+    }, []);
 
     return (
         <div onClick={() => navigate(`/messenger?chat=${id}`)}
              className={cn(styles.card, chat == id ? styles.active : '')}>
             <div className={connected ? styles.photo__wrapper : ''}>
-                <img className={styles.photo}
-                     src={id == user.chatID ? user.photo : 'https://apronhub.in/wp-content/uploads/2022/01/team14-scaled.jpg'}
-                     alt={'user'}/>
+                <img className={styles.photo} src={id == user.chatID ? user.photo : userInfo?.imageLink}/>
             </div>
             <div className={styles.info}>
                 <div className={styles.name__n__time}>

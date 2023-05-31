@@ -23,9 +23,7 @@ const EventCard: React.FC<iEventProps> = ({id, name, description, city, place, d
 
     return (
         <NavLink target={'_blank'} to={`/services/events/event?id=${id}`} className={styles.card}>
-            <img className={styles.photo}
-                 src={photo}
-                 alt={'Фото мероприятия'}/>
+            <img className={styles.photo} src={photo} alt={'Фото мероприятия'}/>
             <div className={styles.eventInfo}>
                 <div className={styles.name}>
                     <h5>{name}</h5>

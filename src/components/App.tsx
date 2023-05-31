@@ -6,7 +6,7 @@ import mainRoutesConfig from '../routes/mainRoutesConfig';
 import {initialUserContextState, iUser, UserContext} from '../contexts/userContext';
 import {ChatContext, ChatUserType, initialChatContextState} from '../contexts/chatContext';
 import {IsMobileContext} from '../contexts/isMobileContext';
-import userService from '../services/userService';
+import UserService from '../services/userService';
 
 // @ts-ignore
 import NotificationSound from '../static/notification.mp3';
@@ -46,6 +46,13 @@ const App: React.FC = () => {
     }
 
     useEffect(() => {
+        const localUser = localStorage.getItem('accessToken');
+        if (localUser && localUser != 'undefined') {
+            setUser({...user, accessToken: localUser});
+        }
+    }, []);
+
+    useEffect(() => {
         chat.users.forEach(user_ => {
             if (user_.userID == chatParam) {
                 user_.hasNewMessage = false;
@@ -78,7 +85,8 @@ const App: React.FC = () => {
                 }
                 chat.socket.auth = {sessionID};
                 if (user.accessToken) {
-                    userService.setChatUserIDSessionID({chatID: userID, sessionID: sessionID}, user.accessToken);
+                    UserService.setChatUserIDSessionID({chatID: userID, sessionID: sessionID}, user.accessToken)
+                        .then(() => UserService.syncUser(user, setUser));
                 }
                 // @ts-ignore
                 chat.socket.userID = userID;
@@ -136,7 +144,7 @@ const App: React.FC = () => {
             });
         } else {
             if (user.accessToken) {
-                userService.syncUser(user, setUser);
+                UserService.syncUser(user, setUser);
             }
         }
     }, [user]);

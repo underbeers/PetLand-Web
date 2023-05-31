@@ -2,7 +2,7 @@ import React from 'react';
 import {NavLink} from 'react-router-dom';
 import cn from 'classnames';
 
-import userService from '../../services/userService';
+import UserService from '../../services/userService';
 import {useChatContext} from '../../contexts/chatContext';
 import {useUserContext} from '../../contexts/userContext';
 
@@ -104,7 +104,7 @@ const BurgerMenu: React.FC<{ openedBurger: boolean, toggleBurger: () => void }> 
                         {!user.empty &&
                             <a onClick={() => {
                                 toggleBurger();
-                                userService.signOut(setUser, socket);
+                                UserService.signOut(setUser, socket);
                             }} className={cn('primary__text', styles.burger__item)}>
                                 <Icons icon={'sign-out'} className={styles.icon}/>
                                 Выход
